@@ -1,244 +1,10 @@
 
-_src/app_history.qdoc,56
-function newEdit(70,2079
-function revertEdit(106,3012
+html/gesture.html,0
 
-_src/app_query.qdoc,28
-function isDesign(181,6979
+html/webapp.html,0
 
-_src/audio.qdoc,61
-function play(111,3127
-function volumeDragHandler(181,5054
+src/11_webapp.qdoc,0
 
-_src/com_db.qdoc,24
-function such 151,4566
+src/33_av.qdoc,0
 
-_src/com_msg.qdoc,54
-function receiver(65,2143
-function receiver(76,2466
-
-_src/dev_gesture.qdoc,107
-function focusHandler(169,5446
-function blurHandler(173,5528
-function deviceorientationHandler(182,5707
-
-_src/dev_loc.qdoc,213
-function getCoordinates(21,564
-function errorFallback(74,2538
-function successCallback(82,2744
-function to 167,5665
-function successCallback(192,6639
-function renderMap(249,8370
-function renderMap(261,8718
-
-_src/editable.qdoc,31
-function copyHandler(157,5010
-
-_src/gesture.qdoc,61
-function adjustMeters(182,6679
-function enterMode(197,7049
-
-_src/gfx_av.qdoc,31
-function play_pause(415,13630
-
-_src/gfx_trans.qdoc,28
-function requires 224,7456
-
-_src/int_editable.qdoc,51
-function insert(81,3295
-function delete(104,4029
-
-_src/int_touch.qdoc,303
-    function touchHandler(31,1197
-function touchHandler(74,2785
-function clickHandler(80,3005
-function from 91,3441
-function backgroundHandler(103,3762
-function foregroundHandler(106,3835
-    function touchHandler(168,6216
-function touchstartHandler(214,8077
-function touchmoveHandler(219,8171
-
-_src/layout_orientation.qdoc,76
-function orientationHandler(170,5693
-function orientationHandler(208,6933
-
-_src/location.qdoc,66
-function successCallback(40,1125
-function errorFallback(56,1701
-
-_src/touch.qdoc,73
-function touchstartHandler(116,3918
-function touchmoveHandler(121,4016
-
-_src/zzz_int_speech.qdoc,0
-
-_src/zzz_int_dragdrop.qdoc,0
-
-_src/zzz_gfx_webgl.qdoc,0
-
-_src/zzz_dev_sensor.qdoc,0
-
-_src/zzz_dev_proximity.qdoc,0
-
-_src/zzz_dev_notify.qdoc,0
-
-_src/zzz_dev_data.qdoc,0
-
-_src/zzz_dev_capture.qdoc,0
-
-_src/zzz_com_socket.qdoc,0
-
-_src/zzz_com_microdata.qdoc,0
-
-_src/zzz_com_file.qdoc,0
-
-_src/zzz_app_timing.qdoc,0
-
-_src/zzz_app_describe.qdoc,0
-
-_src/worker.qdoc,0
-
-_src/webview.qdoc,0
-
-_src/webapp.qdoc,0
-
-_src/viewport.qdoc,0
-
-_src/video.qdoc,0
-
-_src/useragent.qdoc,0
-
-_src/transform.qdoc,0
-
-_src/storage.qdoc,0
-
-_src/sse.qdoc,0
-
-_src/sql.qdoc,0
-
-_src/socket.qdoc,0
-
-_src/resources.qdoc,0
-
-_src/proxy.qdoc,0
-
-_src/pre.qdoc,0
-
-_src/orient.qdoc,0
-
-_src/offline.qdoc,0
-
-_src/media.qdoc,0
-
-_src/layout_type.qdoc,0
-
-_src/layout_flex.qdoc,0
-
-_src/layout_color.qdoc,0
-
-_src/layout_border.qdoc,0
-
-_src/int_formvalid.qdoc,0
-
-_src/int_formtouch.qdoc,0
-
-_src/install.qdoc,0
-
-_src/inspector.qdoc,0
-
-_src/index2.qdoc,0
-
-_src/history.qdoc,0
-
-_src/gfx_svg.qdoc,0
-
-_src/gfx_canvas.qdoc,0
-
-_src/gfx_anim.qdoc,0
-
-_src/fullscreen.qdoc,0
-
-_src/form.qdoc,0
-
-_src/fonts.qdoc,0
-
-_src/file.qdoc,0
-
-_src/examples.qdoc,0
-
-_src/ditamap.qdoc,0
-
-_src/css3.qdoc,0
-
-_src/com_storage.qdoc,0
-
-_src/com_offline.qdoc,0
-
-_src/com_ajax.qdoc,0
-
-_src/canvas.qdoc,0
-
-_src/cache.qdoc,0
-
-_src/browser.qdoc,0
-
-_src/app_download.qdoc,0
-
-_src/app_api.qdoc,0
-
-_src/animate.qdoc,0
-
-_src/_examples.qdoc,0
-
-_src/EXTERNAL_RESOURCES.qdoc,0
-
-src/webapp.qdoc,0
-
-src/transforms.qdoc,0
-
-src/touch.qdoc,0
-
-src/storage.qdoc,0
-
-src/sockets.qdoc,0
-
-src/query.qdoc,0
-
-src/orient.qdoc,0
-
-src/msg.qdoc,0
-
-src/location.qdoc,0
-
-src/layout.qdoc,0
-
-src/intro.qdoc,0
-
-src/inputs.qdoc,0
-
-src/index.qdoc,0
-
-src/history.qdoc,0
-
-src/gesture.qdoc,0
-
-src/forms.qdoc,0
-
-src/fonts.qdoc,0
-
-src/files.qdoc,0
-
-src/editable.qdoc,0
-
-src/colors.qdoc,0
-
-src/canvas.qdoc,0
-
-src/borders.qdoc,0
-
-src/av.qdoc,0
-
-src/animation.qdoc,0
-
-src/ajax.qdoc,0
+src/47_gesture.qdoc,0

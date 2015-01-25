@@ -11,8 +11,6 @@ SOURCE FILES:
 	src				: text
 	img				: images
 
-Source text is in qdoc markup format: http://doc.qt.nokia.com/qdoc/
-
 The src/examples.qdoc file maps source xrefs (\l{...}) to live sample
 HTML.
 
