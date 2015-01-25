@@ -1,0 +1,72 @@
+<html>
+  <head>
+<title>canvas</title>
+<style>
+
+ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 480px;
+    padding: 0;
+    background: pink;
+    list-style-type: none;    
+}
+
+li {
+    background: yellow;
+    position: absolute;
+}
+
+img {
+    max-width: 320px;
+    max-height: 480px;
+}
+
+</style>
+
+</head>
+<body>
+
+<ul>
+
+<li data-src="gal1.png"></li>
+<li data-src="gal2.png"></li>
+<li data-src="gal3.png"></li>
+<li data-src="gal4.png"></li>
+<li data-src="gal5.png"></li>
+<li data-src="gal6.png"></li>
+<li data-src="gal7.png"></li>
+<li data-src="gal8.png"></li>
+<li data-src="land1.png"></li>
+<li data-src="land2.png"></li>
+<li data-src="land3.png"></li>
+<li data-src="land4.png"></li>
+<li data-src="land5.png"></li>
+<li data-src="land6.png"></li>
+<li data-src="land7.png"></li>
+<li data-src="land8.png"></li>
+
+</ul>
+
+<pre>
+</pre>
+
+<script>
+var app = new Function();
+
+window.onload = function() {
+    var img;
+    app.gal = document.querySelectorAll('li');
+    for (var i = 0; i < app.gal.length; i++) {
+        img = new Image();
+        img.onload = function(){ alert(this) };
+        img.src = 'img/' + app.gal[i].dataset.src;
+    }
+};
+
+</script>
+
+</body>
+</html>

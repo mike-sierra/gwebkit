@@ -1,0 +1,69 @@
+/* MOBILE UI */
+
+body {
+     background        : #aaaaaa;
+     font-family       : sans-serif;
+}
+
+body > section {
+    max-width          : 320px;
+    border-radius      : 1em;
+    padding            : 1em;
+    background         : #ffffff;
+    margin             : 1em 1em 10em 1em;
+    min-height         : 70%
+}
+
+h1, h2 {
+    margin-top         : 1em;
+    font-size          : smaller;
+    text-align         : center;
+    padding-top        : 1em;
+}
+
+h2 {
+    border-top         : solid thin #dddddd;
+}
+
+/* FORM */
+
+form {
+    font-weight        : bold;
+    font-size          : small;
+}
+
+input[type=radio],
+input[type=checkbox] {
+    -webkit-appearance : button;
+    float              : right;
+    margin-bottom      : -2em;
+    opacity            : 0;
+}
+
+label,
+input[type=radio],
+input[type=checkbox] {
+    width              : 90%;
+    display            : block;
+    padding            : 0.5em;
+    height             : 2em;
+}
+
+label {
+    padding-top        : 0.5em;
+    border             : medium solid #aaaaaa;
+    border-radius      : 1.0em;
+}
+
+input[type=radio]:checked + label,
+input[type=checkbox]:checked + label {
+    border             : medium solid green;
+}
+
+input[type=radio]:checked + label:after,
+input[type=checkbox]:checked + label:after {
+    float              : right;
+    padding-right      : 0.5em;
+    content            : url(../img/icon_check_x24green.png);
+}
+

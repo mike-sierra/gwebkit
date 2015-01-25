@@ -1,0 +1,86 @@
+body {
+    background           : #aaaaaa;
+    font-family          : sans-serif;
+}
+
+h1,h2,h3,h4 {
+    text-align           : center;
+}
+
+section {
+    position             : absolute;
+    top                  : 0;
+    left                 : 0;
+    right                : 0;
+    bottom               : 0;
+}
+
+article {
+    max-width            : 320px;
+    background           : #ffffff;
+    border-radius        : 1.0em;
+    padding              : 1.0em;
+    margin               : 1em;
+    min-height           : 50%;
+}
+
+a {
+    text-decoration: none;
+    color: yellow;
+    text-shadow: 1px 1px 2px blue, -1px -1px 2px blue;
+    border-top-left-radius: 50% 10%;
+    border-top-right-radius: 10% 50%;
+    border-bottom-left-radius: 10% 50%;
+    border-bottom-right-radius: 50% 10%;
+    text-align: center;
+    padding-top: 0.5em;
+    display: inline-block;
+    margin: 0.5em;
+    width: 72px;
+    font-weight: bold;
+    min-height: 72px;
+    border: thin #777777 solid;
+    background-size: cover;
+    background-position: 50% 50%;
+    -webkit-transition: all 0.25s;
+}
+
+a:nth-of-type(1) {
+    background-image: url(../img/gal1.png);
+}
+a:nth-of-type(2) {
+    background-image: url(../img/gal2.png);
+}
+a:nth-of-type(3) {
+    background-image: url(../img/gal3.png);
+}
+a:nth-of-type(4) {
+    background-image: url(../img/gal4.png);
+}
+a:nth-of-type(5) {
+    background-image: url(../img/gal5.png);
+}
+a:nth-of-type(6) {
+    background-image: url(../img/gal6.png);
+}
+a:nth-of-type(7) {
+    background-image: url(../img/gal7.png);
+}
+a:nth-of-type(8) {
+    background-image: url(../img/gal8.png);
+}
+
+a:active {
+    border-top-left-radius: 10% 50%;
+    border-top-right-radius: 50% 10%;
+    border-bottom-left-radius: 50% 10%;
+    border-bottom-right-radius: 10% 50%;
+}
+
+a:target {
+    border-top-left-radius: 10% 50%;
+    border-top-right-radius: 50% 10%;
+    border-bottom-left-radius: 50% 10%;
+    border-bottom-right-radius: 10% 50%;
+    -webkit-box-shadow: 0 0 1em 0.5em gold;
+}

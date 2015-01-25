@@ -1,0 +1,51 @@
+body {
+    background          : #aaaaaa;
+    font-family         : sans-serif;
+    font-weight         : bold;
+}
+
+h1,h2,h3,h4 {
+    text-align          : center;
+}
+
+section {
+    max-width           : 320px;
+    position            : absolute;
+    top                 : 0;
+    left                : 0;
+    right               : 0;
+    bottom              : 0;
+}
+
+article {
+    background          : #ffffff;
+    border-radius       : 1.0em;
+    padding             : 1.0em;
+    margin              : 1em;
+    min-height          : 50%;
+}
+
+input {
+    margin              : 1em 0 1em 0;
+}
+
+input[type=search].round {
+    height              : 2em;
+    width               : 100%;
+    border              : thin #777777 solid;
+    padding-left        : 1.0em;
+    padding-right       : 1.0em;
+    border-radius       : 1.0em;
+    -webkit-appearance  : none;
+    background-image    : url(../img/ic16_search.png);
+    background-repeat   : no-repeat;
+    background-position : 97% 50%;
+    -webkit-transition  : all 1.1s;
+    -webkit-box-shadow  : 0em 0em 0.5em 0.5em #ffffff;
+}
+
+input[type=search].round:focus {
+    border              : thin transparent solid;
+    background-image    : none;
+    -webkit-box-shadow  : 0em 0em 0.5em 0.5em #aaaaaa;
+}

@@ -1,0 +1,74 @@
+body {
+    background          : #aaaaaa;
+    font-family         : sans-serif;
+    font-weight         : bold;
+}
+
+h1,h2,h3,h4 {
+    text-align          : center;
+}
+
+section {
+    position            : absolute;
+    top                 : 0;
+    left                : 0;
+    right               : 0;
+    bottom              : 0;
+}
+
+article {
+    max-width           : 320px;
+    background          : #ffffff;
+    border-radius       : 0.5em;
+    padding             : 1.0em;
+    margin              : 1em;
+    min-height          : 50%;
+}
+
+ul {
+    padding-left        : 1em;
+    list-style-type     : none;
+}
+
+li {
+    padding             : 0.25em;
+    border-radius       : 0.5em;
+    opacity             : 0.7;
+    margin              : 0.5em;
+    margin-left         : 1em;
+    -webkit-user-modify : read-write;
+}
+
+li:before {
+    display             : inline-block;
+    float               : left;
+    content             : url(../img/edit16.png);
+    margin-right        : 0.5em;
+    opacity             : 1;
+}
+
+li:focus:before {
+    opacity             : 0;
+}
+
+li:focus {
+    -webkit-box-shadow  : #777777 0px 0px 6px 6px;
+}
+
+.control {
+    -webkit-transition: opacity 1s linear;    
+    border              : medium rgba(100%, 0%, 0%, 0.5) solid;
+    padding             : 0.5em;
+    border-radius       : 0.5em;
+    display             : inline-block;
+    font-size: smaller;
+    opacity: 1;
+}
+
+#clear {
+    float: right;
+}
+
+.hide {
+    opacity: 0;
+}

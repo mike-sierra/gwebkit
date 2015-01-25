@@ -1,0 +1,68 @@
+body {
+    background                         : #aaaaaa;
+    font-family                        : sans-serif;
+    font-weight                        : bold;
+}
+
+#panel {
+    max-width                          : 320px;
+    position                           : absolute;
+    left                               : 1em;
+    top                                : 1em;
+    right                              : 1em;
+    padding                            : 1em;
+    border-radius                      : 1em;
+    background                         : #ffffff;
+}
+
+img, span {
+    -webkit-transition                 : all 1s;
+}
+
+img {
+    margin-top                         : 0.0em;
+    -webkit-transform                  : translateX(0%) rotate(90deg);
+}
+
+.alt > img {
+    -webkit-transform                  : translateX(220px) rotate(-90deg);
+}
+
+span {
+    display                            : inline-block;
+    margin-left                        : 40%;
+    -webkit-transform                  : translateY(-0.5em);
+    z-index                            : 1;
+}
+
+.alt > span {
+    margin-left                        : -10%;
+}
+
+.linear, .linear + span {
+    -webkit-transition-timing-function : linear;
+}
+
+.ease, .ease + span {
+    -webkit-transition-timing-function : ease;
+}
+
+.ease-in, .ease-in + span {
+    -webkit-transition-timing-function : ease-in;
+}
+
+.ease-out, .ease-out + span {
+    -webkit-transition-timing-function : ease-out;
+}
+
+.ease-in-out, .ease-in-out + span {
+    -webkit-transition-timing-function : ease-in-out;
+}
+
+h4 {
+    text-align                         : center;
+}
+
+input {
+    width: 100%;
+}

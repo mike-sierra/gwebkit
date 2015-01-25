@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 42_input.qdoc -->
+  <title>mobile_html5 : Input Types</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level2"><a href="#option-lists">Option Lists</a></li>
+<li class="level2"><a href="#sidebar-form-element-state">SIDEBAR Form Element State</a></li>
+<li class="level2"><a href="#radio-and-checkbox-togglers">Radio and Checkbox Togglers</a></li>
+<li class="level2"><a href="#range-inputs">Range Inputs</a></li>
+<li class="level2"><a href="#progress-trackers-and-meters">Progress Trackers and Meters</a></li>
+</ul>
+</div>
+<h1 class="title">Input Types</h1>
+<span class="subtitle"></span>
+<!-- $$$input.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>Entering text is one of the most difficult parts of using a mobile handset. Wherever possible, interfaces that solicit users' information should make data entry as easy as possible. This section suggests ways to modify non-text form elements to make them easier to use on mobile handsets.</p>
+<p><b>Note: </b>Mobile browsers generally prevent access to the handset's file system, and do not allow users to upload files, so <tt>file</tt> form inputs are not supported.</p><a name="option-lists"></a>
+<h3>Option Lists</h3>
+<p>Option lists allow users to choose from a known set of alternatives. Mobile browsers present options lists with a dedicated interface that renders options much larger than the small popup menu of desktop browsers. Since users can only see a few options at a time, it is best to break sets of options into different categories to limit the number available at any point. The following example shows two option lists, re-styled to make them easier to touch. The contents of the second list depend on what is selected from the first:</p>
+<p><a href="../examples/form_option.htm"><img src="images/scr_form_option.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_option.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/form_option.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p><b>Note: </b>HTML tags that present special interfaces, such as pop-up lists, can often be restyled by disabling their default presentation. Setting the <tt>-webkit-appearance</tt> property to <tt>none</tt> styles the element as a plain rectangle, to which other style sheets add a border and background image.</p><blockquote><a name="sidebar-form-element-state"></a>
+<h3>SIDEBAR Form Element State</h3>
+<p>The <tt>:checked</tt> dynamic class allows you to style radio and checkbox inputs based on their selection state. This enables the following mobile-friendly interface, which converts small radio and check boxes to much more accessible toggle buttons:</p>
+<p><a href="../examples/form_toggler-anim.htm"><img src="images/scr_form_toggler-anim.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_toggler-anim.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>In this example, the position of a background image is shifted based on whether an <tt>input</tt> is <tt>:checked</tt> or not:</p>
+<pre class="cpp">input<span class="operator">[</span>type<span class="operator">=</span>radio<span class="operator">]</span><span class="operator">,</span> input<span class="operator">[</span>type<span class="operator">=</span>checkbox<span class="operator">]</span> {
+  <span class="operator">-</span>webkit<span class="operator">-</span>appearance  : none;
+  background<span class="operator">-</span>color    : <span class="preprocessor">#777777;</span>
+  background<span class="operator">-</span>image    : url(img<span class="operator">/</span>toggle_button<span class="operator">.</span>png);
+  background<span class="operator">-</span>position : <span class="number">102</span><span class="operator">%</span> <span class="number">50</span><span class="operator">%</span>;
+  background<span class="operator">-</span>repeat   : no<span class="operator">-</span>repeat;
+  background<span class="operator">-</span>size     : contain;
+}
+input<span class="operator">[</span>type<span class="operator">=</span>radio<span class="operator">]</span>:checked<span class="operator">,</span> input<span class="operator">[</span>type<span class="operator">=</span>checkbox<span class="operator">]</span>:checked {
+  background<span class="operator">-</span>position : <span class="operator">-</span><span class="number">2</span><span class="operator">%</span> <span class="number">50</span><span class="operator">%</span>;
+}</pre>
+<p>Note that to display button text, dynamic classes can be chained together to form more complex expressions: <tt>input[type=radio]:checked:before</tt>. This example also relies on the <tt>-webkit-appearance</tt> property, which allows you to override the default visual presentation of specialized interface elements such as radio and checkbox inputs. In this case, setting their appearance to <tt>none</tt> presents them as plain blocks. (See <a href="#radio-and-checkbox-togglers">Radio and Checkbox Togglers</a> for alternative form interfaces. See <a href="animation.html#transitions">Transitions</a> for information on how the buttons are animated.)</p>
+<p>Form elements may also be re-styled based on whether they are <tt>:enabled</tt> or <tt>:disabled</tt>. In addition, the <tt>:focus</tt> dynamic class allows you to style text form inputs or other editable content regions that users have currently selected for editing. The following example applies a box shadow to any field that is ready to accept text:</p>
+<p><a href="../examples/form_search.htm"><img src="images/scr_form_search.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_search.css"><img src="images/icon_css.png" alt="" /> </a></p>
+</blockquote>
+<a name="radio-and-checkbox-togglers"></a>
+<h3>Radio and Checkbox Togglers</h3>
+<p>By default, radio buttons and check boxes render very small and inaccessible on the mobile screen. CSS3's <tt>:checked</tt> dynamic class allows them to be re-styled as larger toggle buttons. The following shows two different ways to implement toggle inputs entirely with CSS:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><a href="../examples/form_toggler.htm"><img src="images/scr_form_toggler.png" alt="" /> </a><p><a href="../examples/css/form_toggler.css"><img src="images/icon_css.png" alt="" /> </a></p>
+</td><td ><a href="../examples/form_toggler-anim.htm"><img src="images/scr_form_toggler-anim.png" alt="" /> </a><p><a href="../examples/css/form_toggler-anim.css"><img src="images/icon_css.png" alt="" /> </a></p>
+</td></tr>
+</table>
+<p>Tappable buttons offer another way to improve the interface of radio buttons and check boxes, which the following example demonstrates:</p>
+<p><a href="../examples/form_tapper.htm"><img src="images/scr_form_tapper.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_tapper.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<a name="range-inputs"></a>
+<h3>Range Inputs</h3>
+<p>HTML5's new <tt>number</tt> form input shown in the <a href="form.html">next section</a> allows validation of numeric input. In cases when the range of values is constrained, however, the <tt>range</tt> input prevents users from having to enter numeric text. Here is a sample:</p>
+<pre class="cpp"><span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;range&quot;</span> min<span class="operator">=</span><span class="string">&quot;0&quot;</span> max<span class="operator">=</span><span class="string">&quot;5&quot;</span> value<span class="operator">=</span><span class="string">&quot;2.5&quot;</span> step<span class="operator">=</span><span class="string">&quot;0.5&quot;</span><span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>Specifying numeric <tt>min</tt> and <tt>max</tt> attributes overrides the default range of 0 to 100. Specifying a numeric <tt>step</tt> attribute overrides the default incremental value of 1.</p>
+<p>While range sliders indicate approximately how far users are between the minimum and maximum values, they don't provide feedback to indicate the selected value. The following example fixes this with some added JavaScript enabled by the input's <tt>change</tt> event:</p>
+<p><a href="../examples/form_range.htm"><img src="images/scr_form_range.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_range.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/form_range.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>The first example shows how <tt>range</tt> inputs may appear by default.</p>
+<p>The second example is re-styled to make the slider handle larger and more inviting. This component is stylable via a low-level CSS <i>pseudo-element</i> class specific to WebKit:</p>
+<pre class="cpp">input<span class="operator">[</span>type<span class="operator">=</span><span class="string">&quot;range&quot;</span><span class="operator">]</span>{ <span class="operator">-</span>webkit<span class="operator">-</span>appearance:none }
+input<span class="operator">[</span>type<span class="operator">=</span><span class="string">&quot;range&quot;</span><span class="operator">]</span><span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>slider<span class="operator">-</span>thumb { <span class="operator">-</span>webkit<span class="operator">-</span>appearance:none }</pre>
+<p>The second example also substitutes the integer with a corresponding text value, indicating a range of a customer's level of satisfaction.</p>
+<p>The third example shows a familiar rating-picker interface that invites users to tap along the bar rather than drag a slider handle.</p>
+<a name="progress-trackers-and-meters"></a>
+<h3>Progress Trackers and Meters</h3>
+<p>HTML5's new <tt>progress</tt> and <tt>meter</tt> tags aren't actually form elements. They are both similar to <tt>range</tt> inputs because the present a range of numeric values graphically. The major difference is that they are used for output rather than input.</p>
+<p>The <tt>progress</tt> tag is designed to give feedback about any operation that may involve a noticeable delay, or that requires proceeding through a sequence of steps. The <tt>meter</tt> tag is similar, but can be used to alert users about values that fall outside a preferred range.</p>
+<p>The following example shows how the <tt>progress</tt> and <tt>meter</tt> tags appear by default, and by cycling through a series of values each ten seconds:</p>
+<pre class="cpp"><span class="operator">&lt;</span>progress max<span class="operator">=</span><span class="string">&quot;10&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>meter min<span class="operator">=</span><span class="string">&quot;0&quot;</span> low<span class="operator">=</span><span class="string">&quot;4&quot;</span> optimum<span class="operator">=</span><span class="string">&quot;5&quot;</span> high<span class="operator">=</span><span class="string">&quot;6&quot;</span>  max<span class="operator">=</span><span class="string">&quot;10&quot;</span><span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p><a href="../examples/form_progmeter.htm"><img src="images/scr_form_progmeter.png" alt="" /> </a></p>
+<p>The <tt>progress</tt> tag requires <tt>value</tt> and <tt>max</tt> attributes to present the relative degree of completion. With no attributes specified, the <tt>progress</tt> tag displays a continuous animation.</p>
+<p>Since HTML5 tags such as <tt>progress</tt> and <tt>meter</tt> are relatively new, some browsers ignore them altogether. In this case, it is a good idea to allow the interface to degrade gracefully. The following example presents a graphic progress bar to browsers that support it, or raw text to those that don't:</p>
+<pre class="cpp"><span class="operator">&lt;</span>progress id<span class="operator">=</span><span class="string">&quot;download&quot;</span> value<span class="operator">=</span><span class="string">&quot;245&quot;</span> max<span class="operator">=</span><span class="string">&quot;3764&quot;</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>div id<span class="operator">=</span><span class="string">&quot;downloadFallback&quot;</span><span class="operator">&gt;</span><span class="number">15</span><span class="operator">&lt;</span><span class="operator">/</span>div<span class="operator">&gt;</span><span class="operator">%</span>
+<span class="operator">&lt;</span><span class="operator">/</span>progress<span class="operator">&gt;</span></pre>
+<p>The default appearance of the progress tracker or its degree of completion can be modified with CSS such as the following:</p>
+<pre class="cpp">progress                         { <span class="operator">-</span>webkit<span class="operator">-</span>appearance: none; }
+progress<span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>progress<span class="operator">-</span>bar   { background<span class="operator">-</span>color: lightblue; }
+progress<span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>progress<span class="operator">-</span>value { background<span class="operator">-</span>color: lightgreen; }</pre>
+<p>The following CSS specifies a meter's default background and values relative to its optimum:</p>
+<pre class="cpp">meter                                     { <span class="operator">-</span>webkit<span class="operator">-</span>appearance: none; }
+meter<span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>meter<span class="operator">-</span>bar                  { background: lightblue; }
+meter<span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>meter<span class="operator">-</span>optimum<span class="operator">-</span>value        { background: lightgreen; }
+meter<span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>meter<span class="operator">-</span>suboptimum<span class="operator">-</span>value     { background: gold; }
+meter<span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>meter<span class="operator">-</span>even<span class="operator">-</span>less<span class="operator">-</span>good<span class="operator">-</span>value { background: pink; }</pre>
+<p>In the following example, JavaScript added to a re-styled progress bar changes it to an input element:</p>
+<p><a href="../examples/event_orient-gallery.htm"><img src="images/scr_event_orient-gallery.png" alt="" /> <img src="images/scr_event_orient-gallery2.png" alt="" /> </a></p>
+<p><a href="../examples/css/event_orient-gallery.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/event_orient-gallery.js"><img src="images/icon_js.png" alt="" /> </a></p>
+</div>
+<!-- @@@input.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

@@ -1,0 +1,15 @@
+#js {
+    background    : pink;
+    padding       : 0.5em;
+    border-radius : 0.5em;
+}
+#js, #design {
+    padding       : 0.5em;
+    border-radius : 0.5em;
+}
+#js {
+    background    : pink;
+}
+#design {
+    background    : lightgreen;
+}

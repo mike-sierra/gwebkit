@@ -1,0 +1,78 @@
+body {
+    overflow                          : hidden;
+    background                        : #aaaaaa;
+}
+
+canvas {
+    -webkit-box-shadow                : 0em 0em 0.5em 0.5em #ddd;
+    background                        : #ffffff;
+    -webkit-animation-duration        : 0.35s;
+    -webkit-animation-iteration-count : 1;
+    -webkit-transition                : all 1s;
+    display                           : inline-block;
+    left                              : 0; 
+    position                          : absolute;
+    top                               : 0;
+    -webkit-transform-origin          : 50% 150%;; 
+    -webkit-transform                 : rotate(90deg);
+}
+
+#dbg {
+    position                          : fixed;
+    top                               : 80%;
+    left                              : 0;
+    text-align                        : right;
+    background                        : gold;
+    z-index                           : 10;
+}
+
+.nudge_left {
+    -webkit-animation-name            :  nl;
+}
+
+.nudge_right {
+    -webkit-animation-name            :  nr;
+}
+
+.stage_right {
+    -webkit-transform                 : rotate(90deg);
+}
+
+.stage_left {
+    -webkit-transform                 : rotate(-90deg);
+}
+
+.selected {
+    -webkit-transform                 : rotate(0deg);
+}
+
+.hide {
+    display: none;
+}
+
+#cropper {
+    position                          : absolute;
+    border                            : medium gold solid;
+    -webkit-animation                 : hilight 0.5s alternate infinite;
+    -webkit-transition                : all 0.1s;
+}
+
+@-webkit-keyframes hilight {
+    from { border                     : medium gold solid }
+    to { border                       : medium gold solid }
+}
+
+@-webkit-keyframes nl {
+    from { -webkit-transform          : translateX(0em) }
+    30% { -webkit-transform           : translateX(-24px) }
+    70% { -webkit-transform           : translateX(24px) }
+    to { -webkit-transform            : translateX(0em) }
+}
+
+@-webkit-keyframes nr {
+    from { -webkit-transform          : translateX(0em) }
+    30% { -webkit-transform           : translateX(24px) }
+    70% { -webkit-transform           : translateX(-24px) }
+    to { -webkit-transform            : translateX(0em) }
+}
+

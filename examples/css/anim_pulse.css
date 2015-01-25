@@ -1,0 +1,65 @@
+body {
+    background        : #aaaaaa;
+    font-family       : sans-serif;
+}
+
+h1,h2,h3,h4 {
+    text-align        : center;
+}
+
+section {
+    position          : absolute;
+    top               : 0;
+    left              : 0;
+    right             : 0;
+    bottom            : 0;
+}
+
+article {
+    max-width         : 320px;
+    background        : #ffffff;
+    border-radius     : 1.0em;
+    padding           : 1.0em;
+    margin            : 1em;
+    min-height        : 50%;
+}
+
+.force {
+    padding-left      : 100%
+}
+
+nav {
+    text-align        : justify;
+}
+
+nav > a {
+    background-size   : contain;
+    background-repeat : no-repeat;
+}
+
+nav > a {
+    display           : inline-block;
+    width             : 2em;
+    height            : 2em;
+}
+
+h1,h2,h3 {
+    margin-top        : 0;
+}
+
+nav > a:target {
+    -webkit-animation : pulse 0.5s 3;
+}
+
+@-webkit-keyframes pulse {
+    0% { opacity : 1.0 }
+    50% { opacity : 0.5 }
+}
+
+nav > a:nth-of-type(1) { background-image : url(../img/ic_fe_032.png); }
+nav > a:nth-of-type(2) { background-image : url(../img/ic_ni_032.png); }
+nav > a:nth-of-type(3) { background-image : url(../img/ic_he_032.png); }
+nav > a:nth-of-type(4) { background-image : url(../img/ic_na_032.png); }
+nav > a:nth-of-type(5) { background-image : url(../img/ic_zn_032.png); }
+nav > a:nth-of-type(6) { background-image : url(../img/ic_o_032.png); }
+

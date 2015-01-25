@@ -1,0 +1,438 @@
+<html>
+<head>
+<title>3d transforms</title>
+
+<style>
+#parent, #child {
+    padding: 20px;
+    background-size: cover;
+    border-radius: 0.5em;
+}
+
+#container {
+    border: thin #aaa solid;
+    height: 380px;
+    width: 380px;
+    float: right;
+    margin-right: 6em;
+}
+
+#parent {
+    opacity: 0.9;
+    height: 340px;
+    width: 340px;
+    background-image: url(img/gal8.png);
+}
+
+#child {
+    opacity: 0.9;
+    height: 300px;
+    width: 300px;
+    background-image: url(img/gal6.png);
+}
+
+fieldset {
+    max-width: 150px;
+    margin-bottom: 1em;
+    font-size: smaller;
+    font-family: sans-serif;
+}
+
+form {
+    border: #aaa thin solid;
+    background: #fff;
+    border-radius: 0.5em;
+    padding: 0.5em;
+}
+
+pre {
+    color: #fff;
+    background: #777;
+    padding: 1em;
+    margin: 1em;
+    margin-bottom: 3em;
+    border-radius: 1em;
+}
+
+#control_parent, #control_child {
+    width: 48%;
+    display: inline-block;
+}
+
+section {
+    display: inline-block;
+    min-width: 540px;
+    min-height: 540px;
+}
+
+h4 {
+    font-family: sans-serif;
+    text-align: center;
+    margin: 0;
+}
+
+.controls {
+    float: right;
+    min-width: 320px;
+}
+
+input[type=range] {
+    width: 4em;
+}
+
+</style>
+
+<link rel="apple-touch-icon-precomposed" href="img/html5x128.png" />
+<link rel="apple-touch-icon" href="img/html5x128.png" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<section class="controls">
+<form>
+
+<div>
+
+<input type="reset" value="Start Over">
+
+</div>
+
+<div id="control_parent">
+
+<h4>Parent</h4>
+
+<fieldset>
+<legend>rotate3D</legend>
+<label>&deg;</label>
+<input id="p_rotate_angle" type="range" min="-360" max="360" value="45"/>&plusmn; 360&deg;
+<br/><label>x</label>
+<input id="p_rotate_x" type="range" min="-1" max="1" step="0.01" value="0"/>&plusmn; 1
+<br/><label>y</label>
+<input id="p_rotate_y" type="range" min="-1" max="1" step="0.01" value="1"/>&plusmn; 1
+<br/><label>z</label>
+<input id="p_rotate_z" type="range" min="-1" max="1" step="0.01" value="0"/>&plusmn; 1
+</fieldset>
+
+<fieldset>
+<legend>translate3D</legend>
+<label>x</label>
+<input id="p_translate_x" type="range" min="-300" max="300" value="0"/>&plusmn; 300px
+<br/><label>y</label>
+<input id="p_translate_y" type="range" min="-300" max="300" value="0"/>&plusmn; 300px
+<br/><label>z</label>
+<input id="p_translate_z" type="range" min="-300" max="300" value="0"/>&plusmn; 300px
+</fieldset>
+
+<fieldset>
+<legend>scale3D</legend>
+<label>x</label>
+<input id="p_scale_x" type="range" min="0" max="2" step="0.1" value="1"/>0-2
+<br/><label>y</label>
+<input id="p_scale_y" type="range" min="0" max="2" step="0.1" value="1"/>0-2
+<br/><label>z</label>
+<input id="p_scale_z" type="range" min="0" max="2" step="0.1" value="1"/>0-2
+</fieldset>
+
+<fieldset>
+<legend>perspective</legend>
+<input id="p_perspective" type="range" min="0" max="10000" value="2000"/>0-10000
+</fieldset>
+
+<fieldset>
+<legend>origin</legend>
+<label>x</label>
+<input id="p_origin_x" type="range" min="-200" max="200" value="50"/>&plusmn;200%
+<br/><label>y</label>
+<input id="p_origin_y" type="range" min="-200" max="200" value="50"/>&plusmn;200%
+<br/><label>z</label>
+<input id="p_origin_z" type="range" min="-200" max="200" value="0"/>&plusmn;200px
+</fieldset>
+
+<fieldset>
+<legend>backface / preserve3D</legend>
+<select id="p_backface">
+<option selected>visible</option>
+<option>hidden</option>
+</select>
+<select id="p_style">
+<option selected>preserve-3d</option>
+<option>flat</option>
+</select>
+</fieldset>
+
+</div>
+
+<div id="control_child">
+
+<h4>Child</h4>
+
+<fieldset>
+<legend>rotate3D</legend>
+<label>&deg;</label>
+<input id="c_rotate_angle" type="range" min="-360" max="360" value="180"/>&plusmn; 360&deg;
+<br/><label>x</label>
+<input id="c_rotate_x" type="range" min="-1" max="1" step="0.01" value="0"/>&plusmn; 1
+<br/><label>y</label>
+<input id="c_rotate_y" type="range" min="-1" max="1" step="0.01" value="1"/>&plusmn; 1
+<br/><label>z</label>
+<input id="c_rotate_z" type="range" min="-1" max="1" step="0.01" value="0"/>&plusmn; 1
+</fieldset>
+
+<fieldset>
+<legend>translate3D</legend>
+<label>x</label>
+<input id="c_translate_x" type="range" min="-300" max="300" value="0"/>&plusmn; 300px
+<br/><label>y</label>
+<input id="c_translate_y" type="range" min="-300" max="300" value="0"/>&plusmn; 300px
+<br/><label>z</label>
+<input id="c_translate_z" type="range" min="-300" max="300" value="300"/>&plusmn; 300px
+</fieldset>
+
+<fieldset>
+<legend>scale3D</legend>
+<label>x</label>
+<input id="c_scale_x" type="range" min="0" max="2" step="0.1" value="1"/>0-2
+<br/><label>y</label>
+<input id="c_scale_y" type="range" min="0" max="2" step="0.1" value="1"/>0-2
+<br/><label>z</label>
+<input id="c_scale_z" type="range" min="0" max="2" step="0.1" value="1"/>0-2
+</fieldset>
+
+<fieldset>
+<legend>perspective</legend>
+<input id="c_perspective" type="range" min="0" max="10000" value="2000"/>0-10000
+</fieldset>
+
+<fieldset>
+<legend>origin</legend>
+<label>x</label>
+<input id="c_origin_x" type="range" min="-200" max="200" value="50"/>&plusmn;200%
+<br/><label>y</label>
+<input id="c_origin_y" type="range" min="-200" max="200" value="50"/>&plusmn;200%
+<br/><label>z</label>
+<input id="c_origin_z" type="range" min="-200" max="200" value="0"/>&plusmn;200px
+</fieldset>
+
+<fieldset>
+<legend>backface</legend>
+<select id="c_backface">
+<option selected>visible</option>
+<option>hidden</option>
+</select>
+<br/>
+&nbsp;
+</fieldset>
+
+</div>
+
+<fieldset>
+<legend>perspective</legend>
+<label>range</label>
+<input id="cont_perspective" type="range" min="0" max="10000" value="2000"/>
+<br/><label>x</label>
+<input id="cont_perspective_x" type="range" min="-1000" max="1000" value="50"/>&plusmn;1000%
+<br/><label>y</label>
+<input id="cont_perspective_y" type="range" min="-1000" max="1000" value="50"/>&plusmn;1000%
+</fieldset>
+
+</form>
+
+</section>
+
+
+<section class="display">
+
+<pre>
+.container {
+  -webkit-perspective: <span id="containerPerspective"></span>
+  -webkit-perspective-origin: <span id="containerPerspectiveOrigin"></span>
+}
+.parent {
+  -webkit-backface-visibility: <span id="parentVis"></span>;
+  -webkit-transform-style: <span id="parentStyle"></span>;
+  -webkit-transform-origin: <span id="parentOrigin"></span>;
+  -webkit-transform: <span id="parentTransform"></span>;
+}
+.child {
+  -webkit-backface-visibility: <span id="childVis"></span>;
+  -webkit-transform-origin: <span id="childOrigin"></span>;
+  -webkit-transform: <span id="childTransform"></span>;
+}
+</pre>
+
+  <div id="container">
+  <div id="parent">
+    <div id="child">
+    </div>
+  </div>
+  </div>
+
+</section>
+
+<script>
+
+var app = new Function();
+
+app.test3D = function() {
+    var err = "Sorry, your browser does not support 3D transforms. Try Apple Safari or Nokia Browser 8.5.";
+    var supports_3d;
+    var query = '(-webkit-transform-3d)';
+    if (!!window.matchMedia) {
+        supports_3d = window.matchMedia(query).matches;
+    }
+    else if (!!window.styleMedia && !!window.styleMedia.matchMedium) {
+        supports_3d = window.styleMedia.matchMedium(query);
+    }
+    else if (!!window.media && !!window.media.matchMedium) {
+        supports_3d = window.media.matchMedium(query);
+    }
+    if (! supports_3d ) alert(err);
+}
+
+window.onload = function() {
+    document.querySelector('input[type=reset]').addEventListener('click', function( ) { window.location.reload() } );
+    app.inputs = document.querySelectorAll('select, input:not([type=reset])');
+    for (var i = 0, l = app.inputs.length ; i < l ; i++) {
+        app.inputs[i].addEventListener('change', app.modify);
+    }
+    app.parent = document.querySelector('#parent');
+    app.child = document.querySelector('#child');
+    app.container = document.querySelector('#container');
+
+    app.init();
+    app.test3D();
+};
+
+app.init = function() {
+    app.initStyles();
+    app.render();
+};
+
+app.initStyles = function() {
+    for (var i = 0, l = app.inputs.length ; i < l ; i++) {
+        app[app.inputs[i].id] = app.inputs[i].value;
+    }
+};
+
+app.showCode = function(id, str) {
+    document.getElementById(id).innerHTML = str;
+}
+
+app.modify = function(event) {
+    app[event.target.id] = app.trimArtifact(event.target.value);
+    app.render();
+}
+
+app.trimArtifact = function(n) {
+    if (n.match(/^[0-9.-]+$/)) {
+        return(Math.floor(n * 100) / 100);
+    }
+    else {
+        return(n);
+    }
+}
+
+app.render = function() {
+
+    var pOr = '';
+    var pVis = '';
+    var pTr = '';
+    var pStyle = '';
+
+    var cOr = '';
+    var cVis = '';
+    var cTr = '';
+
+    var cont = '';
+    var contOr = '';
+
+    // translate
+    pTr += 'translate3D(';
+    pTr += app.p_translate_x + 'px, ';
+    pTr += app.p_translate_y + 'px, ';
+    pTr += app.p_translate_z + 'px) ';
+
+    cTr += 'translate3D(';
+    cTr += app.c_translate_x + 'px, ';
+    cTr += app.c_translate_y + 'px, ';
+    cTr += app.c_translate_z + 'px) ';
+
+    // scale
+    pTr += 'scale3D(';
+    pTr += app.p_scale_x + ', ';
+    pTr += app.p_scale_y + ', ';
+    pTr += app.p_scale_z + ') ';
+
+    cTr += 'scale3D(';
+    cTr += app.c_scale_x + ', ';
+    cTr += app.c_scale_y + ', ';
+    cTr += app.c_scale_z + ') ';
+
+    // rotate
+    pTr += "\n        rotate3D(";
+    pTr += app.p_rotate_x + ', ';
+    pTr += app.p_rotate_y + ', ';
+    pTr += app.p_rotate_z + ', ';
+    pTr += app.p_rotate_angle + 'deg) ';
+
+    cTr += "\n        rotate3D(";
+    cTr += app.c_rotate_x + ', ';
+    cTr += app.c_rotate_y + ', ';
+    cTr += app.c_rotate_z + ', ';
+    cTr += app.c_rotate_angle + 'deg) ';
+
+    // perspective
+    pTr += "perspective(" + app.p_perspective + ")";
+    cTr += "perspective(" + app.c_perspective + ")";
+
+    // origin
+    pOr += app.p_origin_x + '% ';
+    pOr += app.p_origin_y + '% ';
+    pOr += app.p_origin_z + 'px';
+
+    cOr += app.c_origin_x + '%, ';
+    cOr += app.c_origin_y + '%, ';
+    cOr += app.c_origin_z + 'px';
+
+    // visibility
+    pVis += app.p_backface;
+    cVis += app.c_backface;
+
+    // style
+    pStyle += app.p_style;
+
+    // container perspective
+    cont += app.cont_perspective;
+
+    // container perspective origin
+    contOr += app.cont_perspective_x + "% ";
+    contOr += app.cont_perspective_y + "%";
+
+    // mop up
+    app.parent.style.webkitTransform = pTr;
+    app.child.style.webkitTransform = cTr;
+    app.parent.style.webkitTransformOrigin = pOr;
+    app.child.style.webkitTransformOrigin = cOr;
+    app.parent.style.webkitBackfaceVisibility = pVis;
+    app.parent.style.webkitTransformStyle = pStyle;
+    app.child.style.webkitBackfaceVisibility = cVis;
+    app.container.style.webkitPerspective = cont;
+    app.container.style.webkitPerspectiveOrigin = contOr;
+
+    app.showCode('parentTransform', pTr);
+    app.showCode('childTransform', cTr);
+    app.showCode('parentOrigin', pOr);
+    app.showCode('childOrigin', cOr);
+    app.showCode('parentVis', pVis);
+    app.showCode('parentStyle', pStyle);
+    app.showCode('childVis', cVis);
+    app.showCode('containerPerspective', cont);
+    app.showCode('containerPerspectiveOrigin', contOr);
+
+};
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+/* CUSTOM LAYOUT */
+
+img {
+    float: right;
+    width: 100%;
+    box-sizing: border-box;
+    clear: both;
+}
+

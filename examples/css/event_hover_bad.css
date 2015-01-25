@@ -1,0 +1,95 @@
+body {
+    background	       : #aaaaaa;
+    font-family	       : sans-serif;
+    font-weight	       : bold;
+}
+
+h1,h2,h3,h4 {
+    text-align	       : center;
+}
+
+section {
+    position	       : absolute;
+    top		       : 0;
+    left	       : 0;
+    right	       : 0;
+    bottom	       : 0;
+}
+
+article {
+    max-width          : 320px;
+    background	       : #ffffff;
+    border-radius      : 1.0em;
+    padding	       : 1.0em;
+    margin	       : 1em;
+    min-height	       : 50%;
+}
+
+.accordion {
+    border	       : #777777 solid thin;
+    padding	       : 0.0em;
+    border-radius      : 0.5em;
+    list-style	       : none;
+}
+
+.accordion > li {
+    padding	       : 0.5em;
+    border-bottom      : #777777 solid thin;
+    white-space	       : nowrap;
+    max-height	       : 1.5em;
+    overflow	       : hidden;
+    text-overflow      : clip;
+    text-overflow      : ellipsis;
+    text-overflow      : ellipsis-word;
+    -webkit-transition : max-height 1s ease-in-out;
+}
+
+.accordion > li:last-of-type {
+    border-bottom      : none;
+}
+
+.accordion > li.selected {
+    -webkit-transition : max-height 1s ease-in-out;
+    max-height	       : 100em;
+    white-space	       : normal;
+    font-weight	       : normal;
+}
+
+.accordion > li.selected:first-line {
+    font-weight	       : bold;
+}
+
+.accordion > li.selected:first-letter {
+    font-size	       : 200%;
+    float	       : left;
+    padding-right      : 0.1em;
+}
+
+.dismiss {
+    content	       : url(../img/icon_dismiss.png);
+}
+
+.accordion > li > .dismiss {
+    display	       : none;
+}
+
+.accordion > li.selected > .dismiss {
+    display	       : block;
+    float	       : right;
+}
+
+#hover {
+    position           : absolute;
+    background         : beige;
+    font-size          : smaller;
+    font-weight        : regular;
+    display            : none;
+    max-width	       : 50%;
+    max-height	       : 3em;
+    overflow	       : hidden;
+    text-overflow      : ellipsis;
+    padding            : 0.5em;
+    border-radius      : 0.5em;
+    border             : thin solid #777777;
+}
+

@@ -1,0 +1,75 @@
+/* CUSTOM LAYOUT */
+
+h1 {
+    margin-bottom: 2em;
+}
+
+#navbar {
+    border: solid #fff 2px;
+    border-radius: 0.5em;
+    position: absolute;
+    top: 2em;
+    right: 2em;
+    height: 36px;
+    width: 36px;
+    padding: 6px;
+    -webkit-transition: all 1s;
+    background-color: #fff;
+    background-image: url(../img/i0.png);
+    background-repeat: no-repeat;
+    background-position: 90% 50%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient : horizontal;
+    -webkit-box-pack : justify;
+}
+
+#navbar.expanded {
+    border: solid #aaa 2px;
+    width: 270px;
+    background-position: 200% 50%;
+}
+
+#navbar > a {
+    -webkit-transition: all 1s;
+    display: -webkit-box;
+    width: 36px;
+    height: 36px;
+    opacity: 0;
+    -webkit-transform: scale(0);
+    white-space: nowrap;
+
+}
+
+#navbar > a:nth-of-type(1) { background-image: url(../img/i1.png)}
+#navbar > a:nth-of-type(2) { background-image: url(../img/i2.png)}
+#navbar > a:nth-of-type(3) { background-image: url(../img/i3.png)}
+#navbar > a:nth-of-type(4) { background-image: url(../img/i7.png)}
+#navbar > a:nth-of-type(5) { background-image: url(../img/i5.png)}
+#navbar > a:nth-of-type(6) { background-image: url(../img/i6.png)}
+
+#navbar.expanded > a {
+    opacity: 1;
+    -webkit-transform: scale(1);
+}
+
+#panel {
+    height: 2%;
+    -webkit-transition: height 0.5s 0.0s, -webkit-transform 0.5s 0.5s;
+    -webkit-transform: translateX(-120%);
+    padding: 2em;
+    background: #999;
+    color: #fff;
+    font-weight: bold;
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+#panel:target {
+    -webkit-transition: -webkit-transform 0.5s 0.0s, height 0.5s 0.5s;
+    height: 100%;
+    -webkit-transform: translateX(0%);
+}
+

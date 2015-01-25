@@ -1,0 +1,88 @@
+body {
+    background           : #aaaaaa;
+    font-family          : sans-serif;
+}
+
+body > section {
+    border-radius        : 1em;
+    padding              : 1em;
+    background           : #ffffff;
+    margin-bottom        : 10em;
+    min-height           : 70%;
+}
+
+.hidden {
+    display              : none;
+}
+
+.active {
+    color                : blue;
+    cursor               : pointer;
+    text-decoration      : none;
+}
+
+.nav > a {
+    display              : inline-block;
+    width                : 48px;
+    height               : 48px;
+}
+
+body > section.main {
+    position             : absolute;
+    left                 : 0em;
+    right                : 0em;
+    top                  : 0em;
+    min-height           : 50%;
+    border-radius        : 0.5em;
+    background           : #aaaaaa;
+    padding              : 0;
+}
+
+section.main > article {
+    max-width            : 320px;
+    background           : #ffffff;
+    padding              : 1em;
+    margin               : 1em 1em 10em 1em;
+    border-radius        : 0.5em;
+}
+
+h1, h2, h3 {
+    color                : #206ead;
+    margin-top           : 0em;
+    text-align           : center;
+    margin-bottom        : 1em;
+    -webkit-box-reflect  : below -0.25em -webkit-gradient(linear, center top, center bottom, from(transparent), color-stop(0.25, transparent), to(black));
+}
+
+figure {
+    display              : block;
+    text-align           : center;
+}
+
+figure > img {
+    width                : 70%;
+    margin-bottom        : 3em;
+    -webkit-box-reflect  : below 0.25em -webkit-gradient(linear, center top, center bottom, from(transparent), color-stop(0.50, transparent), to(black));
+}
+
+p:first-line {
+    font-weight          : bold;
+}
+
+p:first-letter {
+    font-size            : 200%;
+    float                : left;
+    padding-right        : 0.1em;
+}
+
+.nav1 { background-image : url(../img/ic_he_032.png) }
+.nav2 { background-image : url(../img/ic_o_032.png) }
+.nav3 { background-image : url(../img/ic_ni_032.png) }
+.nav4 { background-image : url(../img/ic_fe_032.png) }
+.nav5 { background-image : url(../img/ic_na_032.png) }
+.nav6 { background-image : url(../img/ic_zn_032.png) }
+
+h1 { font-size           : 1.5em; }
+h2 { font-size           : 1.2em; }
+h3 { font-size           : 1.0em; }
+

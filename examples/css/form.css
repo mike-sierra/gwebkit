@@ -1,0 +1,135 @@
+/* CUSTOM LAYOUT */
+
+
+input, span {
+    -webkit-transition: all 1s;
+}
+
+input:not([type=button]) {
+    -webkit-box-shadow: 0 0 0.5em 0.5em transparent;
+    -webkit-appearance: none;
+    display: block;
+    float: right;
+    height: 2.5em;
+    width: 70%;
+}
+
+input[type=search] {
+    padding: 0.25em;
+    background-image: url(../img/icon_search.png);
+    background-position: 95% 0;
+    background-origin: content-box;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border-radius: 1em;
+}
+
+input[type=search]:focus {
+    -webkit-box-shadow: 0 0 0.5em 0.5em #aaa;
+    background-position: 120% 0;
+}
+
+input[type=number] {
+    width: 30%;
+}
+
+input[type=button] {
+    margin-left: 5%;
+    width: 15%;
+    float: right;
+}
+
+label {
+    -webkit-transform: translateY(0.5em);
+    display: inline-block;
+    float: left;
+    font-size: 12px;
+    max-height: 1.5em;
+    width: 25%;
+}
+
+span {
+    color: red;
+    display: inline-block;
+    font-size: smaller;
+    height: 2em;
+    opacity: 0;
+    text-align: right;
+    width: 100%;
+}
+
+
+input:required + label:before {
+    color: red;
+    content: "* ";
+    font-size: larger;
+}
+
+input.validate:invalid ~ span {
+    opacity: 1;
+}
+
+input.validate:invalid {
+    background-color: pink;
+}
+
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+    color: #777;
+}
+
+input:focus::-webkit-input-placeholder {
+    color: transparent;
+}
+
+input[type=button] {
+    background: #fff;
+    height: 2.5em;
+    -webkit-appearance: none;
+    display: block;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+}
+
+input[type=range] {
+    -webkit-appearance: none;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border: medium solid #ddd;
+}
+
+.star1 { background-image: url(../img/star1.GIF); }
+.star2 { background-image: url(../img/star2.GIF); }
+.star3 { background-image: url(../img/star3.GIF); }
+.star4 { background-image: url(../img/star4.GIF); }
+.star5 { background-image: url(../img/star5.GIF); }
+
+input[type=date], input[type=time], input[type=color] {
+    -webkit-appearance: none;
+    background-repeat: no-repeat;
+    background-position: 95% 0;
+    padding: 0.25em;
+    background-origin: content-box;
+    background-size: contain;
+}
+
+input[type=time] {
+    background-image: url(../img/form_clock.png);
+}
+
+input[type=date] {
+    background-image: url(../img/form_cal.png);
+}
+
+input[type=color] {
+    background-image: url(../img/form_color.png);
+}
+

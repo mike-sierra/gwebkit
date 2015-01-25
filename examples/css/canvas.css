@@ -1,0 +1,77 @@
+/* CUSTOM LAYOUT */
+
+article {
+    padding: 0;
+}
+
+section {
+    background: #fff;
+}
+
+img {
+    margin-bottom: 1em;
+    display: block;
+    border: dashed #aaa thin;
+}
+
+input[type=range] {
+    height: 4em;
+    width: 70%;
+    -webkit-appearance: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 4em;
+    width: 3em;
+    border-radius: 1em;
+    border: thin solid #777;
+    background: #aaa;
+}
+
+#r { background: -webkit-gradient(linear, left center, right center, from(#fff), to(red) ) }
+#g { background: -webkit-gradient(linear, left center, right center, from(#fff), to(green) ) }
+#b { background: -webkit-gradient(linear, left center, right center, from(#fff), to(blue) ) }
+#w {
+    background: url(../img/triangle.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+#tabber > nav, #tabber > div {
+    border: #777 solid thin;
+    padding: 0.5em;
+}
+
+#tabber > nav {
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
+    display: inline-block;
+    margin-bottom: -2px;
+    text-decoration: none;
+    background: #ddd;
+    margin-right: 0.25em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+}
+
+nav.sel {
+    background: #fff;
+    border-bottom: none;
+}
+
+#panel0 {
+    min-height: 400px;
+}
+
+nav ~ div {
+    min-height: 400px;
+}
+
+#centered {
+    display: -webkit-box;
+    height: 50px;
+    width: 50px;
+    float: right;
+}
+

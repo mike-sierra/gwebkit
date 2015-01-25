@@ -1,0 +1,94 @@
+/*!
+
+\page index.html
+
+\omit \title Mobile HTML5 Guide for WebKit \endomit
+
+\list
+
+\li \l{Introduction}
+
+\li \b{Deploying Web Apps}
+
+\list
+
+	\li \l{Web Apps}
+	\li \l{Responsive Interfaces}
+\omit	\li \l{Performance Testing}                     \endomit
+
+\endlist
+
+\li \b{Layout and Formatting}
+
+\list
+
+	\li \l{Flexible Mobile Layout}
+	\li \l{Tipping the Handset}
+	\li \l{Colors and Backgrounds}
+	\li \l{Borders and Overflows}
+	\li \l{Typography}
+
+\endlist
+
+\li \b{Dynamic Graphics}
+
+\list
+
+	\li \l{Animations}
+	\li \l{Transforms}
+	\li \l{Multimedia}
+	\li \l{Canvas}
+\omit	\li \l{WebGL}                                   \endomit
+\omit	\li \l{[SVG]} \endomit
+
+\endlist
+
+\li \b{Input and Interaction}
+
+\list
+
+	\li \l{Touch Gestures}
+\omit	\li \l{Drag & Drop}                             \endomit
+	\li \l{Input Types}
+	\li \l{Input Validation}
+	\li \l{Editable Text}
+	\li \l{Session History}
+	\li \l{Location and Travel}
+	\li \l{Orientation and Motion}
+\omit	\li \l{Speech Input}                            \endomit
+
+\endlist
+
+\omit
+
+\list
+
+	\li \l{Data Capture}
+	\li \l{User data}
+	\li \l{Other Sensors}
+	\li \l{Detecting proximity and making payments}
+	\li \l{Sending Notifications}
+
+\endlist
+
+\endomit
+
+\li \b{Storage and Communication}
+
+\list
+
+	\li \l{Offline Mode}
+	\li \l{Data Storage}
+	\li \l{Accessing the File System}
+	\li \l{Messages and Workers}
+\omit	\li \l{Ajax 2} \endomit
+	\li \l{Web Sockets}
+\omit	\li \l{Microdata}                               \endomit
+
+\endlist
+
+\li \l{Core APIs}
+
+\endlist
+
+*/

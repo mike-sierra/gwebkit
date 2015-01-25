@@ -1,0 +1,83 @@
+body {
+    font-family        : sans-serif;
+    overflow           : hidden;
+    background         : #666666;
+}
+
+.page {
+    position           : absolute;
+    top                : 0;
+    bottom             : 0;
+    left               : 0;
+    right              : 0;
+}
+
+img {
+    max-width          : 90%;
+}
+
+@media all and (orientation:portrait) {
+    .land {
+        display        : none;
+    }
+    img {
+        max-height     : 80%;
+    }
+}
+
+@media all and (orientation:landscape) {
+    .port {      
+        display        : none;  
+    }
+    img {
+        max-height     : 70%;
+    }
+}
+
+.gallery > div {
+    width              : 100%;
+    top                : 3em;
+    max-height         : 90%;
+    text-align         : center;
+    position           : absolute;
+    -webkit-transition : all 1s ease-in-out;
+    opacity            : 1;
+}
+
+div.qr {
+    -webkit-transform  : translateX(120%);
+    opacity            : 0;
+}
+
+div.ql {
+    -webkit-transform  : translateX(-120%);
+    opacity            : 0;
+}
+
+div.selected {
+    -webkit-transform  : translateX(0%);
+    opacity            : 1;
+    z-index            : 1;
+}
+
+progress {
+    -webkit-appearance : none;
+    height             : 2em;
+    width              : 100%;
+    background-color   : #206ead;
+}
+
+progress::-webkit-progress-bar-value {
+    background-color   : lightgreen;
+}
+
+meter::-webkit-meter-horizontal-bar {
+    background         : lightblue;
+}
+meter::-webkit-meter-horizontal-optimum-value {
+    background         : lightgreen;
+}
+meter::-webkit-meter-horizontal-even-less-good-value {
+    background         : lightgreen;
+}
+

@@ -1,0 +1,170 @@
+<!--
+/****************************************************************************
+**
+** Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (qt-info@nokia.com)
+**
+** This file is part of the QtWebKit module of the Qt Toolkit.
+**
+** You may use this file under the terms of the BSD license as follows:
+**
+** "Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are
+** met:
+**   * Redistributions of source code must retain the above copyright
+**     notice, this list of conditions and the following disclaimer.
+**   * Redistributions in binary form must reproduce the above copyright
+**     notice, this list of conditions and the following disclaimer in
+**     the documentation and/or other materials provided with the
+**     distribution.
+**   * Neither the name of Nokia Corporation and its Subsidiary(-ies) nor
+**     the names of its contributors may be used to endorse or promote
+**     products derived from this software without specific prior written
+**     permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+**
+****************************************************************************/
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' />
+<title>3D Transforms</title>
+<link href='css/anim_flip.css' type='text/css' rel='stylesheet'/>
+<style id="custom"></style>
+<link rel="apple-touch-icon-precomposed" href="img/html5x128.png" />
+<link rel="apple-touch-icon" href="img/html5x128.png" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+<section class="f">
+
+<div class="img" id="img1" style="background-image: url(img/gal1.png)">
+<a class="info" href="#info1">&nbsp;</a>
+<a class="next" href="#img2">&nbsp;</a>
+</div>
+
+<div class="panel" id="info1">
+<a class="dismiss" href="#img1">&nbsp;</a>
+Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+</div>
+
+<div class="img" id="img2" style="background-image: url(img/gal2.png)">
+<a class="info" href="#info2">&nbsp;</a>
+<a class="prev" href="#img1">&nbsp;</a>
+<a class="next" href="#img3">&nbsp;</a>
+</div>
+
+<div class="panel" id="info2">
+<a class="dismiss" href="#img2">&nbsp;</a>
+Quis autem vel eum iure reprehenderit qui in
+ea voluptate velit esse quam nihil molestiae consequatur, vel illum
+qui dolorem eum fugiat quo voluptas nulla pariatur?
+</div>
+
+<div class="img" id="img3" style="background-image: url(img/gal3.png)">
+<a class="info" href="#info3">&nbsp;</a>
+<a class="prev" href="#img2">&nbsp;</a>
+<a class="next" href="#img4">&nbsp;</a>
+</div>
+
+<div class="panel" id="info3">
+<a class="dismiss" href="#img3">&nbsp;</a>
+Ut enim ad minima veniam, quis nostrum
+exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex
+ea commodi consequatur?
+</div>
+
+<div class="img" id="img4" style="background-image: url(img/gal4.png)">
+<a class="info" href="#info4">&nbsp;</a>
+<a class="prev" href="#img3">&nbsp;</a>
+<a class="next" href="#img5">&nbsp;</a>
+</div>
+
+<div class="panel" id="info4">
+<a class="dismiss" href="#img4">&nbsp;</a>
+Duis aute irure dolor in reprehenderit in voluptate velit
+esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+id est laborum.
+</div>
+
+<div class="img" id="img5" style="background-image: url(img/gal5.png)">
+<a class="info" href="#info5">&nbsp;</a>
+<a class="prev" href="#img4">&nbsp;</a>
+<a class="next" href="#img6">&nbsp;</a>
+</div>
+
+<div class="panel" id="info5">
+<a class="dismiss" href="#img5">&nbsp;</a>
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae
+ab illo inventore veritatis et quasi architecto beatae vitae dicta
+sunt explicabo.
+</div>
+
+<div class="img" id="img6" style="background-image: url(img/gal6.png)">
+<a class="info" href="#info6">&nbsp;</a>
+<a class="prev" href="#img5">&nbsp;</a>
+<a class="next" href="#img7">&nbsp;</a>
+</div>
+
+<div class="panel" id="info6">
+<a class="dismiss" href="#img6">&nbsp;</a>
+Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut
+fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem
+sequi nesciunt.
+</div>
+
+<div class="img" id="img7" style="background-image: url(img/gal7.png)">
+<a class="info" href="#info7">&nbsp;</a>
+<a class="prev" href="#img6">&nbsp;</a>
+<a class="next" href="#img8">&nbsp;</a>
+</div>
+
+<div class="panel" id="info7">
+<a class="dismiss" href="#img7">&nbsp;</a>
+Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet,
+consectetur, adipisci velit, sed quia non numquam eius modi tempora
+incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+</div>
+
+<div class="img" id="img8" style="background-image: url(img/gal8.png)">
+<a class="info" href="#info8">&nbsp;</a>
+<a class="prev" href="#img7">&nbsp;</a>
+</div>
+
+<div class="panel" id="info8">
+<a class="dismiss" href="#img8">&nbsp;</a>
+Consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+exercitation ullamco laboris nisi ut aliquip ex ea commodo
+consequat.
+</div>
+
+</section>
+
+<script src="js/anim_flip.js"></script>
+
+</body>
+</html>
+
+
+

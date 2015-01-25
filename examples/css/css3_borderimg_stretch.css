@@ -1,0 +1,31 @@
+body {
+    background           : #aaaaaa;
+    font-family          : sans-serif;
+}
+
+h1,h2,h3,h4 {
+    text-align           : center;
+}
+
+section {
+    position             : absolute;
+    top                  : 0;
+    left                 : 0;
+    right                : 0;
+    bottom               : 0;
+}
+
+article {
+    max-width            : 320px;
+    background           : #ffffff;
+    border-radius        : 1.0em;
+    padding              : 1.0em;
+    margin               : 1em;
+    min-height           : 50%;
+}
+
+.fruit {
+    padding              : 1em;
+    border-width         : 2em;
+    -webkit-border-image : url(../img/border-stretch.png) 40% 40% 40% 40% stretch stretch;
+}

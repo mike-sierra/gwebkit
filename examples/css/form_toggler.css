@@ -1,0 +1,173 @@
+/* MOBILE UI */
+
+body {
+     background        : #aaaaaa;
+     font-family       : sans-serif;
+}
+
+body > section {
+    max-width          : 320px;
+    border-radius      : 1em;
+    padding            : 1em;
+    background         : #ffffff;
+    margin             : 1em 1em 10em 1em;
+    min-height         : 70%
+}
+
+h1, h2 {
+    margin-top         : 1em;
+    font-size          : smaller;
+    text-align         : center;
+    padding-top        : 1em;
+}
+
+h2 {
+    border-top         : solid thin #dddddd;
+}
+
+/* FORM */
+
+form
+{
+    line-height        : 250%;
+    font-weight        : bold;
+    font-size          : small;
+}
+
+/* DEFAULT INPUT */
+
+input[type=radio],
+input[type=checkbox]
+{
+    text-align         : right;
+    padding-top        : 0.1em;
+    text-transform     : uppercase;
+    float              : right;
+    -webkit-appearance : button;
+    border             : 0.25em #aaaaaa solid;
+    background         : #aaaaaa;
+    background         : -webkit-gradient(linear,center top,center bottom,from(#999999),to(#ffffff));
+    border-radius      : 0.5em;
+    min-width          : 6em;
+    height             : 2em;
+    display            : inline-block;
+}
+
+/* CHECKED INPUT */
+
+input[type=radio]:checked,
+input[type=checkbox]:checked
+{
+    text-align         : left;
+}
+
+/* FLIPPED INPUT */
+
+input.invert
+{
+    text-align         : left;
+}
+
+input.invert:checked
+{
+    text-align         : right;
+}
+
+/* DEFAULT TEXT */
+
+input[type=radio]:before,
+input[type=checkbox]:before
+{
+    color              : #888888;
+    height             : 1.4em;
+    display            : inline-block;
+    background         : pink;
+    background         : -webkit-gradient(linear,center top,center bottom,from(pink),to(#ffffff));
+    min-width          : 50%;
+    content            : "off";
+    text-align         : center;
+    font-weight        : bold;
+    padding-left       : 0.5em;
+    padding-right      : 0.5em;
+    border-radius      : 0.25em;
+}
+
+/* CHECKED TEXT */
+
+input[type=radio]:checked:before,
+input[type=checkbox]:checked:before
+{
+    color              : #ffffff;
+    content            : "on";
+    background         : #00aa00;
+    background         : -webkit-gradient(linear,center top,center bottom,from(green),to(cyan));
+}
+
+/* ALTERNATE DISPLAY */
+
+input.yn:before
+{
+    content            : "no";
+}
+
+input.yn:checked:before
+{
+    content            : "yes";
+}
+
+input.tf:before
+{
+    content            : "false";
+}
+
+input.tf:checked:before
+{
+    content            : "true";
+}
+
+/* BINARY */
+
+input.binary {
+    display            : inline-block;
+}
+
+input.binary:checked {
+    display            : none;
+}
+
+input.binary:before {
+    background         : #00aa00;
+    background         : -webkit-gradient(linear,center top,center bottom,from(green),to(cyan));
+    color              : #ffffff;
+}
+
+input.binary:nth-of-type(odd) {
+    text-align         : left;
+}
+
+input.binary:nth-of-type(even) {
+    text-align         : right;
+}
+
+/* CUSTOM */
+
+input.ampm:nth-of-type(odd):before {
+    content            : "am";
+}
+
+input.ampm:nth-of-type(even):before {
+    content            : "pm";
+}
+
+input.sex:nth-of-type(odd):before {
+    content            : "male";
+}
+
+input.sex:nth-of-type(even):before {
+    content            : "female";
+}
+
+input.sex {
+    width              : 8em;
+}
+

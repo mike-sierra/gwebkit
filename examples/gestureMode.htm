@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>gesture mode</title>
+<link href='css/gestureMode.css' type='text/css' rel='stylesheet'/>
+<link href='css/mobileForm.css' type='text/css' rel='stylesheet'/>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+
+<article>
+   <div id="msg">&nbsp;</div>
+   <div id="button" class="disabled">Press & Tilt</div>
+   <div id="hz">
+     <meter id="meterX" min="-180" low="-20" value="170" optimum="0" high="20" max="180"></meter>
+     <br/>0&deg; <input id="X" type="range" value="10" min="0" max="90"/> 90&deg;
+   </div>
+   <div id="vt">
+     <meter id="meterY" min="-90" low="-20" value="10" optimum="0" high="20" max="90"></meter>
+     <br/>0&deg; <input id="Y" type="range" value="10" min="0" max="90"/> 90&deg;
+   </div>
+</article>
+
+<script src="js/gestureMode.js"></script>
+<script src="js/download.js"></script>
+<script src="js/all.js"></script>
+
+</body>
+</html>

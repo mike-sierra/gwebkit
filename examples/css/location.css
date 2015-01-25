@@ -1,0 +1,29 @@
+/* CUSTOM LAYOUT */
+
+body {
+    overflow-x: visible;;
+}
+
+span {
+    border: thin solid #aaa;
+    padding: 0.5em;
+    height: 3em;
+    width: 6em;
+    border-radius: 0.5em;
+}
+
+#map {
+    background: #777;
+    -webkit-transform: translate(200%);
+    -webkit-transition: all 1s 1s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+#map.active {
+    -webkit-transform: translate(0%);
+}
+

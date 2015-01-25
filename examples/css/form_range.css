@@ -1,0 +1,84 @@
+body {
+    background            : #aaaaaa;
+    font-family           : sans-serif;
+    font-weight           : bold;
+}
+
+h1,h2,h3,h4 {
+    text-align            : center;
+}
+
+section {
+    position              : absolute;
+    top                   : 0;
+    left                  : 0;
+    right                 : 0;
+    bottom                : 0;
+}
+
+article {
+    max-width             : 320px;
+    background            : #ffffff;
+    border-radius         : 1.0em;
+    padding               : 1.0em;
+    margin                : 1em;
+    min-height            : 50%;
+}
+
+input[type="range"] + span {
+    -webkit-transform     : translateY(1em);
+    float                 : right;
+}
+
+input[type="range"] {
+    width                 : 80%;
+    display               : inline-block;
+    margin                : 1.0em;
+}
+
+#text + span {
+    font-size             : smaller;
+    font-weight           : bold;
+}
+
+#text {
+    width                 : 50%;
+    -webkit-appearance    : none;
+    background: #aaaaaa;
+    width                 : 50%;
+    border-radius         : 1em;
+    border                : 2px solid #aaa;
+    height                : 2em;
+}
+
+#text::-webkit-slider-thumb {
+   -webkit-appearance     : button;
+    border-radius         : 1em;
+    border                : 2px solid #aaa;
+    width                 : 6em;
+    height                : 2em;
+    background            : #ffffff;
+}
+
+#rating {
+    max-width             : 180px;
+    border-radius         : 1.0em;
+    height                : 36px;
+    background-repeat     : no-repeat;
+    display               : block;
+    border                : solid #dddddd medium;
+    -webkit-appearance    : none;
+    background-size       : contain;
+}
+
+#rating::-webkit-slider-thumb {
+   opacity: 0;
+}
+
+.star0 { background-image : url(../img/star0.gif); }
+.star1 { background-image : url(../img/star1.gif); }
+.star2 { background-image : url(../img/star2.gif); }
+.star3 { background-image : url(../img/star3.gif); }
+.star4 { background-image : url(../img/star4.gif); }
+.star5 { background-image : url(../img/star5.gif); }
+

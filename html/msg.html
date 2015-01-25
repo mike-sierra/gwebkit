@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 54_msg.qdoc -->
+  <title>mobile_html5 : Messages and Workers</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#xxx-8-5">XXX 8.5</a></li>
+<li class="level3"><a href="#web-messaging">Web Messaging</a></li>
+<li class="level3"><a href="#postmessage">postMessage</a></li>
+<li class="level3"><a href="#sandboxed-iframes">Sandboxed iframes</a></li>
+<li class="level3"><a href="#server-events">Server Events</a></li>
+<li class="level3"><a href="#web-workers">Web Workers</a></li>
+</ul>
+</div>
+<h1 class="title">Messages and Workers</h1>
+<span class="subtitle"></span>
+<!-- $$$msg.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>Web pages customarily use Ajax (<i>XMLHttpRequest</i>) to poll a server to extract dynamic data after a page has loaded. HTML5 <i>server-sent events</i> provide a simpler alternative that allows the Browser to access data using DOM events.</p>
+<p>To send data to the browser, use a server-side script such as PHP to declare a <tt>text/event-stream</tt> MIME type, then use <tt>data:</tt> prefixes for each line of content.</p>
+<pre class="cpp"><span class="operator">&lt;</span><span class="operator">?</span>php
+header(<span class="string">&quot;Content-Type: text/event-stream\n\n&quot;</span>);
+echo <span class="string">&quot;data: This is some new information.\n&quot;</span>;
+echo <span class="string">&quot;data: It may occupy more than one line.\n&quot;</span>;
+<span class="operator">?</span><span class="operator">&gt;</span></pre>
+<p>Notifications about new content are accessible using an <tt>EventSource</tt> object, that fires a <tt>message</tt> event when content is available:</p>
+<pre class="cpp">var src <span class="operator">=</span> <span class="keyword">new</span> EventSource(<span class="char">'feed.php'</span>);
+src<span class="operator">.</span>addEventListener(<span class="char">'message'</span><span class="operator">,</span> function(event) {
+    var content <span class="operator">=</span> event<span class="operator">.</span>data;
+}<span class="operator">,</span> <span class="keyword">false</span>)</pre>
+<p>Server events fire continually, roughly every 3 seconds by default, but you can control the latency by specifying a millisecond value to the <tt>retry</tt> field:</p>
+<pre class="cpp"><span class="operator">&lt;</span><span class="operator">?</span>php
+header(<span class="string">&quot;Content-Type: text/event-stream\n\n&quot;</span>);
+echo <span class="string">&quot;retry: 60000\n&quot;</span>;
+echo <span class="string">&quot;data: This is some new information.\n&quot;</span>;
+<span class="operator">?</span><span class="operator">&gt;</span></pre>
+<p>An event stream may specify more than one event, each separated with a blank line. Streams may also feature custom event types, each with its own unique name. The following implements the basic functionality of an RSS feed, which in this case is polled for updates once a minute:</p>
+<pre class="cpp"><span class="operator">&lt;</span><span class="operator">?</span>php
+   header(<span class="string">&quot;Content-Type: text/event-stream\n\n&quot;</span>);
+   echo <span class="string">&quot;retry: 60000\n&quot;</span>;
+   echo <span class="string">&quot;event: item\n&quot;</span>;
+   echo <span class="string">&quot;id: http://server.name/blog/item01.html\n&quot;</span>;
+   echo <span class="string">&quot;data: This is the first item\n&quot;</span>;
+   echo <span class="string">&quot;\n&quot;</span>;
+   echo <span class="string">&quot;event: item\n&quot;</span>;
+   echo <span class="string">&quot;id: http://server.name/blog/item02.html\n&quot;</span>;
+   echo <span class="string">&quot;data: This is the second item\n&quot;</span>;
+   echo <span class="string">&quot;\n&quot;</span>;
+   echo <span class="string">&quot;event: item\n&quot;</span>;
+   echo <span class="string">&quot;id: http://server.name/blog/item03.html\n&quot;</span>;
+   echo <span class="string">&quot;data: This is the third item\n&quot;</span>;
+   echo <span class="string">&quot;\n&quot;</span>;
+<span class="operator">?</span><span class="operator">&gt;</span></pre>
+<p>Within the handler for the custom <tt>item</tt> event, the <tt>lastEventId</tt> corresponds to each <tt>id</tt> specified by the server. This example uses <a href="storage.html">local storage</a> to cache previously consumed items:</p>
+<pre class="cpp">var db <span class="operator">=</span> window<span class="operator">.</span>localStorage;
+var src <span class="operator">=</span> <span class="keyword">new</span> EventSource(<span class="char">'feed.php'</span>);
+src<span class="operator">.</span>addEventListener(<span class="char">'item'</span><span class="operator">,</span> function(event) {
+    var id <span class="operator">=</span> event<span class="operator">.</span>lastEventId;
+    var content <span class="operator">=</span> event<span class="operator">.</span>data;
+    <span class="keyword">if</span> (db<span class="operator">.</span>getItem(id)) <span class="keyword">return</span>(<span class="keyword">false</span>);
+    db<span class="operator">.</span>setItem(id<span class="operator">,</span> content);
+    <span class="comment">// do something else with content</span>
+}<span class="operator">,</span> <span class="keyword">false</span>)</pre>
+<p><a href="../examples/sse.htm"> <font color="red">[Missing image sse.png]</font> </a></p>
+<p><a href="../examples/sse.htm"> __IFRAME__ </a> <a href="../examples/sse.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/sse.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/sse.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<a name="xxx-8-5"></a>
+<h2>XXX 8.5</h2>
+<a name="web-messaging"></a>
+<h4>Web Messaging</h4>
+<p>Browser 8_5 supports HTML5's <i>web messaging</i> feature, which provides a standard, event-based interface to share data that allows web apps a safe way around a browser's default same-origin restriction.</p>
+<p>The <a href="#postmessage">postMessage</a> feature allows one document to push data to another via a separate window or an <tt>iframe</tt> element, whose <a href="#sandboxed-iframes"><tt>sandbox</tt></a> attribute increases security. A server may also use <a href="#server-events">custom events</a> to push data to a client web app. Messages are also used to communicate with separately threaded JavaScript applications called <a href="#web-workers"><i>workers</i></a>, which may help prevent intensive processes from interfering with the main user interface's responsiveness.</p>
+<a name="postmessage"></a>
+<h4>postMessage</h4>
+<p>To send a message to another window, use an <tt>iframe</tt> to reference it, either locally or via URL to send cross-domain messages:</p>
+<pre class="cpp"><span class="operator">&lt;</span>iframe id<span class="operator">=</span><span class="string">&quot;ifr&quot;</span> name<span class="operator">=</span><span class="string">&quot;receiver&quot;</span> src<span class="operator">=</span><span class="string">&quot;http://trustedrecipient.com&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>iframe<span class="operator">&gt;</span></pre>
+<p>The window can be accessed by various means via <tt>window.frames</tt>, or directly via the <tt>iframe</tt> element's <tt>contentWindow</tt>. (Pop-up windows can also receive messages, but are often blocked.)</p>
+<pre class="cpp">var tgt <span class="operator">=</span> window<span class="operator">.</span>frames<span class="operator">[</span><span class="number">0</span><span class="operator">]</span>;
+var tgt <span class="operator">=</span> window<span class="operator">.</span>frames<span class="operator">[</span><span class="char">'receiver'</span><span class="operator">]</span>;
+var tgt <span class="operator">=</span> window<span class="operator">.</span>frames<span class="operator">.</span>receiver;
+var tgt <span class="operator">=</span> document<span class="operator">.</span>getElementById(<span class="char">'ifr'</span>)<span class="operator">.</span>contentWindow;
+<span class="comment">// often thwarted by pop-up blockers:</span>
+var tgt <span class="operator">=</span> window<span class="operator">.</span>open(<span class="char">'http://trustedrecipient.com'</span>);</pre>
+<p>Here the window's <tt>postMessage</tt> method sends it <i>Hello</i> text:</p>
+<pre class="cpp">tgt<span class="operator">.</span>postMessage(<span class="char">'Hello'</span><span class="operator">,</span> <span class="char">'http://trustedsender.com'</span>);</pre>
+<p>This fires a <tt>message</tt> event on the recipient window, in this case only if its hostname matches the one specified in the second parameter. (Specifying <tt>*</tt> allows any page to receive the message, while <tt>/</tt> constrains messages to the same domain.)</p>
+<p>To receive any messages, the recipient page must register for a <tt>message</tt> event:</p>
+<pre class="cpp">window<span class="operator">.</span>addEventListener(<span class="char">'message'</span><span class="operator">,</span> receiver<span class="operator">,</span> <span class="keyword">false</span>);</pre>
+<p>The event handler can similarly restrict messages to specific domains:</p>
+<pre class="cpp">function receiver(event) {
+    <span class="keyword">if</span> ( event<span class="operator">.</span>origin <span class="operator">!</span><span class="operator">=</span> <span class="string">&quot;http://trustedsender.com&quot;</span> ) <span class="keyword">return</span> <span class="keyword">false</span>;
+    <span class="comment">// do something with event.data</span>
+};</pre>
+<p>The <i>Hello</i> text is available via <tt>event.data</tt>. Responses can be initiated in the manner outlined above, or directly via the message handler's <tt>event.source</tt> window:</p>
+<pre class="cpp">function receiver(event) {
+    <span class="keyword">if</span> ( event<span class="operator">.</span>origin <span class="operator">!</span><span class="operator">=</span> <span class="string">&quot;http://trustedsender.com&quot;</span> ) <span class="keyword">return</span> <span class="keyword">false</span>;
+    <span class="keyword">if</span> (event<span class="operator">.</span>data <span class="operator">!</span><span class="operator">=</span> <span class="char">'Hello'</span>) <span class="keyword">return</span> <span class="keyword">false</span>;
+    <span class="comment">// replies &quot;Hello back!&quot;</span>
+    event<span class="operator">.</span>source<span class="operator">.</span>postMessage( event<span class="operator">.</span>data <span class="operator">+</span> <span class="char">' back!'</span><span class="operator">,</span> <span class="char">'http://trustedsender.com'</span>);
+};</pre>
+<p>Calling <tt>event.ports</tt> returns an array of port numbers.</p>
+<a name="sandboxed-iframes"></a>
+<h4>Sandboxed iframes</h4>
+<p>By default, the <tt>iframe</tt> element allows various security holes in which a frame's content may manipulate the content window that references it, and HTML5's <tt>sandbox</tt> attribute closes them. Specifying the following effectively restricts the frame to display only:</p>
+<pre class="cpp"><span class="operator">&lt;</span>iframe sandbox src<span class="operator">=</span><span class="string">&quot;http://untrusted.com/frame.html&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>iframe<span class="operator">&gt;</span></pre>
+<p>Specifying various space-delimited combinations of values allows you to selectively override these restrictions:</p>
+<ul>
+<li><tt>allow-top-navigation</tt> allows the frame to affect the referring window's navigation, such as by redirecting to a new page by assigning to <tt>window.parent.location.href</tt>.</li>
+<li><tt>allow-forms</tt> allows an iframe to submit a form.</li>
+<li><tt>allow-scripts</tt> allows an iframe to execute JavaScript. (Regardless, iframes cannot create popups using <tt>window.open</tt>.)</li>
+<li>By default, even sandboxed frames from the same origin are treated as if they have a unique origin, and <tt>allow-same-origin</tt> overrides this assumption.</li>
+</ul>
+<p>For sandboxed iframes to receive messages, scripts must be enabled:</p>
+<pre class="cpp"><span class="operator">&lt;</span>iframe src<span class="operator">=</span><span class="string">&quot;http://trustedrecipient.com&quot;</span> sandbox<span class="operator">=</span><span class="string">&quot;allow-scripts&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>iframe<span class="operator">&gt;</span></pre>
+<p><b>Note: </b>Pages presented as sandboxed iframes should be served as the <tt>text/html-sandboxed</tt> MIME type, to prevent them from rendering when browsers access them directly.</p><a name="server-events"></a>
+<h4>Server Events</h4>
+<p>Browser 8_5 supports HTML5's <i>Server-Sent Events</i> feature, which allows servers to push data to a web app using events via a permanent HTTP connection.</p>
+<p>A server-side script must declare the <tt>text/event-stream</tt> MIME type, with <tt>data:</tt> prefixes for each line of content.</p>
+<pre class="cpp"><span class="operator">&lt;</span><span class="operator">?</span>php
+header(<span class="string">&quot;Content-Type: text/event-stream\n\n&quot;</span>);
+echo <span class="string">&quot;data: This is some new information.\n&quot;</span>;
+echo <span class="string">&quot;data: It may occupy more than one line.\n&quot;</span>;
+<span class="operator">?</span><span class="operator">&gt;</span></pre>
+<p>To receive notifications about new content, direct an <tt>EventSource</tt> to the dynamically generated page, then register a <tt>message</tt> handler on the object:</p>
+<pre class="cpp">var src <span class="operator">=</span> <span class="keyword">new</span> EventSource(<span class="char">'feed.php'</span>);
+src<span class="operator">.</span>addEventListener(<span class="char">'message'</span><span class="operator">,</span> function(event) {
+    var content <span class="operator">=</span> event<span class="operator">.</span>data;
+}<span class="operator">,</span> <span class="keyword">false</span>)</pre>
+<p>Server events fire continually, but you can control the latency by specifying a millisecond value to the <tt>retry</tt> field.</p>
+<p>An event stream may specify more than one event, each separated with a blank line. Streams may also feature custom <tt>event</tt> types, each with its own unique <tt>id</tt>. The following example implements the basic functionality of an RSS feed, which is polled for updates once a minute:</p>
+<pre class="cpp"><span class="operator">&lt;</span><span class="operator">?</span>php
+  header(<span class="string">&quot;Content-Type: text/event-stream\n\n&quot;</span>);
+  echo <span class="string">&quot;retry: 60000\n&quot;</span>;
+  echo <span class="string">&quot;event: item\n&quot;</span>;
+  echo <span class="string">&quot;id: http://server.name/blog/item01.html\n&quot;</span>;
+  echo <span class="string">&quot;data: This is the first item\n&quot;</span>;
+  echo <span class="string">&quot;\n&quot;</span>;
+  echo <span class="string">&quot;event: item\n&quot;</span>;
+  echo <span class="string">&quot;id: http://server.name/blog/item02.html\n&quot;</span>;
+  echo <span class="string">&quot;data: This is the second item\n&quot;</span>;
+  echo <span class="string">&quot;\n&quot;</span>;
+  echo <span class="string">&quot;event: item\n&quot;</span>;
+  echo <span class="string">&quot;id: http://server.name/blog/item03.html\n&quot;</span>;
+  echo <span class="string">&quot;data: This is the third item\n&quot;</span>;
+  echo <span class="string">&quot;\n&quot;</span>;
+<span class="operator">?</span><span class="operator">&gt;</span></pre>
+<p>Within the custom <tt>item</tt> event handler, the <tt>event.lastEventId</tt> corresponds to each <tt>id</tt> specified by the server. This example uses local storage to cache previously consumed items:</p>
+<pre class="cpp">var db <span class="operator">=</span> window<span class="operator">.</span>localStorage;
+var src <span class="operator">=</span> <span class="keyword">new</span> EventSource(<span class="char">'feed.php'</span>);
+src<span class="operator">.</span>addEventListener(<span class="char">'item'</span><span class="operator">,</span> function(event) {
+    var id <span class="operator">=</span> event<span class="operator">.</span>lastEventId;
+    var content <span class="operator">=</span> event<span class="operator">.</span>data;
+    <span class="keyword">if</span> (db<span class="operator">.</span>getItem(id)) <span class="keyword">return</span>(<span class="keyword">false</span>);
+    db<span class="operator">.</span>setItem(id<span class="operator">,</span> content);
+    <span class="comment">// do something else with content</span>
+}<span class="operator">,</span> <span class="keyword">false</span>)</pre>
+<a name="web-workers"></a>
+<h4>Web Workers</h4>
+<p>Messages are also used to interact with separately threaded JavaScript applications called <i>workers</i>. Workers may help push long-running processes to the background so that they don't degrade performance of a web app's main user interface.</p>
+<p>Workers are barred from manipulating the DOM, and have only limited read access to the <tt>location</tt> and <tt>navigator</tt> objects. Workers may communicate via <tt>XMLHttpRequest()</tt>, set timers, access the <a href="webapp.html#the-application-cache">application cache</a>, import other scripts, and generate other workers. (However, note that workers impose an additional performance cost over conventional scripts.)</p>
+<p>Workers are specified from within other scripts as follows:</p>
+<pre class="cpp">var worker <span class="operator">=</span> <span class="keyword">new</span> Worker(<span class="char">'/path/to/worker.js'</span>);
+worker<span class="operator">.</span>onmessage <span class="operator">=</span> function(event) {
+    <span class="comment">// worker's posted results available in event.data</span>
+};</pre>
+<p>Workers use <tt>postMessage()</tt> to return results. The following sample returns a timestamp each second:</p>
+<pre class="cpp">setInterval( function(){
+    postMessage( <span class="keyword">new</span> Date() );
+}<span class="operator">,</span> <span class="number">1000</span> );</pre>
+<p>You also use <tt>postMessage()</tt> to push data to a worker, or simply to prompt a response:</p>
+<pre class="cpp">worker<span class="operator">.</span>postMessage(data);</pre>
+<p>This data is available via the <tt>message</tt> event, which fires on the worker's scope, handled via <tt>this</tt>, <tt>self</tt>, or simply as follows:</p>
+<pre class="cpp">onmessage <span class="operator">=</span> function(event) {
+    <span class="comment">// available via event.data</span>
+};
+<span class="comment">// or:</span>
+addEventListener(<span class="char">'message'</span><span class="operator">,</span> function(event) {
+    <span class="comment">// same</span>
+});</pre>
+<p>Workers can also be <i>shared</i> so that they are available from different scripts within the same domain. Create a <tt>SharedWorker</tt> instance and start its port to communicate with it:</p>
+<pre class="cpp">var worker <span class="operator">=</span> <span class="keyword">new</span> SharedWorker(<span class="string">&quot;/path/to/shared/worker.js&quot;</span>);
+worker<span class="operator">.</span>port<span class="operator">.</span>addEventListener(<span class="string">&quot;message&quot;</span><span class="operator">,</span> function(event){
+    <span class="comment">// event.data contains messages returned from worker</span>
+});
+worker<span class="operator">.</span>port<span class="operator">.</span>start();
+worker<span class="operator">.</span>port<span class="operator">.</span>postMessage(<span class="string">&quot;greeting&quot;</span>);</pre>
+<p>Initializing the port fires a <tt>connect</tt> event on the worker, whose associated handler can prepare communication via the first element of the <tt>event.ports</tt> array (a <tt>SharedWorkerContext</tt> object):</p>
+<pre class="cpp"><span class="keyword">this</span><span class="operator">.</span>addEventListener(<span class="string">&quot;connect&quot;</span><span class="operator">,</span> function(event) {
+    var port <span class="operator">=</span> event<span class="operator">.</span>ports<span class="operator">[</span><span class="number">0</span><span class="operator">]</span>;
+    port<span class="operator">.</span>postMessage(<span class="string">&quot;connected&quot;</span>);
+    port<span class="operator">.</span>addEventListener(<span class="string">&quot;message&quot;</span><span class="operator">,</span> function(event) {
+        port<span class="operator">.</span>postMessage(<span class="string">&quot;reply&quot;</span>);
+    }<span class="operator">,</span> <span class="keyword">false</span>);
+}<span class="operator">,</span> <span class="keyword">false</span>);</pre>
+<p>Errors in worker scripts can be traced using the <tt>error</tt> event, which fires when the problematic worker is initially specified. Details are available via <tt>event.message</tt>, <tt>event.filename</tt>, and <tt>event.lineno</tt>.</p>
+<ul>
+<li><a href="#postmessage">postMessage</a></li>
+<li>(message channels)</li>
+<li>sandboxed iframe</li>
+<li>server events</li>
+<li>workers</li>
+<li>shared workers</li>
+</ul>
+</div>
+<!-- @@@msg.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

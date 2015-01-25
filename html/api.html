@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- api.qdoc -->
+  <title>mobile_html5 : Core APIs</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level3"><a href="#ooo-level-3-css-selectors">ooo Level 3 CSS Selectors</a></li>
+<li class="level1"><a href="#xxx-mt-css">XXX MT CSS</a></li>
+<li class="level2"><a href="#use-advanced-css-formatting">Use Advanced CSS Formatting</a></li>
+<li class="level2"><a href="#example-freehand-drawings">Example: Freehand Drawings</a></li>
+<li class="level2"><a href="#example-edit-irregular-selections">Example: Edit Irregular Selections</a></li>
+</ul>
+</div>
+<h1 class="title">Core APIs</h1>
+<span class="subtitle"></span>
+<!-- $$$api.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="ooo-level-3-css-selectors"></a>
+<h4>ooo Level 3 CSS Selectors</h4>
+<p>Level 3 CSS provides many useful new <b>selectors</b> that make it easier to apply formatting to page elements. These selectors are useful not only in applying style sheets, but when manipulating elements with JavaScript.</p>
+<p>The <b>Selectors API</b> makes DOM elements accessible using the same CSS expressions you use to apply formatting to them. The following show alternate ways to access individual elements:</p>
+<pre class="cpp">var element <span class="operator">=</span> document<span class="operator">.</span>getElementById(<span class="char">'map'</span>);
+var element <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'#map'</span>);
+  <span class="comment">// returns nodelist:</span>
+var elements <span class="operator">=</span> document<span class="operator">.</span>querySelectorAll(<span class="char">'ul &gt; li.active'</span>);</pre>
+<p>The <tt>querySelector</tt> and <tt>querySelectorAll</tt> methods are often superior to <tt>getElementById()</tt> and <tt>getElementsByClassName()</tt>, because CSS selectors allow you to access elements contextually. The final line in the example above ignores otherwise matching <tt>active</tt>-classed items that don't appear within <tt>ul</tt> lists.</p>
+<a name="xxx-mt-css"></a>
+<h2>XXX MT CSS</h2>
+<a name="use-advanced-css-formatting"></a>
+<h3>Use Advanced CSS Formatting</h3>
+<p>The Browser offers a high level of support for Level 3 CSS properties, which offer a rich set of visual effects and layout options.</p>
+<p>This interactive utility demonstrates how various CSS properties work together. After changing each property's value and seeing how it affects an interface element, you can copy the resulting CSS syntax.</p>
+<p><a href="../examples/css3.htm"> <img src="images/media2.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/css3.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>Information boxes feature summaries of key features, which are grouped into related topics. Here's how more recent CSS features may help improve a web app's appearance:</p>
+<ul>
+<li><b>Boxes:</b> Block elements can appear with rounded corners and shadows. Interface elements can be positioned so they are <i>fixed</i> on the screen, while other interface elements may scroll freely. The <i>box-sizing</i> property clarifies what part of a box to measure when assigning its dimensions.</li>
+<li><b>Text:</b> Letterforms may appear with shadows and blurs, and their borders can be enhanced with outline effects to improve legibility against different backgrounds. Text effects also apply to any <a href="font.html">custom fonts</a> you provide.</li>
+<li><b>Color:</b> As an alternative to <i>rgb</i> color (or named colors and hex values), the <i>rgba</i> color definition specifies an <i>alpha</i> value affecting the color's opacity. An alternative <i>hsl</i> model specifies <i>hue</i>, <i>saturation</i>, and <i>luminence</i>. Use <i>hsla</i> to add an opacity value. To fade entire elements rather than their component colors, use the independent <i>opacity</i> property.</li>
+<li><b>Gradients:</b> Gradients offer complex color definitions in which colors fade from one part of an element to another or around a point, with optional transitional states. (The Browser supports both the W3C standard for gradients and legacy WebKit syntax.)</li>
+<li><b>Masks:</b> Masks allow you to modify how an image appears based on the contents of another image, including a gradient, allowing you to fade or clip portions of an image. Reflections produce a mirroring effect, usually along with fading gradients.</li>
+<li><b>Backgrounds:</b> Specify comma-separated values to assign more than one background image, and affect related positioning and scaling properties independently. You can also assign a <i>composite</i> to affect the appearance of background images based on the background color.</li>
+<li><b>Borders:</b> Flexible image components may appear in place of borders. (The Browser supports both W3C standard syntax for border images and legacy WebKit syntax.) You can also use the <i>outline</i> feature to assign an independent border without affecting an element's dimensions.</li>
+<li><b>Overflow:</b> When content overflows a box, you can provide visual hints that more text is available, and control how long words break within narrow columns. Overflowing content can be scrolled automatically using a <i>marquee</i> animation, otherwise you can assign your own custom scrollbar components.</li>
+<li><b>Columns:</b> Create flexible multicolumn layouts, incorporating elements that span columns and break multicolumn regions into separate segments. Such layouts are most appropriate when <a href="query.html">deploying alternative large-screen interfaces</a>, or in some cases for <a href="orient.html">landscape-oriented layouts</a>.</li>
+<li><b>Transitions:</b> With CSS properties defining how different application states appear, many properties can be set to animate from one state to another. Supplying multiple comma-separated arguments along with delays allows you to specify transitional sequences. (See <a href="animation.html">Animations</a> for more information.)</li>
+<li><b>Animations:</b> Keyframe animations allow for more complex animation sequences that can be applied more freely than transitions. (For more information, see <a href="animation.html">Animations</a>.)</li>
+<li><b>Transforms:</b> Transforms allow you to move or modify the appearance of elements by scaling, skewing, or rotating them. Three-dimensional transforms allow you to control the viewer's perceived position relative to an element, and place transformed objects relative to others. (For more information, see <a href="trans.html">Transforms</a>.)</li>
+<li><b>Flexbox:</b> Flexible boxes offer a more abstract way to specify a screen layout, often removing the need for various <i>position</i> and <i>float</i> options. Boxes can be <i>oriented</i> horizontally or vertically to affect how child elements appear. Along either axis, the <i>pack</i> option allows you to center, distribute, or cluster together child elements. The <i>align</i> option specifies how children are then distributed along the perpendicular axis. Elements can appear in a different order than how they are defined within the HTML markup, reducing the need to modify the DOM. Some elements can be resized to fill any extra space.</li>
+<li><b>Interface:</b> Updated CSS properties give control over whether elements are draggable, editable, or selectable within HTML5-enabled applications. You can also override the default <i>appearance</i> of specialized interface elements such as <a href="input.html">form inputs</a>.</li>
+</ul>
+<a name="example-freehand-drawings"></a>
+<h3>Example: Freehand Drawings</h3>
+<p>This example shows how to export a canvas drawing to a static image. The interface allows you to make freehand drawings, modify the size and color of the pen, and save each drawing to a series of images:</p>
+<p><a href="../examples/canvas.htm"> <img src="images/canvas.png" alt="" /> </a></p>
+<p><a href="../examples/canvas.htm"> __IFRAME__ </a> <a href="../examples/canvas.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/canvas.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/canvas.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>In this case, the path follows a series of screen coordinates gathered from <a href="touch.html">touch handlers</a>:</p>
+<pre class="cpp">cv<span class="operator">.</span>addEventListener(<span class="char">'touchstart'</span><span class="operator">,</span> function(e) {
+    cx<span class="operator">.</span>moveTo(e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>offsetX<span class="operator">,</span> e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>offsetY);
+    cx<span class="operator">.</span>beginPath();
+});
+cv<span class="operator">.</span>addEventListener(<span class="char">'touchmove'</span><span class="operator">,</span> function(e) {
+    cx<span class="operator">.</span>lineTo(e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>offsetX<span class="operator">,</span> e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>offsetY);
+    cx<span class="operator">.</span>stroke();
+};
+cv<span class="operator">.</span>addEventListener(<span class="char">'touchend'</span><span class="operator">,</span> function(e) {
+    cx<span class="operator">.</span>closePath();
+};</pre>
+<p>The <tt>getImageData()</tt> method copies a rectangular selection from the canvas, and <tt>putImageData</tt> replaces it. The <tt>canvas</tt> object's <tt>toDataURL()</tt> method produces a static image specified with the <tt>data:</tt> scheme, which can be referenced by an <tt>Image</tt> object's <tt>src</tt> attribute.</p>
+<pre class="cpp">var width <span class="operator">=</span> maxX <span class="operator">-</span> minX; <span class="comment">// tracked from touch gestures</span>
+var height <span class="operator">=</span> maxY <span class="operator">-</span> minY;
+var img <span class="operator">=</span> <span class="keyword">new</span> Image();
+var data <span class="operator">=</span> cx<span class="operator">.</span>getImageData(minX<span class="operator">,</span> minY<span class="operator">,</span> width<span class="operator">,</span> height); <span class="comment">// copy selection</span>
+cv<span class="operator">.</span>width <span class="operator">=</span> width; <span class="comment">// clear  canvas</span>
+cv<span class="operator">.</span>height <span class="operator">=</span> height;
+cx<span class="operator">.</span>putImageData(data<span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> <span class="number">0</span>); <span class="comment">// replace selection at top left</span>
+img<span class="operator">.</span>src <span class="operator">=</span> cv<span class="operator">.</span>toDataURL(); <span class="comment">// save into image</span></pre>
+<a name="example-edit-irregular-selections"></a>
+<h3>Example: Edit Irregular Selections</h3>
+<p>The example above shows how to copy a canvas drawing into an image. The following example shows how to read from an image into a canvas. In this case, a freehand drawing gesture defines a clipping path, after which tapping within the irregular selection extracts it from the rest of the image:</p>
+<p><a href="../examples/canvasclip.htm"> <img src="images/canvasfreeclip.png" alt="" /> <img src="images/canvasfreeclip2.png" alt="" /> </a></p>
+<p><a href="../examples/canvasclip.htm"> __IFRAME__ </a> <a href="../examples/canvasclip.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/canvasclip.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/canvasclip.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>After the path is defined, a subsequent touch handler calls <tt>isPointInPath()</tt> to test if screen coordinates fall within the path. The <tt>clip()</tt> method allows you to render subsequent graphics only within the path. In this case, the <tt>drawImage()</tt> method imports the image into the canvas, but only within the path:</p>
+<pre class="cpp"><span class="keyword">if</span> (cx<span class="operator">.</span>isPointInPath(e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>offsetX<span class="operator">,</span> e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>offsetY) ) {
+    cx<span class="operator">.</span>strokeStyle <span class="operator">=</span> <span class="char">'transparent'</span>; <span class="comment">// erase selection color</span>
+    cx<span class="operator">.</span>stroke();
+    cx<span class="operator">.</span>clip(); <span class="comment">// set clipping region to path</span>
+    var img <span class="operator">=</span> <span class="keyword">new</span> Image();
+    img<span class="operator">.</span>src <span class="operator">=</span> <span class="char">'img/Objects008.jpg'</span>;
+    cx<span class="operator">.</span>drawImage(img<span class="operator">,</span><span class="number">0</span><span class="operator">,</span><span class="number">0</span>); <span class="comment">// redraw image into clipping region</span>
+}</pre>
+<p>The <tt>rect()</tt> method also defines a path suitable for clipping. You can use it to re-expand the path to the dimensions of the canvas:</p>
+<pre class="cpp">cx<span class="operator">.</span>rect(<span class="number">0</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> cv<span class="operator">.</span>width<span class="operator">,</span> cv<span class="operator">.</span>height);</pre>
+</div>
+<!-- @@@api.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

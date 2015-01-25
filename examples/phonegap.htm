@@ -1,0 +1,476 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>HTML samples</title>
+<link href="img/app_icon.png" rel="apple-touch-icon"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+<style>
+
+body {
+    font-family                 : sans-serif;
+    font-weight                 : bold;
+    overflow-x                  : hidden;
+    background                  : #222;
+}
+
+section {
+    position                    : absolute;
+    overflow-x                  : hidden;
+    top                         : 0;
+    bottom                      : 0;
+    right                       : 0;
+    left                        : 0;
+}
+
+pre {
+    overflow-x                  : scroll;
+}
+
+article {
+    -webkit-animation-duration  : 0.5s;
+    -webkit-animation-fill-mode : both;
+    -webkit-animation-name      : panel_out;
+    -webkit-transform-origin    : 50% 0%;
+    width                       : 90%;
+    position                    : absolute;
+    top                         : 0;
+    left                        : 0;
+    pointer-events              : none;
+    min-height                  : 100%;
+    color                       : #fff;
+    padding                     : 1em;
+}
+
+@-webkit-keyframes panel_out {
+    0% { -webkit-transform      : translate(0%) scale(1.0) }
+    99% { -webkit-transform     : translate(100%) scale(1.0) }
+    100% { -webkit-transform    : translate(99%) scale(0.0) }
+}
+
+article.sel {
+    -webkit-animation-name      : panel_in;
+}
+
+@-webkit-keyframes panel_in {
+    0% { -webkit-transform      : translate(99%) scale(0.0) }
+    1% { -webkit-transform      : translate(100%) scale(1.0) }
+    100% { -webkit-transform    : translate(0%) scale(1.0) }
+}
+
+#home {
+    -webkit-animation-name      : home_out;
+    padding-bottom              : 10em;
+}
+
+@-webkit-keyframes home_out {
+    0% { -webkit-transform      : translate(0%) scale(1.0) }
+    99% { -webkit-transform     : translate(-100%) scale(1.0) }
+    100% { -webkit-transform    : translate(-99%) scale(0.0) }
+}
+
+#home.sel  {
+    -webkit-animation-name      : home_in;
+}
+
+@-webkit-keyframes home_in {
+    0% { -webkit-transform      : translate(-99%) scale(0.0) }
+    1% { -webkit-transform      : translate(-100%) scale(1.0) }
+    100% { -webkit-transform    : translate(0%) scale(1.0) }
+}
+
+h2, article:first-of-type li, div {
+    pointer-events              : auto;
+}
+
+h1 {
+    margin-top                  : 1em;
+    text-align                  : center;
+    font-size                   : 20px;
+}
+
+h2 {
+    font-size                   : 20px;
+    -webkit-user-select         : none;
+}
+
+ul {
+    padding                     : 1em;
+    list-style-type             : none;
+    border-radius               : 1.0em;
+}
+
+li {
+    -webkit-user-select         : none;
+    font-size                   : 18px;
+    padding                     : 1em 1.0em 1em 1em;
+    background-image            : -webkit-gradient(linear, 50% 0%, 50% 100%, from(#666), to(#444));
+    text-shadow                 : #000 2px 2px 2px;
+}
+
+li:first-of-type {
+    border-radius               : 1.0em 1.0em 0 0;
+}
+
+li:last-of-type {
+    border-radius               : 0 0 1.0em 1.0em;
+}
+
+li:before {    
+    -webkit-transform           : translateY(-0.5em);
+    float                       : right;
+    text-align                  : right;
+}
+
+h2 {
+    background-image            : -webkit-gradient(linear, 50% 0%, 50% 100%, from(#666), to(#222));
+    text-shadow                 : #000 2px 2px 2px;
+    padding                     : 1em 1em 1.0em 1em;
+    border-radius               : 1.0em;
+    border                      : 1px solid #444;
+}
+
+h2:before {
+    float                       : left;
+    display                     : inline-block;
+    -webkit-transform           : rotate(180deg) translateY(0.5em);
+    margin-right                : 0.5em;
+}
+
+li:before, h2:before {
+    content                     : url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAL9JREFUeNrs19EJgCAUBVC7EzhCIzRSfTmTXzVSG9QIjdATCvroR72PHuEFEUTkIKJP51pafpYuZ3IIoZdulLbHGJdPQYLx0m3S/DW0CGpig5Axd3hgUkZBzl+C3kJHgbAGFQXSOjQUiLtNQYF8JqtRULhKqlAaoCqUFqgYpQkqQmmDbtRgCeSs7VB6hFcroOyKAJYwmqDiWgmWMBqg6ioSljBMEK2+hiUMA0T/eeSA0m17aGJMfhRbWn6XU4ABAOmSSDLwKwk+AAAAAElFTkSuQmCC);
+}
+
+div {
+    background                  : #666;
+    margin                      : 0em;
+    padding                     : 1em;
+    border-radius               : 1em;
+    min-height                  : 10em;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<section>
+
+<article class="sel" id="home">
+
+<h1>Phonegap APIs</h1>
+
+<ul>
+
+<li data-tgt="accelerometer">accelerometer</li>
+<li data-tgt="compass">compass</li>
+<li data-tgt="connection">connection</li>
+<li data-tgt="contacts">contacts</li>
+<li data-tgt="device">device</li>
+<li data-tgt="events">events</li>
+<li data-tgt="file">file</li>
+<li data-tgt="geolocation">geolocation</li>
+<li data-tgt="notification">notification</li>
+
+</ul>
+
+<!--
+<h1>Unsupported</h1>
+
+<ul>
+
+<li data-tgt="camera">camera</li>
+<li data-tgt="capture">capture</li>
+<li data-tgt="media">media</li>
+<li data-tgt="storage">storage</li>
+
+</ul>
+
+-->
+
+</article>
+
+<article id="accelerometer" data-tgt="home">
+<h2>Accelerometer</h2>
+<div>
+
+<pre>
+Captures device motion in the x, y, and z direction.
+
+Methods 
+
+accelerometer.getCurrentAcceleration()
+accelerometer.watchAcceleration()
+accelerometer.clearWatch()
+
+Arguments 
+
+accelerometerSuccess
+accelerometerError
+accelerometerOptions
+
+Objects (Read-Only) 
+
+Acceleration
+</pre>
+
+</div>
+</article>
+
+<article id="compass" data-tgt="home">
+<h2>Compass</h2>
+<div>
+<pre>
+Methods 
+
+compass.getCurrentHeading()
+compass.watchHeading()
+compass.clearWatch()
+compass.watchHeadingFilter()
+compass.clearWatchFilter()
+
+Arguments 
+
+compassSuccess
+compassError
+compassOptions
+compassHeading
+</pre>
+</div>
+</article>
+
+<article id="connection" data-tgt="home">
+<h2>Connection</h2>
+<div>
+<pre>
+Properties 
+
+connection.type
+
+Constants 
+
+Connection.UNKNOWN
+Connection.ETHERNET
+Connection.WIFI
+Connection.CELL_2G
+Connection.CELL_3G
+Connection.CELL_4G
+Connection.NONE
+</pre>
+</div>
+</article>
+
+<article id="contacts" data-tgt="home">
+<h2>Contacts</h2>
+<div>
+<pre>
+Methods 
+
+contacts.create()
+contacts.find()
+
+Arguments 
+
+contactFields
+contactSuccess
+contactError
+contactFindOptions
+
+Objects 
+
+Contact
+ContactName
+ContactField
+ContactAddress
+ContactOrganization
+ContactFindOptions
+ContactError
+</pre>
+</div>
+</article>
+
+<article id="device" data-tgt="home">
+<h2>Device</h2>
+<div>
+<pre>
+device.name
+device.phonegap
+device.platform
+device.uuid
+device.version
+</pre>
+</div>
+</article>
+
+<article id="events" data-tgt="home">
+<h2>Events</h2>
+<div>
+<pre>
+deviceready
+pause
+resume
+online
+offline
+backbutton
+batterycritical
+batterylow
+batterystatus
+menubutton
+searchbutton
+startcallbutton
+endcallbutton
+volumedownbutton
+volumeupbutton
+</pre>
+</div>
+</article>
+
+<article id="file" data-tgt="home">
+<h2>File</h2>
+<div>
+<pre>
+Objects 
+
+DirectoryEntry
+DirectoryReader
+File
+FileEntry
+FileError
+FileReader
+FileSystem
+FileTransfer
+FileTransferError
+FileUploadOptions
+FileUploadResult
+FileWriter
+Flags
+LocalFileSystem
+Metadata
+</pre>
+</div>
+</article>
+
+<article id="geolocation" data-tgt="home">
+<h2>Geolocation</h2>
+<div>
+<pre>
+Methods 
+
+geolocation.getCurrentPosition
+geolocation.watchPosition
+geolocation.clearWatch
+
+Arguments 
+
+geolocationSuccess
+geolocationError
+geolocationOptions
+
+Objects (Read-Only) 
+
+Position
+PositionError
+Coordinates
+</pre>
+</div>
+</article>
+
+<article id="notification" data-tgt="home">
+<h2>Notification</h2>
+<div>
+<pre>
+notification.alert()
+notification.confirm()
+notification.beep()
+notification.vibrate()
+</pre>
+</div>
+</article>
+
+<article id="camera" data-tgt="home">
+<h2>Camera</h2>
+<div>
+<pre>
+not supported?
+</pre>
+</div>
+</article>
+
+<article id="capture" data-tgt="home">
+<h2>Capture</h2>
+<div>
+<pre>
+not supported?
+</pre>
+</div>
+</article>
+
+<article id="media" data-tgt="home">
+<h2>Media</h2>
+<div>
+<pre>
+not supported?
+</pre>
+</div>
+</article>
+
+<article id="storage" data-tgt="home">
+<h2>Storage</h2>
+<div>
+<pre>
+not supported?
+</pre>
+</div>
+</article>
+
+</section>
+
+<script>
+
+// Interface relying on conventional navigation to #target panels
+// within page doesn't work. You can't #target panels that appear
+// off-screen prior to them animating into view. So this script builds
+// an alternate navigation system.
+
+// Each data-tgt attr references an id to link to, and script applies
+// 'sel' class to drive CSS animations, removing that class from other
+// potential targets. Mechanism emulates behavior of #target.
+// Targeting full-screen <article> tags causes them to slide in.
+
+// Links back to home screen are triggered by H2's, which has
+// pointer-events CSS enabled. Background article has pointer-events
+// disabled to keep entire screen from activating navigation. <div>
+// tags with functional content are touch-enabled.
+
+// BTW, for background, we consciously want to avoid UI frameworks, to
+// show off browser capabilities directly
+
+var ui = new Function();
+
+window.onload = function() {
+    ui.links = document.querySelectorAll('#home li, article:not(:first-of-type)');
+    ui.home = document.querySelector('#home');
+    ui.l = ui.links.length;
+    for (var i = 0; i < ui.l; i++) {
+        ui.links[i].addEventListener('click', ui.navigateToTarget);
+    }
+};
+
+ui.navigateToTarget = function(e) {
+    // allow other content within ARTICLE to activate
+    if (e.currentTarget.tagName == 'ARTICLE' && e.target.tagName != 'H2') return(false);
+
+    window.scroll(0,0);
+    var id = e.currentTarget.dataset.tgt;
+    for (var i = 0; i < ui.l; i++) {
+        ui.links[i].classList.remove('sel');
+    }
+    ui.home.classList.remove('sel');
+    document.getElementById(id).classList.add('sel');
+}
+</script>
+
+</body>
+</html>

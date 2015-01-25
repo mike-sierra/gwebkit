@@ -1,0 +1,366 @@
+<!--
+/****************************************************************************
+**
+** Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (qt-info@nokia.com)
+**
+** This file is part of the QtWebKit module of the Qt Toolkit.
+**
+** You may use this file under the terms of the BSD license as follows:
+**
+** "Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are
+** met:
+**   * Redistributions of source code must retain the above copyright
+**     notice, this list of conditions and the following disclaimer.
+**   * Redistributions in binary form must reproduce the above copyright
+**     notice, this list of conditions and the following disclaimer in
+**     the documentation and/or other materials provided with the
+**     distribution.
+**   * Neither the name of Nokia Corporation and its Subsidiary(-ies) nor
+**     the names of its contributors may be used to endorse or promote
+**     products derived from this software without specific prior written
+**     permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+**
+****************************************************************************/
+-->
+
+<html>
+<head>
+<title>utility</title>
+
+<style>
+body {
+    background : #aaaaaa;
+    overflow : hidden;
+}
+
+pre.debug {
+    background : #ffffff;
+    text-align : center;
+}
+
+img {
+    border-radius : 0.5em;
+    -webkit-backface-visibility: hidden;
+}
+
+input[type=range] {
+    height: 0.5em;
+}
+
+section {
+    min-width: 200px;
+    position : absolute;
+    right : 1em;
+    left : 1em;
+    top : 6em;
+    padding : 1em;
+    border-radius : 1em;
+    background : #ffffff
+}
+
+pre {
+    z-index : 100;
+    position : absolute;
+    top : 0.5em;
+    left : 1em;
+    right : 1em;
+    padding : 0.5em;
+    border-radius : 0.5em;
+    background : #ffffff;
+}
+
+#display {
+    right : 40%;
+    max-width : 25%;
+    text-align : center;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 36px;
+    border-radius: 1em;
+}
+
+#control {
+    left : 45%;
+    background : #ffffff;
+    min-width: 400px;
+}
+
+label {
+    width: 4em;
+    display: inline-block;
+}
+
+fieldset {
+    margin: 0.25em;
+}
+
+</style>
+
+<link rel="apple-touch-icon-precomposed" href="img/html5x128.png" />
+<link rel="apple-touch-icon" href="img/html5x128.png" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<pre>
+-webkit-box-shadow: <span id="code_bshad"></span>;
+text-shadow: <span id="code_tshad"></span>;
+font-family: <span id="code_font"></span>;
+</pre>
+
+<section id="display">
+The quick brown fox jumped over the lazy dog.
+</section>
+
+<section id="control">
+
+<form>
+
+<input type="reset" value="Start Over">
+
+<fieldset>
+<legend>Box Shadow</legend>
+<label>X</label>
+<input id="box_x" type="range" min="-30" max="30" value="10"/>
+<br/><label>Y</label>
+<input id="box_y" type="range" min="-30" max="30" value="10"/>to 30px
+<br/><label>Blur</label>
+<input id="box_blur" type="range" min="0" max="30" value="0"/>to 30px
+<br/><label>Spread</label>
+<input id="box_spread" type="range" min="0" max="30" value="0"/>to 30px
+<fieldset>
+<legend>Color</legend>
+<label>R</label>
+<input id="box_r" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>G</label>
+<input id="box_g" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>B</label>
+<input id="box_b" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>A</label>
+<input id="box_a" type="range" step="0.05" min="0" max="1" value="1"/>0-1
+</fieldset>
+
+<label>Inset</label>
+<input id="box_inset" type="checkbox"/>
+
+</fieldset>
+
+<fieldset>
+<legend>Text Shadow</legend>
+<label>X</label>
+<input id="text_x" type="range" min="-30" max="30" value="3"/>
+<br/><label>Y</label>
+<input id="text_y" type="range" min="-30" max="30" value="3"/>to 30px
+<br/><label>Blur</label>
+<input id="text_blur" type="range" min="0" max="30" value="0"/>to 30px
+<fieldset>
+<legend>Color</legend>
+<label>R</label>
+<input id="text_r" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>G</label>
+<input id="text_g" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>B</label>
+<input id="text_b" type="range" min="0" max="100" value="100"/>0-100%
+<br/><label>A</label>
+<input id="text_a" type="range" min="0" max="1" step="0.05" value="1"/>0-100%
+</fieldset>
+
+</fieldset>
+
+<label>font-family</label>
+
+
+<select id="font_family">
+
+<optgroup label="font classes">
+<option>serif</option>
+<option selected>sans-serif</option>
+<option>monospace</option>
+<option>fantasy</option>
+<option>script</option>
+
+</optgroup>
+
+<optgroup label="font families">
+<option>Arial Black</option>
+<option>Arial</option>
+<option>Book Antiqua</option>
+<option>Calibri</option>
+<option>Charcoal</option>
+<option>Comic Sans MS</option>
+<option>Comic Sans</option>
+<option>Courier New</option>
+<option>Courier</option>
+<option>Garamond</option>
+<option>Geneva</option>
+<option>Georgia</option>
+<option>Helvetica</option>
+<option>Impact</option>
+<option>Lucida Console</option>
+<option>Lucida Sans Unicode</option>
+<option>MS Sans Serif</option>
+<option>Minion</option>
+<option>Monospace</option>
+<option>Palatino Linotype</option>
+<option>Palatino</option>
+<option>Symbol</option>
+<option>Tahoma</option>
+<option>Times New Roman</option>
+<option>Times</option>
+<option>Trebuchet MS</option>
+<option>Verdana</option>
+<option>Webdings</option>
+<option>Wingdings</option>
+</optgroup>
+
+</select>
+
+</form>
+
+</section>
+
+<script>
+var app = new Function();
+
+window.onload = function() {
+    app.init();
+    document.querySelector('input[type=reset]').addEventListener('click', function( ) { app.init() } );
+};
+
+app.init = function() {
+
+    app.initValue_box = '10px 10px 0px 0px rgba(50%, 50%, 50%, 1)';
+    app.initValue_text = '3px 3px 3px rgba(50%, 50%, 100%, 1)';
+    app.initValue_font = 'sans-serif';
+    app.showCode('code_bshad', app.initValue_box);
+    app.showCode('code_tshad', app.initValue_text);
+    app.showCode('code_font', app.initValue_font);
+
+    app.tgt = document.querySelector('#display');
+    app.tgt.style.webkitBoxShadow = app.initValue_box;
+    app.tgt.style.textShadow = app.initValue_text;
+    app.tgt.style.fontFamily = app.initValue_font;
+
+    app.inputs = document.querySelectorAll('select, input:not([type=reset])');
+    for (var i = 0, l = app.inputs.length ; i < l ; i++) {
+        app.inputs[i].addEventListener('change', app.modify);
+    }
+
+    app['box_r'] = 50;
+    app['box_g'] = 50;
+    app['box_b'] = 50;
+    app['box_a'] = 1;
+    app['box_blur'] = 0;
+    app['box_inset'] = '';
+    app['box_spread'] = 0;
+    app['box_x'] = 10;
+    app['box_y'] = 10;
+
+    app['text_r'] = 50;
+    app['text_g'] = 50;
+    app['text_b'] = 100;
+    app['text_a'] = 1;
+    app['text_blur'] = 3;
+    app['text_x'] = 3;
+    app['text_y'] = 3;
+
+    app['font_family'] = 'sans-serif';
+
+};
+
+app.modify = function(event) {
+    if (event.target.tagName == 'SELECT') {
+        app[event.target.id] = event.target.value;
+    }
+    else if (event.target.type == 'checkbox') {
+        event.target.value
+            ? app[event.target.id] = ' inset'
+            : app[event.target.id] = '';
+    }
+    else {
+        app[event.target.id] = app.trimArtifact(event.target.value);
+    }
+    app.render();
+}
+
+app.trimArtifact = function(n) {
+    if (n.match(/^[0-9.-]+$/)) {
+        return(Math.floor(n * 100) / 100);
+    }
+    else if (n.match(/^[a-z]+$/)) {
+        return(n);
+    }
+    else {
+        alert(n);
+    }
+}
+
+app.render = function() {
+
+    var cssStr_box;
+    var cssStr_text;
+    var cssStr_font;
+
+    cssStr_box = app.box_x + 'px ';
+    cssStr_box += app.box_y + 'px ';
+    cssStr_box += app.box_blur + 'px ';
+    cssStr_box += app.box_spread + 'px ';
+    cssStr_box += 'rgba(';
+    cssStr_box += app.box_r;
+    cssStr_box += '%, ';
+    cssStr_box += app.box_g;
+    cssStr_box += '%, ';
+    cssStr_box += app.box_b;
+    cssStr_box += '%, ';
+    cssStr_box += app.box_a;
+    cssStr_box += ')';
+    cssStr_box += app.box_inset;
+
+    cssStr_text = app.text_x + 'px ';
+    cssStr_text += app.text_y + 'px ';
+    cssStr_text += app.text_blur + 'px ';
+    cssStr_text += 'rgba(';
+    cssStr_text += app.text_r;
+    cssStr_text += '%, ';
+    cssStr_text += app.text_g;
+    cssStr_text += '%, ';
+    cssStr_text += app.text_b;
+    cssStr_text += '%,';
+    cssStr_text += app.text_a;
+    cssStr_text += ')';
+
+    cssStr_font = app.font_family;
+
+    app.tgt.style.webkitBoxShadow = cssStr_box;
+    app.tgt.style.textShadow = cssStr_text;
+    app.tgt.style.fontFamily = cssStr_font;
+
+    app.showCode('code_bshad', cssStr_box);
+    app.showCode('code_tshad', cssStr_text);
+    app.showCode('code_font', cssStr_font);
+
+};
+
+app.showCode = function(id, str) {
+    document.getElementById(id).innerHTML = str;
+}
+
+</script>
+</body>
+</html>

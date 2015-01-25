@@ -1,0 +1,78 @@
+body {
+    background                 : #aaaaaa;
+    font-family                : sans-serif;
+    font-weight                : bold;
+}
+
+h1,h2,h3,h4 {
+    text-align                 : center;
+}
+
+section {
+    position                   : absolute;
+    top                        : 0;
+    left                       : 0;
+    right                      : 0;
+    bottom                     : 0;
+}
+
+article {
+
+
+
+    max-width                  : 320px;
+    background-color           : #ffffff;
+    border-radius              : 1.0em;
+    padding                    : 1.0em;
+    margin                     : 1em;
+    min-height                 : 80%;
+    -webkit-perspective        : 100;
+    background-size            : cover;
+    background-image           : url(../img/gal7.png);
+    background-repeat          : no-repeat;
+    background-position        : 50% 0%;
+}
+
+div {
+    overflow-y                 : -webkit-marquee;
+    -webkit-marquee-direction  : up;
+    -webkit-marquee-repetition : 1;
+    -webkit-marquee-style      : scroll;
+    -webkit-marquee-speed      : 10;
+    -webkit-marquee-increment  : small;
+    text-shadow                : #777 1px 1px 2px, #777 -1px -1px 2px, #333 0px 6px 2px;
+    padding                    : 1em;
+    position                   : absolute;
+    height                     : 100%;
+    line-height                : 2em;
+    top                        : -14px;
+    font-size                  : 20px;
+    color                      : gold;
+    left                       : 15%;
+    width                      : 60%;
+    text-align                 : center;
+    -webkit-transform-origin   : 0% 0%;
+    -webkit-transform-style    : preserve-3d;
+    -webkit-transform          : rotateX(10deg);
+}
+
+a {
+    display: inline-block;
+    text-decoration: none;
+}
+
+a:active {
+    color                      : gold;    
+}
+a:visited {
+    color                      : gold;
+}
+
+a:link {
+    border-radius: 0.5em;
+    line-height: 1em;
+    padding: 0.2em;
+    color                      : gold;
+    border: orange medium solid;
+}
+

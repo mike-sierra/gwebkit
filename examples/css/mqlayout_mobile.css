@@ -1,0 +1,41 @@
+/* Mobile UI */
+
+body {
+    font-family      : sans-serif;
+    font-weight      : bold;
+}
+
+nav, body > section, header, footer {
+    padding          : 0.5em;
+}
+
+header {
+    display          : none;
+}
+
+section#main {
+    background-color : lightgreen;
+    margin-bottom    : 1em;
+}
+
+nav:after {
+    float            : right;
+    content          : '[ICON]';
+}
+
+nav:before {
+    content          : 'SIMPLE ';
+}
+
+nav {
+    background-color : lightblue;
+    margin-bottom    : 1em;
+}
+
+section#sidebar {
+    display          : none;
+}
+
+footer {
+    background-color : gold;
+}

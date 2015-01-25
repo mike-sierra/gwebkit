@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE QDOCINDEX>
+<INDEX url="" title="mobile_html5 Reference Documentation" version="">
+    <namespace access="public" threadsafety="unspecified" status="commendable" name="" href="" location="" module="">
+        <page access="public" status="commendable" name="../examples/anim_accord.htm" href="examples-anim-accord-htm.html" subtype="externalpage" title="x_anim_accord" fulltitle="x_anim_accord" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_combine.htm" href="examples-anim-combine-htm.html" subtype="externalpage" title="x_anim_combine" fulltitle="x_anim_combine" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_dice.htm" href="examples-anim-dice-htm.html" subtype="externalpage" title="x_anim_dice" fulltitle="x_anim_dice" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_flip.htm" href="examples-anim-flip-htm.html" subtype="externalpage" title="x_anim_flip" fulltitle="x_anim_flip" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_gallery.htm" href="examples-anim-gallery-htm.html" subtype="externalpage" title="x_anim_gallery" fulltitle="x_anim_gallery" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_marquee.htm" href="examples-anim-marquee-htm.html" subtype="externalpage" title="x_anim_marquee" fulltitle="x_anim_marquee" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_panel.htm" href="examples-anim-panel-htm.html" subtype="externalpage" title="x_anim_panel" fulltitle="x_anim_panel" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_present.htm" href="examples-anim-present-htm.html" subtype="externalpage" title="x_anim_present" fulltitle="x_anim_present" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_pulse.htm" href="examples-anim-pulse-htm.html" subtype="externalpage" title="x_anim_pulse" fulltitle="x_anim_pulse" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_skew.htm" href="examples-anim-skew-htm.html" subtype="externalpage" title="x_anim_skew" fulltitle="x_anim_skew" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_slide1.htm" href="examples-anim-slide1-htm.html" subtype="externalpage" title="x_anim_slide1" fulltitle="x_anim_slide1" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/anim_timer.htm" href="examples-anim-timer-htm.html" subtype="externalpage" title="x_anim_timer" fulltitle="x_anim_timer" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/animate.htm" href="examples-animate-htm.html" subtype="externalpage" title="x_animate_htm" fulltitle="x_animate_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/audio.htm" href="examples-audio-htm.html" subtype="externalpage" title="x_audio_htm" fulltitle="x_audio_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/av_audio.htm" href="examples-av-audio-htm.html" subtype="externalpage" title="x_av_audio" fulltitle="x_av_audio" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/av_video-default.htm" href="examples-av-video-default-htm.html" subtype="externalpage" title="x_av_video-default" fulltitle="x_av_video-default" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/av_video.htm" href="examples-av-video-htm.html" subtype="externalpage" title="x_av_video" fulltitle="x_av_video" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/canvas.htm" href="examples-canvas-htm.html" subtype="externalpage" title="x_canvas_htm" fulltitle="x_canvas_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/canvasCurve.htm" href="examples-canvascurve-htm.html" subtype="externalpage" title="x_canvasCurve_htm" fulltitle="x_canvasCurve_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/canvasclip.htm" href="examples-canvasclip-htm.html" subtype="externalpage" title="x_canvasclip_htm" fulltitle="x_canvasclip_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/compass.htm" href="examples-compass-htm.html" subtype="externalpage" title="x_compass_htm" fulltitle="x_compass_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_accord.css" href="examples-css-anim-accord-css.html" subtype="externalpage" title="x_anim_accord_css" fulltitle="x_anim_accord_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_combine.css" href="examples-css-anim-combine-css.html" subtype="externalpage" title="x_anim_combine_css" fulltitle="x_anim_combine_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_dice.css" href="examples-css-anim-dice-css.html" subtype="externalpage" title="x_anim_dice_css" fulltitle="x_anim_dice_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_flip.css" href="examples-css-anim-flip-css.html" subtype="externalpage" title="x_anim_flip_css" fulltitle="x_anim_flip_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_gallery.css" href="examples-css-anim-gallery-css.html" subtype="externalpage" title="x_anim_gallery_css" fulltitle="x_anim_gallery_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_marquee.css" href="examples-css-anim-marquee-css.html" subtype="externalpage" title="x_anim_marquee_css" fulltitle="x_anim_marquee_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_panel.css" href="examples-css-anim-panel-css.html" subtype="externalpage" title="x_anim_panel_css" fulltitle="x_anim_panel_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_present.css" href="examples-css-anim-present-css.html" subtype="externalpage" title="x_anim_present_css" fulltitle="x_anim_present_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_pulse.css" href="examples-css-anim-pulse-css.html" subtype="externalpage" title="x_anim_pulse_css" fulltitle="x_anim_pulse_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_skew.css" href="examples-css-anim-skew-css.html" subtype="externalpage" title="x_anim_skew_css" fulltitle="x_anim_skew_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/anim_slide.css" href="examples-css-anim-slide-css.html" subtype="externalpage" title="x_anim_slide_css" fulltitle="x_anim_slide_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/animate.css" href="examples-css-animate-css.html" subtype="externalpage" title="x_animate_css" fulltitle="x_animate_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/audio.css" href="examples-css-audio-css.html" subtype="externalpage" title="x_audio_css" fulltitle="x_audio_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/av_audio.css" href="examples-css-av-audio-css.html" subtype="externalpage" title="x_av_audio_css" fulltitle="x_av_audio_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/canvas.css" href="examples-css-canvas-css.html" subtype="externalpage" title="x_canvas_css" fulltitle="x_canvas_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/canvasclip.css" href="examples-css-canvasclip-css.html" subtype="externalpage" title="x_canvasclip_css" fulltitle="x_canvasclip_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3.css" href="examples-css-css3-css.html" subtype="externalpage" title="x_css3_css" fulltitle="x_css3_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_backgrounds-pos.css" href="examples-css-css3-backgrounds-pos-css.html" subtype="externalpage" title="x_css3_backgrounds_pos_css" fulltitle="x_css3_backgrounds_pos_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_backgrounds.css" href="examples-css-css3-backgrounds-css.html" subtype="externalpage" title="x_css3_backgrounds_css" fulltitle="x_css3_backgrounds_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_borderimg.css" href="examples-css-css3-borderimg-css.html" subtype="externalpage" title="x_css3_borderimg_css" fulltitle="x_css3_borderimg_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_borderimg_bottom.css" href="examples-css-css3-borderimg-bottom-css.html" subtype="externalpage" title="x_css3_borderimg_bottom_css" fulltitle="x_css3_borderimg_bottom_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_borderimg_round.css" href="examples-css-css3-borderimg-round-css.html" subtype="externalpage" title="x_css3_borderimg_round_css" fulltitle="x_css3_borderimg_round_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_borderimg_stretch.css" href="examples-css-css3-borderimg-stretch-css.html" subtype="externalpage" title="x_css3_borderimg_stretch_css" fulltitle="x_css3_borderimg_stretch_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_flex.css" href="examples-css-css3-flex-css.html" subtype="externalpage" title="x_css3_flex_css" fulltitle="x_css3_flex_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_grad-radial.css" href="examples-css-css3-grad-radial-css.html" subtype="externalpage" title="x_css3_grad-radial_css" fulltitle="x_css3_grad-radial_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_gradientBack.css" href="examples-css-css3-gradientback-css.html" subtype="externalpage" title="x_css3_gradientBack_css" fulltitle="x_css3_gradientBack_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_gradientBackStop.css" href="examples-css-css3-gradientbackstop-css.html" subtype="externalpage" title="x_css3_gradientBackStop_css" fulltitle="x_css3_gradientBackStop_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_gradientButton.css" href="examples-css-css3-gradientbutton-css.html" subtype="externalpage" title="x_css3_gradientButton_css" fulltitle="x_css3_gradientButton_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_marquee.css" href="examples-css-css3-marquee-css.html" subtype="externalpage" title="x_css3_marquee_css" fulltitle="x_css3_marquee_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_mask-grad.css" href="examples-css-css3-mask-grad-css.html" subtype="externalpage" title="x_css3_mask-grad_css" fulltitle="x_css3_mask-grad_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_mask-img.css" href="examples-css-css3-mask-img-css.html" subtype="externalpage" title="x_css3_mask-img_css" fulltitle="x_css3_mask-img_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_multicol.css" href="examples-css-css3-multicol-css.html" subtype="externalpage" title="x_css3_multicol_css" fulltitle="x_css3_multicol_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_reflect.css" href="examples-css-css3-reflect-css.html" subtype="externalpage" title="x_css3_reflect_css" fulltitle="x_css3_reflect_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_scroll.css" href="examples-css-css3-scroll-css.html" subtype="externalpage" title="x_css3_scroll_css" fulltitle="x_css3_scroll_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_sel-nth.css" href="examples-css-css3-sel-nth-css.html" subtype="externalpage" title="x_css3_sel-nth_css" fulltitle="x_css3_sel-nth_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_shadow.css" href="examples-css-css3-shadow-css.html" subtype="externalpage" title="x_css3_shadow_css" fulltitle="x_css3_shadow_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_shadowBlur.css" href="examples-css-css3-shadowblur-css.html" subtype="externalpage" title="x_css3_shadowBlur_css" fulltitle="x_css3_shadowBlur_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_shadowInset.css" href="examples-css-css3-shadowinset-css.html" subtype="externalpage" title="x_css3_shadowInset_css" fulltitle="x_css3_shadowInset_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_shadowMulti.css" href="examples-css-css3-shadowmulti-css.html" subtype="externalpage" title="x_css3_shadowMulti_css" fulltitle="x_css3_shadowMulti_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_text-font.css" href="examples-css-css3-text-font-css.html" subtype="externalpage" title="x_css3_text-font_css" fulltitle="x_css3_text-font_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_text-overflow.css" href="examples-css-css3-text-overflow-css.html" subtype="externalpage" title="x_css3_text-overflow_css" fulltitle="x_css3_text-overflow_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_text-shadow.css" href="examples-css-css3-text-shadow-css.html" subtype="externalpage" title="x_css3_text-shadow_css" fulltitle="x_css3_text-shadow_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_text-shadowMulti.css" href="examples-css-css3-text-shadowmulti-css.html" subtype="externalpage" title="x_css3_text-shadowMulti_css" fulltitle="x_css3_text-shadowMulti_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_text-stroke.css" href="examples-css-css3-text-stroke-css.html" subtype="externalpage" title="x_css3_text-stroke_css" fulltitle="x_css3_text-stroke_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_twocol-straddle.css" href="examples-css-css3-twocol-straddle-css.html" subtype="externalpage" title="x_css3_twocol_straddle_css" fulltitle="x_css3_twocol_straddle_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_twocol.css" href="examples-css-css3-twocol-css.html" subtype="externalpage" title="x_css3_twocol_css" fulltitle="x_css3_twocol_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/css3_wordwrap.css" href="examples-css-css3-wordwrap-css.html" subtype="externalpage" title="x_css3_wordwrap_css" fulltitle="x_css3_wordwrap_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/editable.css" href="examples-css-editable-css.html" subtype="externalpage" title="x_editable_css" fulltitle="x_editable_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/event_orient-gallery.css" href="examples-css-event-orient-gallery-css.html" subtype="externalpage" title="x_event_orient-gallery_css" fulltitle="x_event_orient-gallery_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/event_touch-crop-rotate.css" href="examples-css-event-touch-crop-rotate-css.html" subtype="externalpage" title="x_event_touch-crop-rotate_css" fulltitle="x_event_touch-crop-rotate_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/event_touch-crop-scale.css" href="examples-css-event-touch-crop-scale-css.html" subtype="externalpage" title="x_event_touch-crop-scale_css" fulltitle="x_event_touch-crop-scale_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/event_touch-crop.css" href="examples-css-event-touch-crop-css.html" subtype="externalpage" title="x_event_touch-crop_css" fulltitle="x_event_touch-crop_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/fonts.css" href="examples-css-fonts-css.html" subtype="externalpage" title="x_fonts_css" fulltitle="x_fonts_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form.css" href="examples-css-form-css.html" subtype="externalpage" title="x_form_css" fulltitle="x_form_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_editable.css" href="examples-css-form-editable-css.html" subtype="externalpage" title="x_form_editable_css" fulltitle="x_form_editable_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_option.css" href="examples-css-form-option-css.html" subtype="externalpage" title="x_form_option_css" fulltitle="x_form_option_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_progmeter.css" href="examples-css-form-progmeter-css.html" subtype="externalpage" title="x_form_progmeter_css" fulltitle="x_form_progmeter_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_range.css" href="examples-css-form-range-css.html" subtype="externalpage" title="x_form_range_css" fulltitle="x_form_range_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_search.css" href="examples-css-form-search-css.html" subtype="externalpage" title="x_form_search_css" fulltitle="x_form_search_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_tapper.css" href="examples-css-form-tapper-css.html" subtype="externalpage" title="x_form_tapper_css" fulltitle="x_form_tapper_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_toggler-anim.css" href="examples-css-form-toggler-anim-css.html" subtype="externalpage" title="x_form_toggler-anim_css" fulltitle="x_form_toggler-anim_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_toggler.css" href="examples-css-form-toggler-css.html" subtype="externalpage" title="x_form_toggler_css" fulltitle="x_form_toggler_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_validBlur.css" href="examples-css-form-validblur-css.html" subtype="externalpage" title="x_form_validBlur_css" fulltitle="x_form_validBlur_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_validCheck.css" href="examples-css-form-validcheck-css.html" subtype="externalpage" title="x_form_validCheck_css" fulltitle="x_form_validCheck_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/form_validSimple.css" href="examples-css-form-validsimple-css.html" subtype="externalpage" title="x_form_validSimple_css" fulltitle="x_form_validSimple_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/formnum.css" href="examples-css-formnum-css.html" subtype="externalpage" title="x_formnum_css" fulltitle="x_formnum_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/fullscreen.css" href="examples-css-fullscreen-css.html" subtype="externalpage" title="x_fullscreen_css" fulltitle="x_fullscreen_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/gesture.css" href="examples-css-gesture-css.html" subtype="externalpage" title="x_gesture_css" fulltitle="x_gesture_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/gestureLoc.css" href="examples-css-gestureloc-css.html" subtype="externalpage" title="x_gestureLoc_css" fulltitle="x_gestureLoc_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/gestureMode.css" href="examples-css-gesturemode-css.html" subtype="externalpage" title="x_gestureMode_css" fulltitle="x_gestureMode_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/gesture_virtual.css" href="examples-css-gesture-virtual-css.html" subtype="externalpage" title="x_gesture_virtual_css" fulltitle="x_gesture_virtual_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/history.css" href="examples-css-history-css.html" subtype="externalpage" title="x_history_css" fulltitle="x_history_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/install.css" href="examples-css-install-css.html" subtype="externalpage" title="x_install_css" fulltitle="x_install_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/keyframe.css" href="examples-css-keyframe-css.html" subtype="externalpage" title="x_keyframe_css" fulltitle="x_keyframe_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_boxsizing.css" href="examples-css-layout-boxsizing-css.html" subtype="externalpage" title="x_layout_boxsizing_css" fulltitle="x_layout_boxsizing_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_fixed-bottom.css" href="examples-css-layout-fixed-bottom-css.html" subtype="externalpage" title="x_layout_fixed-bottom_css" fulltitle="x_layout_fixed-bottom_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_fixed-top.css" href="examples-css-layout-fixed-top-css.html" subtype="externalpage" title="x_layout_fixed-top_css" fulltitle="x_layout_fixed-top_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_link-accesskey.css" href="examples-css-layout-link-accesskey-css.html" subtype="externalpage" title="x_layout_link-accesskey_css" fulltitle="x_layout_link-accesskey_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_link-fmt.css" href="examples-css-layout-link-fmt-css.html" subtype="externalpage" title="x_layout_link-fmt_css" fulltitle="x_layout_link-fmt_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_nav-fixed.css" href="examples-css-layout-nav-fixed-css.html" subtype="externalpage" title="x_layout_nav_fixed_css" fulltitle="x_layout_nav_fixed_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_nav-flex.css" href="examples-css-layout-nav-flex-css.html" subtype="externalpage" title="x_layout_nav_flex_css" fulltitle="x_layout_nav_flex_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_nav.css" href="examples-css-layout-nav-css.html" subtype="externalpage" title="x_layout_nav_css" fulltitle="x_layout_nav_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_res.css" href="examples-css-layout-res-css.html" subtype="externalpage" title="x_layout_res_css" fulltitle="x_layout_res_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_simple.css" href="examples-css-layout-simple-css.html" subtype="externalpage" title="x_layout_simple_css" fulltitle="x_layout_simple_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/layout_tbl-keyhole.css" href="examples-css-layout-tbl-keyhole-css.html" subtype="externalpage" title="x_layout_tbl-keyhole_css" fulltitle="x_layout_tbl-keyhole_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/loc_simple.css" href="examples-css-loc-simple-css.html" subtype="externalpage" title="x_loc_simple_css" fulltitle="x_loc_simple_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/location.css" href="examples-css-location-css.html" subtype="externalpage" title="x_location_css" fulltitle="x_location_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/matchmedia.css" href="examples-css-matchmedia-css.html" subtype="externalpage" title="x_matchmedia_css" fulltitle="x_matchmedia_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/media.css" href="examples-css-media-css.html" subtype="externalpage" title="x_media_css" fulltitle="x_media_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/mob_condjs.css" href="examples-css-mob-condjs-css.html" subtype="externalpage" title="x_mob_condjs_css" fulltitle="x_mob_condjs_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/mob_mediaquery.css" href="examples-css-mob-mediaquery-css.html" subtype="externalpage" title="x_mob_mediaquery_css" fulltitle="x_mob_mediaquery_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/mq_desktop.css" href="examples-css-mq-desktop-css.html" subtype="externalpage" title="x_mq_desktop_css" fulltitle="x_mq_desktop_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/mq_mobile.css" href="examples-css-mq-mobile-css.html" subtype="externalpage" title="x_mq_mobile_css" fulltitle="x_mq_mobile_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/mq_tablet.css" href="examples-css-mq-tablet-css.html" subtype="externalpage" title="x_mq_tablet_css" fulltitle="x_mq_tablet_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/mq_touch.css" href="examples-css-mq-touch-css.html" subtype="externalpage" title="x_mq_touch_css" fulltitle="x_mq_touch_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/mqlayout_desktop.css" href="examples-css-mqlayout-desktop-css.html" subtype="externalpage" title="x_mqlayout_desktop_css" fulltitle="x_mqlayout_desktop_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/mqlayout_mobile.css" href="examples-css-mqlayout-mobile-css.html" subtype="externalpage" title="x_mqlayout_mobile_css" fulltitle="x_mqlayout_mobile_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/mqlayout_touch.css" href="examples-css-mqlayout-touch-css.html" subtype="externalpage" title="x_mqlayout_touch_css" fulltitle="x_mqlayout_touch_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/offline.css" href="examples-css-offline-css.html" subtype="externalpage" title="x_offline_css" fulltitle="x_offline_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/orient.css" href="examples-css-orient-css.html" subtype="externalpage" title="x_orient_css" fulltitle="x_orient_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/socket.css" href="examples-css-socket-css.html" subtype="externalpage" title="x_socket_css" fulltitle="x_socket_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/sse.css" href="examples-css-sse-css.html" subtype="externalpage" title="x_sse_css" fulltitle="x_sse_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/storage.css" href="examples-css-storage-css.html" subtype="externalpage" title="x_storage_css" fulltitle="x_storage_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/storage_data.css" href="examples-css-storage-data-css.html" subtype="externalpage" title="x_storage_data_css" fulltitle="x_storage_data_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/storage_history.css" href="examples-css-storage-history-css.html" subtype="externalpage" title="x_storage_history_css" fulltitle="x_storage_history_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/storage_offline.css" href="examples-css-storage-offline-css.html" subtype="externalpage" title="x_storage_offline_css" fulltitle="x_storage_offline_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/touch.css" href="examples-css-touch-css.html" subtype="externalpage" title="x_touch_css" fulltitle="x_touch_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/transform.css" href="examples-css-transform-css.html" subtype="externalpage" title="x_transform_css" fulltitle="x_transform_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/video.css" href="examples-css-video-css.html" subtype="externalpage" title="x_video_css" fulltitle="x_video_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/websql.css" href="examples-css-websql-css.html" subtype="externalpage" title="x_websql_css" fulltitle="x_websql_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/webview.css" href="examples-css-webview-css.html" subtype="externalpage" title="x_webview_css" fulltitle="x_webview_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css/worker.css" href="examples-css-worker-css.html" subtype="externalpage" title="x_worker_css" fulltitle="x_worker_css" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3.htm" href="examples-css3-htm.html" subtype="externalpage" title="x_css3_htm" fulltitle="x_css3_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_backgrounds-pos.htm" href="examples-css3-backgrounds-pos-htm.html" subtype="externalpage" title="x_css3_backgrounds_pos" fulltitle="x_css3_backgrounds_pos" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_backgrounds.htm" href="examples-css3-backgrounds-htm.html" subtype="externalpage" title="x_css3_backgrounds" fulltitle="x_css3_backgrounds" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_borderimg.htm" href="examples-css3-borderimg-htm.html" subtype="externalpage" title="x_css3_borderimg" fulltitle="x_css3_borderimg" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_borderimg_bottom.htm" href="examples-css3-borderimg-bottom-htm.html" subtype="externalpage" title="x_css3_borderimg_bottom" fulltitle="x_css3_borderimg_bottom" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_borderimg_round.htm" href="examples-css3-borderimg-round-htm.html" subtype="externalpage" title="x_css3_borderimg_round" fulltitle="x_css3_borderimg_round" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_borderimg_stretch.htm" href="examples-css3-borderimg-stretch-htm.html" subtype="externalpage" title="x_css3_borderimg_stretch" fulltitle="x_css3_borderimg_stretch" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_flex.htm" href="examples-css3-flex-htm.html" subtype="externalpage" title="x_css3_flex" fulltitle="x_css3_flex" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_grad-radial.htm" href="examples-css3-grad-radial-htm.html" subtype="externalpage" title="x_css3_grad-radial" fulltitle="x_css3_grad-radial" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_gradientBack.htm" href="examples-css3-gradientback-htm.html" subtype="externalpage" title="x_css3_gradientBack" fulltitle="x_css3_gradientBack" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_gradientBackStop.htm" href="examples-css3-gradientbackstop-htm.html" subtype="externalpage" title="x_css3_gradientBackStop" fulltitle="x_css3_gradientBackStop" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_gradientButton.htm" href="examples-css3-gradientbutton-htm.html" subtype="externalpage" title="x_css3_gradientButton" fulltitle="x_css3_gradientButton" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_marquee.htm" href="examples-css3-marquee-htm.html" subtype="externalpage" title="x_css3_marquee" fulltitle="x_css3_marquee" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_mask-grad.htm" href="examples-css3-mask-grad-htm.html" subtype="externalpage" title="x_css3_mask-grad" fulltitle="x_css3_mask-grad" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_mask-img.htm" href="examples-css3-mask-img-htm.html" subtype="externalpage" title="x_css3_mask-img" fulltitle="x_css3_mask-img" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_multicol.htm" href="examples-css3-multicol-htm.html" subtype="externalpage" title="x_css3_multicol" fulltitle="x_css3_multicol" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_reflect.htm" href="examples-css3-reflect-htm.html" subtype="externalpage" title="x_css3_reflect" fulltitle="x_css3_reflect" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_scroll.htm" href="examples-css3-scroll-htm.html" subtype="externalpage" title="x_css3_scroll" fulltitle="x_css3_scroll" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_sel-nth.htm" href="examples-css3-sel-nth-htm.html" subtype="externalpage" title="x_css3_sel-nth" fulltitle="x_css3_sel-nth" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_shadow.htm" href="examples-css3-shadow-htm.html" subtype="externalpage" title="x_css3_shadow" fulltitle="x_css3_shadow" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_shadowBlur.htm" href="examples-css3-shadowblur-htm.html" subtype="externalpage" title="x_css3_shadowBlur" fulltitle="x_css3_shadowBlur" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_shadowInset.htm" href="examples-css3-shadowinset-htm.html" subtype="externalpage" title="x_css3_shadowInset" fulltitle="x_css3_shadowInset" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_shadowMulti.htm" href="examples-css3-shadowmulti-htm.html" subtype="externalpage" title="x_css3_shadowMulti" fulltitle="x_css3_shadowMulti" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_text-font.htm" href="examples-css3-text-font-htm.html" subtype="externalpage" title="x_css3_text-font" fulltitle="x_css3_text-font" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_text-overflow.htm" href="examples-css3-text-overflow-htm.html" subtype="externalpage" title="x_css3_text-overflow" fulltitle="x_css3_text-overflow" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_text-shadow.htm" href="examples-css3-text-shadow-htm.html" subtype="externalpage" title="x_css3_text-shadow" fulltitle="x_css3_text-shadow" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_text-shadowMulti.htm" href="examples-css3-text-shadowmulti-htm.html" subtype="externalpage" title="x_css3_text-shadowMulti" fulltitle="x_css3_text-shadowMulti" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_text-stroke.htm" href="examples-css3-text-stroke-htm.html" subtype="externalpage" title="x_css3_text-stroke" fulltitle="x_css3_text-stroke" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_twocol-straddle.htm" href="examples-css3-twocol-straddle-htm.html" subtype="externalpage" title="x_css3_twocol_straddle" fulltitle="x_css3_twocol_straddle" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_twocol.htm" href="examples-css3-twocol-htm.html" subtype="externalpage" title="x_css3_twocol" fulltitle="x_css3_twocol" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/css3_wordwrap.htm" href="examples-css3-wordwrap-htm.html" subtype="externalpage" title="x_css3_wordwrap" fulltitle="x_css3_wordwrap" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/editable.htm" href="examples-editable-htm.html" subtype="externalpage" title="x_editable_htm" fulltitle="x_editable_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/event_orient-gallery.htm" href="examples-event-orient-gallery-htm.html" subtype="externalpage" title="x_event_orient-gallery" fulltitle="x_event_orient-gallery" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/event_touch-crop-rotate.htm" href="examples-event-touch-crop-rotate-htm.html" subtype="externalpage" title="x_event_touch-crop-rotate" fulltitle="x_event_touch-crop-rotate" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/event_touch-crop-scale.htm" href="examples-event-touch-crop-scale-htm.html" subtype="externalpage" title="x_event_touch-crop-scale" fulltitle="x_event_touch-crop-scale" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/event_touch-crop.htm" href="examples-event-touch-crop-htm.html" subtype="externalpage" title="x_event_touch-crop" fulltitle="x_event_touch-crop" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/fonts.htm" href="examples-fonts-htm.html" subtype="externalpage" title="x_fonts_htm" fulltitle="x_fonts_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form.htm" href="examples-form-htm.html" subtype="externalpage" title="x_form_htm" fulltitle="x_form_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_editable.htm" href="examples-form-editable-htm.html" subtype="externalpage" title="x_form_editable" fulltitle="x_form_editable" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_option.htm" href="examples-form-option-htm.html" subtype="externalpage" title="x_form_option" fulltitle="x_form_option" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_progmeter.htm" href="examples-form-progmeter-htm.html" subtype="externalpage" title="x_form_progmeter" fulltitle="x_form_progmeter" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_range.htm" href="examples-form-range-htm.html" subtype="externalpage" title="x_form_range" fulltitle="x_form_range" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_search.htm" href="examples-form-search-htm.html" subtype="externalpage" title="x_form_search" fulltitle="x_form_search" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_tapper.htm" href="examples-form-tapper-htm.html" subtype="externalpage" title="x_form_tapper" fulltitle="x_form_tapper" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_toggler-anim.htm" href="examples-form-toggler-anim-htm.html" subtype="externalpage" title="x_form_toggler-anim" fulltitle="x_form_toggler-anim" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_toggler.htm" href="examples-form-toggler-htm.html" subtype="externalpage" title="x_form_toggler" fulltitle="x_form_toggler" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_validBlur.htm" href="examples-form-validblur-htm.html" subtype="externalpage" title="x_form_validBlur" fulltitle="x_form_validBlur" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_validCheck.htm" href="examples-form-validcheck-htm.html" subtype="externalpage" title="x_form_validCheck" fulltitle="x_form_validCheck" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/form_validSimple.htm" href="examples-form-validsimple-htm.html" subtype="externalpage" title="x_form_validSimple" fulltitle="x_form_validSimple" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/formnum.htm" href="examples-formnum-htm.html" subtype="externalpage" title="x_formnum_htm" fulltitle="x_formnum_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/fullscreen.htm" href="examples-fullscreen-htm.html" subtype="externalpage" title="x_fullscreen_htm" fulltitle="x_fullscreen_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/gesture.htm" href="examples-gesture-htm.html" subtype="externalpage" title="x_gesture_htm" fulltitle="x_gesture_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/gestureLoc.htm" href="examples-gestureloc-htm.html" subtype="externalpage" title="x_gestureLoc_htm" fulltitle="x_gestureLoc_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/gestureMode.htm" href="examples-gesturemode-htm.html" subtype="externalpage" title="x_gestureMode_htm" fulltitle="x_gestureMode_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/gesture_virtual.htm" href="examples-gesture-virtual-htm.html" subtype="externalpage" title="x_gesture_virtual" fulltitle="x_gesture_virtual" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/history.htm" href="examples-history-htm.html" subtype="externalpage" title="x_history_htm" fulltitle="x_history_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/index.htm" href="examples-index-htm.html" subtype="externalpage" title="x_index_htm" fulltitle="x_index_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/install.htm" href="examples-install-htm.html" subtype="externalpage" title="x_install_htm" fulltitle="x_install_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/anim_accord.js" href="examples-js-anim-accord-js.html" subtype="externalpage" title="x_anim_accord_js" fulltitle="x_anim_accord_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/anim_dice.js" href="examples-js-anim-dice-js.html" subtype="externalpage" title="x_anim_dice_js" fulltitle="x_anim_dice_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/anim_flip.js" href="examples-js-anim-flip-js.html" subtype="externalpage" title="x_anim_flip_js" fulltitle="x_anim_flip_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/anim_gallery.js" href="examples-js-anim-gallery-js.html" subtype="externalpage" title="x_anim_gallery_js" fulltitle="x_anim_gallery_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/anim_marquee.js" href="examples-js-anim-marquee-js.html" subtype="externalpage" title="x_anim_marquee_js" fulltitle="x_anim_marquee_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/anim_panel.js" href="examples-js-anim-panel-js.html" subtype="externalpage" title="x_anim_panel_js" fulltitle="x_anim_panel_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/anim_skew.js" href="examples-js-anim-skew-js.html" subtype="externalpage" title="x_anim_skew_js" fulltitle="x_anim_skew_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/animate.js" href="examples-js-animate-js.html" subtype="externalpage" title="x_animate_js" fulltitle="x_animate_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/audio.js" href="examples-js-audio-js.html" subtype="externalpage" title="x_audio_js" fulltitle="x_audio_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/av_audio.js" href="examples-js-av-audio-js.html" subtype="externalpage" title="x_av_audio_js" fulltitle="x_av_audio_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/canvas.js" href="examples-js-canvas-js.html" subtype="externalpage" title="x_canvas_js" fulltitle="x_canvas_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/canvasclip.js" href="examples-js-canvasclip-js.html" subtype="externalpage" title="x_canvasclip_js" fulltitle="x_canvasclip_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/css3.js" href="examples-js-css3-js.html" subtype="externalpage" title="x_css3_js" fulltitle="x_css3_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/css3_backgrounds.js" href="examples-js-css3-backgrounds-js.html" subtype="externalpage" title="x_css3_backgrounds_js" fulltitle="x_css3_backgrounds_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/css3_grad-radial.js" href="examples-js-css3-grad-radial-js.html" subtype="externalpage" title="x_css3_grad-radial_js" fulltitle="x_css3_grad-radial_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/css3_mask-grad.js" href="examples-js-css3-mask-grad-js.html" subtype="externalpage" title="x_css3_mask-grad_js" fulltitle="x_css3_mask-grad_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/css3_text-overflow.js" href="examples-js-css3-text-overflow-js.html" subtype="externalpage" title="x_css3_text-overflow_js" fulltitle="x_css3_text-overflow_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/editable.js" href="examples-js-editable-js.html" subtype="externalpage" title="x_editable_js" fulltitle="x_editable_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/event_orient-gallery.js" href="examples-js-event-orient-gallery-js.html" subtype="externalpage" title="x_event_orient-gallery_js" fulltitle="x_event_orient-gallery_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/event_touch-crop.js" href="examples-js-event-touch-crop-js.html" subtype="externalpage" title="x_event_touch-crop_js" fulltitle="x_event_touch-crop_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/fonts.js" href="examples-js-fonts-js.html" subtype="externalpage" title="x_fonts_js" fulltitle="x_fonts_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/form.js" href="examples-js-form-js.html" subtype="externalpage" title="x_form_js" fulltitle="x_form_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/form_editable.js" href="examples-js-form-editable-js.html" subtype="externalpage" title="x_form_editable_js" fulltitle="x_form_editable_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/form_option.js" href="examples-js-form-option-js.html" subtype="externalpage" title="x_form_option_js" fulltitle="x_form_option_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/form_progmeter.js" href="examples-js-form-progmeter-js.html" subtype="externalpage" title="x_form_progmeter_js" fulltitle="x_form_progmeter_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/form_range.js" href="examples-js-form-range-js.html" subtype="externalpage" title="x_form_range_js" fulltitle="x_form_range_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/form_validBlur.js" href="examples-js-form-validblur-js.html" subtype="externalpage" title="x_form_validBlur_js" fulltitle="x_form_validBlur_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/form_validCheck.js" href="examples-js-form-validcheck-js.html" subtype="externalpage" title="x_form_validCheck_js" fulltitle="x_form_validCheck_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/formnum.js" href="examples-js-formnum-js.html" subtype="externalpage" title="x_formnum_js" fulltitle="x_formnum_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/fullscreen.js" href="examples-js-fullscreen-js.html" subtype="externalpage" title="x_fullscreen_js" fulltitle="x_fullscreen_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/gesture.js" href="examples-js-gesture-js.html" subtype="externalpage" title="x_gesture_js" fulltitle="x_gesture_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/gestureLoc.js" href="examples-js-gestureloc-js.html" subtype="externalpage" title="x_gestureLoc_js" fulltitle="x_gestureLoc_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/gestureMode.js" href="examples-js-gesturemode-js.html" subtype="externalpage" title="x_gestureMode_js" fulltitle="x_gestureMode_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/gesture_virtual.js" href="examples-js-gesture-virtual-js.html" subtype="externalpage" title="x_gesture_virtual_js" fulltitle="x_gesture_virtual_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/history.js" href="examples-js-history-js.html" subtype="externalpage" title="x_history_js" fulltitle="x_history_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/install.js" href="examples-js-install-js.html" subtype="externalpage" title="x_install_js" fulltitle="x_install_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/keyframe.js" href="examples-js-keyframe-js.html" subtype="externalpage" title="x_keyframe_js" fulltitle="x_keyframe_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/layout_fixed-bottom.js" href="examples-js-layout-fixed-bottom-js.html" subtype="externalpage" title="x_layout_fixed-bottom_js" fulltitle="x_layout_fixed-bottom_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/layout_fixed-top.js" href="examples-js-layout-fixed-top-js.html" subtype="externalpage" title="x_layout_fixed-top_js" fulltitle="x_layout_fixed-top_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/layout_link-accesskey.js" href="examples-js-layout-link-accesskey-js.html" subtype="externalpage" title="x_layout_link-accesskey_js" fulltitle="x_layout_link-accesskey_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/layout_tbl-keyhole.js" href="examples-js-layout-tbl-keyhole-js.html" subtype="externalpage" title="x_layout_tbl-keyhole_js" fulltitle="x_layout_tbl-keyhole_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/loc_simple.js" href="examples-js-loc-simple-js.html" subtype="externalpage" title="x_loc_simple_js" fulltitle="x_loc_simple_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/location.js" href="examples-js-location-js.html" subtype="externalpage" title="x_location_js" fulltitle="x_location_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/matchmedia.js" href="examples-js-matchmedia-js.html" subtype="externalpage" title="x_matchmedia_js" fulltitle="x_matchmedia_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/media.js" href="examples-js-media-js.html" subtype="externalpage" title="x_media_js" fulltitle="x_media_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/mob_condjs.js" href="examples-js-mob-condjs-js.html" subtype="externalpage" title="x_mob_condjs_js" fulltitle="x_mob_condjs_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/offline.js" href="examples-js-offline-js.html" subtype="externalpage" title="x_offline_js" fulltitle="x_offline_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/orient.js" href="examples-js-orient-js.html" subtype="externalpage" title="x_orient_js" fulltitle="x_orient_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/socket.js" href="examples-js-socket-js.html" subtype="externalpage" title="x_socket_js" fulltitle="x_socket_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/sse.js" href="examples-js-sse-js.html" subtype="externalpage" title="x_sse_js" fulltitle="x_sse_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/storage.js" href="examples-js-storage-js.html" subtype="externalpage" title="x_storage_js" fulltitle="x_storage_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/storage_data.js" href="examples-js-storage-data-js.html" subtype="externalpage" title="x_storage_data_js" fulltitle="x_storage_data_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/storage_history.js" href="examples-js-storage-history-js.html" subtype="externalpage" title="x_storage_history_js" fulltitle="x_storage_history_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/storage_offline.js" href="examples-js-storage-offline-js.html" subtype="externalpage" title="x_storage_offline_js" fulltitle="x_storage_offline_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/touch.js" href="examples-js-touch-js.html" subtype="externalpage" title="x_touch_js" fulltitle="x_touch_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/transform.js" href="examples-js-transform-js.html" subtype="externalpage" title="x_transform_js" fulltitle="x_transform_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/video.js" href="examples-js-video-js.html" subtype="externalpage" title="x_video_js" fulltitle="x_video_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/websql.js" href="examples-js-websql-js.html" subtype="externalpage" title="x_websql_js" fulltitle="x_websql_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/webview.js" href="examples-js-webview-js.html" subtype="externalpage" title="x_webview_js" fulltitle="x_webview_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/js/worker.js" href="examples-js-worker-js.html" subtype="externalpage" title="x_worker_js" fulltitle="x_worker_js" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/keyframe.htm" href="examples-keyframe-htm.html" subtype="externalpage" title="x_keyframe_htm" fulltitle="x_keyframe_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_boxsizing.htm" href="examples-layout-boxsizing-htm.html" subtype="externalpage" title="x_layout_boxsizing" fulltitle="x_layout_boxsizing" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_fixed-bottom.htm" href="examples-layout-fixed-bottom-htm.html" subtype="externalpage" title="x_layout_fixed-bottom" fulltitle="x_layout_fixed-bottom" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_fixed-top.htm" href="examples-layout-fixed-top-htm.html" subtype="externalpage" title="x_layout_fixed-top" fulltitle="x_layout_fixed-top" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_link-accesskey.htm" href="examples-layout-link-accesskey-htm.html" subtype="externalpage" title="x_layout_link-accesskey" fulltitle="x_layout_link-accesskey" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_link-fmt.htm" href="examples-layout-link-fmt-htm.html" subtype="externalpage" title="x_layout_link-fmt" fulltitle="x_layout_link-fmt" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_nav-fixed.htm" href="examples-layout-nav-fixed-htm.html" subtype="externalpage" title="x_layout_nav_fixed" fulltitle="x_layout_nav_fixed" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_nav-flex.htm" href="examples-layout-nav-flex-htm.html" subtype="externalpage" title="x_layout_nav_flex" fulltitle="x_layout_nav_flex" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_nav.htm" href="examples-layout-nav-htm.html" subtype="externalpage" title="x_layout_nav" fulltitle="x_layout_nav" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_res.htm" href="examples-layout-res-htm.html" subtype="externalpage" title="x_layout_res" fulltitle="x_layout_res" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_simple.htm" href="examples-layout-simple-htm.html" subtype="externalpage" title="x_layout_simple" fulltitle="x_layout_simple" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/layout_tbl-keyhole.htm" href="examples-layout-tbl-keyhole-htm.html" subtype="externalpage" title="x_layout_tbl-keyhole" fulltitle="x_layout_tbl-keyhole" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/loc_simple.htm" href="examples-loc-simple-htm.html" subtype="externalpage" title="x_loc_simple" fulltitle="x_loc_simple" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/location.htm" href="examples-location-htm.html" subtype="externalpage" title="x_location_htm" fulltitle="x_location_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/manifest.php" href="examples-manifest-php.html" subtype="externalpage" title="x_manifest_php" fulltitle="x_manifest_php" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/matchmedia.htm" href="examples-matchmedia-htm.html" subtype="externalpage" title="x_matchmedia_htm" fulltitle="x_matchmedia_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/media.htm" href="examples-media-htm.html" subtype="externalpage" title="x_media_htm" fulltitle="x_media_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/mob_condjs.htm" href="examples-mob-condjs-htm.html" subtype="externalpage" title="x_mob_condjs" fulltitle="x_mob_condjs" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/mob_layout.htm" href="examples-mob-layout-htm.html" subtype="externalpage" title="x_mob_layout" fulltitle="x_mob_layout" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/mob_mediaquery.htm" href="examples-mob-mediaquery-htm.html" subtype="externalpage" title="x_mob_mediaquery" fulltitle="x_mob_mediaquery" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/offline.htm" href="examples-offline-htm.html" subtype="externalpage" title="x_offline_htm" fulltitle="x_offline_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/orient.htm" href="examples-orient-htm.html" subtype="externalpage" title="x_orient_htm" fulltitle="x_orient_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/socket.htm" href="examples-socket-htm.html" subtype="externalpage" title="x_socket_htm" fulltitle="x_socket_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/sse.htm" href="examples-sse-htm.html" subtype="externalpage" title="x_sse_htm" fulltitle="x_sse_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/storage.htm" href="examples-storage-htm.html" subtype="externalpage" title="x_storage_htm" fulltitle="x_storage_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/storage_appcache.htm" href="examples-storage-appcache-htm.html" subtype="externalpage" title="x_storage_appcache" fulltitle="x_storage_appcache" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/storage_appcache.manifest" href="examples-storage-appcache-manifest.html" subtype="externalpage" title="x_storage_appcache_manifest" fulltitle="x_storage_appcache_manifest" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/storage_data.htm" href="examples-storage-data-htm.html" subtype="externalpage" title="x_storage_data" fulltitle="x_storage_data" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/storage_history.htm" href="examples-storage-history-htm.html" subtype="externalpage" title="x_storage_history" fulltitle="x_storage_history" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/storage_offline.htm" href="examples-storage-offline-htm.html" subtype="externalpage" title="x_storage_offline" fulltitle="x_storage_offline" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/touch.htm" href="examples-touch-htm.html" subtype="externalpage" title="x_touch_htm" fulltitle="x_touch_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/transform.htm" href="examples-transform-htm.html" subtype="externalpage" title="x_transform_htm" fulltitle="x_transform_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/utilBackground.htm" href="examples-utilbackground-htm.html" subtype="externalpage" title="x_utilBackground" fulltitle="x_utilBackground" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/utilColor.htm" href="examples-utilcolor-htm.html" subtype="externalpage" title="x_utilColor" fulltitle="x_utilColor" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/utilGradientLinear.htm" href="examples-utilgradientlinear-htm.html" subtype="externalpage" title="x_utilGradientLinear" fulltitle="x_utilGradientLinear" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/utilGradientRadial.htm" href="examples-utilgradientradial-htm.html" subtype="externalpage" title="x_utilGradientRadial" fulltitle="x_utilGradientRadial" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/utilMatrix2D.htm" href="examples-utilmatrix2d-htm.html" subtype="externalpage" title="x_utilMatrix2D" fulltitle="x_utilMatrix2D" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/utilShadow.htm" href="examples-utilshadow-htm.html" subtype="externalpage" title="x_utilShadow" fulltitle="x_utilShadow" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/utilTransform2D.htm" href="examples-utiltransform2d-htm.html" subtype="externalpage" title="x_utilTransform2D" fulltitle="x_utilTransform2D" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/utilTransform3d.htm" href="examples-utiltransform3d-htm.html" subtype="externalpage" title="x_utilTransform3d" fulltitle="x_utilTransform3d" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/utilTransform3dNest.htm" href="examples-utiltransform3dnest-htm.html" subtype="externalpage" title="x_utilTransform3dNest" fulltitle="x_utilTransform3dNest" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/utilTransform3dNest_x8.htm" href="examples-utiltransform3dnest-x8-htm.html" subtype="externalpage" title="x_utilTransform3dNest_x8" fulltitle="x_utilTransform3dNest_x8" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/video.htm" href="examples-video-htm.html" subtype="externalpage" title="x_video_htm" fulltitle="x_video_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/viewoff.htm" href="examples-viewoff-htm.html" subtype="externalpage" title="x_viewoff" fulltitle="x_viewoff" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/viewoff_coladjust.htm" href="examples-viewoff-coladjust-htm.html" subtype="externalpage" title="x_viewoff_coladjust" fulltitle="x_viewoff_coladjust" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/viewoff_colnoadjust.htm" href="examples-viewoff-colnoadjust-htm.html" subtype="externalpage" title="x_viewoff_colnoadjust" fulltitle="x_viewoff_colnoadjust" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/viewoff_noadjust.htm" href="examples-viewoff-noadjust-htm.html" subtype="externalpage" title="x_viewoff_noadjust" fulltitle="x_viewoff_noadjust" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/viewon.htm" href="examples-viewon-htm.html" subtype="externalpage" title="x_viewon" fulltitle="x_viewon" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/viewon_dpi.htm" href="examples-viewon-dpi-htm.html" subtype="externalpage" title="x_viewon_dpi" fulltitle="x_viewon_dpi" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/viewon_noadjust.htm" href="examples-viewon-noadjust-htm.html" subtype="externalpage" title="x_viewon_noadjust" fulltitle="x_viewon_noadjust" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/viewon_noscale.htm" href="examples-viewon-noscale-htm.html" subtype="externalpage" title="x_viewon_noscale" fulltitle="x_viewon_noscale" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/viewon_noscale_noadjust.htm" href="examples-viewon-noscale-noadjust-htm.html" subtype="externalpage" title="x_viewon_noscale_noadjust" fulltitle="x_viewon_noscale_noadjust" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/viewport.htm" href="examples-viewport-htm.html" subtype="externalpage" title="x_viewport_htm" fulltitle="x_viewport_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/websql.htm" href="examples-websql-htm.html" subtype="externalpage" title="x_websql_htm" fulltitle="x_websql_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/webview.htm" href="examples-webview-htm.html" subtype="externalpage" title="x_webview_htm" fulltitle="x_webview_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="../examples/worker.htm" href="examples-worker-htm.html" subtype="externalpage" title="x_worker_htm" fulltitle="x_worker_htm" subtitle="" location="EXTERNAL_RESOURCES.qdoc"/>
+        <page access="public" status="commendable" name="animation.html" href="animation.html" subtype="page" title="Animations" fulltitle="Animations" subtitle="" location="31_animate.qdoc">
+            <contents name="css-transitions" title="CSS Transitions" level="1"/>
+            <contents name="transition-events" title="Transition Events" level="1"/>
+            <contents name="css-keyframe-animations" title="CSS Keyframe Animations" level="1"/>
+            <contents name="resources" title="Resources" level="1"/>
+            <contents name="xxx-g" title="XXX G" level="1"/>
+            <contents name="transitions" title="Transitions" level="2"/>
+            <contents name="what-can-be-transitioned" title="What Can Be Transitioned?" level="2"/>
+            <contents name="transitional-sequences" title="Transitional Sequences" level="2"/>
+            <contents name="timing-functions" title="Timing Functions" level="2"/>
+            <contents name="keyframe-animations" title="Keyframe Animations" level="2"/>
+            <contents name="dynamic-keyframes" title="Dynamic Keyframes" level="2"/>
+        </page>
+        <page access="public" status="commendable" name="api.html" href="api.html" subtype="page" title="Core APIs" fulltitle="Core APIs" subtitle="" location="api.qdoc">
+            <contents name="ooo-level-3-css-selectors" title="ooo Level 3 CSS Selectors" level="3"/>
+            <contents name="xxx-mt-css" title="XXX MT CSS" level="1"/>
+            <contents name="use-advanced-css-formatting" title="Use Advanced CSS Formatting" level="2"/>
+            <contents name="example-freehand-drawings" title="Example: Freehand Drawings" level="2"/>
+            <contents name="example-edit-irregular-selections" title="Example: Edit Irregular Selections" level="2"/>
+        </page>
+        <page access="public" status="commendable" name="av.html" href="av.html" subtype="page" title="Multimedia" fulltitle="Multimedia" subtitle="" location="33_av.qdoc">
+            <contents name="xxx-mt-video" title="XXX MT VIDEO" level="1"/>
+            <contents name="xxx-mt-audio" title="XXX MT AUDIO" level="1"/>
+            <contents name="sidebar-the-dataset-api" title="SIDEBAR: The DataSet API" level="2"/>
+            <contents name="example-playlist" title="Example: Playlist" level="1"/>
+            <contents name="html5-media-api" title="HTML5 Media API" level="1"/>
+            <contents name="methods-and-properties" title="Methods and Properties" level="2"/>
+            <contents name="interactive-events" title="Interactive Events" level="2"/>
+            <contents name="network-events" title="Network Events" level="2"/>
+            <contents name="xxx-other" title="XXX OTHER" level="1"/>
+            <contents name="video" title="&gt;&gt;&gt; Video" level="2"/>
+            <contents name="audio" title="&gt;&gt;&gt; Audio" level="2"/>
+            <contents name="flash-fallback" title="&gt;&gt;&gt; Flash Fallback" level="2"/>
+            <contents name="mobile-video-constraints" title="&gt;&gt;&gt; Mobile Video Constraints" level="2"/>
+            <contents name="application-controlled-multimedia" title="&gt;&gt;&gt; Application-Controlled Multimedia" level="2"/>
+            <contents name="ooo-multimedia" title="ooo Multimedia" level="3"/>
+            <contents name="ooo-multimedia-api-reference" title="ooo Multimedia API Reference" level="3"/>
+            <contents name="ooo-html5-audio" title="ooo HTML5 Audio" level="3"/>
+            <contents name="ooo-html5-video" title="ooo HTML5 Video" level="3"/>
+            <contents name="ooo-application-controlled-video" title="ooo Application-Controlled Video" level="3"/>
+            <contents name="ooo-adding-flash-fallback" title="ooo Adding Flash Fallback" level="3"/>
+            <contents name="ooo-targeting-video-to-mobile-browsers" title="ooo Targeting Video to Mobile Browsers" level="3"/>
+            <contents name="ooo-intro" title="ooo intro" level="3"/>
+            <contents name="ooo-intro2" title="ooo intro2" level="3"/>
+        </page>
+        <page access="public" status="commendable" name="border.html" href="border.html" subtype="page" title="Borders and Overflows" fulltitle="Borders and Overflows" subtitle="" location="24_border.qdoc">
+            <contents name="rounded-corners" title="Rounded Corners" level="1"/>
+            <contents name="sidebar-attribute-matching" title="SIDEBAR Attribute Matching" level="2"/>
+            <contents name="shadows" title="Shadows" level="1"/>
+            <contents name="border-images" title="Border Images" level="1"/>
+            <contents name="outlines" title="Outlines" level="1"/>
+            <contents name="text-overflow" title="Text Overflow" level="1"/>
+            <contents name="word-wrap" title="Word Wrap" level="1"/>
+            <contents name="scrollbars" title="Scrollbars" level="1"/>
+            <contents name="marquees" title="Marquees" level="1"/>
+        </page>
+        <page access="public" status="commendable" name="canvas.html" href="canvas.html" subtype="page" title="Canvas" fulltitle="Canvas" subtitle="" location="34_canvas.qdoc">
+            <contents name="paths" title="Paths" level="1"/>
+            <contents name="rectangles" title="Rectangles" level="1"/>
+            <contents name="reading-and-writing-images" title="Reading and Writing Images" level="1"/>
+            <contents name="clipping-paths" title="Clipping Paths" level="1"/>
+            <contents name="arcs-and-curves" title="Arcs and Curves" level="1"/>
+            <contents name="transforms-and-canvas-state" title="Transforms and Canvas State" level="1"/>
+            <contents name="placing-text" title="Placing Text" level="1"/>
+            <contents name="line-effects-shadows-gradients-and-patterns" title="Line Effects, Shadows, Gradients, and Patterns" level="1"/>
+            <contents name="compositing" title="Compositing" level="1"/>
+            <contents name="editing-selections" title="Editing Selections" level="1"/>
+            <contents name="canvas-via-css" title="Canvas via CSS" level="1"/>
+        </page>
+        <page access="public" status="commendable" name="color.html" href="color.html" subtype="page" title="Colors and Backgrounds" fulltitle="Colors and Backgrounds" subtitle="" location="23_color.qdoc">
+            <contents name="color-and-opacity" title="Color and Opacity" level="2"/>
+            <contents name="gradients" title="Gradients" level="2"/>
+            <contents name="masks" title="Masks" level="2"/>
+            <contents name="reflections" title="Reflections" level="2"/>
+            <contents name="backgrounds" title="Backgrounds" level="2"/>
+            <contents name="sidebar-positional-selectors" title="SIDEBAR Positional Selectors" level="2"/>
+            <contents name="adapting-images-to-screen-resolution" title="Adapting Images to Screen Resolution" level="2"/>
+        </page>
+        <page access="public" status="commendable" name="editable.html" href="editable.html" subtype="page" title="Editable Text" fulltitle="Editable Text" subtitle="" location="44_editable.qdoc">
+            <contents name="contenteditable" title="contenteditable" level="1"/>
+            <contents name="selections" title="Selections" level="1"/>
+            <contents name="sidebar-the-classlist-api" title="SIDEBAR The ClassList API" level="2"/>
+            <contents name="cut-copy-and-paste" title="Cut, Copy, and Paste" level="1"/>
+            <contents name="xxx-editable-grob" title="XXX EDITABLE GROB" level="1"/>
+            <contents name="enabling-editable-text" title="&gt;&gt; Enabling Editable Text" level="2"/>
+            <contents name="mobile-constraints" title="&gt;&gt; Mobile Constraints" level="2"/>
+            <contents name="ooo-contenteditable" title="ooo ContentEditable" level="3"/>
+            <contents name="ooo-the-execcommand-editing-api" title="ooo The execCommand editing API" level="3"/>
+            <contents name="ooo-editable-text" title="ooo Editable Text" level="3"/>
+            <contents name="xxx-8-5-contenteditable" title="XXX 8.5 ContentEditable" level="1"/>
+            <contents name="ooo-the-execcommand-editing-api" title="ooo The execCommand editing API" level="3"/>
+            <contents name="ooo-editable-text" title="ooo Editable Text" level="3"/>
+        </page>
+        <page access="public" status="commendable" name="file.html" href="file.html" subtype="page" title="Accessing the File System" fulltitle="Accessing the File System" subtitle="" location="53_file.qdoc"/>
+        <page access="public" status="commendable" name="font.html" href="font.html" subtype="page" title="Typography" fulltitle="Typography" subtitle="" location="25_font.qdoc">
+            <contents name="server-based-fonts" title="Server-Based Fonts" level="2"/>
+            <contents name="text-shadows" title="Text Shadows" level="2"/>
+            <contents name="text-stroke" title="Text Stroke" level="2"/>
+            <contents name="xxx-mt-fonts" title="XXX MT Fonts" level="1"/>
+        </page>
+        <page access="public" status="commendable" name="form.html" href="form.html" subtype="page" title="Input Validation" fulltitle="Input Validation" subtitle="" location="43_form.qdoc">
+            <contents name="new-types" title="New Types" level="2"/>
+            <contents name="marking-invalid-input" title="Marking Invalid Input" level="2"/>
+            <contents name="refining-validation-criteria" title="Refining Validation Criteria" level="2"/>
+            <contents name="sidebar-other-selectors" title="SIDEBAR Other Selectors" level="2"/>
+            <contents name="refining-a-validation-interface" title="Refining a Validation Interface" level="2"/>
+            <contents name="sidebar-sibling-selectors" title="SIDEBAR Sibling Selectors" level="2"/>
+            <contents name="refining-validition-errors" title="Refining Validition Errors" level="2"/>
+            <contents name="xxx-mt-forms" title="XXX MT Forms" level="1"/>
+            <contents name="text-input" title="Text Input" level="1"/>
+            <contents name="numeric-input" title="Numeric Input" level="1"/>
+            <contents name="responding-to-invalid-text" title="Responding to Invalid Text" level="1"/>
+        </page>
+        <page access="public" status="commendable" name="gesture.html" href="gesture.html" subtype="page" title="Orientation and Motion" fulltitle="Orientation and Motion" subtitle="" location="47_gesture.qdoc">
+            <contents name="compass-data" title="Compass Data" level="1"/>
+            <contents name="accelerometer-data" title="Accelerometer Data" level="1"/>
+            <contents name="example" title="Example" level="1"/>
+            <contents name="setting-a-threshold" title="Setting a Threshold" level="1"/>
+            <contents name="xxx-8-5-device-gesture" title="XXX 8.5 Device Gesture" level="1"/>
+            <contents name="accelerometer-and-gyroscope-input" title="&gt;&gt;&gt; Accelerometer and Gyroscope Input" level="2"/>
+            <contents name="compass-input" title="&gt;&gt;&gt; Compass Input" level="2"/>
+            <contents name="gestural-thresholds-and-modes" title="&gt;&gt;&gt; Gestural Thresholds and Modes" level="2"/>
+            <contents name="ooo-orientation-and-motion" title="ooo Orientation and Motion" level="3"/>
+            <contents name="ooo-gestural-interface-modes" title="ooo Gestural interface modes" level="3"/>
+        </page>
+        <page access="public" status="commendable" name="history.html" href="history.html" subtype="page" title="Session History" fulltitle="Session History" subtitle="" location="45_history.qdoc">
+            <contents name="session-history" title="Session History" level="2"/>
+            <contents name="sidebar-navigational-selector" title="SIDEBAR Navigational Selector" level="2"/>
+            <contents name="navigation-within-a-page" title="Navigation Within a Page" level="2"/>
+        </page>
+        <page access="public" status="commendable" name="index.html" href="index.html" subtype="page" title="" fulltitle="" subtitle="" location="index.qdoc"/>
+        <page access="public" status="commendable" name="input.html" href="input.html" subtype="page" title="Input Types" fulltitle="Input Types" subtitle="" location="42_input.qdoc">
+            <contents name="option-lists" title="Option Lists" level="2"/>
+            <contents name="sidebar-form-element-state" title="SIDEBAR Form Element State" level="2"/>
+            <contents name="radio-and-checkbox-togglers" title="Radio and Checkbox Togglers" level="2"/>
+            <contents name="range-inputs" title="Range Inputs" level="2"/>
+            <contents name="progress-trackers-and-meters" title="Progress Trackers and Meters" level="2"/>
+        </page>
+        <page access="public" status="commendable" name="intro.html" href="intro.html" subtype="page" title="Introduction" fulltitle="Introduction" subtitle="" location="00_intro.qdoc">
+            <contents name="who-should-read-this" title="Who Should Read This?" level="2"/>
+            <contents name="introducing-html5" title="Introducing HTML5" level="2"/>
+            <contents name="introducing-the-mobile-web" title="Introducing the Mobile Web" level="2"/>
+            <contents name="about-the-samples" title="About the Samples" level="2"/>
+        </page>
+        <page access="public" status="commendable" name="layout.html" href="layout.html" subtype="page" title="Flexible Mobile Layout" fulltitle="Flexible Mobile Layout" subtitle="" location="21_layout.qdoc">
+            <contents name="the-mobile-viewport" title="The Mobile Viewport" level="1"/>
+            <contents name="constraining-touch-response" title="Constraining Touch Response" level="1"/>
+            <contents name="flexible-positioning" title="Flexible Positioning" level="1"/>
+            <contents name="flexible-boxes" title="Flexible Boxes" level="1"/>
+            <contents name="box-sizing" title="Box Sizing" level="1"/>
+            <contents name="semantic-tags" title="Semantic Tags" level="1"/>
+            <contents name="xxx-mt-viewport" title="XXX MT Viewport" level="1"/>
+        </page>
+        <page access="public" status="commendable" name="location.html" href="location.html" subtype="page" title="Location and Travel" fulltitle="Location and Travel" subtitle="" location="46_location.qdoc">
+            <contents name="the-geolocation-api" title="The Geolocation API" level="2"/>
+            <contents name="fallback-behavior" title="Fallback Behavior" level="2"/>
+            <contents name="tracking-location" title="Tracking Location" level="2"/>
+            <contents name="mapping" title="Mapping" level="2"/>
+            <contents name="xxx-8-5-loc" title="XXX 8.5 Loc?" level="1"/>
+            <contents name="example-mapping" title="Example: Mapping" level="1"/>
+        </page>
+        <page access="public" status="commendable" name="msg.html" href="msg.html" subtype="page" title="Messages and Workers" fulltitle="Messages and Workers" subtitle="" location="54_msg.qdoc">
+            <contents name="xxx-8-5" title="XXX 8.5" level="1"/>
+            <contents name="web-messaging" title="Web Messaging" level="3"/>
+            <contents name="postmessage" title="postMessage" level="3"/>
+            <contents name="sandboxed-iframes" title="Sandboxed iframes" level="3"/>
+            <contents name="server-events" title="Server Events" level="3"/>
+            <contents name="web-workers" title="Web Workers" level="3"/>
+        </page>
+        <page access="public" status="commendable" name="offline.html" href="offline.html" subtype="page" title="Offline Mode" fulltitle="Offline Mode" subtitle="" location="51_offline.qdoc">
+            <contents name="xxx-g" title="XXX G" level="1"/>
+            <contents name="ooo-offline-applications" title="ooo Offline Applications" level="3"/>
+            <contents name="ooo-responding-to-network-availability" title="ooo Responding to Network Availability" level="3"/>
+            <contents name="ooo-updating-the-application-cache" title="ooo Updating the Application Cache" level="3"/>
+            <contents name="ooo-storing-applications" title="ooo Storing Applications" level="3"/>
+        </page>
+        <page access="public" status="commendable" name="orient.html" href="orient.html" subtype="page" title="Tipping the Handset" fulltitle="Tipping the Handset" subtitle="" location="22_orient.qdoc">
+            <contents name="xxx-8-5" title="XXX 8.5" level="1"/>
+            <contents name="adapting-the-default-screen-layout" title="Adapting the Default Screen Layout" level="2"/>
+            <contents name="controlling-text-adjustment" title="Controlling Text Adjustment" level="2"/>
+            <contents name="orientation-via-css" title="Orientation via CSS" level="2"/>
+            <contents name="orientation-via-javascript" title="Orientation via JavaScript" level="2"/>
+            <contents name="multicolumn-layout" title="Multicolumn Layout" level="2"/>
+        </page>
+        <page access="public" status="commendable" name="query.html" href="query.html" subtype="page" title="Responsive Interfaces" fulltitle="Responsive Interfaces" subtitle="" location="12_query.qdoc">
+            <contents name="assigning-alternative-interfaces" title="Assigning Alternative Interfaces" level="2"/>
+            <contents name="script-based-adaptation" title="Script-based Adaptation" level="2"/>
+            <contents name="what-can-you-find-out-about-a-browser" title="What Can You Find Out About a Browser?" level="2"/>
+            <contents name="sidebar-the-selectors-api" title="SIDEBAR The Selectors API" level="2"/>
+            <contents name="xxx-mt" title="XXX MT" level="1"/>
+            <contents name="example-present-a-web-page-with-different-interfaces" title="Example: Present a Web Page with Different Interfaces" level="1"/>
+            <contents name="example-redirect-to-the-appropriate-interface" title="Example: Redirect to the Appropriate Interface" level="1"/>
+        </page>
+        <page access="public" status="commendable" name="socket.html" href="socket.html" subtype="page" title="Web Sockets" fulltitle="Web Sockets" subtitle="" location="55_socket.qdoc"/>
+        <page access="public" status="commendable" name="storage.html" href="storage.html" subtype="page" title="Data Storage" fulltitle="Data Storage" subtitle="" location="52_storage.qdoc">
+            <contents name="web-storage" title="Web Storage" level="1"/>
+            <contents name="web-sql" title="Web SQL" level="1"/>
+            <contents name="zzz-simple-web-storage" title="ZZZ Simple Web Storage" level="1"/>
+            <contents name="xxx" title="XXX ???" level="1"/>
+            <contents name="ooo-web-sql" title="ooo Web SQL" level="3"/>
+            <contents name="ooo-web-sql-databases" title="ooo Web SQL Databases" level="3"/>
+            <contents name="ooo-creating-and-opening-a-new-database" title="ooo Creating and Opening a New Database" level="3"/>
+            <contents name="ooo-errors" title="ooo Errors" level="3"/>
+            <contents name="ooo-transaction-calls-and-executesql-method" title="ooo Transaction Calls and ExecuteSQL Method" level="3"/>
+            <contents name="ooo-changing-database-versions" title="ooo Changing Database Versions" level="3"/>
+            <contents name="xxx" title="XXX ???" level="1"/>
+            <contents name="ooo-web-storage" title="ooo Web Storage" level="3"/>
+            <contents name="ooo-simple-data-storage" title="ooo Simple Data Storage" level="3"/>
+            <contents name="ooo-storage-events" title="ooo Storage Events" level="3"/>
+            <contents name="ooo-storage-intro" title="ooo Storage Intro" level="3"/>
+            <contents name="ooo-storing-non-string-data" title="ooo Storing Non-String Data" level="3"/>
+            <contents name="xxx" title="XXX ???" level="1"/>
+            <contents name="ooo-web-sql" title="ooo Web SQL" level="3"/>
+            <contents name="ooo-web-sql-databases" title="ooo Web SQL Databases" level="3"/>
+            <contents name="ooo-creating-and-opening-a-new-database" title="ooo Creating and Opening a New Database" level="3"/>
+            <contents name="ooo-errors" title="ooo Errors" level="3"/>
+            <contents name="ooo-transaction-calls-and-executesql-method" title="ooo Transaction Calls and ExecuteSQL Method" level="3"/>
+            <contents name="ooo-changing-database-versions" title="ooo Changing Database Versions" level="3"/>
+            <contents name="xxx" title="XXX ???" level="1"/>
+            <contents name="ooo-web-storage" title="ooo Web Storage" level="3"/>
+            <contents name="ooo-simple-data-storage" title="ooo Simple Data Storage" level="3"/>
+            <contents name="ooo-storage-events" title="ooo Storage Events" level="3"/>
+            <contents name="ooo-storage-intro" title="ooo Storage Intro" level="3"/>
+            <contents name="ooo-storing-non-string-data" title="ooo Storing Non-String Data" level="3"/>
+        </page>
+        <page access="public" status="commendable" name="touch.html" href="touch.html" subtype="page" title="Touch Gestures" fulltitle="Touch Gestures" subtitle="" location="41_touch.qdoc">
+            <contents name="touch-events-vs-mouse-events" title="Touch Events vs. Mouse Events" level="2"/>
+            <contents name="tapping-the-screen" title="Tapping the Screen" level="2"/>
+            <contents name="dragging-a-finger" title="Dragging a Finger" level="2"/>
+            <contents name="touching-with-more-than-one-finger" title="Touching with More Than One Finger" level="2"/>
+            <contents name="xxx-mt" title="XXX MT" level="1"/>
+        </page>
+        <page access="public" status="commendable" name="trans.html" href="trans.html" subtype="page" title="Transforms" fulltitle="Transforms" subtitle="" location="32_trans.qdoc">
+            <contents name="sidebar-css3-selectors" title="SIDEBAR CSS3 Selectors" level="2"/>
+            <contents name="xxx-pre" title="XXX pre" level="1"/>
+            <contents name="2d-transforms" title="2D Transforms" level="2"/>
+            <contents name="the-transform-origin" title="The Transform Origin" level="2"/>
+            <contents name="3d-transforms" title="3D Transforms" level="2"/>
+            <contents name="targeting-2d-and-3d-transforms" title="Targeting 2D and 3D Transforms" level="2"/>
+            <contents name="nested-3d-transforms" title="Nested 3D Transforms" level="2"/>
+            <contents name="example-spinning-dice" title="Example: Spinning Dice" level="2"/>
+            <contents name="example-virtual-reality" title="Example: Virtual Reality" level="2"/>
+        </page>
+        <page access="public" status="commendable" name="webapp.html" href="webapp.html" subtype="page" title="Web Apps" fulltitle="Web Apps" subtitle="" location="11_webapp.qdoc">
+            <contents name="packaging-web-apps" title="Packaging Web Apps" level="1"/>
+            <contents name="home-screen-icons" title="Home Screen Icons" level="1"/>
+            <contents name="full-screen-web-apps" title="Full-Screen Web Apps" level="2"/>
+            <contents name="xxx-mt-icon" title="XXX MT icon" level="1"/>
+            <contents name="xxx-mt-webapp" title="XXX MT WEBAPP" level="1"/>
+            <contents name="xxx-mt-fullscreen" title="XXX MT fullscreen" level="1"/>
+            <contents name="handling-links" title="Handling Links" level="2"/>
+            <contents name="the-application-cache" title="The Application Cache" level="1"/>
+            <contents name="enabling-the-application-cache" title="Enabling the Application Cache" level="2"/>
+            <contents name="the-cache-manifest" title="The Cache Manifest" level="2"/>
+            <contents name="including-networked-content" title="Including Networked Content" level="2"/>
+            <contents name="controlling-web-app-distribution" title="Controlling Web App Distribution" level="2"/>
+            <contents name="the-cache-api" title="The Cache API" level="2"/>
+            <contents name="example" title="Example" level="2"/>
+        </page>
+    </namespace>
+</INDEX>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 51_offline.qdoc -->
+  <title>mobile_html5 : Offline Mode</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#xxx-g">XXX G</a></li>
+<li class="level3"><a href="#ooo-offline-applications">ooo Offline Applications</a></li>
+<li class="level3"><a href="#ooo-responding-to-network-availability">ooo Responding to Network Availability</a></li>
+<li class="level3"><a href="#ooo-updating-the-application-cache">ooo Updating the Application Cache</a></li>
+<li class="level3"><a href="#ooo-storing-applications">ooo Storing Applications</a></li>
+</ul>
+</div>
+<h1 class="title">Offline Mode</h1>
+<span class="subtitle"></span>
+<!-- $$$offline.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>Web apps can respond differently when there is no network connection available to access other data from the web. This information is available from the window's <tt>online</tt> and <tt>offline</tt> events, and can be checked at any time by testing the value of <tt>navigator.onLine</tt>.</p>
+<p>The example below presents a map when the user requests it, but only if the necessary external mapping API is accessible:</p>
+<pre class="cpp"><span class="keyword">if</span> (<span class="operator">!</span> navigator<span class="operator">.</span>onLine) {
+    alert(<span class="char">'Sorry, no network connection. Cannot show map. Try again later?'</span>);
+    <span class="keyword">return</span>(<span class="keyword">false</span>);
+}</pre>
+<p><a href="../examples/location.htm"> <img src="images/location1.png" alt="" /> <img src="images/location2.png" alt="" /> </a></p>
+<p><a href="../examples/location.htm"> __IFRAME__ </a> <a href="../examples/location.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/location.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/location.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>The application responds similarly if the network connection stops while the map displays:</p>
+<pre class="cpp">var later;
+var e <span class="operator">=</span> <span class="string">&quot;Sorry, no connection, so can't show map. Inform you once it's back?&quot;</span>
+window<span class="operator">.</span>addEventListener(<span class="char">'offline'</span><span class="operator">,</span> function(e){
+    var m <span class="operator">=</span> document<span class="operator">.</span>getElementById(<span class="char">'map'</span>)
+    <span class="keyword">if</span> ( <span class="operator">!</span> m<span class="operator">.</span>classList<span class="operator">.</span>contains(<span class="char">'active'</span>)) <span class="keyword">return</span> (<span class="keyword">false</span>);
+    later <span class="operator">=</span> confirm(e);
+    m<span class="operator">.</span>classList<span class="operator">.</span>remove(<span class="char">'active'</span>);
+});
+window<span class="operator">.</span>addEventListener(<span class="char">'online'</span><span class="operator">,</span> function(e){
+    var m <span class="operator">=</span> document<span class="operator">.</span>getElementById(<span class="char">'map'</span>)
+    <span class="keyword">if</span> (later) <span class="operator">&amp;</span><span class="operator">&amp;</span> confirm(<span class="char">'Network is back up. Show the map?'</span>) {
+        m<span class="operator">.</span>classList<span class="operator">.</span>add(<span class="char">'active'</span>);
+    }
+});</pre>
+<p><b>Note: </b>Web apps can respond to the presence of a network connection, but not to its quality or its type.</p><a name="xxx-g"></a>
+<h2>XXX G</h2>
+<a name="ooo-offline-applications"></a>
+<h4>ooo Offline Applications</h4>
+<p>While the application cache allows a web app to execute independently of the server from which it was downloaded, <i>offline mode</i> allows web apps to respond to overall network availability via the boolean <tt>navigator.onLine</tt> attribute. (Browser 8.5 does not support corresponding <tt>online</tt> or <tt>offline</tt> window events.) Note that this feature detects presence of a network connection, but not its speed or quality.</p>
+<a name="ooo-responding-to-network-availability"></a>
+<h4>ooo Responding to Network Availability</h4>
+<p>Once an application is cached on the browser, it can operate independently of the site that provided it. If the application relies on no network resources, it can operate seamlessly in <b>offline</b> mode, with no network connection available. Since most useful applications depend on networked APIs, web applications need a way to respond to changes in network availability.</p>
+<p>To check for changes in network state as they occur, assign <tt>online</tt> and <tt>offline</tt> event handlers to the <tt>window</tt> object. Otherwise, at any point you can check the value of the boolean <tt>window.navigator.onLine</tt> attribute. (Note the mixed-case attribute name.)</p>
+<p><b>Note: </b>Applications can respond to the presence of a network connection, but not to the quality of that connection. You cannot use online/offline mode to make an application behave differently at different connection speeds.</p><p>The following sample shows how an application might respond to a lack of a network connection. By default, pressing the map icon presents a separate map interface that relies on network-based data. Users are prevented from initially accessing this interface if the value of <tt>window.navigator.onLine</tt> is false. Thereafter, if the window receives the <tt>offline</tt> event, the panel disappears along with an error message. When the network connection is restored as signaled by an <tt>online</tt> event, the user is prompted to return to the map interface.</p>
+<p><a href="../examples/storage_offline.htm"><img src="images/scr_storage_offline.png" alt="" /> </a></p>
+<p><a href="../examples/css/storage_offline.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/storage_offline.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<a name="ooo-updating-the-application-cache"></a>
+<h4>ooo Updating the Application Cache</h4>
+<p>After an application is cached, the browser uses the locally cached files regardless of whether the server's files change. Only when the contents of the manifest file change does the browser update the cached files. (Simply touching the manifest is not sufficient to force the browser to update the cache.) The examples in the <a href="webapp.html#the-application-cache">The Application Cache</a> feature a version number embedded within the manifest as a comment, which when incremented updates the browser's cache. Files are re-cached whether they have been changed or not, and you can't limit an update to a subset of files.</p>
+<p><b>Note: </b>The web server must identify manifest files as MIME type <tt>text/cache-manifest</tt>. You may need to reconfigure your server so that manifest files are not cacheable using <tt>Expires</tt> and <tt>Cache-Control</tt> HTTP headers. Disabling HTTP caching for manifest files prevents delays when updating applications based on the modified manifest.</p><p>If the update is successful, the browser swaps in the new set of files and displays them when pages are refreshed. Otherwise if download fails for the manifest or for any of the component files, the entire update fails and the browser relies on the already cached version.</p>
+<p>Regardless of changes to the manifest, updates can also be initiated at any time from the client browser. Testing the presence of the <tt>window.applicationCache</tt> object checks the browser's support for the feature:</p>
+<pre class="cpp"><span class="keyword">if</span> ( window<span class="operator">.</span>applicationCache ) {
+    cache <span class="operator">=</span> window<span class="operator">.</span>applicationCache;
+    <span class="keyword">if</span> (cache<span class="operator">.</span>status <span class="operator">=</span><span class="operator">=</span> cache<span class="operator">.</span>UPDATEREADY) cache<span class="operator">.</span>update();
+}</pre>
+<p>Possible application cache status values are:</p>
+<ul>
+<li><b>0</b> UNCACHED</li>
+<li><b>1</b> IDLE</li>
+<li><b>2</b> CHECKING</li>
+<li><b>3</b> DOWNLOADING</li>
+<li><b>4</b> UPDATEREADY</li>
+<li><b>5</b> OBSOLETE</li>
+</ul>
+<p>The <tt>update()</tt> method throws an <tt>INVALID_STATE_ERR</tt> exception if there is no application cache to update, or if its status is <tt>OBSOLETE</tt>. Users can be informed of this change in status via the <tt>error</tt> event:</p>
+<pre class="cpp">window<span class="operator">.</span>applicationCache<span class="operator">.</span>addEventListener(<span class="string">&quot;error&quot;</span><span class="operator">,</span> function() {
+    <span class="comment">// error handling code</span>
+}<span class="operator">,</span> <span class="keyword">false</span>);</pre>
+<p>Once the update succeeds, you need to run the <tt>swapCache()</tt> method as part of an <tt>updateready</tt> event listener. (It is not available as a callback.)</p>
+<pre class="cpp">window<span class="operator">.</span>applicationCache<span class="operator">.</span>addEventListener(<span class="string">&quot;updateready&quot;</span><span class="operator">,</span> function() {
+    window<span class="operator">.</span>applicationCache<span class="operator">.</span>swapCache()
+}<span class="operator">,</span> <span class="keyword">false</span>);</pre>
+<p>The <tt>swapcache()</tt> method throws an <tt>INVALID_STATE_ERR</tt> exception if any of a number of problems occur. Otherwise when the cache state returns to <tt>UPDATEREADY</tt>, the new cache is in place.</p>
+<p>The <tt>ApplicationCache</tt> API supports the following events:</p>
+<ul>
+<li><tt>checking</tt> occurs when the browser is trying to initially download the manifest.</li>
+<li><tt>noupdate</tt> occurs when no change is detected in the manifest.</li>
+<li><tt>obsolete</tt> occurs when the manifest becomes a 404 or 410 page, which deletes the application cache.</li>
+<li><tt>downloading</tt> occurs when the browser starts to download a manifest's files.</li>
+<li><tt>progress</tt> occurs as manifest files are being downloaded.</li>
+<li><tt>error</tt> occurs either when any file specified by the manifest fails to download, or when the manifest is a 404 or 410 page.</li>
+<li><tt>updateready</tt> occurs when the manifest's files have been successfully downloaded, and are available to establish in the cache with <tt>swapCache()</tt>.</li>
+<li><tt>cached</tt> occurs after downloaded files have been successfully cached.</li>
+</ul>
+<p><b>See Also:</b></p>
+<ul>
+<li><a href="http://www.w3.org/TR/html5/offline.html">W3C: HTML5 Offline Web applications</a></li>
+</ul>
+<a name="ooo-storing-applications"></a>
+<h4>ooo Storing Applications</h4>
+<p><a href="../examples/storage_appcache.htm"><img src="images/scr_storage_appcache.png" alt="" /> </a></p>
+<p><a href="../examples/storage_appcache.manifest">(View manifest file)</a></p>
+<ul>
+<li>events</li>
+<li>navigator.onLine</li>
+<li>(navigator.connection)</li>
+<li>appcache API</li>
+<li>cache events</li>
+<li>progress tracker</li>
+<li>(dataCache API)</li>
+</ul>
+</div>
+<!-- @@@offline.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

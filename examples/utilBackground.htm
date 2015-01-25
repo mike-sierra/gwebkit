@@ -1,0 +1,321 @@
+<!--
+/****************************************************************************
+**
+** Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (qt-info@nokia.com)
+**
+** This file is part of the QtWebKit module of the Qt Toolkit.
+**
+** You may use this file under the terms of the BSD license as follows:
+**
+** "Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are
+** met:
+**   * Redistributions of source code must retain the above copyright
+**     notice, this list of conditions and the following disclaimer.
+**   * Redistributions in binary form must reproduce the above copyright
+**     notice, this list of conditions and the following disclaimer in
+**     the documentation and/or other materials provided with the
+**     distribution.
+**   * Neither the name of Nokia Corporation and its Subsidiary(-ies) nor
+**     the names of its contributors may be used to endorse or promote
+**     products derived from this software without specific prior written
+**     permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+**
+****************************************************************************/
+-->
+
+<html>
+<head>
+<title>utility</title>
+
+<style>
+body {
+    overflow : hidden;
+    background: #aaaaaa;
+}
+
+pre.debug {
+    background : #ffffff;
+    text-align : center;
+    text-wrap: normal;
+}
+
+img {
+    border-radius : 0.5em;
+    -webkit-backface-visibility: hidden;
+}
+
+input[type=range] {
+    height: 0.5em;
+}
+
+section {
+    position : absolute;
+    right : 1em;
+    left : 1em;
+    top : 8em;
+    bottom : 1em;
+    padding : 1em;
+    border-radius : 1em;
+}
+
+pre {
+    z-index : 100;
+    position : absolute;
+    top : 0.5em;
+    left : 1em;
+    right : 1em;
+    padding : 0.5em;
+    border-radius : 0.5em;
+    background : #ffffff;
+}
+
+#display {
+    right : 52%;
+    text-align : center;
+    background-image: url(img/land4.png);
+    background-color: #fff;
+    background-color: transparent;
+    border: 1em solid rgba(100%, 100%, 100%, 0.5);
+    padding: 1em;
+}
+
+#display > img {
+    max-width : 100%;
+}
+
+#control {
+    left : 52%;
+    background : #ffffff;
+    min-width: 300px;
+    bottom : inherit;
+}
+
+label {
+    width: 4em;
+    display: inline-block;
+}
+
+fieldset {
+    margin-bottom: 0.5em;
+}
+
+section > div {
+    width: 6em;
+    height: 6em;
+    z-index: 10;
+    padding: 1em;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+</style>
+
+<link rel="apple-touch-icon-precomposed" href="img/html5x128.png" />
+<link rel="apple-touch-icon" href="img/html5x128.png" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<pre>
+background-size     : <span id="code_bkSize"></span>;
+background-position : <span id="code_bkPos"></span>;
+background-clip     : <span id="code_bkClip"></span>;
+background-origin   : <span id="code_bkOrigin"></span>;
+background-repeat   : <span id="code_bkRepeat"></span>;
+<!-- border-radius       : <span id="code_border_radius"></span>; --></pre>
+<section id="display"></section>
+
+<section id="control">
+
+<form>
+
+<input type="reset" value="Start Over">
+
+
+<fieldset>
+<legend>Size</legend>
+
+<select id="bkSize">
+<option>auto</option>
+<option>contain</option>
+<option>cover</option>
+</select>
+
+<br/>
+<label>X</label>
+<input id="bkSize_x" type="range" min="0" max="100" value="100"/>%
+<br/><label>Y</label>
+<input id="bkSize_y" type="range" min="0" max="100" value="100"/>%
+</fieldset>
+
+<fieldset>
+<legend>Position</legend>
+
+<label>X</label>
+<input id="bkPos_x" type="range" min="-100" max="100" value="0"/>&plusmn;100%
+<br/><label>Y</label>
+<input id="bkPos_y" type="range" min="-100" max="100" value="0"/>&plusmn;100%
+</fieldset>
+
+<fieldset>
+<legend>Other</legend>
+
+
+<label>Clip</label>
+<select id="bkClip">
+<option>content-box</option>
+<option>border-box</option>
+<option>padding-box</option>
+</select>
+
+<br/>
+<label>Origin</label>
+<select id="bkOrigin">
+<option>content-box</option>
+<option>border-box</option>
+<option>padding-box</option>
+</select>
+
+<br/>
+<label>Repeat</label>
+<select id="bkRepeat">
+<option>no-repeat</option>
+<option>repeat</option>
+<option>repeat-x</option>
+<option>repeat-y</option>
+</select>
+
+</fieldset>
+
+</fieldset>
+
+<!--
+<label>border-radius</label>
+<input id="border_radius" type="range" min="0" max="20" value="0"/>0-20em
+-->
+
+</form>
+
+</section>
+
+<script>
+var app = new Function();
+
+window.onload = function() {
+    app.init();
+    document.querySelector('input[type=reset]').addEventListener('click', function( ) { app.init() } );
+};
+
+app.init = function() {
+
+    app.initValue_bkPos = '0% 0%';
+    app.initValue_bkSize = 'auto';
+    app.initValue_bkRepeat = 'no-repeat';
+    app.initValue_bkClip = 'content-box';
+    app.initValue_bkOrigin = 'content-box';
+//    app.initValue_border_radius = '0';
+
+    app.showCode('code_bkPos', app.initValue_bkPos);
+    app.showCode('code_bkSize', app.initValue_bkSize);
+    app.showCode('code_bkRepeat', app.initValue_bkRepeat);
+    app.showCode('code_bkClip', app.initValue_bkClip);
+    app.showCode('code_bkOrigin', app.initValue_bkOrigin);
+//    app.showCode('code_border_radius', app.initValue_border_radius);
+
+    app.tgt = document.querySelector('#display');
+    app.tgt.style.backgroundPosition = app.initValue_bkPos;
+    app.tgt.style.backgroundSize = app.initValue_bkSize;
+    app.tgt.style.backgroundRepeat = app.initValue_bkRepeat;
+    app.tgt.style.backgroundClip = app.initValue_bkClip;
+    app.tgt.style.backgroundOrigin = app.initValue_bkOrigin;
+//    app.tgt.style.borderRadius = app.initValue_border_radius;
+
+    app.inputs = document.querySelectorAll('select, input:not([type=reset])');
+    for (var i = 0, l = app.inputs.length ; i < l ; i++) {
+        app.inputs[i].addEventListener('change', app.modify);
+    }
+
+    app['bkPos_y'] = 0;
+    app['bkPos_x'] = 0;
+    app['bkSize'] = 'auto';
+    app['bkSize_x'] = 100;
+    app['bkSize_y'] = 100;
+    app['bkRepeat'] = 'no-repeat';
+    app['bkClip'] = 'content-box';
+    app['bkOrigin'] = 'content-box';
+//    app['border_radius'] = 0;
+
+};
+
+app.modify = function(event) {
+    app[event.target.id] = app.trimArtifact(event.target.value);
+
+    if ( event.target.id.match(/Size_/)) {
+        app['bkSize'] = app['bkSize_x'] + '% ' + app['bkSize_y'] + '%';
+    }
+
+    app.render();
+}
+
+app.trimArtifact = function(n) {
+    if (n.match(/^[0-9.-]+$/)) {
+        return(Math.floor(n * 100) / 100);
+    }
+    else if (n.match(/^[a-z]+$/)) {
+        return(n);
+    }
+    else {
+        return(n);
+    }
+}
+
+app.render = function() {
+
+    var cssStr_bkPos, cssStr_bkSize, cssStr_bkRepeat, cssStr_bkClip,
+        cssStr_bkOrigin;
+
+    cssStr_bkPos = app.bkPos_x + '% ' + app.bkPos_y + '%';
+    cssStr_bkSize = app.bkSize;
+    cssStr_bkRepeat = app.bkRepeat;
+    cssStr_bkClip = app.bkClip;
+    cssStr_bkOrigin = app.bkOrigin;
+//    cssStr_border_radius = app.border_radius + 'em';
+
+    app.tgt.style.backgroundPosition = cssStr_bkPos;
+    app.tgt.style.backgroundSize= cssStr_bkSize;
+    app.tgt.style.backgroundRepeat= cssStr_bkRepeat;
+    app.tgt.style.backgroundClip= cssStr_bkClip;
+    app.tgt.style.backgroundOrigin= cssStr_bkOrigin;
+//    app.tgt.style.borderRadius = cssStr_border_radius;
+
+    app.showCode('code_bkPos', cssStr_bkPos);
+    app.showCode('code_bkSize', cssStr_bkSize);
+    app.showCode('code_bkRepeat', cssStr_bkRepeat);
+    app.showCode('code_bkClip', cssStr_bkClip);
+    app.showCode('code_bkOrigin', cssStr_bkOrigin);
+//    app.showCode('code_border_radius', cssStr_border_radius);
+};
+
+app.showCode = function(id, str) {
+    document.getElementById(id).innerHTML = str;
+}
+
+</script>
+</body>
+</html>

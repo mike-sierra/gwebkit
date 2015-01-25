@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 21_layout.qdoc -->
+  <title>mobile_html5 : Flexible Mobile Layout</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#the-mobile-viewport">The Mobile Viewport</a></li>
+<li class="level1"><a href="#constraining-touch-response">Constraining Touch Response</a></li>
+<li class="level1"><a href="#flexible-positioning">Flexible Positioning</a></li>
+<li class="level1"><a href="#flexible-boxes">Flexible Boxes</a></li>
+<li class="level1"><a href="#box-sizing">Box Sizing</a></li>
+<li class="level1"><a href="#semantic-tags">Semantic Tags</a></li>
+<li class="level1"><a href="#xxx-mt-viewport">XXX MT Viewport</a></li>
+</ul>
+</div>
+<h1 class="title">Flexible Mobile Layout</h1>
+<span class="subtitle"></span>
+<!-- $$$layout.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="the-mobile-viewport"></a>
+<h2>The Mobile Viewport</h2>
+<p>Applying a <i>viewport</i> is the first and most important step to make web pages presentable on mobile browsers.</p>
+<p>Touch-based smartphone browsers are capable of presenting web pages designed for desktop browsers, but the experience needs improvement. When loading full-sized pages, mobile browsers display the entire page at reduced magnification. Users must double-tap or pinch the screen to magnify individual columns of content. Even then, text sized for full-sized browsers is often difficult to read. The following shows how a typical web page layout displays:</p>
+<p><img src="images/viewport_fail1.png" alt="" /> <img src="images/viewport_fail2.png" alt="" /> <img src="images/viewport_fail3.png" alt="" /> .</p>
+<p>Users are obliged to go through several steps before text becomes legible, in this case including tipping the handset to increase the column's magnification. When users reach the end of the column, they often experience difficulty reorienting themselves within the page.</p>
+<p>The fixed rectangular area within which touch-based smartphone browsers display larger web pages is called the <i>viewport</i>. Applying a viewport <tt>meta</tt> tag allows you to control how mobile browsers render content within this rectangle, and whether users can use magnification controls.</p>
+<p>The following shows a sample screen layout before a viewport is applied. The initially loaded page is zoomed out too far to be legible, while zooming in makes content extending off the right edge of the screen relatively inacessible:</p>
+<p class="centerAlign"><img src="images/view_off.PNG" alt="" /></p><p>This reflects the browser's default assumption that content should extend 980 pixels wide.</p>
+<p><b>Note: </b>This sample layout displays a <a href="#flexible-positioning">flexibly positioned</a> element that adapts to the full width of the screen, along with a fixed-size <a href="color.html">background image</a>.</p><p>To correct this behavior, place the following line within the HTML's <tt>head</tt> region:</p>
+<pre class="cpp"><span class="operator">&lt;</span>meta name<span class="operator">=</span><span class="string">&quot;viewport&quot;</span> content<span class="operator">=</span><span class="string">&quot;width=device-width&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>The following shows the screen layout after the above viewport is applied:</p>
+<p class="centerAlign"><img src="images/view_on.PNG" alt="" /></p><p>Setting the <tt>width</tt> to <tt>device-width</tt> recalculates flexible CSS measurements (such as <tt>width:100%</tt>) within the width of the handset's screen rather than the default page width. (Tipping the handset maintains the overall width of the content within the wider window.)</p>
+<p>On a majority of touch-based mobile browsers, the <tt>device-width</tt> is 320 pixels. make sure images and other fixed-dimension elements are sized accordingly. The screen height varies significantly among devices, and increases for <a href="webapp.html#full-screen-web-apps">full-screen web apps</a> that suppress the browser's native screen controls.</p>
+<p><b>Note: </b>Applying a viewport has no effect on desktop browsers. It is interpreted only once when the page loads, and cannot be modified thereafter.</p><a name="constraining-touch-response"></a>
+<h2>Constraining Touch Response</h2>
+<p>Applying the above viewport forces content to scroll downward, though it can still extend horizontally or be positioned outside the screen. By default, horizontal panning is disabled when the content fits within the viewport. (A similar <tt>height=device-height</tt> property may also resize content, but does not disable vertical panning to navigate to overflowing content.)</p>
+<p><b>Note: </b>CSS's <tt>translate()</tt> transform function offers the best way to stage hidden interface elements off the edge of the screen, since it is a more superficial visual effect that doesn't modify the dimensions of the overall content within the page. (See <a href="trans.html">Transforms</a> for details.)</p><p>Once content is well-adapted and accessible for presentation on mobile browsers, there may no longer be any need to use zoom controls to access different portions of the page. To disable the browser's default double-tap and pinch-zoom gestures and ensure that content appears at the proper magnification level, apply the following viewport:</p>
+<pre class="cpp"><span class="operator">&lt;</span>meta name<span class="operator">=</span><span class="string">&quot;viewport&quot;</span> content<span class="operator">=</span><span class="string">&quot;width=device-width, initial-scale=1, user-scalable=no&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>As an alternative to disabling scaling, you can apply decimal <tt>minimum-scale</tt> and <tt>maximum-scale</tt> values to control the potential <i>range</i> of magnification. See <a href="orient.html">Tipping the Handset</a> for details on how these viewport options and related CSS affects the appearance of landscape-oriented content.</p>
+<p><b>Note: </b>The <tt>user-scalable</tt> property only affects access to the overall page. <a href="touch.html">touch-enabled web content</a> within that page such as map interfaces may still respond independently to pinch-zoom and drag-scroll gestures.</p><p>To disable vertical scrolling, you need to make sure there is not so much content on each page that it would overflow the screen. Screen layouts may also explicitly disable vertical scrolling, but they do so simply by making any overflowing content inaccessible. The following viewport-enabled example presents a full-screen <tt>&lt;section&gt;</tt> element whose dimensions align with each edge of the screen:</p>
+<pre class="cpp"><span class="operator">&lt;</span>head<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>meta name<span class="operator">=</span><span class="string">&quot;viewport&quot;</span> content<span class="operator">=</span><span class="string">&quot;width=device-width&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>style<span class="operator">&gt;</span>
+section {
+    position: absolute; top:<span class="number">0</span>; bottom:<span class="number">0</span>; left:<span class="number">0</span>; right:<span class="number">0</span>;
+    overflow: hidden;
+}
+<span class="operator">&lt;</span><span class="operator">/</span>style<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>head<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>body<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>section<span class="operator">&gt;</span>
+  <span class="operator">.</span><span class="operator">.</span><span class="operator">.</span>
+  <span class="operator">&lt;</span><span class="operator">/</span>section<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>body<span class="operator">&gt;</span></pre>
+<p><b>Note: </b>Even if content overflows the screen without being hidden, setting the following CSS renders it inaccessible:</p><pre class="cpp">body { overflow: hidden }</pre>
+<p>Increasingly, mobile browsers allow users to navigate scrollable content elements that appear within a page, but these should be used with care. Users may become confused when the scrolling gestures they expect to scroll within a page instead scrolls within a narrow region of that page. See <a href="border.html#scrollbars">Scrollbars</a> for an example of a way to use familiar tap gestures to access content that scrolls off the side of the screen. Overall, avoid presenting content such as wide tables that oblige users to scroll horizontally. An example <a href="history.html#navigation-within-a-page">introduced earlier</a> demonstrates how tabular data may be arranged vertically on the smaller screen and presented one row at a time:</p>
+<p><a href="../examples/layout_tbl-keyhole.htm"><img src="images/scr_layout_tbl-keyhole.png" alt="" /> </a></p>
+<p><a href="../examples/css/layout_tbl-keyhole.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>Re-styling the <tt>display</tt> of table cells as <tt>block</tt> overrides their default horizontal arrangement.</p>
+<p><b>Note: </b>Screen layout should be driven entirely by CSS properties. HTML table elements should be used only for tabular data, and never to arrange elements on the screen. Likewise, do not use the deprecated <tt>&lt;frameset&gt;</tt> tag to define layouts that indirectly reference other HTML files. Both of these older web layout techniques render poorly on mobile browsers.</p><a name="flexible-positioning"></a>
+<h2>Flexible Positioning</h2>
+<p>After applying a <a href="#the-mobile-viewport">viewport</a>, CSS-based page layout allows designs to flexibly adapt to different screen dimensions. This section demonstrates how the CSS <tt>position</tt> property can be used effectively for most screen layout.</p>
+<p>The following example shows a typical mobile layout, with navigation icons placed at the top of the screen, and a vertically flexible content area:</p>
+<p><a href="../examples/layout_nav.htm"><img src="images/scr_layout_nav.png" alt="" /> </a></p>
+<p><a href="../examples/css/layout_nav.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The main <tt>&lt;section&gt;</tt> panel relies on <tt>position:absolute</tt>, with <i>em</i> units offsetting it from the <tt>left</tt>, <tt>right</tt>, and <tt>top</tt> of the screen. To account for overflowing content, the bottom edge is allowed to expand past the element's default <tt>min-height</tt>. Its generous bottom <tt>margin</tt> clearly marks the end of the content.</p>
+<p>In this example, text overflows the bottom edge of the screen, which forces the fixed navigation items off the top of the screen. (The button at the bottom of the page is offered as a convenience to allow users to jump back to the top to access other navigation options.) To address this accessibility problem, the <tt>position:fixed</tt> property allows navigation elements to remain on the screen regardless of scrolling.</p>
+<p>The following example repositions the navigation items at the bottom of the screen, offset using a percentage to account for potential variation in screen height. The main content area still uses <tt>position:absolute</tt> as described above, but the navigation area uses <tt>position:fixed</tt> to keep it on the screen at all times:</p>
+<p><a href="../examples/layout_nav-fixed.htm"><img src="images/scr_layout_nav_fixed.png" alt="" /> <img src="images/scr_layout_nav_fixed2.png" alt="" /> </a></p>
+<p><a href="../examples/css/layout_nav-fixed.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>This example is defined as a <a href="webapp.html#full-screen-web-apps">full-screen application</a>. The customary browser controls are removed from the bottom of the screen, which allows the application to use that space. Placing controls at the bottom of the screen allows users to control the application using one hand. Since navigation controls are always available in this example, there is no longer any need to provide a link back to the top of each page.</p>
+<p>Despite its usefulness, the <tt>position:fixed</tt> property is not yet widely deployed among mobile browsers. The <a href="http://www.modernizr.com/">Modernizr</a> JavaScript plug-in offers a comprehensive suite of browser feature detection tests, including a <a href="http://www.modernizr.com/docs/#s3">method to test support for <tt>position:fixed</tt></a>. As an added benefit, Modernizr extends CSS so that classes such as <tt>.no-positionfixed</tt> can define a set of fallback style sheets. Some JavaScript plug-ins such as <a href="http://cubiq.org/scrolling-div-on-iphone-ipod-touch">Cubiq's iScroll</a> and <a href="http://www.sencha.com/products/touch/">Sencha Touch</a> emulate <tt>position:fixed</tt> by defining a screen region that uses touch events to mimic the browser's default scrolling behavior. (Mobile browsers customarily respond with a bounce effect when you hit the edge of a scrollable area, and allow quick <i>flick</i> gestures to keep content scrolling after the finger lifts from the screen.)</p>
+<p>Browsers that do not implement <tt>position:fixed</tt> respond by applying <tt>position:absolute</tt>, which may serve as a fallback. The following example uses a single expandable icon to access many different navigation options, implemented as accordion lists:</p>
+<p><a href="../examples/anim_accord.htm"><img src="images/scr_anim_accord1.png" alt="" /> <img src="images/scr_anim_accord2.png" alt="" /> <img src="images/scr_anim_accord3.png" alt="" /> <img src="images/scr_anim_accord4.png" alt="" /> </a></p>
+<p><a href="../examples/css/anim_accord.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/anim_accord.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>On supporting browsers, this icon always appears at the same point on the screen regardless of scroll state, but otherwise it scrolls away harmlessly.</p>
+<p>See <a href="animation.html">Animations</a> for more information on how to implement the navigation icon's two-stage transition.</p>
+<a name="flexible-boxes"></a>
+<h2>Flexible Boxes</h2>
+<p>This section introduces Level 3 CSS <i>flexible box</i> properties, which may serve as an alternative to positioning in mobile screen layouts.</p>
+<p>The following example reproduces the full-screen layout featuring bottom-aligned navigation controls:</p>
+<p><a href="../examples/layout_nav-flex.htm"><img src="images/scr_layout_nav_flex.png" alt="" /> <img src="images/scr_layout_nav_flex2.png" alt="" /> </a></p>
+<p><a href="../examples/css/layout_nav-flex.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The basic markup is structured as follows:</p>
+<pre class="cpp"><span class="operator">&lt;</span>body<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>section<span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>nav<span class="operator">&gt;</span>
+      <span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;#&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span>
+      <span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;#&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span>
+      <span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;#&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span>
+      <span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;#&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span>
+      <span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;#&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span>
+      <span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;#&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span>
+    <span class="operator">&lt;</span><span class="operator">/</span>nav<span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>article<span class="operator">&gt;</span>
+      <span class="operator">&lt;</span><span class="operator">!</span><span class="operator">-</span><span class="operator">-</span> main content <span class="operator">-</span><span class="operator">-</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span><span class="operator">/</span>article<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span><span class="operator">/</span>section<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>body<span class="operator">&gt;</span></pre>
+<p>To enable flexible box properties, the full-screen <tt>&lt;section&gt;</tt> is defined as a <tt>box</tt> rather than the default <tt>block</tt>. The <tt>box-orient</tt> property determines how nested child elements are to be visually arranged within the box:</p>
+<pre class="cpp">section {
+    display            : <span class="operator">-</span>webkit<span class="operator">-</span>box;
+    <span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>orient : vertical;
+}</pre>
+<p>The <tt>&lt;nav&gt;</tt> element uses the default <i>inflexible</i> formatting, wrapping around the navigation icons with no extra spacing. The <tt>&lt;article&gt;</tt> element, however is set to be <i>flexible</i>, which allows it to expand tp fill unused screen area:</p>
+<pre class="cpp">article {
+    <span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>flex   : <span class="number">1</span>;
+}</pre>
+<p>The <i>flexibility</i> of boxes is expressed in relative terms. Relative to the <tt>&lt;nav&gt;</tt> element, the <tt>&lt;article&gt;</tt> is fully flexible, so it fills all the remaining space not taken up by the <tt>&lt;nav&gt;</tt> element. (If there were another element with a <tt>box-flex</tt> of <tt>2</tt>, it would take up twice the available area as the <tt>&lt;article&gt;</tt>.)</p>
+<p>Note that the <tt>&lt;nav&gt;</tt> element is defined first within the markup, but appears below the <tt>&lt;article&gt;</tt> on the screen. The <tt>box-ordinal-group</tt> property overrides the default arrangement of boxes, in this case making the <tt>&lt;nav&gt;</tt> appear second:</p>
+<pre class="cpp">nav {
+    <span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>ordinal<span class="operator">-</span>group : <span class="number">2</span>;
+}</pre>
+<p>Another way to do this would be to reverse the direction in which child elements appear:</p>
+<pre class="cpp">section {
+    <span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>direction : reverse;
+}</pre>
+<p>The <tt>&lt;nav&gt;</tt> element is itself set to display as a <tt>box</tt>:</p>
+<pre class="cpp">nav {
+    display                   : <span class="operator">-</span>webkit<span class="operator">-</span>box;
+    <span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>orient        : horizontal;
+    <span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>pack          : justify;
+}</pre>
+<p>The <tt>box-orient</tt> property arranges nested navigation elements horizontally, and the <tt>box-pack</tt> property distributes them evenly within the available space. (This improves upon the <a href="../examples/layout_nav-fixed.htm">previous version of the layout</a>, which used text justification to distribute the icons.)</p>
+<p><b>Note: </b>CSS's flexible box properties are more widely supported than <tt>position:fixed</tt>, but overflowing content has to be implemented as scrollable regions, which may not always perform as smoothly as scrolling within an entire page. On iPhone Safari, setting <tt>-webkit-overflow-scroll:touch</tt> makes scrollable regions perform as well as full-page scrolling. See <a href="border.html#scrollbars">Scrollbars</a> for information on how to suppress the appearance of scrollbars while keeping content scrollable.</p><p>The following example uses flexible box properties and animation to highlight selected images:</p>
+<p><a href="../examples/css3_flex.htm"><img src="images/scr_css3_flex.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_flex.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<a name="box-sizing"></a>
+<h2>Box Sizing</h2>
+<p>The <a href="#flexible-positioning">examples above</a> use absolute positioning to make layout elements snap to both the left and right edges of the screen. Elements specified as <tt>width:100%</tt> can also be made to fill the screen.</p>
+<p>However, there has long been ambiguity among browsers in how an element's dimensions are measured. By default, WebKit-based browsers do not incorporate padding and borders into such measurements, which often leads to unexpected results. To address this problem, Level 3 CSS includes a <tt>box-sizing</tt> property that allows designers to specify how to apply measurements.</p>
+<p>The following example illustrates how failure to specify <tt>box-sizing</tt> may adversely affect screen layout:</p>
+<p><a href="../examples/layout_boxsizing.htm"><img src="images/scr_layout_boxsizing.png" alt="" /> <img src="images/scr_layout_boxsizing2.png" alt="" /> </a></p>
+<p><a href="../examples/css/layout_boxsizing.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The <tt>&lt;section&gt;</tt> element that contains navigation elements, hilighted here with a border, is defined with a <tt>width</tt> of <tt>100%</tt> and a <tt>height</tt> of <tt>6em</tt>. The default <tt>box-sizing</tt> is <tt>content-box</tt>. Unless it is set to <tt>border-box</tt>, measurements only apply to the interior content, not to the element's full width. In this case, it means the element doesn't fit within the screen, and becomes much taller than intended.</p>
+<p><b>Note: </b>Despite its name, <tt>box-sizing</tt> applies to all block elements, not just to flexible <tt>box</tt> elements <a href="#flexible-boxes">described above</a>.</p><a name="semantic-tags"></a>
+<h2>Semantic Tags</h2>
+<p>The examples above use various HTML5 <i>semantic</i> tags to define high-level regions of the page. These tags serve as a clearer alternative to more abstract block <tt>&lt;div&gt;</tt> and inline <tt>&lt;span&gt;</tt> elements that don't reference what kind of content they encapsulate.</p>
+<p>None of these semantic tags is required, but they help standardize overall information design, and may help search engines assign relevance to content. Except for the <tt>&lt;mark&gt;</tt> tag, they are not presented with any default styling.</p>
+<p>Block-level semantic tags include:</p>
+<ul>
+<li><tt>&lt;section&gt;</tt>: Major groupings of content within a page. For example, separate sections for main content and for user comments.</li>
+<li><tt>&lt;article&gt;</tt>: The main item of interest within a page or section.</li>
+<li><tt>&lt;figure&gt;</tt>: An image relevant to content within a page, as opposed to a background design element or an image featured within an advertisement.</li>
+<li><tt>&lt;figcaption&gt;</tt>: Text describing a <tt>&lt;figure&gt;</tt>.</li>
+<li><tt>&lt;nav&gt;</tt>: Regions reserved for groups of navigation links.</li>
+<li><tt>&lt;header&gt;</tt>: Regions of site-wide banner elements such as logos, search boxes, and navigation elements.</li>
+<li><tt>&lt;footer&gt;</tt>: Regions of site-wide elements, such as legal notices or contact links, that are not as prominent as <tt>&lt;header&gt;</tt> elements, and typically appear at the bottom of the page.</li>
+<li><tt>&lt;aside&gt;</tt>: Tangentially related content, such as highlighted quotes, items of related interest, and advertisements.</li>
+<li><tt>&lt;hgroup&gt;</tt>: Typically a cluster of information about a heading. For example, next to a standard heading tag providing the title of an item, an <tt>&lt;hgroup&gt;</tt> might feature a related subtitle, author byline, publication date, or a series of categories.</li>
+</ul>
+<p>The following HTML5 tags are appropriate to apply semantic meaning to in-line text:</p>
+<ul>
+<li><tt>&lt;mark&gt;</tt>: Highlighted text, for example to draw attention to search terms within text. (Appears by default with a yellow background.)</li>
+<li><tt>&lt;time&gt;</tt>: Identifies when an item was published or updated.</li>
+<li><tt>&lt;command&gt;</tt>: Identifies text used to trigger an interface or other process.</li>
+<li><tt>&lt;output&gt;</tt>: Like <tt>&lt;command&gt;</tt>, but presents the result of an action.</li>
+</ul>
+<p>Other newly introduced HTML5 tags offer more specialized functionality. For example, <tt>&lt;progress&gt;</tt> and <tt>&lt;meter&gt;</tt> tags represent the status of numeric data. See <a href="input.html">Input Types</a> for more information.</p>
+<a name="xxx-mt-viewport"></a>
+<h2>XXX MT Viewport</h2>
+<p>The Browser is capable of displaying web pages with complex layouts that are targeted to desktop and laptop-sized screens. Users can double-tap to zoom in on images or columns of text, and can drag the screen around to navigate to items within a page that exceeds the screen's dimensions.</p>
+<p>However, viewing desktop-style content on a mobile device does not offer users the best experience. Users spend far too much time and effort panning and zooming around the large page layout, perhaps re-orienting the device to landscape view to be able to read text. It is much better to offer a mobile-optimized interface, which can be <a href="query.html">deployed along with a desktop-style interface</a> if necessary.</p>
+<p>When designing the page, specifying a <i>viewport</i> tells the browser to fit design elements to the width of the mobile device, rather than letting them extend to the default width sized for desktop-style browsers. Add the following viewport specification to the HTML's <tt>&lt;head&gt;</tt> region:</p>
+<pre class="cpp"><span class="operator">&lt;</span>meta name<span class="operator">=</span><span class="string">&quot;viewport&quot;</span> content<span class="operator">=</span><span class="string">&quot;width=device-width&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>A single-column page such as the following ordinarily appears very wide, but with the viewport enabled it conforms to the width of the mobile screen, with no effect on desktop browsers:</p>
+<pre class="cpp"><span class="operator">&lt;</span>head<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>style<span class="operator">&gt;</span>
+section { padding: <span class="number">1em</span> <span class="number">1em</span> <span class="number">10em</span> <span class="number">1em</span>; }
+article {
+    background: <span class="preprocessor">#fff;</span>
+    border<span class="operator">-</span>radius: <span class="number">1em</span>;
+    padding: <span class="number">1em</span>;
+    min<span class="operator">-</span>height: <span class="number">70</span><span class="operator">%</span>;
+}
+h1 { text<span class="operator">-</span>align: center; }
+<span class="operator">&lt;</span><span class="operator">/</span>style<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>head<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>body<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>section<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>article<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>h1<span class="operator">&gt;</span>viewport<span class="operator">&lt;</span><span class="operator">/</span>h1<span class="operator">&gt;</span>
+<span class="operator">.</span><span class="operator">.</span><span class="operator">.</span>
+<span class="operator">&lt;</span><span class="operator">/</span>article<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>section<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>body<span class="operator">&gt;</span></pre>
+<p>Here is how the page initially appears without a viewport:</p>
+<p class="centerAlign"><img src="images/viewport_off.png" alt="" /></p><p>Here is how the page appears after the viewport is added:</p>
+<p><a href="../examples/viewport.htm"> <img src="images/viewport_on.png" alt="" /> </a></p>
+<p>Note that to simulate the mobile viewport's appearance on desktop-style browsers, the example above uses <tt>max-width</tt> CSS to constrain the width of the page. It is not necessary to set the width of the page in a mobile interface that has the viewport enabled.</p>
+</div>
+<!-- @@@layout.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

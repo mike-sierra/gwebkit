@@ -1,0 +1,21 @@
+img {
+    position : absolute;
+    width    : 48px;
+    height   : 48px;
+    border   : #ffffff thin solid;
+    padding  : 1em;
+}
+
+/* columns */
+img:nth-of-type(4n-3) { left : 2%  }
+img:nth-of-type(4n-2) { left : 27% }
+img:nth-of-type(4n-1) { left : 52% }
+img:nth-of-type(4n-0) { left : 77% }
+
+/* rows */
+img:nth-of-type(n)    { top : 5% }
+img:nth-of-type(n+5)  { top : 20% }
+img:nth-of-type(n+9)  { top : 35% }
+img:nth-of-type(n+13) { top : 50% }
+img:nth-of-type(n+17) { top : 65% }
+img:nth-of-type(n+21) { top : 80% }

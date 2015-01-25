@@ -1,0 +1,36 @@
+section {
+    position: absolute;
+    top: 6em;
+    left: 6em;
+    width: 320px;
+    height: 400px;
+    -webkit-perspective: 1000;
+}
+
+form {
+    margin: 3em;
+}
+
+div {
+    -webkit-transition: all 1s;
+    -webkit-transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+    border: thin solid #777;
+    border-radius: 1em;
+}
+
+#p_alpha {
+    background-color: rgba(0%, 100%, 0%, 0.1);
+}
+
+#p_beta {
+    background-color: rgba(0%, 0%, 100%, 0.1);
+}
+
+#p_gamma {
+    background: url(../img/2REPLACE_n9.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;    
+}

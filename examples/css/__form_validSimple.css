@@ -1,0 +1,72 @@
+body {
+    background         : #aaaaaa;
+    font-family        : sans-serif;
+    font-weight        : bold;
+}
+
+h1,h2,h3,h4 {
+    text-align         : center;
+}
+
+section {
+    position           : absolute;
+    top                : 0;
+    left               : 0;
+    right              : 0;
+    bottom             : 0;
+}
+
+article {
+    max-width          : 320px;
+    background         : #ffffff;
+    border-radius      : 0.5em;
+    padding            : 1.0em;
+    margin             : 1em;
+    min-height         : 50%;
+}
+
+label, input {
+    display            : block;
+    width              : 95%;
+    overflow           : hidden;
+}
+
+input {
+    min-height         : 3.5em;
+    border-radius      : 0.5em;
+    -webkit-box-shadow : 0.25em 0.25em 0.25em #aaaaaa;
+    padding-left       : 0.5em;
+}
+
+input + span {
+    opacity            : 0;
+    color              : #aa0000;
+    -webkit-transition : opacity 0.5s linear;
+}
+
+#simple input:invalid + span {
+    opacity            : 0;
+    -webkit-transition : opacity 0.5s linear;
+}
+
+input[type=range] {
+    width              : 80%;
+}
+
+input:invalid {
+    background         : pink;
+    -webkit-transition : background 1.5s linear;
+}
+
+input:valid {
+    background         : white;
+    -webkit-transition : background 1.5s linear;
+}
+
+label.req:before {
+    content            : "* ";
+    color              : #aa0000;
+    font-size          : larger;
+    font-weight        : bold;
+}
+

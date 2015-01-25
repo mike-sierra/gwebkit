@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 12_query.qdoc -->
+  <title>mobile_html5 : Responsive Interfaces</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level2"><a href="#assigning-alternative-interfaces">Assigning Alternative Interfaces</a></li>
+<li class="level2"><a href="#script-based-adaptation">Script-based Adaptation</a></li>
+<li class="level2"><a href="#what-can-you-find-out-about-a-browser">What Can You Find Out About a Browser?</a></li>
+<li class="level2"><a href="#sidebar-the-selectors-api">SIDEBAR The Selectors API</a></li>
+<li class="level1"><a href="#xxx-mt">XXX MT</a></li>
+<li class="level1"><a href="#example-present-a-web-page-with-different-interfaces">Example: Present a Web Page with Different Interfaces</a></li>
+<li class="level1"><a href="#example-redirect-to-the-appropriate-interface">Example: Redirect to the Appropriate Interface</a></li>
+</ul>
+</div>
+<h1 class="title">Responsive Interfaces</h1>
+<span class="subtitle"></span>
+<!-- $$$query.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>This section shows how to use CSS <i>media queries</i> to target a site to more than one kind of device. You can use media queries, for example, to make a site accessible to mobile handsets and tablet devices in addition to desktop browsers.</p>
+<p>Media queries offer a client-side mechanism to adapt web pages based on a device's inherent characteristics, most commonly its screen size. A CSS-based interface may respond by restyling or toggling the display of content.</p>
+<p>Prior to widespread support for media queries, the main way to adapt an interface was for the server to respond to the <i>User-Agent</i> header the browser transmits with each HTTP request. Server-based adaptation fails when the information to classify each browser is inaccurate or not up to date. (Device databases such as <i>WURFL</i> and <i>DeviceAtlas</i> address this problem somewhat.)</p>
+<p>Media queries may be most useful if you want to make a desktop-facing website marginally more accessible on mobile handsets and tablets, but if you want to avoid making major changes in implementation. They are appropriate in the following cases:</p>
+<ul>
+<li>If it makes sense to deploy a set of web pages on more than one kind of device. A game that requires tilting a handset, for example, makes no sense within a desktop browser.</li>
+<li>If the overall user interface should be perceived similarly on each device. For example, a desktop site might prompt users to access content via hierarchical categories or search queries, while in a mobile site a narrower range of location-specific or recently published content might be more appropriate.</li>
+<li>If the basic mechanism to deploy different interfaces matches. For example, if a desktop interface relies on conventional hyperlinks to a shifting set of web pages, while a <a href="webapp.html#packaging-web-apps">cached mobile web app</a> loads data dynamically via Ajax from a fixed set of files, the difference between the two approaches is more substantial than the content's appearance on the screen.</li>
+</ul>
+<p>If any of these are the case, a popular alternative to such hybrid sites is to provide separate access points for each interface. For example, a desktop site might be accessed via <i>www.website.com</i>, while mobile variants might be available at <i>m.website.com</i>, <i>touch.website.com</i>, or <i>website.mobi</i>. The <a href="#script-based-adaptation">Script-based Adaptation</a> section shows a simpler way to use media queries: to guide users to the most appropriate site, rather than to apply different interfaces as in <a href="#assigning-alternative-interfaces">the following section</a>.</p>
+<a name="assigning-alternative-interfaces"></a>
+<h3>Assigning Alternative Interfaces</h3>
+<p>Media <i>queries</i> extend an older CSS specification known as <i>media types</i>, which assigned browsers with high-level categories such as <tt>screen</tt> and <tt>handheld</tt>, or <tt>print</tt> to re-style a web page's printed output. The original set of mobile browsers were simply typed <tt>handheld</tt>, and could safely be presented with far more simplified content than <tt>screen</tt> content. However, the introduction of higher-capability touch-based browsers led to a problem: their larger screens and flexible zoom controls allowed them to display complex page layouts. To allow access to the richer content they were able to present, these browsers had to be described, somewhat inaccurately, with the <tt>screen</tt> media type.</p>
+<p>Media queries allow you to distinguish among various kinds of <tt>screen</tt>-typed browser. Most modern touch-based browsers have 320 pixel-wide screens, which the following media query identifies:</p>
+<pre class="cpp">screen <span class="keyword">and</span> (max<span class="operator">-</span>device<span class="operator">-</span>width: <span class="number">320px</span>)</pre>
+<p>Queries can be activated in three ways:</p>
+<ol class="1">
+<li>as part of <tt>&lt;link&gt;</tt> tags within the HTML's <tt>head</tt> region. This example targets CSS to desktop, tablet, and touch browsers, along with lower-end legacy mobile browsers:<pre class="cpp"><span class="operator">&lt;</span>link media<span class="operator">=</span><span class="string">&quot;screen&quot;</span>
+    href<span class="operator">=</span><span class="string">&quot;/path/to/desktop.css&quot;</span> type<span class="operator">=</span><span class="string">&quot;text/css&quot;</span> rel<span class="operator">=</span><span class="string">&quot;stylesheet&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>link media<span class="operator">=</span><span class="string">&quot;only screen and (max-device-width: 320px)&quot;</span>
+    href<span class="operator">=</span><span class="string">&quot;/path/to/touch.css&quot;</span> type<span class="operator">=</span><span class="string">&quot;text/css&quot;</span> rel<span class="operator">=</span><span class="string">&quot;stylesheet&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>link media<span class="operator">=</span><span class="string">&quot;only screen and (max-device-width: 1024px)&quot;</span>
+    href<span class="operator">=</span><span class="string">&quot;/path/to/tablet.css&quot;</span> type<span class="operator">=</span><span class="string">&quot;text/css&quot;</span> rel<span class="operator">=</span><span class="string">&quot;stylesheet&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>link media<span class="operator">=</span><span class="string">&quot;handheld&quot;</span>
+    href<span class="operator">=</span><span class="string">&quot;/path/to/mobile.css&quot;</span> type<span class="operator">=</span><span class="string">&quot;text/css&quot;</span> rel<span class="operator">=</span><span class="string">&quot;stylesheet&quot;</span><span class="operator">/</span><span class="operator">&gt;</span></pre>
+</li>
+<li>as part of <tt>@import</tt> rules within CSS files or <tt>&lt;style&gt;</tt> regions:<pre class="cpp">@import url(<span class="string">&quot;touch.css&quot;</span>) screen <span class="keyword">and</span> (max<span class="operator">-</span>device<span class="operator">-</span>width: <span class="number">320px</span>);</pre>
+</li>
+<li>as part of <tt>@media</tt> rules, to define regions of custom style sheets within a single CSS file or <tt>&lt;style&gt;</tt> region:<pre class="cpp"><span class="operator">.</span>sidebar { <span class="type">float</span>: right; }
+
+@media only screen <span class="keyword">and</span> (max<span class="operator">-</span>device<span class="operator">-</span>width: <span class="number">320px</span>) {
+    <span class="operator">.</span>sidebar { display: none }
+}</pre>
+</li>
+</ol>
+<p>The following example demonstrates a simple color-coded message identifying your class of browser, which appears dynamically based on the first approach shown above. Change the width of your desktop browser's window to see the changes take place:</p>
+<p><a href="../examples/mob_mediaquery.htm"><img src="images/scr_mob_mediaquery.png" alt="" /> </a></p>
+<p>View CSS for: <a href="../examples/css/mq_desktop.css">desktop</a>, <a href="../examples/css/mq_touch.css">touch</a>, <a href="../examples/css/mq_tablet.css">tablet</a>, <a href="../examples/css/mq_mobile.css">low-end mobile</a></p>
+<p><b>Note: </b>Unlike desktop browsers, mobile browser windows can't be resized. For the purpose of demonstration, the example above uses the <tt>max-width</tt> media query, which reflects the window's current width. The <tt>max-device-width</tt> media more accurately reflects a window's maximum potential width on various devices.</p><p>The following example shows a skeletal layout that appears differently based on the type of browser viewing it. The image below shows how it would appear when viewed on a touch-based browser. A desktop browser renders a more complex three-column layout. Again, change the window's width to see the change take place:</p>
+<p><a href="../examples/mob_layout.htm"><img src="images/scr_mob_layout.png" alt="" /> </a></p>
+<p>CSS for: <a href="../examples/css/mqlayout_desktop.css">desktop</a>, <a href="../examples/css/mqlayout_touch.css">touch</a>, <a href="../examples/css/mqlayout_mobile.css">low-end mobile</a></p>
+<p>When viewed with a desktop browser, the page displays a typical full-page layout: a main content column surrounded by navigation and sidebar columns, with banner headers and footers that straddle the top and bottom of the screen. When viewed with a touch-based browser, the sidebar element does not appear. The main content extends to the full width of the screen, while header and navigation elements share the top of the screen. When viewed with other mobile browsers, even the top of the screen is simplified to replace header information with a simple icon.</p>
+<a name="script-based-adaptation"></a>
+<h3>Script-based Adaptation</h3>
+<p>Media queries allow you to assign various style sheets, but they can also be invoked from within JavaScript, via <tt>window.matchMedia</tt>, to adapt content in other ways.</p>
+<p>The following function specifies the same set of criteria as above. It allows applications to directly test whether they are being accessed from browsers classified <i>desktop</i> <i>tablet</i>, <i>touch</i>, or low-end <i>mobile</i>:</p>
+<pre class="cpp">function isDesign(str) {
+    var design;
+    <span class="keyword">if</span> (<span class="operator">!</span>window<span class="operator">.</span>matchMedia) <span class="keyword">return</span>(<span class="keyword">false</span>);
+    <span class="keyword">if</span> (window<span class="operator">.</span>matchMedia(<span class="char">'only screen and (max-device-width: 320px)'</span>)<span class="operator">.</span>matches) {
+        design <span class="operator">=</span> <span class="char">'touch'</span>;
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (window<span class="operator">.</span>matchMedia(<span class="char">'only screen and (max-device-width: 1024px)'</span>)<span class="operator">.</span>matches) {
+        design <span class="operator">=</span> <span class="char">'tablet'</span>;
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (window<span class="operator">.</span>matchMedia(<span class="char">'screen'</span>)<span class="operator">.</span>matches) {
+        design <span class="operator">=</span> <span class="char">'desktop'</span>;
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (window<span class="operator">.</span>matchMedia(<span class="char">'handheld'</span>)<span class="operator">.</span>matches) {
+        design <span class="operator">=</span> <span class="char">'mobile'</span>;
+    }
+    <span class="keyword">return</span>(str <span class="operator">=</span><span class="operator">=</span> design);
+}</pre>
+<p>The following example uses this technique to produce a simple message, dynamically generated from JavaScript, that corresponds to the same message generated via CSS:</p>
+<p><a href="../examples/mob_condjs.htm"><img src="images/scr_mob_condjs.png" alt="" /> </a></p>
+<p><a href="../examples/css/mob_condjs.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/mob_condjs.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>This technique is useful, especially when deploying a hybrid site's content over potentially low-bandwidth mobile networks. The following example redirects references to high-resolution video files to lower-bandwidth variants:</p>
+<pre class="cpp">var sources <span class="operator">=</span> document<span class="operator">.</span>getElementById(<span class="string">&quot;video&quot;</span>)<span class="operator">.</span>querySelectorAll(<span class="string">&quot;source&quot;</span>);
+<span class="keyword">if</span> (isDesign(<span class="string">&quot;touch&quot;</span>)) {
+    <span class="keyword">for</span> (i <span class="operator">=</span> <span class="number">0</span><span class="operator">,</span> l <span class="operator">=</span> sources<span class="operator">.</span>length; i <span class="operator">&lt;</span> l ; i<span class="operator">+</span><span class="operator">+</span> ) {
+        sources<span class="operator">[</span>i<span class="operator">]</span><span class="operator">.</span>src <span class="operator">=</span> sources<span class="operator">[</span>i<span class="operator">]</span><span class="operator">.</span>src<span class="operator">.</span>replace(<span class="operator">/</span>hi_<span class="operator">/</span><span class="operator">,</span> <span class="string">&quot;lo_&quot;</span>);
+    }
+}</pre>
+<p>High-bandwidth content that is appropriate for desktop browsers may lead to poor performance on mobile browsers, and costly network traffic. If you deploy a hybrid site using separate interfaces for desktop and mobile browsers as described above, a sidebar element that appears in the desktop interface may be suppressed from the mobile interface:</p>
+<pre class="cpp"><span class="operator">.</span>sidebar { display: block }
+@media only screen <span class="keyword">and</span> (max<span class="operator">-</span>device<span class="operator">-</span>width: <span class="number">320px</span>) {
+    <span class="operator">.</span>sidebar { display: none }
+}</pre>
+<p>In that case, it would be inefficient to load a great deal of markup from the server that never actually displays on mobile browsers. Instead, the full markup may load conditionally, depending on which design is in effect:</p>
+<pre class="cpp"><span class="operator">&lt;</span>section <span class="keyword">class</span><span class="operator">=</span><span class="string">&quot;sidebar&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">!</span><span class="operator">-</span><span class="operator">-</span> empty node <span class="operator">-</span><span class="operator">-</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>section<span class="operator">&gt;</span>
+
+<span class="keyword">if</span> (isDesign(<span class="string">&quot;desktop&quot;</span>)) {
+    $(<span class="string">&quot;.sidebar&quot;</span>)<span class="operator">.</span>load(<span class="string">&quot;sidebar_innerHTML.html&quot;</span>);
+}</pre>
+<p>Alternately, if you want to deploy a site's various interfaces via separate access points, you can use the sort of tests described above to prompt users if they would rather load an installable web app.</p>
+<a name="what-can-you-find-out-about-a-browser"></a>
+<h3>What Can You Find Out About a Browser?</h3>
+<p>You can use media queries to test for any of the following device properties:</p>
+<ul>
+<li><tt>width</tt>, <tt>min-width</tt>, <tt>max-width</tt>, <tt>device-width</tt>, <tt>min-device-width</tt>, <tt>max-device-width</tt>: integer measurements specify pixels, otherwise the <i>device</i> keyword specifies the latent width of the non-resizable window used by mobile browsers.</li>
+<li><tt>height</tt>, <tt>min-height</tt>, <tt>max-height</tt>, <tt>device-height</tt>, <tt>min-device-height</tt>, <tt>max-device-height</tt>: same as above, yet vertical.</li>
+<li><tt>aspect-ratio</tt>, <tt>min-aspect-ratio</tt>, <tt>max-aspect-ratio</tt>, <tt>device-aspect-ratio</tt>, <tt>min-device-aspect-ratio</tt>, <tt>max-device-aspect-ratio</tt>: accepts pairs of <i>width</i>/<i>height</i> integers, such as <tt>3/4</tt>.</li>
+<li><tt>resolution</tt>, <tt>min-resolution</tt>, <tt>max-resolution</tt>: screen resolution expressed in dots per inch.</li>
+<li><tt>-webkit-device-pixel-ratio</tt>, <tt>-webkit-min-device-pixel-ratio</tt>, <tt>-webkit-max-device-pixel-ratio</tt>: the number of device screen pixels that correspond to each CSS pixel, typically ranging from 1 for desktop browsers to 2 for the highest-resolution mobile screens. This information is also available from within scripts via <tt>window.devicePixelRatio</tt>. (See <a href="color.html#adapting-images-to-screen-resolution">Adapting Images to Screen Resolution</a> for an example.)</li>
+<li><tt>color</tt>, <tt>min-color</tt>, <tt>max-color</tt>: color depth, expressed as the number of bits used to represent each color.</li>
+<li><tt>color-index</tt>, <tt>min-color-index</tt>, <tt>max-color-index</tt>: number of different colors that may display at once.</li>
+<li><tt>orientation</tt>: either <tt>portrait</tt> or <tt>landscape</tt>. (See <a href="orient.html">Tipping the Handset</a>.)</li>
+</ul>
+<p>Webkit-based browsers may also test for the presence of high-level CSS animation features: <tt>(transform-2d)</tt>, <tt>(transform-3d)</tt>, <tt>(transition)</tt>, and <tt>(animation)</tt>. (To extend fucntionality to earlier browser versions, specify <tt>webkit</tt> as a vendor prefix: <tt>(-webkit-transform-3d)</tt>.) See <a href="animation.html">Animations</a> and <a href="trans.html">Transforms</a> for more information on these features.</p>
+<p>Most important remaining browser features can be tested using JavaScript-based <i>object detection</i>. For example, the following shows how to test support for various high-level HTML5 features:</p>
+<pre class="cpp">var supportsLocation <span class="operator">=</span> <span class="operator">!</span><span class="operator">!</span>navigator<span class="operator">.</span>geolocation;
+var supportsVideo    <span class="operator">=</span> <span class="operator">!</span><span class="operator">!</span>document<span class="operator">.</span>createElement(<span class="string">&quot;video&quot;</span>)<span class="operator">.</span>canPlayType;
+var supportsStorage  <span class="operator">=</span> <span class="operator">!</span><span class="operator">!</span>window<span class="operator">.</span>localStorage;
+var supportsTouch    <span class="operator">=</span> <span class="operator">!</span><span class="operator">!</span>document<span class="operator">.</span>createEvent(<span class="string">&quot;TouchEvent&quot;</span>)</pre>
+<p><b>Note: </b>Object detection tests sometimes yield incorrect results, and should be used with care. For example, the version of WebKit used within a particular browser may feature latent support for touch events, but may be deployed in a context, such as a non-tablet desktop browser, in which the touch events never have an opportunity to fire.</p><blockquote><a name="sidebar-the-selectors-api"></a>
+<h3>SIDEBAR The Selectors API</h3>
+<p>Browser 8.5 supports several ways to access DOM elements as alternatives to <tt>getElementById()</tt>. The <tt>querySelector()</tt> or <tt>querySelectorAll()</tt> methods accept CSS selector arguments, which allow for more flexible searches. (See <a href="trans.html#sidebar-css3-selectors">SIDEBAR CSS3 Selectors</a> for information on available Level 3 selectors.)</p>
+<p>For example, the following gathers unordered list items, but only when nested within a <tt>menu</tt>-classed ordered list, and only when unselected:</p>
+<pre class="cpp">var items <span class="operator">=</span> document<span class="operator">.</span>querySelectorAll(<span class="char">'ol.menu &gt; ul &gt; li:not(.selected)'</span>);</pre>
+<p>Alternately, narrow the search scope by calling these methods on individual elements:</p>
+<pre class="cpp">var menu <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'ol.menu'</span>);
+var items <span class="operator">=</span> menu<span class="operator">.</span>querySelectorAll(<span class="char">'ul &gt; li:not(.selected)'</span>);</pre>
+<p>In addition, <tt>getElementsByClassName()</tt> allows you to search for elements matching one or more classes:</p>
+<pre class="cpp">var selected <span class="operator">=</span> document<span class="operator">.</span>getElementsByClassName(<span class="char">'icon selected'</span>);</pre>
+<p><b>Note: </b>matchesSelector</p></blockquote>
+<a name="xxx-mt"></a>
+<h2>XXX MT</h2>
+<p>If you are maintaining parallel web content for access both by mobile browsers and larger-screen desktop and tablet browsers, you can deploy the same set of pages, adapting the interface depending on qualities of the browser requesting each page. Alternately, you can deploy a different set of pages, typically featuring mobile-specific domain names such as <i>m.website.com</i> rather than <i>www.website.com</i>. CSS <i>media queries</i> allow you to target custom mobile interfaces in both cases, or may be used as a way to prompt users to <a href="webapp.html">install an alternative web app</a>.</p>
+<a name="example-present-a-web-page-with-different-interfaces"></a>
+<h2>Example: Present a Web Page with Different Interfaces</h2>
+<p>Placing the following within the HTML's <tt>&lt;HEAD&gt;</tt> region assigns the CSS style sheets contained in <i>all.css</i>, and then applies additional style sheets from <i>mobile.css</i> only on smaller-screen mobile browsers:</p>
+<pre class="cpp"><span class="operator">&lt;</span>link type<span class="operator">=</span><span class="string">&quot;text/css&quot;</span> rel<span class="operator">=</span><span class="string">&quot;stylesheet&quot;</span> media<span class="operator">=</span><span class="string">&quot;screen&quot;</span> href<span class="operator">=</span><span class="string">&quot;/css/all.css&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>link type<span class="operator">=</span><span class="string">&quot;text/css&quot;</span> rel<span class="operator">=</span><span class="string">&quot;stylesheet&quot;</span>
+    media<span class="operator">=</span><span class="string">&quot;only screen and (max-device-width: 320px)&quot;</span> href<span class="operator">=</span><span class="string">&quot;/css/mobile.css&quot;</span><span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>The <i>all.css</i> file may specify a sidebar element, which can be suppressed in the mobile interface simply by adding a style sheet such as the following:</p>
+<pre class="cpp"><span class="operator">.</span>sidebar {display: none }</pre>
+<p>Note that regardless of its superficial <tt>display</tt> property, the hidden content still loads.</p>
+<p>Using media queries, you can also reference different CSS files within an <tt>@import</tt> rule, or specify different interfaces within the same set of CSS using the <tt>@media</tt> rule:</p>
+<pre class="cpp">@import url(<span class="string">&quot;mobile.css&quot;</span>) screen <span class="keyword">and</span> (max<span class="operator">-</span>device<span class="operator">-</span>width: <span class="number">320px</span>);
+
+<span class="operator">.</span>sidebar { border<span class="operator">-</span>radius: <span class="number">0.5em</span> }
+@media only screen <span class="keyword">and</span> (max<span class="operator">-</span>device<span class="operator">-</span>width: <span class="number">320px</span>) {
+    <span class="operator">.</span>sidebar { display: none }
+}</pre>
+<p>The following web application interactively demonstrates how various CSS properties function and allows you to copy the results into your own code. When viewed on a desktop browser, the interface presents a large-screen layout:</p>
+<p><a href="../examples/css3.htm"> <img src="images/media.png" alt="" /> </a></p>
+<p>When viewed with the Browser (or browsers available on iPhone and Android devices), it presents a narrower set of options on each screen:</p>
+<p><a href="../examples/css3.htm"> <img src="images/media2.png" alt="" /> </a></p>
+<p><a href="../examples/css3.htm"> __IFRAME__ </a> <a href="../examples/css3.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/css3.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/css3.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>To preview how the mobile interface appears, narrow the window of your desktop browser. When the device is held upright, the main tabbed interface displays. When <a href="orient.html">tipped to its side</a>, the screen preview appears.</p>
+<a name="example-redirect-to-the-appropriate-interface"></a>
+<h2>Example: Redirect to the Appropriate Interface</h2>
+<p>The example above assumes you have a single set of pages superfically adapted with CSS for presentation on either mobile and desktop browsers. You may prefer to deploy them separately, either to keep mobile pages smaller or to separate each interface's development. <a href="webapp.html">Fixed-footprint mobile web apps</a> may also be implemented in a fundamentally different manner than conventional websites, accessing data dynamically with Ajax rather than using links to static pages or other server-generated content.</p>
+<p>In that case, media queries can be called from within JavaScript to direct users to the appropriate interface. The following load script uses <tt>window.matchMedia</tt> to compare the URL to the device accessing the page, redirecting if appropriate:</p>
+<pre class="cpp">var loc <span class="operator">=</span> window<span class="operator">.</span>location;
+var query <span class="operator">=</span> <span class="char">'only screen and (max-device-width: 320px)'</span>;
+var locIsMobile <span class="operator">=</span> <span class="operator">!</span><span class="operator">!</span>loc<span class="operator">.</span>match(<span class="operator">/</span>http:\<span class="operator">/</span>\<span class="operator">/</span>m<span class="operator">.</span>website<span class="operator">/</span>);
+var devIsMobile <span class="operator">=</span> <span class="operator">!</span><span class="operator">!</span>window<span class="operator">.</span>matchMedia(query)<span class="operator">.</span>matches;
+<span class="keyword">if</span> (locIsMobile <span class="operator">&amp;</span><span class="operator">&amp;</span> (<span class="operator">!</span> devIsMobile) ) {
+    window<span class="operator">.</span>location <span class="operator">=</span> window<span class="operator">.</span>location<span class="operator">.</span>replace(<span class="operator">/</span>http:\<span class="operator">/</span>\<span class="operator">/</span>m<span class="operator">.</span>website<span class="operator">/</span><span class="operator">,</span>
+        <span class="string">&quot;http://www.website&quot;</span>);
+} <span class="keyword">else</span> <span class="keyword">if</span> (devIsMobile <span class="operator">&amp;</span><span class="operator">&amp;</span> (<span class="operator">!</span> locIsMobile) ) {
+    window<span class="operator">.</span>location <span class="operator">=</span> window<span class="operator">.</span>location<span class="operator">.</span>replace(<span class="operator">/</span>http:\<span class="operator">/</span>\<span class="operator">/</span>www<span class="operator">.</span>website<span class="operator">/</span><span class="operator">,</span>
+        <span class="string">&quot;http://m.website&quot;</span>);
+}</pre>
+<p>You can also use this approach to substitute lower-bandwidth content, or prompt to redirect to an <a href="webapp.html">installable web app</a>. <a href="storage.html">Client-side storage</a> allows you to retain users' interface preference for future browsing sessions.</p>
+</div>
+<!-- @@@query.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

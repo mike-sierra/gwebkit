@@ -1,0 +1,70 @@
+body {
+    background           : #aaaaaa;
+    font-family          : sans-serif;
+}
+
+section {
+    background           : #aaaaaa;
+    left                 : 0em;
+    margin-bottom        : 10em;
+    width                : 320px;
+    height               : 100%;
+    position             : absolute;
+    top                  : 0em;
+}
+
+h1, h2 {
+    margin-top           : 0em;
+    font-size            : 18px;
+    text-align           : center;
+}
+
+article {
+    background           : #ffffff;
+    padding              : 1em 1em 3em 1em;
+    margin               : 1em 1em 10em 1em;
+    border-radius        : 0.5em;
+    text-align           : center;
+}
+
+nav {
+    font-weight          : bold;
+    display              : inline-block;
+    width                : 64px;
+    height               : 96px;
+    padding              : 0.5em;
+    box-sizing           : border-box;
+    background-position  : 50% 100%;
+    background-size      : contain;
+    background-repeat    : no-repeat;
+    margin-right         : 0.25em;
+    text-align           : center;
+    font-size            : smaller;
+}
+
+nav:first-of-type {
+    background-image     : url("../img/webkit64.png");
+}
+
+nav:nth-of-type(2) {
+    background-image     : url("../img/webkit96.png");
+}
+
+nav:nth-of-type(3) {
+    background-image     : url("../img/webkit128.png");
+}
+
+nav:last-of-type {
+    background-image     : url("../img/webkit64.png");
+}
+
+@media all and (-webkit-min-device-pixel-ratio:1.5) {
+    nav:last-of-type {
+        background-image : url("../img/webkit96.png");
+    }
+}
+@media all and (-webkit-min-device-pixel-ratio:2) {
+    nav:last-of-type {
+        background-image : url("../img/webkit128.png");
+    }
+}

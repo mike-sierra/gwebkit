@@ -1,0 +1,72 @@
+body {
+    background               : #aaaaaa;
+    font-weight              : bold;
+}
+
+section {
+    color                    : #ffffff;
+    background               : #777777;
+    font-size                : x-large;
+    -webkit-transform        : translate(-150%) scale(1);
+    position                 : absolute;
+    text-align               : center;
+    padding                  : 1em;
+    top                      : 3em;
+    left                     : 3em;
+    bottom                   : 3em;
+    right                    : 3em;
+}
+
+@-webkit-keyframes demoScale {
+    0% { -webkit-transform   : translate(-150%) scale(1); }
+    10% { -webkit-transform  : scale(1.0) translate(0); }
+    30% { -webkit-transform  : scale(0.5) translate(0); }
+    50% { -webkit-transform  : scale(1.0) translate(0); }
+    70% { -webkit-transform  : scale(1.5) translate(0); }
+    90% { -webkit-transform  : scale(1.0) translate(0); }
+    100% { -webkit-transform : translate(150%) scale(1); }
+}
+
+@-webkit-keyframes demoScaleX {
+    0% { -webkit-transform   : translate(-150%) scale(1); }
+    10% { -webkit-transform  : scaleX(1.0) translate(0); }
+    30% { -webkit-transform  : scaleX(0.5) translate(0); }
+    50% { -webkit-transform  : scaleX(1.0) translate(0); }
+    70% { -webkit-transform  : scaleX(1.5) translate(0); }
+    90% { -webkit-transform  : scaleX(1.0) translate(0); }
+    100% { -webkit-transform : translate(150%) scale(1); }
+}
+
+@-webkit-keyframes demoScaleY {
+    0% { -webkit-transform   : translate(-150%) scale(1); }
+    10% { -webkit-transform  : scaleY(1.0) translate(0); }
+    30% { -webkit-transform  : scaleY(0.5) translate(0); }
+    50% { -webkit-transform  : scaleY(1.0) translate(0); }
+    70% { -webkit-transform  : scaleY(1.5) translate(0); }
+    90% { -webkit-transform  : scaleY(1.0) translate(0); }
+    100% { -webkit-transform : translate(150%) scale(1); }
+}
+
+@-webkit-keyframes end {
+    0% { -webkit-transform   : translate(150%); }
+    30% { -webkit-transform  : translate(0); }
+    70% { -webkit-transform  : translate(0); }
+    100% { -webkit-transform : translate(150%); }
+}
+
+.scale {
+    -webkit-animation        : demoScale 9s 2s;
+    -webkit-transform-origin : bottom;
+}
+.scaleX {
+    -webkit-animation        : demoScaleX 9s 12s;
+    -webkit-transform-origin : left;
+}
+.scaleY {
+    -webkit-animation        : demoScaleY 9s 22s;
+    -webkit-transform-origin : center;
+}
+.end {
+    -webkit-animation        : end 3s 32s;
+}
+

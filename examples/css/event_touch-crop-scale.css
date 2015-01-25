@@ -1,0 +1,83 @@
+body {
+    overflow                          : hidden;
+    background                        : #ffffff;
+}
+
+canvas {
+    -webkit-box-shadow                : 0em 0em 0.5em 0.5em #ddd;
+    background                        : #ffffff;
+    -webkit-animation-duration        : 0.35s;
+    -webkit-animation-iteration-count : 1;
+    display                           : inline-block;
+    left                              : 0; 
+    position                          : absolute;
+    top                               : 0;
+    -webkit-transform                 : scaleX(0);
+    -webkit-transform-origin          : right;
+    -webkit-transition-property       : -webkit-transform-origin , -webkit-transform;
+    -webkit-transition-duration       : 0s                       , 0.75s;
+    -webkit-transition-delay          : 0s                       , 0.25s;
+}
+
+#dbg {
+    position                          : fixed;
+    top                               : 80%;
+    left                              : 0;
+    text-align                        : right;
+    background                        : gold;
+    z-index                           : 10;
+}
+
+.nudge_left {
+    -webkit-animation-name            :  nl;
+}
+
+.nudge_right {
+    -webkit-animation-name            :  nr;
+}
+
+.stage_right {
+    -webkit-transform-origin          : right;
+}
+
+.stage_left {
+    -webkit-transform-origin          : left;
+}
+
+.selected {
+    -webkit-transform           : scaleX(1);
+    -webkit-transition-duration : 0.5s              , 0s;
+    -webkit-transition-delay    : 0.5s              , 1s;
+    -webkit-transition-property : -webkit-transform , -webkit-transform-origin;
+}
+
+.hide {
+    display: none;
+}
+
+#cropper {
+    position                          : absolute;
+    border                            : medium gold solid;
+    -webkit-animation                 : hilight 0.5s alternate infinite;
+    -webkit-transition                : all 0.1s;
+}
+
+@-webkit-keyframes hilight {
+    from { border                     : medium gold solid }
+    to { border                       : medium gold solid }
+}
+
+@-webkit-keyframes nl {
+    from { -webkit-transform          : translateX(0em) }
+    30% { -webkit-transform           : translateX(-24px) }
+    70% { -webkit-transform           : translateX(24px) }
+    to { -webkit-transform            : translateX(0em) }
+}
+
+@-webkit-keyframes nr {
+    from { -webkit-transform          : translateX(0em) }
+    30% { -webkit-transform           : translateX(24px) }
+    70% { -webkit-transform           : translateX(-24px) }
+    to { -webkit-transform            : translateX(0em) }
+}
+

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 47_gesture.qdoc -->
+  <title>mobile_html5 : Orientation and Motion</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#compass-data">Compass Data</a></li>
+<li class="level1"><a href="#accelerometer-data">Accelerometer Data</a></li>
+<li class="level1"><a href="#example">Example</a></li>
+<li class="level1"><a href="#setting-a-threshold">Setting a Threshold</a></li>
+<li class="level1"><a href="#xxx-8-5-device-gesture">XXX 8.5 Device Gesture</a></li>
+<li class="level2"><a href="#accelerometer-and-gyroscope-input">&gt;&gt;&gt; Accelerometer and Gyroscope Input</a></li>
+<li class="level2"><a href="#compass-input">&gt;&gt;&gt; Compass Input</a></li>
+<li class="level2"><a href="#gestural-thresholds-and-modes">&gt;&gt;&gt; Gestural Thresholds and Modes</a></li>
+<li class="level3"><a href="#ooo-orientation-and-motion">ooo Orientation and Motion</a></li>
+<li class="level3"><a href="#ooo-gestural-interface-modes">ooo Gestural interface modes</a></li>
+</ul>
+</div>
+<h1 class="title">Orientation and Motion</h1>
+<span class="subtitle"></span>
+<!-- $$$gesture.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>In addition to simple 90&deg; <a href="orient.html">shifts between portrait and landscape orientation</a>, the browser can respond to much finer and more complex gestures, using three dimensional readings from the device's compass and accelerometer.</p>
+<a name="compass-data"></a>
+<h2>Compass Data</h2>
+<p>The device's compass measures its <i>orientation</i> in space, relative to the Earth's magnetic field. Data from the compass is available via the window's <tt>deviceorientation</tt> event, which yields three values:</p>
+<ul>
+<li><tt>event.alpha</tt> measures simple geographic orientation as rotations around the device's <i>z</i> axis. With the device level to the ground, pointing it in different directions yields an <tt>alpha</tt> of &plumin; 180&deg;, with zero at magnetic south.</li>
+<li><tt>event.beta</tt> measures any additional tipping (<i>pitch</i>) of the device along its <i>x</i> axis, also &plumin; 180&deg;. When users stand and look down at the device they hold, a typical <tt>beta</tt> value is 45&deg;.</li>
+<li><tt>event.gamma</tt> measures any additional side-to-side <i>roll</i> along the device's <i>y</i> axis, &plumin; 90&deg;.</li>
+</ul>
+<p>The device's orientation is represented as the accumulated sequence of these three angles. This figure shows <tt>alpha</tt> as a <i>z</i> rotation, <tt>beta</tt> as <i>x</i>, and <tt>gamma</tt> as <i>y</i>:</p>
+<p class="centerAlign"><img src="images/sensorsCompass.jpg" alt="" /></p><a name="accelerometer-data"></a>
+<h2>Accelerometer Data</h2>
+<p>The device's accelerometer measures gravitational forces, including the Earth's strong gravitational pull, and not confined to relative <i>motion</i> through space.</p>
+<p>The accelerometer's readings are available via the window's <tt>devicemotion</tt> event. Each of the device's axes is measured in tenths of a gravitational unit (<i>g</i>):</p>
+<ul>
+<li><tt>event.acceleration.x</tt> for horizontal motion, such as side-to-side shaking. If the device rests on its left or right edges, respective <i>x</i>/<i>y</i>/<i>z</i> readings are <tt>-10</tt>/<tt>0</tt>/<tt>0</tt> or <tt>10</tt>/<tt>0</tt>/<tt>0</tt>.</li>
+<li><tt>event.acceleration.y</tt> for vertical motion. If the device rests on its bottom or top edges, respective <i>x</i>/<i>y</i>/<i>z</i> readings are <tt>0</tt>/<tt>-10</tt>/<tt>0</tt> or <tt>0</tt>/<tt>10</tt>/<tt>0</tt>.</li>
+<li><tt>event.acceleration.z</tt> for forwards or backwards motions. If the device is face up or face down, respective <i>x</i>/<i>y</i>/<i>z</i> readings are <tt>0</tt>/<tt>0</tt>/<tt>-10</tt> or <tt>0</tt>/<tt>0</tt>/<tt>10</tt>.</li>
+</ul>
+<p>The <tt>devicemotion</tt> event also produces <i>x</i>/<i>y</i>/<i>z</i> readings for <tt>event.accelerationIncludingGravity</tt>, which is intended to distinguish accelerometer from gyroscope readings. Since the device does not feature a gyroscope, these values match those of <tt>event.acceleration</tt>.</p>
+<p>This figure shows the accelerometer's coordinate system:</p>
+<p class="centerAlign"><img src="images/sensorsAccelerometer.jpg" alt="" /></p><a name="example"></a>
+<h2>Example</h2>
+<p>This example uses accelerometer readings to enter a game-like gestural application mode in which the main reading panel tips and sways based on compass readings, and otherwise static icons organize themselves into a cube that rotates in space. (The main operating mode can be previewed with Google Chrome running on a laptop.)</p>
+<p><a href="../examples/gesture.htm"> <img src="images/gesture1.png" alt="" /> <img src="images/gesture2.png" alt="" /> </a></p>
+<p><a href="../examples/gesture.htm"> __IFRAME__ </a> <a href="../examples/gesture.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/gesture.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/gesture.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>A quick pulling gesture along the device's <i>z</i> axis towards the user enters the mode, and a pushing gesture leaves it. It uses a simple system to distinguish such quick motions from orientation shifts: comparing <tt>acceleration.z</tt> values from those cached from the previous <tt>devicemotion</tt> event. Only when the difference exceeds a certain threshold does the application change modes, which is unlikely to occur from relatively slower shifts in the device's orientation.</p>
+<p>The main operating mode reflects the <tt>deviceorientation</tt> event's <tt>beta</tt> and <tt>gamma</tt> values as <i>x</i>/<i>y</i> rotations, as well as other <a href="trans.html">3D transforms</a>. Each event modifies various elements' <tt>WebkitTransform</tt> CSS property directly, and additional <a href="animation.html">CSS transitions</a> smooth out each animation.</p>
+<a name="setting-a-threshold"></a>
+<h2>Setting a Threshold</h2>
+<p>Once initiated, the open-ended gestural interface mode shown above moves screen elements continuously depending on the device's tilt in relation to the ground. Alternately, you may want to enhance a more conventional interface with relatively unobtrusive gesture-triggered functions. To do so may require entering a mode within which gestural shifts are assigned significance. Setting a threshold prevents the interface from responding too sensitively.</p>
+<p>The following simple example (also viewable within Google Chrome on a laptop) displays orientation state within two <tt>meter</tt> elements, but only after you touch the button at the bottom of the screen. Each meter alerts you when the device tilts past a certain threshold relative to that initial orientation. Use the sliding controls to modify this threshold.</p>
+<p><a href="../examples/gestureMode.htm"> <img src="images/gestureMode.png" alt="" /> </a></p>
+<p><a href="../examples/gestureMode.htm"> __IFRAME__ </a> <a href="../examples/gestureMode.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/gestureMode.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/gestureMode.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>A <tt>deviceorientation</tt> handler updates the HTML5 <tt>&lt;meter&gt;</tt> tags, whose values are set to display only when the button is pressed:</p>
+<pre class="cpp">var meterBeta <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'meter:first-of-type'</span>);
+var meterGamma <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'meter:last-of-type'</span>);
+window<span class="operator">.</span>addEventListener(<span class="char">'deviceorientation'</span><span class="operator">,</span> adjustMeters);
+
+function adjustMeters(e) {
+    meterBeta<span class="operator">.</span>value <span class="operator">=</span> e<span class="operator">.</span>beta;
+    meterGamma<span class="operator">.</span>value <span class="operator">=</span> e<span class="operator">.</span>gamma;
+}</pre>
+<p>A touch handler assigns the meter's <tt>optimum</tt> value based on current orientation, along with <tt>low</tt> and <tt>high</tt> values outside of which the meter changes color:</p>
+<pre class="cpp">var thresholdX <span class="operator">=</span> <span class="number">10</span>;
+var thresholdY <span class="operator">=</span> <span class="number">10</span>;
+app<span class="operator">.</span>button<span class="operator">.</span>addEventListener(<span class="char">'touchstart'</span><span class="operator">,</span> enterMode);
+
+function enterMode(e) {
+    e<span class="operator">.</span>preventDefault();
+    var oGamma<span class="operator">,</span> oBeta;
+    oGamma <span class="operator">=</span> meterGamma<span class="operator">.</span>optimum <span class="operator">=</span> meterGamma<span class="operator">.</span>value;
+    oBeta <span class="operator">=</span> meterBeta<span class="operator">.</span>optimum <span class="operator">=</span> meterBeta<span class="operator">.</span>value;
+    meterGamma<span class="operator">.</span>low <span class="operator">=</span> oGamma <span class="operator">-</span> thresholdX;
+    meterBeta<span class="operator">.</span>low <span class="operator">=</span> oBeta <span class="operator">-</span> thresholdY;
+    meterGamma<span class="operator">.</span>high <span class="operator">=</span> oGamma <span class="operator">+</span> thresholdX;
+    meterBeta<span class="operator">.</span>high <span class="operator">=</span> oBeta <span class="operator">+</span> thresholdY;
+}</pre>
+<a name="xxx-8-5-device-gesture"></a>
+<h2>XXX 8.5 Device Gesture</h2>
+<p>As shown in <a href="orient.html">Tipping the Handset</a>, applications can respond to simple 90-degree shifts in orientation when users tip the handset between portrait and landscape view. This section shows how to interpret data from the handset's various sensors &mdash; compass, accelerometer, and possibly gyroscope &mdash; to detect more detailed movements, such as tipping or shaking gestures. It demonstrates how gestural operating modes may help enhance an application without interfering with access to core functionality.</p>
+<a name="accelerometer-and-gyroscope-input"></a>
+<h3>&gt;&gt;&gt; Accelerometer and Gyroscope Input</h3>
+<pre class="cpp">window<span class="operator">.</span>addEventListener(<span class="char">'devicemotion'</span><span class="operator">,</span> function(event) {
+    event<span class="operator">.</span>acceleration<span class="operator">.</span>x; <span class="comment">// horizontal</span>
+    event<span class="operator">.</span>acceleration<span class="operator">.</span>y; <span class="comment">// vertical</span>
+    event<span class="operator">.</span>acceleration<span class="operator">.</span>z; <span class="comment">// front-to-back</span>
+});</pre>
+<p class="centerAlign"><img src="images/grob_accel.png" alt="" /></p><a name="compass-input"></a>
+<h3>&gt;&gt;&gt; Compass Input</h3>
+<pre class="cpp">window<span class="operator">.</span>addEventListener(<span class="char">'deviceorientation'</span><span class="operator">,</span> function(event) {
+    event<span class="operator">.</span>alpha; <span class="comment">//</span>
+    event<span class="operator">.</span>beta; <span class="comment">//</span>
+    event<span class="operator">.</span>gamma; <span class="comment">//</span>
+});</pre>
+<p class="centerAlign"><img src="images/grob_compass.png" alt="" /></p><p>Y = (event.beta) X = (event.gamma +- 90)</p>
+<p><a href="../examples/gesture_virtual.htm"><img src="images/scr_gesture_virtual.png" alt="" /> </a></p>
+<p><a href="../examples/css/gesture_virtual.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/gesture_virtual.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<a name="gestural-thresholds-and-modes"></a>
+<h3>&gt;&gt;&gt; Gestural Thresholds and Modes</h3>
+<a name="ooo-orientation-and-motion"></a>
+<h4>ooo Orientation and Motion</h4>
+<p>Browser 8_5 allows web apps to respond to simple 90-degree shifts in device orientation via the <tt>orientation</tt> media query or the window's <tt>orientationchange</tt> event. It also enables far more detailed access to Nokia N9's accelerometer and compass sensors via the DeviceOrientation API. These sensor values enable a wide variety of gestural interfaces, and may provide additional context for location-based applications.</p>
+<p>The N9's accelerometer detects forceful motions initiated by users, such as shaking gestures, along with the Earth's background gravity. Readings are available via the window's <tt>devicemotion</tt> event, whose <tt>event.accelerationIncludingGravity</tt> yields <tt>x</tt>, <tt>y</tt>, and <tt>z</tt> values. This coordinate system is similar to that used to position screen elements, with <i>x</i> increasing from left to right, but with <i>y</i> increasing bottom to top. Readings along the <i>z</i> axis increase outward from the face of the screen. Units are measured in tenths of a G, resulting in the following <i>x</i>/<i>y</i>/<i>z</i> readings for the handset at rest:</p>
+<ul>
+<li>Face up: <tt>0</tt>, <tt>0</tt>, <tt>-10</tt></li>
+<li>Face down: <tt>0</tt>, <tt>0</tt>, <tt>10</tt></li>
+<li>Standing on bottom edge: <tt>0</tt>, <tt>-10</tt>, <tt>0</tt></li>
+<li>Standing on top edge: <tt>0</tt>, <tt>10</tt>, <tt>0</tt></li>
+<li>Standing on left edge: <tt>-10</tt>, <tt>0</tt>, <tt>0</tt></li>
+<li>Standing on right edge: <tt>10</tt>, <tt>0</tt>, <tt>0</tt></li>
+</ul>
+<p>The range of values from <tt>devicemotion</tt> events is illustrated below:</p>
+<p><b>Note: </b>Because the Nokia N9 does not have a gyroscope, readings from <tt>event.acceleration</tt> match those of <tt>event.accelerationIncludingGravity</tt>, and they cannot reliably detect motion independently of earth's gravity. To test whether <tt>acceleration</tt> readings are derived from a gyroscope, perform an initial test if the <i>x</i>/<i>y</i>/<i>z</i> values for each match. If so, applications may need to filter out earth's gravity to calculate relative motion.</p><p>While accelerometer readings can be used in some cases to determine orientation relative to earth's gravity, compass readings are necessary for overall geospatial orientation. Compass readings are available via the window's <tt>deviceorientation</tt> event:</p>
+<ul>
+<li><tt>event.alpha</tt> measures rotation around the <i>z</i> axis in degrees. A value of <tt>0</tt> means the top edge of the Nokia N9 is pointing south, while <tt>180</tt> or <tt>-180</tt> is north.</li>
+<li><tt>event.beta</tt> measures rotation around the <i>x</i> axis, with a range of <tt>-180</tt> to <tt>180</tt> degrees relative to a face-up orientation. If the Nokia N9 is standing on its bottom edge, the <tt>beta</tt> is <tt>90</tt>.</li>
+<li><tt>event.gamma</tt> measures rotation around the <i>y</i> axis, with a range of <tt>-180</tt> to <tt>180</tt> degrees relative to a face-up orientation. If the Nokia N9 is standing on its left or right edges, the <tt>gamma</tt> is <tt>-90</tt> and <tt>90</tt>, correspondingly.</li>
+</ul>
+<p>The range of values from <tt>deviceorientation</tt> events is illustrated below:</p>
+<p><b>Note: </b>By default, when tipping the Nokia N9, Browser 8_5 shifts content from portrait to landscape display and back. There is no standard way to lock orientation to prevent conflicts with orientation- or motion-driven applications.</p><a name="ooo-gestural-interface-modes"></a>
+<h4>ooo Gestural interface modes</h4>
+<p>Motion- and orientation-enabled applications should be sensitive to the context in which they operate. Most gaming applications, for example, effectively have a single mode of operation. The following example shows how tilting gestures affect a flight simulator application:</p>
+<p class="centerAlign"><img src="images/orient_game.png" alt="" /></p><p>Gestures may also be used to marginally supplement more conventional functionality. The example shown in <sub>The execCommand editing API</sub> section illustrates how gestures may help users edit text elements. Such gestural modes work best by setting a <i>threshold</i> at which gestures take effect. Since hidden gestural modes are relatively unfamiliar and may lead to unintended results, applications should offer them on an optional basis.</p>
+<p>In this case, when tapping within an editable content block, a <tt>focus</tt> handler would capture the initial degree of tilt against which subsequent gestures would be measured.</p>
+<pre class="cpp">function focusHandler(e) {
+    isEditing <span class="operator">=</span> <span class="keyword">true</span>;
+    initialTilt <span class="operator">=</span> currentTilt;
+}
+function blurHandler(e) {
+    isEditing <span class="operator">=</span> <span class="keyword">false</span>;
+}</pre>
+<p>Subsequent executions of the <tt>deviceorientation</tt> handler would ignore gestures within a specified threshold:</p>
+<pre class="cpp">function deviceorientationHandler(e) {
+    currentTilt <span class="operator">=</span> e<span class="operator">.</span>gamma;
+    <span class="keyword">if</span> (<span class="operator">!</span> isEditing) <span class="keyword">return</span>(<span class="keyword">false</span>);
+    <span class="keyword">if</span> (<span class="operator">!</span> prefersGesturalEditing) <span class="keyword">return</span>(<span class="keyword">false</span>);
+    var tiltThreshold <span class="operator">=</span> <span class="number">20</span>; <span class="comment">// degree variance to trigger editing</span>
+    <span class="keyword">if</span> ( (currentTilt <span class="operator">&lt;</span> (initialTilt <span class="operator">+</span> tiltThreshold) ) <span class="operator">&amp;</span><span class="operator">&amp;</span>
+        ( (currentTilt <span class="operator">&gt;</span> (initialTilt <span class="operator">-</span> tiltThreshold) ) ) ) {
+        <span class="keyword">return</span>(<span class="keyword">false</span>); <span class="comment">// gesture is within threshold; ignore</span>
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (currentTilt <span class="operator">&lt;</span> initialTilt) {
+        <span class="comment">// left-tilting gesture outside threshold:</span>
+        document<span class="operator">.</span>execCommand(<span class="char">'delete'</span>);
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (currentTilt <span class="operator">&gt;</span> initialTilt)
+        <span class="comment">// right-tilting gesture outside threshold:</span>
+        document<span class="operator">.</span>execCommand(<span class="char">'forwardDelete'</span>);
+    }
+}</pre>
+<p>This sample application allows users who are editing text to tilt the handset to delete characters more easily. Unlike the gaming scenario noted above, users can be assumed to hold the handset relatively still when entering the text-editing mode, because they would need to press keyboard buttons. Users who choose to enable such a gestural mode may then find it natural to tilt the device relative to that initial position.</p>
+</div>
+<!-- @@@gesture.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

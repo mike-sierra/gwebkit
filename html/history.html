@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 45_history.qdoc -->
+  <title>mobile_html5 : Session History</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level2"><a href="#session-history">Session History</a></li>
+<li class="level2"><a href="#sidebar-navigational-selector">SIDEBAR Navigational Selector</a></li>
+<li class="level2"><a href="#navigation-within-a-page">Navigation Within a Page</a></li>
+</ul>
+</div>
+<h1 class="title">Session History</h1>
+<span class="subtitle"></span>
+<!-- $$$history.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>Traditionally, web content was organized around the idea of traversing links from one static page to another. Web apps are deployed much differently: as a fixed set of files that access data dynamically, typically via Ajax. Such an application may change its interface dramatically from within a single web page. HTML5's History API offers a standard way to access different application states using the browser's familiar navigation controls.</p>
+<a name="session-history"></a>
+<h3>Session History</h3>
+<p>A browser's session history is available via <tt>window.history</tt>. The following test confirms a browser's support for the History API:</p>
+<pre class="cpp">var supportsHistory <span class="operator">=</span> <span class="operator">!</span><span class="operator">!</span>window<span class="operator">.</span>history<span class="operator">.</span>pushState;</pre>
+<p>The <tt>history</tt> object supports the following basic properties and methods:</p>
+<ul>
+<li><tt>history.length</tt>: the total number of history entries.</li>
+<li><tt>history.back()</tt> navigate backward through browser history.</li>
+<li><tt>history.forward()</tt>: navigate forward through browser history.</li>
+<li><tt>history.go(n)</tt>: jump forward in history <i>n</i> pages, or back <i>-n</i> pages.</li>
+</ul>
+<p><b>Note: </b>If they are to use session history to maintain state, <a href="webapp.html#full-screen-web-apps">full-screen applications</a> that remove browser controls from the screen must provide their own set of controls that call these methods.</p><p>Applications can use the <tt>pushState()</tt> method to generate their own custom history entries and associate data with them.</p>
+<p>The example described below allows users to undo sets of changes to an <a href="editable.html">editable block of text</a>. The text's <tt>contenteditable</tt> attribute allows users to edit it:</p>
+<pre class="cpp"><span class="operator">&lt;</span>div id<span class="operator">=</span><span class="string">&quot;historic&quot;</span> contenteditable<span class="operator">=</span><span class="string">&quot;true&quot;</span><span class="operator">&gt;</span>
+Make sets of changes<span class="operator">,</span> then go back in history to progressively revert<span class="operator">.</span>
+<span class="operator">&lt;</span><span class="operator">/</span>div<span class="operator">&gt;</span></pre>
+<p>Like form inputs, tapping on editable text regions fires a <tt>focus</tt> event. The handler below is activated by the <tt>blur</tt> event that fires when users tap outside the editable text:</p>
+<pre class="cpp">var e <span class="operator">=</span> <span class="number">0</span>;
+document<span class="operator">.</span>querySelector(<span class="char">'#historic'</span>)<span class="operator">.</span>addEventListener(<span class="char">'blur'</span><span class="operator">,</span> newEdit);
+
+function newEdit(event) {
+    window<span class="operator">.</span>history<span class="operator">.</span>pushState(
+       {text: JSON<span class="operator">.</span>stringify(event<span class="operator">.</span>target<span class="operator">.</span>innerHTML)}<span class="operator">,</span> <span class="operator">+</span><span class="operator">+</span>e<span class="operator">,</span> <span class="string">&quot;?edit=&quot;</span><span class="operator">+</span>e);
+};</pre>
+<p>The <tt>history.pushState()</tt> method accepts three values:</p>
+<ol class="1">
+<li>the data to be retained, represented as a JSON object</li>
+<li>an optional title</li>
+<li>a unique same-domain URL component, in this case a filename suffix</li>
+</ol>
+<p>In this case, the data is the text that has just been edited, and the URL component is an attribute referencing an incrementing integer.</p>
+<p><b>Note: </b>The <tt>history.replaceState()</tt> method works much the same as <tt>pushState()</tt>, but only modifies the <i>current</i> history entry.</p><p>Tapping the browser's control to go back to the previous page (or corresponding application control) fires the window's <tt>popstate</tt> event. Cached data is available via specified fields within <tt>event.state</tt>:</p>
+<pre class="cpp">window<span class="operator">.</span>addEventListener(<span class="char">'popstate'</span><span class="operator">,</span> revertEdit);
+
+function revertEdit(event) {
+    document<span class="operator">.</span>querySelector(<span class="char">'#historic'</span>)<span class="operator">.</span>innerHTML <span class="operator">=</span> JSON<span class="operator">.</span>parse(event<span class="operator">.</span>state<span class="operator">.</span>text);
+}</pre>
+<p>The following example demonstrates an undo-able editing interface for many different fields:</p>
+<p><a href="../examples/storage_history.htm"><img src="images/scr_storage_history.png" alt="" /> </a></p>
+<p><a href="../examples/css/storage_history.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/storage_history.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p><b>Note: </b>The example uses the browser's <a href="storage.html">storage</a> to save batches of edits, so that they are not lost if users refresh the page. The option to clear edits clears the storage area and reloads the original markup.</p><p>When pushing new history entries, note that transient custom URLs generated by <tt>pushState()</tt> and <tt>replaceState()</tt> do not correspond to any server-generated content, and thus may cause confusion when reloaded or bookmarked as home-screen applications.</p>
+<blockquote><a name="sidebar-navigational-selector"></a>
+<h3>SIDEBAR Navigational Selector</h3>
+<p>Elements within a page that are the target of navigation can receive distinct styling using the <tt>:target</tt> dynamic class. The act of navigating to an element can alter its appearance, or even determine if it is to appear at all.</p>
+<p>The following example relies on anchor navigation to display successive rows of a table within a mobile interface:</p>
+<p><a href="../examples/layout_tbl-keyhole.htm"><img src="images/scr_layout_tbl-keyhole.png" alt="" /> </a></p>
+<p><a href="../examples/css/layout_tbl-keyhole.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>While the example relies on table-related tags, they are re-styled with block formatting to confine each row of information within the screen. Each row features links to other rows, triggering their display. Other links navigate away from the table, which suppresses its display altogether. This is the main CSS driving the interface:</p>
+<pre class="cpp"><span class="operator">.</span>mobile <span class="operator">&gt;</span> tbody <span class="operator">&gt;</span> tr        { display : none  }
+<span class="operator">.</span>mobile <span class="operator">&gt;</span> tbody <span class="operator">&gt;</span> tr:target { display : block }</pre>
+<p>The same technique may be used to display or dismiss optional interface elements such as panels, simply by providing navigation links to them within the page.</p>
+<p><b>Note: </b>Navigation to internal anchor links results in new history entries along with distinct URLs that correspond to application states. In the sample above, users may bookmark or share individual items of interest. Otherwise for less substantial content, consider defining your own classes. Navigating to anchors that appear offset from the top of the screen, or horizontally off-screen, may also abruptly shift the viewable window.</p></blockquote>
+<a name="navigation-within-a-page"></a>
+<h3>Navigation Within a Page</h3>
+<p>Short of generating custom history entries, a mobile web app can use more conventional navigation techniques to control an application's state.</p>
+<p>The example below demonstrates how a panel implemented as an element within a page may be hidden by default, and displayed when users navigate to it. The <tt>:target</tt> dynamic CSS class allows elements to be styled differently if they have been accessed via direct navigation:</p>
+<pre class="cpp"><span class="operator">&lt;</span>style<span class="operator">&gt;</span>
+<span class="preprocessor">#panel {</span>
+    display  : none;
+}
+<span class="preprocessor">#panel:target {</span>
+    display  : block;
+    position : absolute;
+    left     : <span class="number">1em</span>;
+    top      : <span class="number">1em</span>;
+    right    : <span class="number">1em</span>;
+    bottom   : <span class="number">1em</span>;
+}
+<span class="operator">&lt;</span><span class="operator">/</span>style<span class="operator">&gt;</span>
+
+<span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;#panel&quot;</span><span class="operator">&gt;</span>Settings<span class="operator">.</span><span class="operator">.</span><span class="operator">.</span><span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span>
+
+<span class="operator">&lt;</span>section id<span class="operator">=</span><span class="string">&quot;panel&quot;</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;#&quot;</span><span class="operator">&gt;</span><span class="operator">[</span>X<span class="operator">]</span><span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>section<span class="operator">&gt;</span></pre>
+<p>The following example shows an interface designed to make table rows more accessible on smaller mobile screens, by restyling their data as vertically stacked blocks. Rows are hidden by default, and display only if they are the target of navigation:</p>
+<p><a href="../examples/layout_tbl-keyhole.htm"><img src="images/scr_layout_tbl-keyhole.png" alt="" /> </a></p>
+<p><a href="../examples/css/layout_tbl-keyhole.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/layout_tbl-keyhole.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>Such navigation to elements within a page results in new history entries, but can also be tracked using the window's <tt>hashchange</tt> event. Its <tt>oldURL</tt> and <tt>newURL</tt> properties provide context for each change in application state. The example above uses a <tt>hashchange</tt> handler to modify the title of the page.</p>
+<p><b>Note: </b>When using navigation to drive an interface in the manner described above, each navigation results in a new history entry, which may become annoying to users who try to step back to a prior page. But there may also be an advantage in being able to share or save URLs referencing specific items of interest.</p><p><a href="../examples/history.htm"> <font color="red">[Missing image history.png]</font> </a></p>
+<p><a href="../examples/history.htm"> __IFRAME__ </a> <a href="../examples/history.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/history.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/history.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+</div>
+<!-- @@@history.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

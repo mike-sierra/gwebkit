@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 44_editable.qdoc -->
+  <title>mobile_html5 : Editable Text</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#contenteditable">contenteditable</a></li>
+<li class="level1"><a href="#selections">Selections</a></li>
+<li class="level2"><a href="#sidebar-the-classlist-api">SIDEBAR The ClassList API</a></li>
+<li class="level1"><a href="#cut-copy-and-paste">Cut, Copy, and Paste</a></li>
+<li class="level1"><a href="#xxx-editable-grob">XXX EDITABLE GROB</a></li>
+<li class="level2"><a href="#enabling-editable-text">&gt;&gt; Enabling Editable Text</a></li>
+<li class="level2"><a href="#mobile-constraints">&gt;&gt; Mobile Constraints</a></li>
+<li class="level3"><a href="#ooo-contenteditable">ooo ContentEditable</a></li>
+<li class="level3"><a href="#ooo-the-execcommand-editing-api">ooo The execCommand editing API</a></li>
+<li class="level3"><a href="#ooo-editable-text">ooo Editable Text</a></li>
+<li class="level1"><a href="#xxx-8-5-contenteditable">XXX 8.5 ContentEditable</a></li>
+<li class="level3"><a href="#ooo-the-execcommand-editing-api">ooo The execCommand editing API</a></li>
+<li class="level3"><a href="#ooo-editable-text">ooo Editable Text</a></li>
+</ul>
+</div>
+<h1 class="title">Editable Text</h1>
+<span class="subtitle"></span>
+<!-- $$$editable.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="contenteditable"></a>
+<h2>contenteditable</h2>
+<p>The HTML5 <i>contenteditable</i> feature allows most any displaying text to becomes editable in place, potentially allowing more powerful interfaces than those that rely on form inputs to edit small portions of content.</p>
+<p>To enable edits for any element, specify a <tt>contenteditable</tt> attribute:</p>
+<pre class="cpp"><span class="operator">&lt;</span>p contenteditable<span class="operator">=</span><span class="string">&quot;true&quot;</span><span class="operator">&gt;</span>edit me<span class="operator">!</span><span class="operator">&lt;</span><span class="operator">/</span>p<span class="operator">&gt;</span></pre>
+<p>Change the attribute to <tt>false</tt> or else remove it to make the element static. Use the <tt>element.isContentEditable</tt> property from JavaScript to determine if the element is currently editable.</p>
+<p>Editability can also be specified more generally with CSS's <tt>user-modify</tt> property. This uses a <tt>noedit</tt> class to toggle editability:</p>
+<pre class="cpp">li { <span class="operator">-</span>webkit<span class="operator">-</span>user<span class="operator">-</span>modify: read<span class="operator">-</span>write }
+li<span class="operator">.</span>noedit { <span class="operator">-</span>webkit<span class="operator">-</span>user<span class="operator">-</span>modify: read<span class="operator">-</span>only; }</pre>
+<p>By default, text selections can incorporate in-line formatting changes, such as bold or italic. This alternative CSS strips such formatting from pasted selections:</p>
+<pre class="cpp">li { <span class="operator">-</span>webkit<span class="operator">-</span>user<span class="operator">-</span>modify: read<span class="operator">-</span>write<span class="operator">-</span>plaintext<span class="operator">-</span>only }</pre>
+<p>The <tt>designMode</tt> property provides an even higher-level alternative. When enabled, <i>all</i> displaying text becomes editable:</p>
+<pre class="cpp">document<span class="operator">.</span>designMode <span class="operator">=</span> <span class="char">'on'</span>;</pre>
+<p>Editable text elements behave much like form inputs, opening the browser's virtual keyboard for text entry. Editable elements respond to <tt>focus</tt> events when users tap to edit them, and <tt>blur</tt> events when users complete their edits and tap elsewhere. Use <tt>input</tt> events as an alternative to key events to track changes to the text that are still in progress.</p>
+<p><b>Note: </b>Make sure pages are not crowded with so many editable elements that users can't touch to navigate within a page without mistakenly activating the keyboard.</p><p>This example shows an editable interface. Elements currently open for editing are styled with the <tt>:focus</tt> CSS class. After edits are complete, a <tt>blur</tt> handler checks whether the text is correct.</p>
+<p><a href="../examples/editable.htm"> <img src="images/editable.png" alt="" /> </a></p>
+<p><a href="../examples/editable.htm"> __IFRAME__ </a> <a href="../examples/editable.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/editable.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/editable.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>After edits are made, they may need to be stored on the device, at least temporarily before transmitting the data to a server. See <a href="storage.html">Data Storage</a> for options.</p>
+<a name="selections"></a>
+<h2>Selections</h2>
+<p>By default, users can press and hold text to select it. The selected text is highlighted, along with handles to modify the range of the selection, and <b>cut</b>, <b>copy</b>, and <b>paste</b> controls where appropriate.</p>
+<p><b>Note: </b>Selection controls are only available within standard web pages, not within <a href="webapp.html">full-screen web applications</a>.</p><p>The ability to select text can be controlled with CSS. In this example, text selections are disabled by default, and enabled only within paragraph elements:</p>
+<pre class="cpp">body { <span class="operator">-</span>webkit<span class="operator">-</span>user<span class="operator">-</span>select: none; }
+p    { <span class="operator">-</span>webkit<span class="operator">-</span>user<span class="operator">-</span>select: <span class="keyword">auto</span>; }</pre>
+<p><b>Note: </b>It is good practice to allow only content elements to be selected, not irrelevant interface controls such as buttons.</p><p>The dynamic <tt>::selection</tt> CSS class allows you to modify how the selected range of text appears. By default, text appears inverted, but in this example it is lightly highlighted with yellow:</p>
+<pre class="cpp"><span class="operator">*</span><span class="operator">::</span>selection {
+    background: gold;
+    color: black;
+}</pre>
+<blockquote><a name="sidebar-the-classlist-api"></a>
+<h3>SIDEBAR The ClassList API</h3>
+<p>Browser 8.5's support for the ClassList API allows for easy manipulation of class names, which are typically used along with CSS to drive interfaces. This feature is typically found in third-party JavaScript libraries. For example, the following markup:</p>
+<pre class="cpp"><span class="operator">&lt;</span>img id<span class="operator">=</span><span class="string">&quot;ic&quot;</span> <span class="keyword">class</span><span class="operator">=</span><span class="string">&quot;icon colleague&quot;</span> src<span class="operator">=</span><span class="string">&quot;img/samantha.png&quot;</span><span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>...may be manipulated with the following API calls:</p>
+<pre class="cpp">var img <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'#ic'</span>);
+var cl <span class="operator">=</span> img<span class="operator">.</span>classList; <span class="comment">// &quot;icon colleague&quot;</span>
+cl<span class="operator">.</span>remove(<span class="char">'colleague'</span>)  <span class="comment">// &quot;icon&quot;</span>
+cl<span class="operator">.</span>add(<span class="char">'friend'</span>)        <span class="comment">// &quot;icon friend&quot;</span>
+cl<span class="operator">.</span>toggle(<span class="char">'selected'</span>)   <span class="comment">// &quot;icon friend selected&quot;</span>
+cl<span class="operator">.</span>contains(<span class="char">'selected'</span>) <span class="comment">// true</span>
+cl<span class="operator">.</span>toggle(<span class="char">'selected'</span>)   <span class="comment">// &quot;icon friend&quot;</span>
+cl<span class="operator">.</span>contains(<span class="char">'selected'</span>) <span class="comment">// false</span></pre>
+</blockquote>
+<a name="cut-copy-and-paste"></a>
+<h2>Cut, Copy, and Paste</h2>
+<p>The Browser allows users to copy text selections from web pages into other applications, or paste selections into editable pages.</p>
+<p>Applications may respond to these actions by listening for <tt>cut</tt>, <tt>copy</tt>, and <tt>paste</tt> events, which fire on the <tt>window</tt> object. Event handlers can access the selected text using the window's <tt>getSelection()</tt> method. This example places the selected text and a shortened URL into a box that's used as a prompt:</p>
+<pre class="cpp">window<span class="operator">.</span>addEventListener(<span class="char">'copy'</span><span class="operator">,</span> copyHandler);
+var prompt <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'div#share_prompt'</span>)
+
+function copyHandler(e) {
+    var url <span class="operator">=</span> <span class="char">'http://tiny.cc/b2wdfw'</span>;
+    prompt<span class="operator">.</span>innerHTML <span class="operator">=</span> window<span class="operator">.</span>getSelection() <span class="operator">+</span> <span class="string">&quot; (&quot;</span> <span class="operator">+</span> url <span class="operator">+</span> <span class="string">&quot;)&quot;</span>;
+    prompt<span class="operator">.</span>classList<span class="operator">.</span>add(<span class="char">'visible'</span>);
+};</pre>
+<p>In the accompaying sample interface, copying text gives users the option to share the selection and accompanying link using a social web service. Otherwise they can still paste the text from the clipboard into other applications, but without the additional link text.</p>
+<p><a href="../examples/fonts.htm"> <img src="images/fonts2.png" alt="" /> </a></p>
+<p><a href="../examples/fonts.htm"> __IFRAME__ </a> <a href="../examples/fonts.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/fonts.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/fonts.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<a name="xxx-editable-grob"></a>
+<h2>XXX EDITABLE GROB</h2>
+<a name="enabling-editable-text"></a>
+<h3>&gt;&gt; Enabling Editable Text</h3>
+<a name="mobile-constraints"></a>
+<h3>&gt;&gt; Mobile Constraints</h3>
+<a name="ooo-contenteditable"></a>
+<h4>ooo ContentEditable</h4>
+<p>As an alternative to forms for text input, Browser 8_5 also supports HTML5's <a href="#contenteditable">ContentEditable</a> feature, which allows users to edit most any displaying text.</p>
+<p>Setting an element's <tt>contenteditable</tt> attribute to <tt>true</tt> enables direct editing, as does setting its <tt>-webkit-user-modify</tt> CSS property to <tt>read-write</tt>. Setting the attribute to <tt>false</tt> or the CSS to <tt>read-only</tt> allows a web app to control this feature. Current state is available via <tt>element.isContentEditable</tt>.</p>
+<p>Tapping within an editable region of text allows users to place an insertion point and start typing. Like form inputs, editable text areas respond to <tt>focus</tt> event handlers, and can be styled using the <tt>:focus</tt> CSS selector. (However, running <tt>element.focus()</tt> does not present the keyboard; that requires users to tap within the element.) Applications can rely on <tt>input</tt> event handlers to respond to changes in the text as it is entered, or <tt>blur</tt> handlers once edits are complete and users have tapped outside the element. (See <a href="storage.html#web-storage">Web Storage</a> and <a href="storage.html#web-sql">Web SQL</a> for information on ways to cache edited text locally.)</p>
+<a name="ooo-the-execcommand-editing-api"></a>
+<h4>ooo The execCommand editing API</h4>
+<p>Browser 8_5 offers partial support for the <tt>execCommand()</tt> interface, which allows applications to perform basic editing and formatting tasks. By itself, the <tt>contenteditable</tt> feature allows users to type text into editable regions. This editing API offers options to format text and alternatives to keyboard input. This section offers illustrative examples of editing commands.</p>
+<p>Browser 8_5 does not support text selections within web content, so the <tt>selectAll</tt> and <tt>unselect</tt> have no effect. As an alternative, the example below shows how to apply in-line formatting to a text insertion using the <tt>insertText</tt> command.</p>
+<p>The <tt>bold</tt>, <tt>italic</tt>, <tt>subscript</tt> and <tt>superscript</tt> commands toggles the state of in-line formatting at the insertion point. Running the command is equivalent to opening or closing <tt>&lt;b&gt;</tt>, <tt>&lt;i&gt;</tt>, <tt>&lt;sub&gt;</tt>, or <tt>&lt;sup&gt;</tt> tags while typing within a block element.</p>
+<p>The following example inserts text at the insertion point, surrounds it with linebreaks, and applies italic formatting:</p>
+<pre class="cpp">textBuffer <span class="operator">=</span> <span class="string">&quot;This is text, perhaps copied from an element's textContent&quot;</span>;
+document<span class="operator">.</span>execCommand(<span class="char">'insertLineBreak'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'italic'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertText'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> textBuffer);
+document<span class="operator">.</span>execCommand(<span class="char">'italic'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertLineBreak'</span>);</pre>
+<p>The second argument shown in the above <tt>insertText</tt> command refers to cases in which users might be prompted for input, false for all commands on Browser 8_5.</p>
+<p>If the cursor is positioned within already italicized text, the insertion would have no italic formatting. Running <tt>document.queryCommandState('italic')</tt> allows applications to better respond to the editing context.</p>
+<p>The <tt>insertImage</tt> command accepts a URL argument, which it wraps within <tt>&lt;img src=&quot;URL&quot;&gt;</tt>. Likewise the <tt>createLink</tt> command wraps a URL with <tt>&lt;a href=&quot;URL&quot;&gt;URL&lt;/a&gt;</tt>. The following function accounts for both cases based on the URL's filename extension:</p>
+<pre class="cpp">function insert(url) {
+    var cmd;
+    (url<span class="operator">.</span>match(<span class="operator">/</span>\<span class="operator">.</span>(png<span class="operator">|</span>jpe<span class="operator">?</span>g<span class="operator">|</span>gif)$<span class="operator">/</span>))
+        <span class="operator">?</span> (cmd <span class="operator">=</span> <span class="char">'insertImage'</span>)
+        : (cmd <span class="operator">=</span> <span class="char">'createLink'</span>);
+    document<span class="operator">.</span>execCommand(cmd<span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> url);
+}</pre>
+<p>The <tt>unlink</tt> command, which removes link formatting from a text selection, is not supported on Browser 8_5.</p>
+<p>The <tt>delete</tt> and <tt>forwardDelete</tt> commands allow you to remove one character at a time, with no information available on the character to be deleted. The following example shows how text deletion might be incorporated into a gestural interface in which tipping the N9 left or right past a certain point causes text to be deleted:</p>
+<pre class="cpp">var timer;
+var rate <span class="operator">=</span> <span class="number">50</span>;
+<span class="comment">// currentTilt, initialTilt derived from deviceorientation API</span>
+
+function <span class="keyword">delete</span>() {
+    var cmd;
+    <span class="comment">// degree variance to trigger delete:</span>
+    var tiltThreshold <span class="operator">=</span> <span class="number">20</span>;
+
+    <span class="comment">// cancel if within gestural threshold...</span>
+    <span class="keyword">if</span> ( (currentTilt <span class="operator">&lt;</span> (initialTilt <span class="operator">+</span> tiltThreshold) ) <span class="operator">&amp;</span><span class="operator">&amp;</span>
+       ( (currentTilt <span class="operator">&gt;</span> (initialTilt <span class="operator">-</span> tiltThreshold) ) ) ) {
+           clearTimeout(timer);
+           <span class="keyword">return</span>(<span class="keyword">false</span>);
+    }
+    <span class="comment">// delete if outside gestural threshold...</span>
+    <span class="keyword">else</span> {
+        <span class="keyword">if</span> (currentTilt <span class="operator">&lt;</span> initialTilt) {
+            cmd <span class="operator">=</span> <span class="char">'delete'</span>;        <span class="comment">// tilt left</span>
+        } <span class="keyword">else</span> {
+            cmd <span class="operator">=</span> <span class="char">'forwardDelete'</span>; <span class="comment">// tilt right</span>
+        }
+        document<span class="operator">.</span>execCommand(cmd);
+        <span class="comment">// repeat this function...</span>
+        timer <span class="operator">=</span> setTimeout(<span class="keyword">delete</span><span class="operator">,</span> rate);
+    }
+}</pre>
+<p><b>Note: </b>Since the N9's text entry interface appears on the screen while users edit content blocks, accessing such editing functions via touch controls may be overly difficult. Applying a hidden gestural text editing mode may help address this constraint. For more information on gestural interface modes, see <a href="gesture.html">Orientation and Motion</a>.</p><p>The <tt>formatBlock</tt> command wraps whatever block element most directly contains the insertion point within another block element. The following example marks text as a quoted block:</p>
+<pre class="cpp">document<span class="operator">.</span>execCommand(<span class="char">'formatBlock'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> <span class="char">'blockquote'</span>)</pre>
+<p>The <tt>undo</tt> and <tt>redo</tt> editing commands are not supported by Browser 8_5.</p>
+<p>Browser 8_5 supports the <tt>insertOrderedList</tt>, <tt>insertUnorderedList</tt>, and <tt>insertParagraph</tt> commands. Running <tt>insertParagraph</tt> splits or inserts a new instance of the current block element. Running <tt>insertOrderedList</tt> or <tt>insertUnorderedList</tt> creates a list container, from which subsequent calls to <tt>insertParagraph</tt> inserts new items. The following example inserts a three-item list:</p>
+<pre class="cpp">document<span class="operator">.</span>execCommand(<span class="char">'insertParagraph'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertText'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> <span class="char">'The following is a list:'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertOrderedList'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertText'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> <span class="char">'This is the first item'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertParagraph'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertText'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> <span class="char">'This is the second item'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertParagraph'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertText'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> <span class="char">'This is the third item'</span>);</pre>
+<p>The <tt>insertHTML</tt> command allows for insertion of HTML markup directly into editable text. The following example builds the same three-item list as in the example above:</p>
+<pre class="cpp">var htm <span class="operator">=</span> <span class="string">&quot;&lt;p&gt;The following is a list:&quot;</span>;
+htm <span class="operator">+</span><span class="operator">=</span> <span class="string">&quot;&lt;ol&gt;&quot;</span>;
+htm <span class="operator">+</span><span class="operator">=</span> <span class="string">&quot;&lt;li&gt;This is the first item&quot;</span>;
+htm <span class="operator">+</span><span class="operator">=</span> <span class="string">&quot;&lt;li&gt;This is the second item&quot;</span>;
+htm <span class="operator">+</span><span class="operator">=</span> <span class="string">&quot;&lt;li&gt;This is the third item&quot;</span>;
+htm <span class="operator">+</span><span class="operator">=</span> <span class="char">'&lt;/ol&gt;'</span>;
+document<span class="operator">.</span>execCommand(<span class="char">'insertHTML'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> htm);</pre>
+<p>As is also true for <tt>innerHTML()</tt>, Browser 8_5 resolves missing closing tags and other invalid XHTML syntax wherever possible.</p>
+<a name="ooo-editable-text"></a>
+<h4>ooo Editable Text</h4>
+<p>Web development has long relied on forms to support text input. All of the new HTML5 features discussed so far in this section represent enhancements to this familiar form mechanism. But web apps can now rely on HTML's <i><a href="#contenteditable">ContentEditable</a></i> feature to make nearly any displaying text editable, with no need for forms serving as intermediary interface elements.</p>
+<p>This section discusses the basic mechanism to enable edits. To <i>save</i> edits, they must be posted to a server, for example via Ajax rather than a form submit transaction, or else be cached by the client browser. See the sections on <a href="storage.html">Data Storage</a> and <a href="storage.html#web-sql">Web SQL</a> for more information on how to store changes.</p>
+<p>There are two ways to make a text element editable:</p>
+<ul>
+<li>Set its <tt>contenteditable</tt> attribute to <tt>true</tt>. (Setting it to <tt>false</tt> changes it back to static text.)</li>
+<li>Set its <tt>-webkit-user-modify</tt> CSS property to <tt>read-write</tt>. (Setting it to <tt>read-only</tt> makes the text static.)</li>
+</ul>
+<p>The CSS approach is somewhat more efficient, in part because the markup doesn't require so many redundant attributes. Either way, you can determine an element's current state by calling <tt>isContentEditable</tt> on it.</p>
+<p>The same mobile form-factor constraints that apply to text inputs on forms also apply to editable text. Tapping within an editable block of text may produce a virtual keyboard interface that takes up much of the screen, limiting the amount of screen area that can display the text. While text inputs are often used for short chunks of data, editable text can be used more freely for longer blocks of text. However, mobile users may have difficulty editing lengthy text that's not all visible on the same screen. Some browsers may also allow only an insertion point where the user tapped rather than the ability to select and delete longer stretches of text, a limitation that becomes more apparent the longer the text becomes.</p>
+<p>Mobile interfaces should also visually clarify any distinction between editable and non-editable text, otherwise users are likely to become frustrated at their inability to select static blocks of text for editing. Alternately, filling a screen with a great deal of editable content may result in the opposite problem. Users who are simply trying to pan within a page may become frustrated when touching the screen suddenly results in a text input interface. In these cases, it may be best to require users to enter a dedicated text-editing <i>mode</i> accessible via a smaller control.</p>
+<p>The following sample demonstrates an interface featuring items marked as editable:</p>
+<p><a href="../examples/form_editable.htm"><img src="images/scr_form_editable.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_editable.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/form_editable.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>Once a text field is editable, it can receive focus and be styled with CSS3's <tt>:focus</tt> selector. (See the section on <sub>Form Element State</sub> selectors.) Each editable field features a corresponding <tt>blur</tt> event listener that activates once a set of edits has been completed, either by exiting the virtual keyboard or by tapping outside the field. At that point, edits are saved within the browser's local storage cache. The most recent set of edits are reintroduced into the page each time it loads, and there is an option to clear them all. (See the section on <a href="storage.html">Data Storage</a> for more information.)</p>
+<p><b>Note: </b>Editable elements may require explicit touch input to activate, rather than setting focus from JavaScript, which provides no information on where to place the cursor.</p><ul>
+<li>contenteditable (attr &amp; CSS)</li>
+<li>designMode</li>
+<li>execCommand</li>
+<li>formatting</li>
+<li>(selections)</li>
+<li>(copy/paste)</li>
+<li>(clipboard)</li>
+<li>(undo manager)</li>
+</ul>
+<a name="xxx-8-5-contenteditable"></a>
+<h2>XXX 8.5 ContentEditable</h2>
+<p>As an alternative to forms for text input, Browser 8_5 also supports HTML5's <a href="#contenteditable">ContentEditable</a> feature, which allows users to edit most any displaying text.</p>
+<p>Setting an element's <tt>contenteditable</tt> attribute to <tt>true</tt> enables direct editing, as does setting its <tt>-webkit-user-modify</tt> CSS property to <tt>read-write</tt>. Setting the attribute to <tt>false</tt> or the CSS to <tt>read-only</tt> allows a web app to control this feature. Current state is available via <tt>element.isContentEditable</tt>.</p>
+<p>Tapping within an editable region of text allows users to place an insertion point and start typing. Like form inputs, editable text areas respond to <tt>focus</tt> event handlers, and can be styled using the <tt>:focus</tt> CSS selector. (However, running <tt>element.focus()</tt> does not present the keyboard; that requires users to tap within the element.) Applications can rely on <tt>input</tt> event handlers to respond to changes in the text as it is entered, or <tt>blur</tt> handlers once edits are complete and users have tapped outside the element. (See <a href="storage.html#web-storage">Web Storage</a> and <a href="storage.html#web-sql">Web SQL</a> for information on ways to cache edited text locally.)</p>
+<a name="ooo-the-execcommand-editing-api"></a>
+<h4>ooo The execCommand editing API</h4>
+<p>Browser 8_5 offers partial support for the <tt>execCommand()</tt> interface, which allows applications to perform basic editing and formatting tasks. By itself, the <tt>contenteditable</tt> feature allows users to type text into editable regions. This editing API offers options to format text and alternatives to keyboard input. This section offers illustrative examples of editing commands.</p>
+<p>Browser 8_5 does not support text selections within web content, so the <tt>selectAll</tt> and <tt>unselect</tt> have no effect. As an alternative, the example below shows how to apply in-line formatting to a text insertion using the <tt>insertText</tt> command.</p>
+<p>The <tt>bold</tt>, <tt>italic</tt>, <tt>subscript</tt> and <tt>superscript</tt> commands toggles the state of in-line formatting at the insertion point. Running the command is equivalent to opening or closing <tt>&lt;b&gt;</tt>, <tt>&lt;i&gt;</tt>, <tt>&lt;sub&gt;</tt>, or <tt>&lt;sup&gt;</tt> tags while typing within a block element.</p>
+<p>The following example inserts text at the insertion point, surrounds it with linebreaks, and applies italic formatting:</p>
+<pre class="cpp">textBuffer <span class="operator">=</span> <span class="string">&quot;This is text, perhaps copied from an element's textContent&quot;</span>;
+document<span class="operator">.</span>execCommand(<span class="char">'insertLineBreak'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'italic'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertText'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> textBuffer);
+document<span class="operator">.</span>execCommand(<span class="char">'italic'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertLineBreak'</span>);</pre>
+<p>The second argument shown in the above <tt>insertText</tt> command refers to cases in which users might be prompted for input, false for all commands on Browser 8_5.</p>
+<p>If the cursor is positioned within already italicized text, the insertion would have no italic formatting. Running <tt>document.queryCommandState('italic')</tt> allows applications to better respond to the editing context.</p>
+<p>The <tt>insertImage</tt> command accepts a URL argument, which it wraps within <tt>&lt;img src=&quot;URL&quot;&gt;</tt>. Likewise the <tt>createLink</tt> command wraps a URL with <tt>&lt;a href=&quot;URL&quot;&gt;URL&lt;/a&gt;</tt>. The following function accounts for both cases based on the URL's filename extension:</p>
+<pre class="cpp">function insert(url) {
+    var cmd;
+    (url<span class="operator">.</span>match(<span class="operator">/</span>\<span class="operator">.</span>(png<span class="operator">|</span>jpe<span class="operator">?</span>g<span class="operator">|</span>gif)$<span class="operator">/</span>))
+        <span class="operator">?</span> (cmd <span class="operator">=</span> <span class="char">'insertImage'</span>)
+        : (cmd <span class="operator">=</span> <span class="char">'createLink'</span>);
+    document<span class="operator">.</span>execCommand(cmd<span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> url);
+}</pre>
+<p>The <tt>unlink</tt> command, which removes link formatting from a text selection, is not supported on Browser 8_5.</p>
+<p>The <tt>delete</tt> and <tt>forwardDelete</tt> commands allow you to remove one character at a time, with no information available on the character to be deleted. The following example shows how text deletion might be incorporated into a gestural interface in which tipping the N9 left or right past a certain point causes text to be deleted:</p>
+<pre class="cpp">var timer;
+var rate <span class="operator">=</span> <span class="number">50</span>;
+<span class="comment">// currentTilt, initialTilt derived from deviceorientation API</span>
+
+function <span class="keyword">delete</span>() {
+    var cmd;
+    <span class="comment">// degree variance to trigger delete:</span>
+    var tiltThreshold <span class="operator">=</span> <span class="number">20</span>;
+
+    <span class="comment">// cancel if within gestural threshold...</span>
+    <span class="keyword">if</span> ( (currentTilt <span class="operator">&lt;</span> (initialTilt <span class="operator">+</span> tiltThreshold) ) <span class="operator">&amp;</span><span class="operator">&amp;</span>
+       ( (currentTilt <span class="operator">&gt;</span> (initialTilt <span class="operator">-</span> tiltThreshold) ) ) ) {
+           clearTimeout(timer);
+           <span class="keyword">return</span>(<span class="keyword">false</span>);
+    }
+    <span class="comment">// delete if outside gestural threshold...</span>
+    <span class="keyword">else</span> {
+        <span class="keyword">if</span> (currentTilt <span class="operator">&lt;</span> initialTilt) {
+            cmd <span class="operator">=</span> <span class="char">'delete'</span>;        <span class="comment">// tilt left</span>
+        } <span class="keyword">else</span> {
+            cmd <span class="operator">=</span> <span class="char">'forwardDelete'</span>; <span class="comment">// tilt right</span>
+        }
+        document<span class="operator">.</span>execCommand(cmd);
+        <span class="comment">// repeat this function...</span>
+        timer <span class="operator">=</span> setTimeout(<span class="keyword">delete</span><span class="operator">,</span> rate);
+    }
+}</pre>
+<p><b>Note: </b>Since the N9's text entry interface appears on the screen while users edit content blocks, accessing such editing functions via touch controls may be overly difficult. Applying a hidden gestural text editing mode may help address this constraint. For more information on gestural interface modes, see <a href="gesture.html">Orientation and Motion</a>.</p><p>The <tt>formatBlock</tt> command wraps whatever block element most directly contains the insertion point within another block element. The following example marks text as a quoted block:</p>
+<pre class="cpp">document<span class="operator">.</span>execCommand(<span class="char">'formatBlock'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> <span class="char">'blockquote'</span>)</pre>
+<p>The <tt>undo</tt> and <tt>redo</tt> editing commands are not supported by Browser 8_5.</p>
+<p>Browser 8_5 supports the <tt>insertOrderedList</tt>, <tt>insertUnorderedList</tt>, and <tt>insertParagraph</tt> commands. Running <tt>insertParagraph</tt> splits or inserts a new instance of the current block element. Running <tt>insertOrderedList</tt> or <tt>insertUnorderedList</tt> creates a list container, from which subsequent calls to <tt>insertParagraph</tt> inserts new items. The following example inserts a three-item list:</p>
+<pre class="cpp">document<span class="operator">.</span>execCommand(<span class="char">'insertParagraph'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertText'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> <span class="char">'The following is a list:'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertOrderedList'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertText'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> <span class="char">'This is the first item'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertParagraph'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertText'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> <span class="char">'This is the second item'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertParagraph'</span>);
+document<span class="operator">.</span>execCommand(<span class="char">'insertText'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> <span class="char">'This is the third item'</span>);</pre>
+<p>The <tt>insertHTML</tt> command allows for insertion of HTML markup directly into editable text. The following example builds the same three-item list as in the example above:</p>
+<pre class="cpp">var htm <span class="operator">=</span> <span class="string">&quot;&lt;p&gt;The following is a list:&quot;</span>;
+htm <span class="operator">+</span><span class="operator">=</span> <span class="string">&quot;&lt;ol&gt;&quot;</span>;
+htm <span class="operator">+</span><span class="operator">=</span> <span class="string">&quot;&lt;li&gt;This is the first item&quot;</span>;
+htm <span class="operator">+</span><span class="operator">=</span> <span class="string">&quot;&lt;li&gt;This is the second item&quot;</span>;
+htm <span class="operator">+</span><span class="operator">=</span> <span class="string">&quot;&lt;li&gt;This is the third item&quot;</span>;
+htm <span class="operator">+</span><span class="operator">=</span> <span class="char">'&lt;/ol&gt;'</span>;
+document<span class="operator">.</span>execCommand(<span class="char">'insertHTML'</span><span class="operator">,</span> <span class="keyword">false</span><span class="operator">,</span> htm);</pre>
+<p>As is also true for <tt>innerHTML()</tt>, Browser 8_5 resolves missing closing tags and other invalid XHTML syntax wherever possible.</p>
+<a name="ooo-editable-text"></a>
+<h4>ooo Editable Text</h4>
+<p>Web development has long relied on forms to support text input. All of the new HTML5 features discussed so far in this section represent enhancements to this familiar form mechanism. But web apps can now rely on HTML's <i><a href="#contenteditable">ContentEditable</a></i> feature to make nearly any displaying text editable, with no need for forms serving as intermediary interface elements.</p>
+<p>This section discusses the basic mechanism to enable edits. To <i>save</i> edits, they must be posted to a server, for example via Ajax rather than a form submit transaction, or else be cached by the client browser. See the sections on <a href="storage.html">Data Storage</a> and <a href="storage.html#web-sql">Web SQL</a> for more information on how to store changes.</p>
+<p>There are two ways to make a text element editable:</p>
+<ul>
+<li>Set its <tt>contenteditable</tt> attribute to <tt>true</tt>. (Setting it to <tt>false</tt> changes it back to static text.)</li>
+<li>Set its <tt>-webkit-user-modify</tt> CSS property to <tt>read-write</tt>. (Setting it to <tt>read-only</tt> makes the text static.)</li>
+</ul>
+<p>The CSS approach is somewhat more efficient, in part because the markup doesn't require so many redundant attributes. Either way, you can determine an element's current state by calling <tt>isContentEditable</tt> on it.</p>
+<p>The same mobile form-factor constraints that apply to text inputs on forms also apply to editable text. Tapping within an editable block of text may produce a virtual keyboard interface that takes up much of the screen, limiting the amount of screen area that can display the text. While text inputs are often used for short chunks of data, editable text can be used more freely for longer blocks of text. However, mobile users may have difficulty editing lengthy text that's not all visible on the same screen. Some browsers may also allow only an insertion point where the user tapped rather than the ability to select and delete longer stretches of text, a limitation that becomes more apparent the longer the text becomes.</p>
+<p>Mobile interfaces should also visually clarify any distinction between editable and non-editable text, otherwise users are likely to become frustrated at their inability to select static blocks of text for editing. Alternately, filling a screen with a great deal of editable content may result in the opposite problem. Users who are simply trying to pan within a page may become frustrated when touching the screen suddenly results in a text input interface. In these cases, it may be best to require users to enter a dedicated text-editing <i>mode</i> accessible via a smaller control.</p>
+<p>The following sample demonstrates an interface featuring items marked as editable:</p>
+<p><a href="../examples/form_editable.htm"><img src="images/scr_form_editable.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_editable.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/form_editable.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>Once a text field is editable, it can receive focus and be styled with CSS3's <tt>:focus</tt> selector. (See the section on <sub>Form Element State</sub> selectors.) Each editable field features a corresponding <tt>blur</tt> event listener that activates once a set of edits has been completed, either by exiting the virtual keyboard or by tapping outside the field. At that point, edits are saved within the browser's local storage cache. The most recent set of edits are reintroduced into the page each time it loads, and there is an option to clear them all. (See the section on <a href="storage.html">Data Storage</a> for more information.)</p>
+<p><b>Note: </b>Editable elements may require explicit touch input to activate, rather than setting focus from JavaScript, which provides no information on where to place the cursor.</p><ul>
+<li>contenteditable (attr &amp; CSS)</li>
+<li>designMode</li>
+<li>execCommand</li>
+<li>formatting</li>
+<li>(selections)</li>
+<li>(copy/paste)</li>
+<li>(clipboard)</li>
+<li>(undo manager)</li>
+</ul>
+</div>
+<!-- @@@editable.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

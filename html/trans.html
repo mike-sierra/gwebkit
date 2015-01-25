@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 32_trans.qdoc -->
+  <title>mobile_html5 : Transforms</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level2"><a href="#sidebar-css3-selectors">SIDEBAR CSS3 Selectors</a></li>
+<li class="level1"><a href="#xxx-pre">XXX pre</a></li>
+<li class="level2"><a href="#2d-transforms">2D Transforms</a></li>
+<li class="level2"><a href="#the-transform-origin">The Transform Origin</a></li>
+<li class="level2"><a href="#3d-transforms">3D Transforms</a></li>
+<li class="level2"><a href="#targeting-2d-and-3d-transforms">Targeting 2D and 3D Transforms</a></li>
+<li class="level2"><a href="#nested-3d-transforms">Nested 3D Transforms</a></li>
+<li class="level2"><a href="#example-spinning-dice">Example: Spinning Dice</a></li>
+<li class="level2"><a href="#example-virtual-reality">Example: Virtual Reality</a></li>
+</ul>
+</div>
+<h1 class="title">Transforms</h1>
+<span class="subtitle"></span>
+<!-- $$$trans.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>CSS <i>transforms</i> allow interface elements to be moved from their default location, rotated, or scaled. The Browser supports both two- and three-dimensional transforms. Transform <i>properties</i> specify any number of transform <i>functions</i>:</p>
+<ul>
+<li>Move elements horizontally (<i>x</i>), vertically (<i>y</i>), or back-to-front (<i>z</i>): <tt>translate(x,y)</tt>, <tt>translateX(x)</tt>, <tt>translateY(y)</tt>, <tt>translateZ(z)</tt>, or <tt>translate3d(x,y,z)</tt>. Movements along the <i>z</i> axis must correspond to pixel units.</li>
+<li>Shrink/expand elements, in decimal terms with 1 as normal size. The following allow you to scale each axis independently: <tt>scale(x,y)</tt>, <tt>scaleX(x)</tt>, <tt>scaleY(y)</tt>. Otherwise specifying <tt>scale(n)</tt> with a single numeric argument maintains the original aspect ratio.</li>
+<li>Rotate elements, specifying either degree (<tt>deg</tt>) or radian (<tt>rad</tt>) measurements: <tt>rotate(z)</tt>, <tt>rotateZ(z)</tt>, <tt>rotateX(x)</tt>, <tt>rotateY(y)</tt>. An additional <tt>rotate3d()</tt> function requires three numeric arguments that define a 3D vector, followed by a fourth argument representing the degree of rotation around that line.</li>
+<li>Two-dimensional <i>skew</i> transforms, which also accept <tt>deg</tt> or <tt>rad</tt> measurements, distort the element's default right-angle corners, changing the rectangle to a parallelogram: <tt>skewX()</tt> for the sides of the element to wobble, or <tt>skewY</tt> for the top or bottom to wobble.</li>
+</ul>
+<p>Applications can animate transforms dynamically using JavaScript, or using <a href="animation.html">CSS transitions and keyframes</a>.</p>
+<p>In this example, the main content panel tips and sways along with the device:</p>
+<p><a href="../examples/gesture.htm"> <img src="images/gesture1.png" alt="" /> <img src="images/gesture2.png" alt="" /> </a></p>
+<p><a href="../examples/gesture.htm"> __IFRAME__ </a> <a href="../examples/gesture.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/gesture.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/gesture.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>Readings from the <a href="gesture.html">3D compass</a> are translated directly to rotations along the screen element's <i>x</i> and <i>y</i> axes. This is how to represent such a transform as static CSS:</p>
+<pre class="cpp"><span class="operator">.</span>panel {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform: rotateX(<span class="number">12deg</span>) rotateY(<span class="operator">-</span><span class="number">4deg</span>);
+    <span class="operator">-</span>webkit<span class="operator">-</span>transition: all <span class="number">0.5s</span>;
+    transform: rotateX(<span class="number">12deg</span>) rotateY(<span class="operator">-</span><span class="number">4deg</span>);
+    transition: all <span class="number">0.5s</span>;
+}</pre>
+<p><b>Note: </b>Many Level 3 CSS properties use <i>vendor prefixes</i> such as <tt>-webkit-</tt> to indicate they have not been finalized as a web standard. To ensure future coverage, specify the same set of properties without the prefix.</p><p>The <a href="animation.html">transition</a> smoothes the transform's appearance when it is animated dynamically via JavaScript, as in this alternative example:</p>
+<pre class="cpp">var p <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'.panel'</span>);
+p<span class="operator">.</span>style<span class="operator">.</span>WebkitTransform <span class="operator">=</span> <span class="char">'rotateX('</span> <span class="operator">+</span> x <span class="operator">+</span> <span class="char">'deg) rotateY('</span> <span class="operator">+</span> y <span class="operator">+</span> <span class="char">'deg)'</span>;</pre>
+<p>For flat elements to assume a 3D appearance, they must be nested within a parent element that has <i>perspective</i> applied to it:</p>
+<pre class="cpp">section {
+    <span class="operator">-</span>webkit<span class="operator">-</span>perspective: <span class="number">1000</span>;
+    <span class="operator">-</span>webkit<span class="operator">-</span>perspective<span class="operator">-</span>origin: <span class="number">50</span><span class="operator">%</span> <span class="number">50</span><span class="operator">%</span>;
+}</pre>
+<p>The perspective value refers to the number of pixels along the <i>z</i> axis between the viewer and the screen. The perspective <i>origin</i> refers to the <i>x</i>/<i>y</i> position along the surface of the element from which the viewer appears to back away. (Here it reflects the default <tt>center</tt> value.)</p>
+<p>Elements that are transformed in 3D space may align to a plane that is different than that of the viewing screen. If that element specifies <tt>preserve-3d</tt>, any children transform within the 3D space it defines, rather than appearing <tt>flat</tt> by default:</p>
+<pre class="cpp"><span class="operator">.</span>gesture {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>style: preserve<span class="operator">-</span><span class="number">3d</span>;
+}</pre>
+<p>In the example above, the cube's <i>z</i>-axis translation makes it appear to move towards the viewer:</p>
+<pre class="cpp"><span class="operator">.</span>gesture <span class="operator">&gt;</span> ol {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform: translateZ(<span class="number">800px</span>);
+}</pre>
+<p>As the main panel wobbles slightly, the cube appears to move more dramatically in relation to the panel.</p>
+<p>The cube itself defines its own nested 3D space. Four of the faces are postioned with 90&deg; rotations. By default, transforms <i>originate</i> from the <tt>center</tt> of the element, but modifying the <tt>-webkit-transform-origin</tt> allows each face to hinge along the <tt>left</tt>, <tt>right</tt>, <tt>top</tt>, or <tt>bottom</tt> edges. (These correspond to standard <i>x</i>/<i>y</i> measurements, so that <tt>bottom</tt> can also be represented as <tt>50% 100%</tt>.) The back face is rotated 180&deg; around a point behind it, so it moves backwards.</p>
+<pre class="cpp"><span class="operator">.</span>gesture <span class="operator">&gt;</span> ol <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">1</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform: translateZ(<span class="number">0</span><span class="operator">%</span>);
+}
+<span class="operator">.</span>gesture <span class="operator">&gt;</span> ol <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">2</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin: left;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform: rotateY(<span class="number">90deg</span>);
+}
+<span class="operator">.</span>gesture <span class="operator">&gt;</span> ol <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">3</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin: right;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform: rotateY(<span class="operator">-</span><span class="number">90deg</span>);
+}
+<span class="operator">.</span>gesture <span class="operator">&gt;</span> ol <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">4</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin: top;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform: rotateX(<span class="operator">-</span><span class="number">90deg</span>);
+}
+<span class="operator">.</span>gesture <span class="operator">&gt;</span> ol <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">5</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin: bottom;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform: rotateX(<span class="number">90deg</span>);
+}
+<span class="operator">.</span>gesture <span class="operator">&gt;</span> ol <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">6</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin: <span class="number">50</span><span class="operator">%</span> <span class="number">50</span><span class="operator">%</span> <span class="operator">-</span><span class="number">18px</span>;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform: rotateY(<span class="number">180deg</span>);
+}</pre>
+<p>To implement flip-panel effects, items that rotate away from view can be hidden; otherwise they appear as a mirror image:</p>
+<pre class="cpp">ol {
+    <span class="operator">-</span>webkit<span class="operator">-</span>backface: hidden;
+}</pre>
+<blockquote><a name="sidebar-css3-selectors"></a>
+<h3>SIDEBAR CSS3 Selectors</h3>
+<p>Browser 8.5 supports all Level 3 CSS Selectors:</p>
+<ul>
+<li>Indirect siblings: <tt>element ~ successors</tt></li>
+<li>Matching attribute values: <tt>[attr^=&quot;prefix&quot;]</tt>, <tt>[attr$=&quot;suffix&quot;]</tt>, <tt>[attr*=&quot;substring&quot;]</tt></li>
+<li>Positional classes: <tt>:first-child</tt>, <tt>:last-child</tt>, <tt>:nth-child()</tt>, <tt>:nth-first-child()</tt>, <tt>:nth-last-child()</tt>, <tt>:only-child</tt></li>
+<li>Contextual classes: <tt>:first-of-type</tt>, <tt>:last-of-type</tt>, <tt>:nth-first-of-type()</tt>, <tt>:nth-last-of-type()</tt>, <tt>:nth-of-type()</tt>, <tt>:only-of-type</tt></li>
+<li>Form input state classes: <tt>:valid</tt>, <tt>:invalid</tt>, <tt>:focus</tt>, <tt>:checked</tt>, <tt>:enabled</tt>, <tt>:disabled</tt></li>
+<li>Navigational class: <tt>:target</tt></li>
+<li>Other classes: <tt>:empty</tt>, <tt>:root</tt>, <tt>:not()</tt></li>
+</ul>
+</blockquote>
+<a name="xxx-pre"></a>
+<h2>XXX pre</h2>
+<p>Transforms offer visual effects that manipulate the appearance of screen elements, perhaps displacing them from where they would otherwise appear. Otherwise static transform effects work in conjunction with CSS <a href="animation.html">transitions and keyframe animations</a> to build dynamic interfaces. This section provides a brief guide on how to apply two- and three-dimensional CSS transforms to supporting browsers, and interactive tools to experiment with transform effects.</p>
+<a name="2d-transforms"></a>
+<h3>2D Transforms</h3>
+<p>CSS transform properties specify any of four basic functions:</p>
+<ul>
+<li><tt>translate()</tt> moves an element around on the screen. It accepts two <i>x</i>/<i>y</i> valid CSS measurements, which can also be expressed as separate <tt>translateX()</tt> and <tt>translateY()</tt> functions.</li>
+<li><tt>scale()</tt> resizes an element. It accepts decimal values, with 1 representing the element's default size. If the element's scale is 2, it is double its original size, and if it is 0, it disappears. Alternative <tt>scaleX()</tt> and <tt>scaleY()</tt> functions allow width and height to be manipulated independently.</li>
+<li><tt>rotate()</tt> spins an element around its <i>z</i> axis. It accepts a degree (<tt>deg</tt>) or radian (<tt>rad</tt>) measurement. (Radians are equivalent to the number of degrees multiplied by &pi;/180.)</li>
+<li><tt>skew()</tt> distorts an element's appearance by modifying its default corner angles, with positive measurements increasing the bottom-left corner angle. It accepts two degree (<tt>deg</tt>) or radian (<tt>rad</tt>) measurements, or else can be expressed separately as <tt>skewX()</tt> and <tt>skewY()</tt> functions. Skews along the <i>x</i> axis tip the side edges of the element, while skews along <i>y</i> tip the top and bottom.</li>
+</ul>
+<p>Browsers represent combinations of transform functions internally as a two-dimensional <i>matrix</i>, which for two dimensions consists of six values. Applications can manipulate transforms using this alternative <tt>matrix()</tt> function. (For a useful summary of matrix syntax, read the <i>eleqtriq.com</i> article, <a href="http://www.eleqtriq.com/2010/05/css-3d-matrix-transformations/">The Matrix Revolutions</a>.)</p>
+<p>The following interactive utility shows the effect of various transform functions on an image, and how they may be expressed as a combined <tt>matrix()</tt> function. In addition to displaying the overall effect, it produces the CSS code necessary to produce it:</p>
+<p><a href="../examples/utilTransform2D.htm"><img src="images/utilTransform2D.png" alt="" /> </a></p>
+<p><b>Note: </b>Transform functions can't be combined or inherited from different selectors. Specifying only a <tt>rotate()</tt> function, for example, implies <tt>translate()</tt> and <tt>scale()</tt> values of zero.</p><a name="the-transform-origin"></a>
+<h3>The Transform Origin</h3>
+<p>Unless otherwise specified, transforms <i>originate</i> from the center of the element. If you scale it down, for example, it shrinks towards the center. The <tt>-webkit-transform-origin</tt> property allows this origin point to be placed elsewhere.</p>
+<p>Transforms cannot be applied to regular inline text, but if you apply the following <tt>skew()</tt> transform to an <tt>inline-block</tt>, it simulates an italic effect in which the top edge shifts to the right, while the bottom edge remains fixed in place:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>transform        : skewX(<span class="operator">-</span><span class="number">10deg</span>);
+<span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin : bottom;
+display                  : <span class="keyword">inline</span><span class="operator">-</span>block;</pre>
+<p>The utility <a href="#2d-transforms">shown above</a> shows how a transform may be affected by its origin point. The <tt>-webkit-transform-origin</tt> property accepts pairs of <i>x</i>/<i>y</i> CSS measurements, but also recognizes <tt>top</tt>, <tt>bottom</tt>, <tt>left</tt>, and <tt>right</tt> keywords. (The <tt>center</tt> keyword is the same as <tt>50% 50%</tt>.) Alternately, <tt>-webkit-transform-origin-x</tt> and <tt>-webkit-transform-origin-y</tt> properties specify each axis separately.</p>
+<p>This touch-enabled image gallery example relies on a simple <tt>rotate()</tt> transform. Moving the origin point far underneath the element (150% along <i>y</i>) makes each image appear to be part of a large wheel:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><a href="../examples/event_touch-crop-rotate.htm"><img src="images/scr_event_touch-crop-rotate.png" alt="" /> </a><p><a href="../examples/css/event_touch-crop-rotate.css"><img src="images/icon_css.png" alt="" /> </a></p>
+</td><td ><pre class="cpp">canvas {
+  <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin : <span class="number">50</span><span class="operator">%</span> <span class="number">150</span><span class="operator">%</span>;
+  <span class="operator">-</span>webkit<span class="operator">-</span>transform        : rotate(<span class="number">90deg</span>);
+}</pre>
+</td></tr>
+</table>
+<p>This somewhat more complex variation uses <tt>scaleX()</tt> transforms, but with different origin points depending on whether items appear to collapse to the left or right. A <a href="animation.html#transitional-sequences">sequence of two transitions</a> shifts the origin point before or after the transform animates, depending on whether the transition navigates towards or away from the <i>selected</i> state:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><a href="../examples/event_touch-crop-scale.htm"><img src="images/scr_event_touch-crop-scale.png" alt="" /> </a><p><a href="../examples/css/event_touch-crop-scale.css"><img src="images/icon_css.png" alt="" /> </a></p>
+</td><td ><pre class="cpp">canvas {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform           : scaleX(<span class="number">0</span>);
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin    : right;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transition<span class="operator">-</span>property : <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin <span class="operator">,</span> <span class="operator">-</span>webkit<span class="operator">-</span>transform;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transition<span class="operator">-</span>duration : <span class="number">0s</span>                       <span class="operator">,</span> <span class="number">0.75s</span>;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transition<span class="operator">-</span>delay    : <span class="number">0s</span>                       <span class="operator">,</span> <span class="number">0.25s</span>;
+}
+
+<span class="operator">.</span>stage_left {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin    : left;
+}
+<span class="operator">.</span>stage_right {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin    : right;
+}
+
+<span class="operator">.</span>selected {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform           : scaleX(<span class="number">1</span>);
+    <span class="operator">-</span>webkit<span class="operator">-</span>transition<span class="operator">-</span>property : <span class="operator">-</span>webkit<span class="operator">-</span>transform <span class="operator">,</span> <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transition<span class="operator">-</span>duration : <span class="number">0.5s</span>              <span class="operator">,</span> <span class="number">0s</span>;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transition<span class="operator">-</span>delay    : <span class="number">0.5s</span>              <span class="operator">,</span> <span class="number">1s</span>;
+}</pre>
+</td></tr>
+</table>
+<a name="3d-transforms"></a>
+<h3>3D Transforms</h3>
+<p>Though they often take on the illusion of three dimensions, 2D transforms are strictly superficial, inhabiting the plane of the handset's screen. Three dimensional transforms allow content to shift onto other planes.</p>
+<p>To accomplish this effect, applying a <i>perspective</i> to an an ancestor element indicates the perceived distance from the viewer of any transformed descendents. The <tt>-webkit-perspective</tt> property specifies CSS pixels along the handset's <i>z</i> axis that leads to the viewer, otherwise its default value of c{none} indicates infinite perspective, which appears flat.</p>
+<pre class="cpp"><span class="operator">.</span>parent {
+    <span class="operator">-</span>webkit<span class="operator">-</span>perspective : <span class="number">1000</span>;
+    <span class="operator">-</span>webkit<span class="operator">-</span>perspective<span class="operator">-</span>origin : <span class="number">50</span><span class="operator">%</span> <span class="number">50</span><span class="operator">%</span>;
+}
+<span class="operator">.</span>child {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform: rotateY(<span class="number">30deg</span>);
+}</pre>
+<p>While <tt>-webkit-perspective</tt> affects the perceived distance to an object along the <i>z</i> axis, the <tt>-webkit-perspective-origin</tt> property shift the perceived <i>x</i>/<i>y</i> location from which it is viewed. The default value is shown above: the element is viewed at its center rather than towards its edges.</p>
+<p>Since web content is flat be default, all measurements along the <i>z</i> axis must specify absolute units, whose appearance is affected by how much perspective is applied. Perspective values less than 1000 appear increasingly distorted. Exceptions may include immersive virtual reality applications in which the viewer appears to mingle among displaying elements.</p>
+<p>The following touch-enabled image gallery demonstrates a perspective-enabled 3D rotation:</p>
+<p><a href="../examples/event_touch-crop.htm"><img src="images/scr_event_touch-crop2.png" alt="" /> </a></p>
+<p><a href="../examples/css/event_touch-crop.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The following set of functions specify three-dimensional transforms:</p>
+<ul>
+<li><tt>rotateX()</tt> and <tt>rotateY()</tt> spin elements around their horizontal or vertical axis. The <tt>rotateZ()</tt> function behaves the same as the 2D <tt>rotate()</tt> function. An alternative <tt>rotate3d()</tt> function requires four arguments. The first three measurements specify a point defining a 3D vector from the origin of the element. (For example, setting the vector to <tt>0,1,0</tt> rotates the object entirely around its <i>y</i> axis.) The fourth argument specifies the angle of rotation around that vector, using <tt>deg</tt> or <tt>rad</tt> measurements.</li>
+<li>The <tt>translate3d()</tt> function requires three <i>x</i>, <i>y</i> and <i>z</i> measurements. Otherwise, use any combination of <tt>translateX()</tt>, <tt>translateY()</tt>, and <tt>translateZ()</tt> functions. Since web content is flat by default, the <i>z</i> translation must specify absolute measurements. The perceived movement towards or away from the viewer depends on how much perspective is applied.</li>
+<li>The <tt>scale3d()</tt> function accepts three <i>x</i>, <i>y</i> and <i>z</i> measurements, otherwise they can be specified separately with <tt>scaleX()</tt>, <tt>scaleY()</tt>, and <tt>scaleZ()</tt>. Unlike standard <i>x</i> and <i>y</i> measurements, the <i>z</i> measurement closes the distance to transformed children. (See <a href="#nested-3d-transforms">Nested 3D Transforms</a> for a demonstration.)</li>
+</ul>
+<p>The <tt>-webkit-transform-origin</tt> property accepts an additional third <tt>z</tt> measurement to place the transformation point behind or in front of where the element displays, in absolute units. (Alternately, specify the <tt>-webkit-transform-origin-z</tt> property,)</p>
+<p>Elements that rotate away from view display as a mirror image by default. Changing the <tt>-webkit-backface-visibility</tt> property to <tt>hidden</tt> (from <tt>visible</tt>) enables flip-panel effects in which elements are only visible if they face the viewer.</p>
+<p>The following interactive utility shows how these 3D transform functions interact with each other:</p>
+<p><a href="../examples/utilTransform3d.htm"><img src="images/utilTransform3d.png" alt="" /> </a></p>
+<p>While 2D transforms can be represented as a 6-element <tt>matrix()</tt> function, 3D transforms correspond to 16-element <tt>matrix3d()</tt> functions. (Read <a href="http://www.eleqtriq.com/2010/05/css-3d-matrix-transformations/">The Matrix Revolutions</a> and experiment with the utility above to see how they work.)</p>
+<a name="targeting-2d-and-3d-transforms"></a>
+<h3>Targeting 2D and 3D Transforms</h3>
+<p>The image gallery <a href="../examples/event_touch-crop.htm">shown above</a> specifies a <a href="query.html#what-can-you-find-out-about-a-browser">CSS media query</a> to display a different set of visual effects depending on the browser's support for 3D transforms. The 2D interface displays a horizontal swipe, and the 3D interface displays a rotation:</p>
+<pre class="cpp">canvas {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform : translateX(<span class="number">150</span><span class="operator">%</span>);
+}
+@media all <span class="keyword">and</span> (<span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span><span class="number">3d</span>) {
+    canvas {
+        <span class="operator">-</span>webkit<span class="operator">-</span>transform             : rotateY(<span class="number">90deg</span>);
+        <span class="operator">-</span>webkit<span class="operator">-</span>backface<span class="operator">-</span>visibility   : hidden;
+    }
+}</pre>
+<p>The <a href="../examples/utilTransform3d.htm">utility above</a> tests the same <a href="query.html#script-based-adaptation">media query from within JavaScript</a> to produce an error message on unsupporting browsers.</p>
+<p>Browsers that only support 2D transforms ignore 3D-only functions, which may allow visual effects to degrade gracefully. The following two transforms have the same effect on 3D-enabled browsers: moving the element towards the right and pushing it backwards. Browsers that only support 2D ignore the first line altogether, but interpret the <tt>translate()</tt> function from the second line:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>transform: translate3d(<span class="number">120</span><span class="operator">%</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> <span class="operator">-</span><span class="number">320px</span>);
+<span class="operator">-</span>webkit<span class="operator">-</span>transform: translate(<span class="number">120</span><span class="operator">%</span><span class="operator">,</span> <span class="number">0</span>) translateZ(<span class="operator">-</span><span class="number">320px</span>);</pre>
+<p><b>Note: </b>It is a good idea to always specify 3D transforms for animating elements, even if they do not change their appearance in any way. Mobile handsets are relatively constrained in their processing power, and may assign hardware that performs <i>accelerated compositing</i> on 3D elements. For example, adding <tt>translateZ(0)</tt> has no effect on 2D browsers, but may signal 3D browsers to render more quickly. (Availablility of hardware-accelerated rendering cannot be detected using media queries.) Such <i>z</i>-axis transforms must be reiterated each time the transform is dynamically modified, otherwise elements may inefficiently revert to the compositing layer reserved for conventional 2D rendering.</p><a name="nested-3d-transforms"></a>
+<h3>Nested 3D Transforms</h3>
+<p>Applying a 3D rotation to an element aligns it to a different plane than that of the default viewing screen. Applying translations and scale effects also overrides the default coordinate system. Any nested content can be independently transformed within that modified space.</p>
+<p>To position nested content relative to the transformed parent's own 3D space, the parent element's <tt>-webkit-transform-style</tt> property must be set to <tt>preserve-3d</tt>. By default, it is <tt>flat</tt>, making 3D effects display on the parent's 2D surface as if it were a viewing screen.</p>
+<p>The following interactive utility allows you to experiment with nested transform effects:</p>
+<p><a href="../examples/utilTransform3dNest.htm"><img src="images/utilTransform3dNest.png" alt="" /> </a></p>
+<p>Rotating the parent element moves the child element along with it, but offset in 3D space using a translation along the Z axis. Setting the child's <i>z</i> translation to zero, hiding both back faces, then rotating the parent produces a flip-panel effect.</p>
+<p>For the sake of simplicity, the utility above shows how a single transformed child element may appear relative to its parent. However, transform effects can cascade down a deeper tree of elements. The following demonstrates how transform effects can be progressively magnified within a series of descendent elements:</p>
+<p><a href="../examples/utilTransform3dNest_x8.htm"><img src="images/utilTransform3dNest_x8.png" alt="" /> </a></p>
+<p>The default <i>z</i> translation makes the images appear expanded like an accordion or a deck of cards, but the dynamic effect shown in the image above comes from slight manipulations to the descendents' scale and rotation transforms.</p>
+<p><b>Note: </b>This example shows <tt>perspective()</tt> used as a transform function. Conceptually, perspective is best applied to the parent element when potentially many children must inherit the same value. However, this example demonstrates that individual children may receive their own independent perspectives.</p><a name="example-spinning-dice"></a>
+<h3>Example: Spinning Dice</h3>
+<p>The following example shows how to build gaming dice with nested 3D transforms, so that the entire object can itself be spun using 3D transforms:</p>
+<p><a href="../examples/anim_dice.htm"><img src="images/scr_anim_dice.png" alt="" /> </a></p>
+<p><a href="../examples/css/anim_dice.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/anim_dice.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>The underlying HTML markup defines a six-element list:</p>
+<pre class="cpp"><span class="operator">&lt;</span>ol <span class="keyword">class</span><span class="operator">=</span><span class="string">&quot;dice&quot;</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>li<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>li<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>li<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>li<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>li<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>li<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>li<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>li<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>li<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>li<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>li<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>li<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>ol<span class="operator">&gt;</span></pre>
+<p>The <tt>&lt;ol&gt;</tt> element serves as a wrapper element, whose <tt>preserve-3d</tt> defines its own transformation space. Transitions are enabled in order to allow the dice to render smoothly, and elements of the dice that face away from view are hidden:</p>
+<pre class="cpp"><span class="operator">.</span>dice {
+  <span class="operator">-</span>webkit<span class="operator">-</span>backface<span class="operator">-</span>visibility : hidden;
+  <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin    : <span class="number">50px</span> <span class="number">50px</span> <span class="operator">-</span><span class="number">50px</span>;
+  <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>style     : preserve<span class="operator">-</span><span class="number">3d</span>;
+  <span class="operator">-</span>webkit<span class="operator">-</span>transition          : all <span class="number">1s</span> ease<span class="operator">-</span>in<span class="operator">-</span>out;
+  padding                     : <span class="number">0</span>;
+}</pre>
+<p>Each side of the dice is a 100-pixel square. Absolute positioning forces each side to overlay by default:</p>
+<pre class="cpp"><span class="operator">.</span>dice <span class="operator">&gt;</span> li {
+  position                    : absolute;
+  height                      : <span class="number">100px</span>;
+  width                       : <span class="number">100px</span>;
+  background<span class="operator">-</span>size             : cover;
+  border                      : <span class="preprocessor">#aaa 0.1em solid;</span>
+  border<span class="operator">-</span>radius               : <span class="number">0.5em</span>;
+  list<span class="operator">-</span>style<span class="operator">-</span>type             : none;
+}</pre>
+<p>From that default position, various sides of the dice are transformed in 3D space. The first side remains in its default position. Origins for sides 2 through 5 are shifted from the center point so their 90-degree rotations hinge along their <tt>left</tt>, <tt>right</tt> <tt>bottom</tt> and <tt>top</tt> edges. The final face is flipped 180 degrees and moved backwards to close off the cube:</p>
+<pre class="cpp"><span class="operator">.</span>dice <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">1</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform           : translateZ(<span class="number">0px</span>);
+    background<span class="operator">-</span>image            : url(img<span class="operator">/</span>die1<span class="operator">.</span>jpg);
+}
+<span class="operator">.</span>dice <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">2</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform           : rotateY(<span class="number">90deg</span>) translateZ(<span class="number">0px</span>);
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin    : left;
+    background<span class="operator">-</span>image            : url(img<span class="operator">/</span>die2<span class="operator">.</span>jpg);
+}
+<span class="operator">.</span>dice <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">3</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform           : rotateY(<span class="operator">-</span><span class="number">90deg</span>) translateZ(<span class="number">0px</span>);
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin    : right;
+    background<span class="operator">-</span>image            : url(img<span class="operator">/</span>die3<span class="operator">.</span>jpg);
+}
+<span class="operator">.</span>dice <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">4</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform           : rotateX(<span class="number">90deg</span>) translateZ(<span class="number">0px</span>);
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin    : bottom;
+    background<span class="operator">-</span>image            : url(img<span class="operator">/</span>die4<span class="operator">.</span>jpg);
+}
+<span class="operator">.</span>dice <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">5</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform           : rotateX(<span class="operator">-</span><span class="number">90deg</span>) translateZ(<span class="number">0px</span>);
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin    : top;
+    background<span class="operator">-</span>image            : url(img<span class="operator">/</span>die5<span class="operator">.</span>jpg);
+}
+<span class="operator">.</span>dice <span class="operator">&gt;</span> li:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">6</span>) {
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform           : rotateX(<span class="number">180deg</span>) translateZ(<span class="operator">-</span><span class="number">100px</span>);
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin    : center;
+    background<span class="operator">-</span>image            : url(img<span class="operator">/</span>die6<span class="operator">.</span>jpg);
+}</pre>
+<p>Once the final shape of the cube is defined, spinning the entire object simply requires applying rotation transforms to the outer <i>dice</i> element that encapulates its visible faces. See <a href="animation.html#dynamic-keyframes">Dynamic Keyframes</a> for information on how transforms are assigned randomly in this case. Otherwise, transforms can be applied directly to the element:</p>
+<pre class="cpp">var dice <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'ol.dice'</span>);
+dice<span class="operator">.</span>style<span class="operator">.</span>WebkitTransform <span class="operator">=</span> <span class="string">&quot;rotateX(20deg) rotateY(40deg) rotateZ(30deg) translateZ(0)&quot;</span>;</pre>
+<a name="example-virtual-reality"></a>
+<h3>Example: Virtual Reality</h3>
+<p>The following example shows how 3D transforms can build a rudimentary virtual reality scene:</p>
+<p><a href="../examples/gesture_virtual.htm"><img src="images/scr_gesture_virtual.png" alt="" /> </a></p>
+<p><a href="../examples/css/gesture_virtual.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/gesture_virtual.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p><b>Note: </b>The scene can be rotated by tipping the handset, otherwise desktop browsers simulate gestural navigation.</p><p>Like the dice above, the object is built much like a cube. Unlike the dice, it is pushed forwards to apparently rotate around the viewer. The following markup and wireframe diagram help clarify how it is built:</p>
+<pre class="cpp"><span class="operator">&lt;</span>section id<span class="operator">=</span><span class="string">&quot;outer&quot;</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>div id<span class="operator">=</span><span class="string">&quot;rx&quot;</span> data<span class="operator">-</span>x<span class="operator">=</span><span class="string">&quot;0&quot;</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>div id<span class="operator">=</span><span class="string">&quot;ry&quot;</span> data<span class="operator">-</span>y<span class="operator">=</span><span class="string">&quot;0&quot;</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>div<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>div<span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>div<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>div<span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>div<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>div<span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>div<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>div<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span><span class="operator">/</span>div<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>div<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>section<span class="operator">&gt;</span></pre>
+<p class="centerAlign"><img src="images/scr_gesture_virtual_wireframe.png" alt="" /></p><p>An <i>outer</i> element appears in the rear of the scene, and corresponds to the screen dimensions:</p>
+<pre class="cpp"><span class="preprocessor">#outer { width : 480px; height : 320px; }</span></pre>
+<p>An <i>rx</i> element is positioned far in front of the <i>outer</i> element using <tt>translateZ()</tt>:</p>
+<pre class="cpp"><span class="preprocessor">#rx { -webkit-transform : translateZ(240px); }</span></pre>
+<p>The <i>ry</i> element matches the initial position of <i>ry</i>, but rotates freely around a point far in front of it:</p>
+<pre class="cpp"><span class="preprocessor">#ry {</span>
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>style     : preserve<span class="operator">-</span><span class="number">3d</span>;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transform<span class="operator">-</span>origin<span class="operator">-</span>z  : <span class="number">240px</span>;
+}</pre>
+<p>To complete the illusion, each face of the inner box references the same panoramic image. Each is offset by different amounts using <a href="color.html#backgrounds">background positioning and sizing properties</a>. For information on how the box spins in response to tipping gestures, see <a href="gesture.html">Orientation and Motion</a>.</p>
+</div>
+<!-- @@@trans.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

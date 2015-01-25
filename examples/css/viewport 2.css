@@ -1,0 +1,40 @@
+body {
+    background    : #aaaaaa;
+    font-family   : sans-serif;
+    width         : 100;
+    font-size     : 80%;
+}
+
+body > section {
+    background    : #ffffff;
+    border-radius : 1em;
+    padding       : 1em;
+    background    : #ffffff;
+    min-height    : 70%;
+}
+
+h1, h2, h3, h4 {
+    margin-top    : 0.0em;
+    font-size     : smaller;
+    padding-top   : 1em;
+    text-align    : center;
+}
+
+body > section.main {
+    position      : absolute;
+    left          : 1em;
+    right         : 1em;
+    top           : 1em;
+    min-height    : 50%;
+    border-radius : 1em;
+    background    : #aaaaaa;
+    padding       : 0;
+}
+
+section.main > article {
+    background    : #ffffff;
+    padding       : 1em;
+    margin-bottom : 10em;
+    border-radius : 1em;
+}
+

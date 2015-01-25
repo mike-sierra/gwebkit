@@ -1,0 +1,92 @@
+body {
+     background         : #aaaaaa;
+     font-family        : sans-serif;
+}
+
+body > section {
+    max-width           : 320px;
+    border-radius       : 1em;
+    padding             : 1em;
+    background          : #ffffff;
+    margin              : 1em 1em 10em 1em;
+    min-height          : 70%
+}
+
+h1, h2 {
+    margin-top          : 1em;
+    font-size           : smaller;
+    text-align          : center;
+    padding-top         : 1em;
+}
+
+h2 {
+    border-top          : solid thin #dddddd;
+}
+
+/* FORM */
+
+form {
+    line-height         : 250%;
+    font-weight         : bold;
+    font-size           : small;
+}
+
+label {
+    display             : inline-block;
+    height              : 48px;
+}
+
+input[type=radio], input[type=checkbox] {
+    -webkit-transition  : all 0.25s;
+    float               : right;
+    -webkit-appearance  : none;
+    background-color    : #777777;
+    background-image    : url(../img/toggler.png);
+    background-repeat   : no-repeat;
+    background-size     : contain;
+    background-position : 102% 50%;
+    width               : 6em;
+    height              : 2em;
+    border              : 0.25em #777777 solid;
+    border-radius       : 18px;
+}
+
+input[type=radio]:checked, input[type=checkbox]:checked {
+    background-position : -2% 50%;
+}
+
+input[type=radio]:after, input[type=checkbox]:after {
+    -webkit-transform   : translateY(10%);
+    float               : right;
+    display             : inline-block;
+    text-align          : center;
+    width               : 3.0em;
+    color               : #777777;
+    font-weight         : bold;
+    content             : "OFF";
+}
+
+input[type=radio]:before, input[type=checkbox]:before,
+input[type=radio]:checked:after, input[type=checkbox]:checked:after {
+    content             : "";
+}
+
+input[type=radio]:checked:before, input[type=checkbox]:checked:before {
+    -webkit-transform   : translateY(5%);
+    display             : inline-block;
+    text-align          : center;
+    background          : transparent;
+    width               : 2.5em;
+    color               : #777777;
+    font-weight         : bold;
+    content             : "ON";
+}
+
+input.yn:after {
+    content             : "NO";
+}
+
+input.yn:checked:before {
+    content             : "YES";
+}
+

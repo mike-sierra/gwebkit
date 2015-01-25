@@ -1,0 +1,46 @@
+/* Touch UI */
+
+body {
+    font-family      : sans-serif;
+    font-weight      : bold;
+}
+
+nav, body > section, header, footer {
+    border-radius    : 0.5em;
+    padding          : 0.5em;
+}
+
+header {
+    background-color : pink;
+    margin-bottom    : 1em;
+    float            : left;
+    width            : 30%;
+    height           : 3em;
+}
+
+section#main {
+    background-color : lightgreen;
+    margin-bottom    : 1em;
+    min-height       : 20em;
+}
+
+nav:before {
+    content          : 'TOUCH ';
+}
+
+nav {
+    background-color : lightblue;
+    margin-bottom    : 1em;
+    margin-left      : 40%;
+    max-width        : 60%;
+    height           : 3em;
+}
+
+section#sidebar {
+    display          : none;
+}
+
+footer {
+    background-color : gold;
+}
+

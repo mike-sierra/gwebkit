@@ -1,0 +1,42 @@
+body {
+    background      : #aaaaaa;
+    font-family     : sans-serif;
+    width           : 100;
+}
+
+body > section {
+    border-radius   : 1em;
+    background      : #ffffff;
+    border-radius   : 1em;
+    padding         : 1em;
+    background      : #ffffff;
+    min-height      : 70%
+}
+
+.hidden {
+    display         : none;
+}
+
+.active {
+    color           : blue;
+    cursor          : pointer;
+    text-decoration : none;
+}
+
+.nav > a {
+    display         : inline-block;
+    width           : 48px;
+    height          : 48px;
+}
+
+h1, h2 {
+    margin-top      : 1em;
+    font-size       : smaller;
+    text-align      : center;
+    padding-top     : 1em;
+}
+
+h2 {
+    border-top      : solid thin #dddddd;
+}
+

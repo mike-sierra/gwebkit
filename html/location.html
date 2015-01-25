@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 46_location.qdoc -->
+  <title>mobile_html5 : Location and Travel</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level2"><a href="#the-geolocation-api">The Geolocation API</a></li>
+<li class="level2"><a href="#fallback-behavior">Fallback Behavior</a></li>
+<li class="level2"><a href="#tracking-location">Tracking Location</a></li>
+<li class="level2"><a href="#mapping">Mapping</a></li>
+<li class="level1"><a href="#xxx-8-5-loc">XXX 8.5 Loc?</a></li>
+<li class="level1"><a href="#example-mapping">Example: Mapping</a></li>
+</ul>
+</div>
+<h1 class="title">Location and Travel</h1>
+<span class="subtitle"></span>
+<!-- $$$location.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>HTML5's Geolocation API enables web applications a simple, consistent cross-device interface to gather information about users' location, based on GPS or network signals. This section shows how to extract location and present it within a simple map interface.</p>
+<a name="the-geolocation-api"></a>
+<h3>The Geolocation API</h3>
+<p>Location data is available via a single API call. The <tt>getCurrentPosition</tt> method runs an asynchronous callback function once location is detected:</p>
+<pre class="cpp">navigator<span class="operator">.</span>geolocation<span class="operator">.</span>getCurrentPosition(getCoordinates);
+
+function getCoordinates(position) {
+    var lat  <span class="operator">=</span> position<span class="operator">.</span>coords<span class="operator">.</span>latitude;
+    var lon  <span class="operator">=</span> position<span class="operator">.</span>coords<span class="operator">.</span>longitude;
+    var time <span class="operator">=</span> position<span class="operator">.</span>timestamp; <span class="comment">// equivalent to Date object</span>
+    <span class="comment">// process coordinates</span>
+}</pre>
+<p>Before the callback executes, the browser asks users permission to use their location data, for each session and domain.</p>
+<p><b>Note: </b>The Geolocation API exposes the location of mobile users, information that potentially compromises their privacy. Unless an application ckearly offers location-<i>sharing</i> features, users who opt in should be able to expect their personal data to be treated with the same confidence and sensitivity as passwords and credit card data.</p><p>Most applications simply extract <tt>latitude</tt> and <tt>longitude</tt> from <tt>coords</tt>, both values expressed as &plumin; 90&deg; or &plumin; 180&deg;. The <tt>coords</tt> object also features an <tt>accuracy</tt> property indicating the number of meters considered a margin of error. Additional properties may be available for <tt>altitude</tt> and <tt>altitudeAccuracy</tt>, also expressed in meters, but these do not have a wide application and would only be available on some GPS-enabled handsets.</p>
+<a name="fallback-behavior"></a>
+<h3>Fallback Behavior</h3>
+<p>The <tt>getCurrentPosition()</tt> method accepts an optional second argument specifying an error fallback. The following example accounts for various problems that might keep the application from working. An object detection test responds if for older browsers that do not support location:</p>
+<pre class="cpp"><span class="keyword">if</span> (navigator<span class="operator">.</span>geolocation) {
+    navigator<span class="operator">.</span>geolocation<span class="operator">.</span>getCurrentPosition(successCallback<span class="operator">,</span> errorFallback);
+}
+<span class="keyword">else</span> {
+    <span class="comment">// Browser does not support HTML5-based location.</span>
+}</pre>
+<p>An additional error callback responds differently when users decide not to share their location. Depending on the importance of location to the application, it may then be appropriate to prompt users if they want to <a href="storage.html">store that decision as a preference</a>:</p>
+<pre class="cpp">function errorFallback(err) {
+    <span class="keyword">if</span> (err<span class="operator">.</span>PERMISSION_DENIED) {
+        <span class="comment">// User does not consent to sharing location.</span>
+    }
+    <span class="keyword">else</span> {
+        <span class="comment">// indicates a problem beyond the user's direct control</span>
+    }
+}
+function successCallback(position) {
+    var lat <span class="operator">=</span> position<span class="operator">.</span>coords<span class="operator">.</span>latitude;
+    var lon <span class="operator">=</span> position<span class="operator">.</span>coords<span class="operator">.</span>longitude;
+    <span class="comment">// process coordinates</span>
+}</pre>
+<p>The following errors may occur:</p>
+<ul>
+<li><b>1</b> <tt>PERMISSION_DENIED</tt> indicates the user rejects the location request.</li>
+<li><b>2</b> <tt>POSITION_UNAVAILABLE</tt> means the location mechanism is unavailable. Perhaps no GPS satellite could be found, or not enough network signals are available to perform triangulation.</li>
+<li><b>3</b> <tt>TIMEOUT</tt> means the location service may be available, but the request took too long.</li>
+<li><b>0</b> <tt>UNKNOWN_ERROR</tt> refers to anything else that might happen.</li>
+</ul>
+<p>The timeout interval is configurable. The <tt>getCurrentPosition</tt> method accepts a third argument, consisting of additional options stored in an object. The following makes the location request wait at least five seconds before timing out:</p>
+<pre class="cpp">navigator<span class="operator">.</span>geolocation<span class="operator">.</span>getCurrentPosition(successCallback<span class="operator">,</span>
+                       errorFallback<span class="operator">,</span> { timeout: <span class="number">5000</span> });</pre>
+<p>The following parameters are available:</p>
+<ul>
+<li><tt>timeout</tt> is the minimum number of milliseconds before which a location request throws a <tt>TIMEOUT</tt> error.</li>
+<li><tt>maximumAge</tt> is the maximum number of milliseconds for which location requests might rely upon on a previously cached value. It may even be set to <tt>Infinity</tt>.</li>
+<li><tt>enableHighAccuracy</tt> is a boolean that prompts the positioning system to produce more accurate values than the default. This option would likely be limited to applications targeted to pedestrians using a narrow range of GPS-enabled handsets.</li>
+</ul>
+<a name="tracking-location"></a>
+<h3>Tracking Location</h3>
+<p>Once an application has calculated the user's location, it might respond by providing contextual information, such as location-specific search results or suggestions for nearby points of interest. It may respond even better if it tracks the user's location over time. For example, suggestions for points of interest may be more relevant if they're in the user's general direction of travel. Some suggestions may likewise be more appropriate for pedestrians than for people traveling in vehicles.</p>
+<p>To gather this information, use the <tt>watchPosition()</tt> method. It resembles <tt>getCurrentPosition()</tt>, but executes indefinitely as position changes are detected. It uses the same interface, but returns a numeric key when invoked:</p>
+<pre class="cpp">var process <span class="operator">=</span> navigator<span class="operator">.</span>geolocation<span class="operator">.</span>watchPosition(successCallback<span class="operator">,</span>
+                errorFallback<span class="operator">,</span> { maximumAge: <span class="number">10000</span><span class="operator">,</span> timeout: <span class="number">60000</span> });</pre>
+<p>Much like JavaScript's standard <tt>clearInterval()</tt> function, you supply this key to the <tt>clearWatch()</tt> method when you need to terminate the process and stop tracking the user's location:</p>
+<pre class="cpp">navigator<span class="operator">.</span>geolocation<span class="operator">.</span>clearWatch(process);</pre>
+<p>This example specifies two additional options. The <tt>timeout</tt> option sets the threshold before which a network delay causes the fallback function to execute. In this case, it is extended to a full minute. After the application initially determines location, users may briefly wander out of range of network signals, in which case the application shouldn't terminate abruptly.</p>
+<p>The <tt>maximumAge</tt> option effectively reduces the data's level of detail, in this case producing new location values only every 10 seconds. Frequent location requests taxes the battery. This option allows the application to reduce the number of requests to suit its needs.</p>
+<p>Note that the callback specified by <tt>watchPosition</tt> still executes even if its position values are cached. The following example maintains a local <tt>path</tt> array of tracked locations, but filters out redundant instances of the same location:</p>
+<pre class="cpp">var app <span class="operator">=</span> <span class="keyword">new</span> Function();
+app<span class="operator">.</span>path <span class="operator">=</span> <span class="keyword">new</span> Array();
+
+var id <span class="operator">=</span> navigator<span class="operator">.</span>geolocation<span class="operator">.</span>watchPosition(
+              successCallback<span class="operator">,</span> errorFallback<span class="operator">,</span>
+              { maximumAge: <span class="number">10000</span><span class="operator">,</span> timeout: <span class="number">60000</span> }
+         );
+
+function successCallback(position) {
+    var latitude <span class="operator">=</span> position<span class="operator">.</span>coords<span class="operator">.</span>latitude;
+    var longitude <span class="operator">=</span> position<span class="operator">.</span>coords<span class="operator">.</span>longitude;
+    var len <span class="operator">=</span> app<span class="operator">.</span>path<span class="operator">.</span>length;
+
+    <span class="comment">// ignore redundant cached values:</span>
+    <span class="keyword">if</span> ( len <span class="operator">&amp;</span><span class="operator">&amp;</span> ( latitude  <span class="operator">=</span><span class="operator">=</span> app<span class="operator">.</span>path<span class="operator">[</span>len<span class="operator">-</span><span class="number">1</span><span class="operator">]</span><span class="operator">.</span>lat )
+             <span class="operator">&amp;</span><span class="operator">&amp;</span> ( longitude <span class="operator">=</span><span class="operator">=</span> app<span class="operator">.</span>path<span class="operator">[</span>len<span class="operator">-</span><span class="number">1</span><span class="operator">]</span><span class="operator">.</span>lon ) ) <span class="keyword">return</span> <span class="keyword">false</span>;
+
+    <span class="comment">// otherwise add new values:</span>
+    app<span class="operator">.</span>path<span class="operator">.</span>push({<span class="string">&quot;lat&quot;</span> : latitude<span class="operator">,</span> <span class="string">&quot;lon&quot;</span> : longitude});
+}</pre>
+<p>The example <a href="#tracking-location">Tracking Location</a> maintains a local cache of the user's whereabouts, which can be used to calculate overall speed and direction of travel. The API also yields this data, but only based on a comparison between the current location and the most recently cached location:</p>
+<ul>
+<li>The <tt>position.coords.speed</tt> property is expressed in meters per second.</li>
+<li>The <tt>position.coords.heading</tt> property represents the current direction of movement in degrees, measured clockwise relative to due north.</li>
+</ul>
+<a name="mapping"></a>
+<h3>Mapping</h3>
+<p>Once the user's position is known, information is usually presented within a map. Many web-based mapping APIs are available to choose from, many of which feature touch-enabled panning and zooming. This section briefly outlines the basic capabilities of the <a href="http://api.maps.ovi.com">Ovi Maps API</a>.</p>
+<p>To enable maps, on a page add the following <tt>script</tt> before any others on the page:</p>
+<pre class="cpp"><span class="operator">&lt;</span>script src<span class="operator">=</span><span class="string">&quot;http://api.maps.ovi.com/jsl.js&quot;</span> type<span class="operator">=</span><span class="string">&quot;text/javascript&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>script<span class="operator">&gt;</span></pre>
+<p>Displaying the map requires you to place an empty element on the page, preferably styling it so that it fills the screen:</p>
+<pre class="cpp"><span class="operator">&lt;</span>section id<span class="operator">=</span><span class="string">&quot;map&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>section<span class="operator">&gt;</span></pre>
+<p>The following draws a map within the element, centered around the supplied coordinates:</p>
+<pre class="cpp">function renderMap(lat<span class="operator">,</span> lon) {
+    var map <span class="operator">=</span> <span class="keyword">new</span> ovi<span class="operator">.</span>mapsapi<span class="operator">.</span>map<span class="operator">.</span>Display(document<span class="operator">.</span>getElementById(<span class="char">'map'</span>)<span class="operator">,</span> {
+        <span class="char">'center'</span>: <span class="operator">[</span>lat<span class="operator">,</span> lon<span class="operator">]</span><span class="operator">,</span> <span class="comment">// center coordinates</span>
+        <span class="char">'zoomLevel'</span>: <span class="number">15</span><span class="operator">,</span>      <span class="comment">// default level suitable for pedestrians</span>
+    });
+}</pre>
+<p>By default, maps renders statically, but you can add components to make them interactive:</p>
+<pre class="cpp">function renderMap(lat<span class="operator">,</span> lon) {
+    var map <span class="operator">=</span> <span class="keyword">new</span> ovi<span class="operator">.</span>mapsapi<span class="operator">.</span>map<span class="operator">.</span>Display(document<span class="operator">.</span>getElementById(<span class="char">'map'</span>)<span class="operator">,</span> {
+        <span class="char">'center'</span>: <span class="operator">[</span>lat<span class="operator">,</span> lon<span class="operator">]</span><span class="operator">,</span>
+        <span class="char">'zoomLevel'</span>: <span class="number">15</span><span class="operator">,</span>
+         components : <span class="operator">[</span>
+                <span class="keyword">new</span> ovi<span class="operator">.</span>mapsapi<span class="operator">.</span>map<span class="operator">.</span>component<span class="operator">.</span>Behavior()<span class="operator">,</span>
+                <span class="comment">// new ovi.mapsapi.map.component.TypeSelector(),</span>
+                <span class="comment">// new ovi.mapsapi.map.component.ZoomBar(),</span>
+                <span class="comment">// new ovi.mapsapi.map.component.Overview(),</span>
+                <span class="comment">// new ovi.mapsapi.map.component.ScaleBar()</span>
+              <span class="operator">]</span><span class="operator">,</span>
+    });
+}</pre>
+<p>When targeting mobile users, you should be selective in which of these components to deploy. For example, the <tt>Behavior</tt> component allows users to drag the map to explore places not visible within the initial area displayed. If you display the map along with other information within a much larger page, users may become confused when panning within the map produces different results than panning vertically within the page.</p>
+<p>The other disabled components produce small overlays that crowd the mobile screen and are often difficult to manipulate on mobile browsers. The <tt>TypeSelector</tt> provides controls switching from the default street map to less legible satellite or terrain maps. The <tt>ScaleBar</tt> displays a legend noting the range of distances. The <tt>Overview</tt> produces a small map inset displaying surrounding areas. The <tt>ZoomBar</tt> presents a slider to control zoom level.</p>
+<p>The following specifies a marker and places it on the screen:</p>
+<pre class="cpp">var marker <span class="operator">=</span> <span class="keyword">new</span> ovi<span class="operator">.</span>mapsapi<span class="operator">.</span>map<span class="operator">.</span>StandardMarker(<span class="operator">[</span>lat<span class="operator">,</span> lon<span class="operator">]</span>);
+map<span class="operator">.</span>objects<span class="operator">.</span>add(app<span class="operator">.</span>marker);</pre>
+<p>The following customizes the marker icon:</p>
+<pre class="cpp">var marker <span class="operator">=</span> <span class="keyword">new</span> ovi<span class="operator">.</span>mapsapi<span class="operator">.</span>map<span class="operator">.</span>Marker( <span class="operator">[</span>lat<span class="operator">,</span> lon<span class="operator">]</span><span class="operator">,</span>
+                    { icon: <span class="string">&quot;img/icon_geo_pin.gif&quot;</span> } );</pre>
+<p>The following example shows a simple mapping interface that marks the user's location:</p>
+<p><a href="../examples/loc_simple.htm"><img src="images/scr_loc_simple.png" alt="" /> </a></p>
+<p><a href="../examples/css/loc_simple.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/loc_simple.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>When the handset is placed on its side, the map fills the entire screen. In <a href="orient.html#orientation-via-css">portrait orientation</a>, large touch icons appear that implement the zoom feature independently of controls supplied by the API, or its support for multi-point touch gestures. To accomplish this, the controls call the <tt>setZoomLevel</tt> method directly on the map element:</p>
+<pre class="cpp">map<span class="operator">.</span>setZoomLevel(<span class="number">15</span>);</pre>
+<p>See the <a href="http://api.maps.ovi.com/playground2/">Ovi Maps Web API</a> page for information on performing searches, plotting routes, and placing custom overlays.</p>
+<a name="xxx-8-5-loc"></a>
+<h2>XXX 8.5 Loc?</h2>
+<p>The user's location is available via the Geolocation API. Geographic coordinates are available via asynchronous callback function:</p>
+<pre class="cpp">navigator<span class="operator">.</span>geolocation<span class="operator">.</span>getCurrentPosition(successCallback<span class="operator">,</span> errorFallback);
+
+function successCallback(position) {
+    var lat  <span class="operator">=</span> position<span class="operator">.</span>coords<span class="operator">.</span>latitude;
+    var lon  <span class="operator">=</span> position<span class="operator">.</span>coords<span class="operator">.</span>longitude;
+    var time <span class="operator">=</span> position<span class="operator">.</span>timestamp; <span class="comment">// same as Date object</span>
+    <span class="comment">// process lat/lon coordinates</span>
+}</pre>
+<p>For each session and domain, users are asked if they want to share their location. If the user declines, it is available as a <tt>PERMISSION_DENIED</tt> error within the second callback function. (Other potential errors beyond the user's control are <tt>POSITION_UNAVAILABLE</tt> (positioning mechanism unavailable), <tt>TIMEOUT</tt>, and <tt>UNKNOWN_ERROR</tt>.)</p>
+<pre class="cpp">function errorFallback(err) {
+    <span class="keyword">if</span> (err<span class="operator">.</span>PERMISSION_DENIED) {
+        <span class="comment">// User does not consent to sharing location.</span>
+    }
+    <span class="keyword">else</span> {
+        <span class="comment">// indicates a problem beyond the user's direct control</span>
+    }
+}</pre>
+<p>The <tt>timeout</tt>, 5 seconds in this case, can be passed in as an additional object's parameter:</p>
+<pre class="cpp">navigator<span class="operator">.</span>geolocation<span class="operator">.</span>getCurrentPosition( successCallback<span class="operator">,</span>
+    errorFallback<span class="operator">,</span> { timeout: <span class="number">5000</span> } );</pre>
+<p>The <tt>getCurrentPosition</tt> method calculates location only once. If it's important to track the user's progress over time, the <tt>watchPosition()</tt> method uses the same interface. Passing the process it returns to <tt>clearWatch()</tt> cancels location-tracking.</p>
+<pre class="cpp"><span class="comment">// start watching user's location:</span>
+var process <span class="operator">=</span> navigator<span class="operator">.</span>geolocation<span class="operator">.</span>watchPosition(successCallback<span class="operator">,</span>
+                errorFallback<span class="operator">,</span> { timeout: <span class="number">60000</span><span class="operator">,</span> maximumAge: <span class="number">10000</span> });
+<span class="comment">// stop:</span>
+navigator<span class="operator">.</span>geolocation<span class="operator">.</span>clearWatch(process);</pre>
+<p>The <tt>maximumAge</tt> delays each sampled location, in this case once every 10 seconds. Increasing the <tt>timeout</tt> allows the user to briefly go out of range without causing an error.</p>
+<a name="example-mapping"></a>
+<h2>Example: Mapping</h2>
+<p>This simple example uses the <a href="http://api.maps.ovi.com/">Ovi Maps API</a> to mark the user's location on a map:</p>
+<p><a href="../examples/location.htm"> <img src="images/location1.png" alt="" /> <img src="images/location2.png" alt="" /> </a></p>
+<p><a href="../examples/location.htm"> __IFRAME__ </a> <a href="../examples/location.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/location.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/location.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>To enable mapping, add this before any other scripts:</p>
+<pre class="cpp"><span class="operator">&lt;</span>script src<span class="operator">=</span><span class="string">&quot;http://api.maps.ovi.com/jsl.js&quot;</span> type<span class="operator">=</span><span class="string">&quot;text/javascript&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>script<span class="operator">&gt;</span></pre>
+<p>Once <i>lat</i> and <i>lon</i> coordinates are available, you can fill in a large screen element:</p>
+<pre class="cpp">var map <span class="operator">=</span> <span class="keyword">new</span> ovi<span class="operator">.</span>mapsapi<span class="operator">.</span>map<span class="operator">.</span>Display(document<span class="operator">.</span>getElementById(<span class="char">'map'</span>)<span class="operator">,</span> {
+    <span class="char">'center'</span>: <span class="operator">[</span>lat<span class="operator">,</span> lon<span class="operator">]</span><span class="operator">,</span>
+    <span class="char">'zoomLevel'</span>: <span class="number">15</span><span class="operator">,</span>
+     components : <span class="operator">[</span> <span class="keyword">new</span> ovi<span class="operator">.</span>mapsapi<span class="operator">.</span>map<span class="operator">.</span>component<span class="operator">.</span>Behavior()<span class="operator">,</span> <span class="operator">]</span><span class="operator">,</span>
+});</pre>
+<p>This adds a marker to the map:</p>
+<pre class="cpp">var marker <span class="operator">=</span> <span class="keyword">new</span> ovi<span class="operator">.</span>mapsapi<span class="operator">.</span>map<span class="operator">.</span>StandardMarker(<span class="operator">[</span>lat<span class="operator">,</span> lon<span class="operator">]</span>);
+map<span class="operator">.</span>objects<span class="operator">.</span>add(marker);</pre>
+</div>
+<!-- @@@location.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

@@ -1,0 +1,84 @@
+body {
+    background                        : #fff;
+}
+
+section {
+    background                        : #777;
+    display                           : block;
+    width                             : 320px;
+    left                              : 0;
+    top                               : 0;
+    bottom                            : 0;
+    position                          : absolute;
+}
+
+.dice {
+    -webkit-backface-visibility       : hidden;
+/*
+    -webkit-transform                 : rotateX(20deg)  rotateY(40deg)  rotateZ(30deg);
+*/
+    -webkit-transform-origin          : 50px 50px -50px;
+    -webkit-transform-style           : preserve-3d;
+    -webkit-transition                : all 1s ease-in-out;
+    padding                           : 0;
+    width                             : 100px;
+    height                            : 100px;
+    margin                            : 6em 0 0 6em;
+    -webkit-animation-name            : "";
+    -webkit-animation-duration        : 1s;
+    -webkit-animation-delay           : 0s;
+    -webkit-animation-iteration-count : 2;
+    -webkit-animation-direction       : alternate;
+    -webkit-animation-timing-function : linear;
+    -webkit-animation-fill-mode: both;
+}
+
+.roll {
+    -webkit-animation-name            : haphazard_spin;
+}
+
+.dice > li {
+    position                          : absolute;
+    height                            : 100px;
+    width                             : 100px;
+    background-size                   : cover;
+    border                            : #aaa 0.1em solid;
+    border-radius                     : 0.5em;
+    list-style-type                   : none;
+}
+
+.dice > li:nth-of-type(1) {
+    -webkit-transform                 : translateZ(0px);
+    background-image                  : url(../img/die1.jpg);
+}
+
+.dice > li:nth-of-type(2) {
+    -webkit-transform                 : rotateY(90deg) translateZ(0px);
+    -webkit-transform-origin          : left;
+    background-image                  : url(../img/die2.jpg);
+}
+
+.dice > li:nth-of-type(3) {
+    -webkit-transform                 : rotateY(-90deg) translateZ(0px);
+    -webkit-transform-origin          : right;
+    background-image                  : url(../img/die3.jpg);
+}
+
+.dice > li:nth-of-type(4) {
+    -webkit-transform                 : rotateX(90deg) translateZ(0px);
+    -webkit-transform-origin          : bottom;
+    background-image                  : url(../img/die4.jpg);
+}
+
+.dice > li:nth-of-type(5) {
+    -webkit-transform                 : rotateX(-90deg) translateZ(0px);
+    -webkit-transform-origin          : top;
+    background-image                  : url(../img/die5.jpg);
+}
+
+.dice > li:nth-of-type(6) {
+    -webkit-transform                 : rotateX(180deg) translateZ(100px);
+    -webkit-transform-origin          : center;
+    background-image                  : url(../img/die6.jpg);
+}
+

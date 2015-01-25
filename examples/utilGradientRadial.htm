@@ -1,0 +1,313 @@
+<!--
+/****************************************************************************
+**
+** Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (qt-info@nokia.com)
+**
+** This file is part of the QtWebKit module of the Qt Toolkit.
+**
+** You may use this file under the terms of the BSD license as follows:
+**
+** "Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are
+** met:
+**   * Redistributions of source code must retain the above copyright
+**     notice, this list of conditions and the following disclaimer.
+**   * Redistributions in binary form must reproduce the above copyright
+**     notice, this list of conditions and the following disclaimer in
+**     the documentation and/or other materials provided with the
+**     distribution.
+**   * Neither the name of Nokia Corporation and its Subsidiary(-ies) nor
+**     the names of its contributors may be used to endorse or promote
+**     products derived from this software without specific prior written
+**     permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+**
+****************************************************************************/
+-->
+
+<html>
+<head>
+<title>utility</title>
+
+<style>
+body {
+    overflow : hidden;
+    background-image: url(img/land2.png);
+    background-size: cover;
+}
+
+pre.debug {
+    background : #ffffff;
+    text-align : center;
+    text-wrap: normal;
+}
+
+img {
+    border-radius : 0.5em;
+    -webkit-backface-visibility: hidden;
+}
+
+input[type=range] {
+    height: 0.5em;
+}
+
+section {
+    position : absolute;
+    right : 1em;
+    left : 1em;
+    top : 6em;
+    bottom : 1em;
+    padding : 1em;
+    border-radius : 1em;
+}
+
+pre {
+    z-index : 100;
+    position : absolute;
+    top : 0.5em;
+    left : 1em;
+    right : 1em;
+    padding : 0.5em;
+    border-radius : 0.5em;
+    background : #ffffff;
+}
+
+#display {
+    right : 52%;
+    text-align : center;
+}
+
+#display > img {
+    max-width : 100%;
+}
+
+#control {
+    left : 52%;
+    background : #ffffff;
+    min-width: 300px;
+    bottom: inherit;
+}
+
+label {
+    width: 4em;
+    display: inline-block;
+}
+
+fieldset {
+    margin-bottom: 0.5em;
+}
+
+section > div {
+    width: 6em;
+    height: 6em;
+    z-index: 10;
+    padding: 1em;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+</style>
+
+<link rel="apple-touch-icon-precomposed" href="img/html5x128.png" />
+<link rel="apple-touch-icon" href="img/html5x128.png" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<pre>
+background-image: <span id="code_main"></span> <span id="code_from"></span>
+    <span id="code_stop"></span> <span id="code_to"></span>;
+</pre>
+
+<section id="display"></section>
+
+<section id="control">
+
+<form>
+
+<input type="reset" value="Start Over">
+
+<fieldset>
+<legend>From</legend>
+
+<label>X</label>
+<input id="from_x" type="range" min="0" max="100" value="50"/>
+<br/><label>Y</label>
+<input id="from_y" type="range" min="0" max="100" value="50"/>
+<br/><label>Radius</label>
+<input id="from_w" type="range" min="0" max="300" value="10"/>0-300px
+<br/><label>R</label>
+<input id="from_r" type="range" min="0" max="100" value="100"/>0-100%
+<br/><label>G</label>
+<input id="from_g" type="range" min="0" max="100" value="100"/>0-100%
+<br/><label>B</label>
+<input id="from_b" type="range" min="0" max="100" value="100"/>0-100%
+<br/><label>A</label>
+<input id="from_a" type="range" min="0" max="1" step="0.01" value="1"/>0-1
+</fieldset>
+
+<fieldset>
+<legend>Color-Stop</legend>
+<label>Position</label>
+<input id="stop_pos" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>R</label>
+<input id="stop_r" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>G</label>
+<input id="stop_g" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>B</label>
+<input id="stop_b" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>A</label>
+<input id="stop_a" type="range" min="0" max="1" step="0.01" value="1"/>0-1
+</fieldset>
+
+<fieldset>
+<legend>To</legend>
+
+<label>X</label>
+<input id="to_x" type="range" min="0" max="100" value="50"/>
+<br/><label>Y</label>
+<input id="to_y" type="range" min="0" max="100" value="50"/>
+<br/><label>Radius</label>
+<input id="to_w" type="range" min="0" max="300" value="300"/>0-300px
+<br/>
+<label>R</label>
+<input id="to_r" type="range" min="0" max="100" value="0"/>0-100%
+<br/><label>G</label>
+<input id="to_g" type="range" min="0" max="100" value="0"/>0-100%
+<br/><label>B</label>
+<input id="to_b" type="range" min="0" max="100" value="0"/>0-100%
+<br/><label>A</label>
+<input id="to_a" type="range" min="0" max="1" step="0.01" value="1"/>0-1
+</fieldset>
+
+</form>
+
+</section>
+
+<script>
+var app = new Function();
+
+window.onload = function() {
+    app.init();
+    document.querySelector('input[type=reset]').addEventListener('click', function( ) { app.init() } );
+};
+
+app.init = function() {
+
+    app.initValue_main = '-webkit-gradient(radial, 50% 50%, 10, 50% 50%, 300,';
+
+    app.initValue_from = 'from( rgba(100%, 100%, 100%, 1.0)),';
+
+    app.initValue_stop = 'color-stop( 50%, rgba(50%, 50%, 50%, 1.0)),';
+
+    app.initValue_to = 'to( rgba(0%, 0%, 0%, 1.0))  )';
+
+    app.showCode('code_main', app.initValue_main);
+    app.showCode('code_from', app.initValue_from);
+    app.showCode('code_stop', app.initValue_stop);
+    app.showCode('code_to', app.initValue_to);
+
+    app.tgt = document.querySelector('#display');
+    app.tgt.style.backgroundImage = app.initValue_main + app.initValue_from + app.initValue_stop + app.initValue_to ;
+
+    app.inputs = document.querySelectorAll('select, input:not([type=reset])');
+    for (var i = 0, l = app.inputs.length ; i < l ; i++) {
+        app.inputs[i].addEventListener('change', app.modify);
+    }
+
+    app['from_y'] = 50;
+    app['from_x'] = 50;
+    app['from_w'] = 10;
+    app['from_a'] = 1;
+    app['from_b'] = 100;
+    app['from_g'] = 100;
+    app['from_r'] = 100;
+
+    app['stop_a'] = 1;
+    app['stop_b'] = 50;
+    app['stop_g'] = 50;
+    app['stop_r'] = 50;
+    app['stop_pos'] = 50;
+
+    app['to_y'] = 50;
+    app['to_x'] = 50;
+    app['to_w'] = 300;
+    app['to_a'] = 1;
+    app['to_b'] = 0;
+    app['to_g'] = 0;
+    app['to_r'] = 0;
+
+};
+
+app.modify = function(event) {
+    app[event.target.id] = app.trimArtifact(event.target.value);
+    app.render();
+}
+
+app.trimArtifact = function(n) {
+    if (n.match(/^[0-9.-]+$/)) {
+        return(Math.floor(n * 100) / 100);
+    }
+    else if (n.match(/^[a-z]+$/)) {
+        return(n);
+    }
+    else {
+        alert(n);
+    }
+}
+
+app.render = function() {
+
+    var cssStr_main, cssStr_from, cssStr_stop, cssStr_to;
+
+    cssStr_main = '-webkit-gradient(radial, ' + app.from_y + '% ' +
+                   app.from_x + '%, ' + app.from_w + ', ' + app.to_y +
+                   '% ' + app.to_x + '%, ' + app.to_w + ',';
+
+    cssStr_from = 'from( rgba(' + app.from_r + '%, ' + app.from_g +
+                   '%, ' + app.from_b + '%, ' + app.from_a +')),'
+
+    cssStr_stop = 'color-stop( ' + app.stop_pos + '%, rgba(' + app.stop_r + '%, ' + app.stop_g +
+                   '%, ' + app.stop_b + '%, ' + app.stop_a +')),'
+
+    cssStr_to = 'to( rgba(' + app.to_r + '%, ' + app.to_g +
+                   '%, ' + app.to_b + '%, ' + app.to_a +')) )'
+
+    app.tgt.style.backgroundImage = cssStr_main + '' + cssStr_from + '' + cssStr_stop + '' + cssStr_to;
+
+    app.showCode('code_main', cssStr_main);
+    app.showCode('code_from', cssStr_from);
+    app.showCode('code_stop', cssStr_stop);
+    app.showCode('code_to', cssStr_to);
+};
+
+app.showCode = function(id, str) {
+    document.getElementById(id).innerHTML = str;
+}
+
+</script>
+</body>
+</html>
+
+<!--
+
+    background-image:
+                         from( rgba(100%, 100%, 100%, 1.0)),
+                         color-stop( 50%, rgba(50%, 50%, 50%, 1.0)),
+                         to( rgba(0%, 0%, 0%, 1.0))  );
+
+-->

@@ -1,0 +1,7 @@
+body > section {
+    position : absolute;
+    left     : 1em;
+    right    : 1em;
+    top      : 1em;
+    padding  : 0em 1em 1em 1em;
+}

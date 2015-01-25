@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 25_font.qdoc -->
+  <title>mobile_html5 : Typography</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level2"><a href="#server-based-fonts">Server-Based Fonts</a></li>
+<li class="level2"><a href="#text-shadows">Text Shadows</a></li>
+<li class="level2"><a href="#text-stroke">Text Stroke</a></li>
+<li class="level1"><a href="#xxx-mt-fonts">XXX MT Fonts</a></li>
+</ul>
+</div>
+<h1 class="title">Typography</h1>
+<span class="subtitle"></span>
+<!-- $$$font.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>This section shows Lever 3 CSS features that enhance the appearance of text.</p>
+<a name="server-based-fonts"></a>
+<h3>Server-Based Fonts</h3>
+<p>Past web design has been limited to a narrow set of standard fonts built into the browser application. Level 3 CSS offers the ability to specify your own font files. Specify your own <tt>font-family</tt> identifier, then assign those identifiers to external font files using the <tt>@font-face</tt> rule:</p>
+<pre class="cpp">body {
+    font<span class="operator">-</span>family : Body<span class="operator">,</span> sans<span class="operator">-</span>serif;
+}
+h1<span class="operator">,</span>h2<span class="operator">,</span>h3<span class="operator">,</span>h4 {
+    font<span class="operator">-</span>family : Heading<span class="operator">,</span> sans<span class="operator">-</span>serif;
+}
+@font<span class="operator">-</span>face {
+    font<span class="operator">-</span>family: Heading;
+    src: url(<span class="operator">/</span>fonts<span class="operator">/</span>text<span class="operator">-</span>bold<span class="operator">.</span>ttf)
+}
+@font<span class="operator">-</span>face {
+    font<span class="operator">-</span>family: Body;
+    src: url(<span class="operator">/</span>fonts<span class="operator">/</span>text<span class="operator">.</span>ttf)
+}
+@font<span class="operator">-</span>face {
+    font<span class="operator">-</span>family: Pullquote;
+    src: url(<span class="operator">/</span>fonts<span class="operator">/</span>script<span class="operator">.</span>ttf)
+}</pre>
+<p><b>Note: </b>TrueType is the most widely supported font file format. Still, the example above specifies <tt>sans-serif</tt> as a standard fallback font for any browser that don't support <tt>@font-face</tt>.</p><p>The following example displays custom server-based fonts:</p>
+<p><a href="../examples/css3_text-font.htm"><img src="images/scr_css3_text-font.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_text-font.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<a name="text-shadows"></a>
+<h3>Text Shadows</h3>
+<p>You can apply shadows to text elements using much the same syntax as for <a href="border.html#shadows">shadows applied to blocks</a>. As the following example shows, text shadows may interfere with the legibility of text on the mobile screen, and are most appropriate for large, sans-serif display headings:</p>
+<p><a href="../examples/css3_text-shadow.htm"><img src="images/scr_css3_text-shadow.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_text-shadow.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>In addition to the shadow's color, the property accepts two measurements to represent its offset from the text, while the third specifies the extent to which the shadow is blurred:</p>
+<pre class="cpp">h1<span class="operator">,</span>h2<span class="operator">,</span>h3<span class="operator">,</span>h4 { text<span class="operator">-</span>shadow : <span class="number">0.20em</span> <span class="number">0.20em</span> <span class="number">0.20em</span> <span class="preprocessor">#aaaaaa; }</span></pre>
+<p><b>Note: </b>Unlike box shadows, you cannot apply a fourth measurement to spread the shadow beyond the underlying text.</p><p>As with box shadows, you can specify numerous comma-separated text shadow values. Embossing effects may help keep text legible against a background whose color may vary. The following example specifies two shadows that contrast each other:</p>
+<pre class="cpp">text<span class="operator">-</span>shadow : <span class="number">0.05em</span> <span class="number">0.05em</span> <span class="preprocessor">#dddddd, 0.1em 0.1em #777777;</span></pre>
+<p><a href="../examples/css3_text-shadowMulti.htm"><img src="images/scr_css3_text-shadowMulti.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_text-shadowMulti.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The following interactive utility helps you build individual text shadow effects along with several font families:</p>
+<p><a href="../examples/utilShadow.htm"><img src="images/utilShadow.png" alt="" /> </a></p>
+<a name="text-stroke"></a>
+<h3>Text Stroke</h3>
+<p>The text stroke feature enable outlining effects along the edges of text. Unlike <a href="#text-shadows">text shadows</a>, text strokes affect the interior of the letterforms. Like text shadows, this effect is most suitable for larger display type or for subtle animations:</p>
+<p>In the following example, <tt>-webkit-text-fill-color</tt> is synonymous with the standard <tt>color</tt> property:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>text<span class="operator">-</span>stroke<span class="operator">-</span>color : <span class="preprocessor">#000000;</span>
+<span class="operator">-</span>webkit<span class="operator">-</span>text<span class="operator">-</span>stroke<span class="operator">-</span>width : <span class="number">1px</span>;
+<span class="operator">-</span>webkit<span class="operator">-</span>text<span class="operator">-</span>fill<span class="operator">-</span>color   : <span class="preprocessor">#206ead;</span></pre>
+<p><a href="../examples/css3_text-stroke.htm"><img src="images/scr_css3_text-stroke.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_text-stroke.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<a name="xxx-mt-fonts"></a>
+<h2>XXX MT Fonts</h2>
+<p>Web designers have long been limited to a small, core group of fonts distributed by browser vendors. The Browser supports the CSS <tt>@font-face</tt> rule, which allows you to reference any fonts you wish.</p>
+<p>Place custom font files on your server, then add a <tt>@font-face</tt> rule to a CSS region specifying a new <tt>font-family</tt> name, making sure it doesn't conflict with standard font names:</p>
+<pre class="cpp">@font<span class="operator">-</span>face {
+    font<span class="operator">-</span>family: BodyText;
+    src: url(fonts<span class="operator">/</span>customFont<span class="operator">.</span>ttf);
+}</pre>
+<p>The Browser supports the TrueType (<i>.ttf</i>) font format.</p>
+<p>Reference the family name as you ordinarily would. It is a good idea to also specify standard font family names as a fallback for any browser that doesn't support custom fonts:</p>
+<pre class="cpp">article {
+    font<span class="operator">-</span>family: BodyText<span class="operator">,</span> Ariel<span class="operator">,</span> sans<span class="operator">-</span>serif;
+}</pre>
+<p>This example shows an interface that displays custom fonts:</p>
+<p><a href="../examples/fonts.htm"> <img src="images/fonts.png" alt="" /> </a></p>
+<p><a href="../examples/fonts.htm"> __IFRAME__ </a> <a href="../examples/fonts.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/fonts.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/fonts.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>Note that font files typically do not specify variations such as bold and italic, so these need to be assigned separately. In the example above, the <tt>&lt;em&gt;</tt> tag is reassigned to a bold font, overriding its default appearance as italic:</p>
+<pre class="cpp">@font<span class="operator">-</span>face {
+    font<span class="operator">-</span>family: Emphasis;
+    src: url(fonts<span class="operator">/</span>customFontBold<span class="operator">.</span>ttf);
+}
+em {
+    font<span class="operator">-</span>family: Emphasis;
+}</pre>
+<p>Alternately, you can specify the same family name within different <tt>@font-face</tt> rules, along with other criteria to assign specific font files. This example assigns an additional light font when the <tt>font-weight</tt> property falls below a specified numeric threshold:</p>
+<pre class="cpp">@font<span class="operator">-</span>face {
+    font<span class="operator">-</span>family: BodyText;
+    src: url(fonts<span class="operator">/</span>customFont<span class="operator">.</span>ttf);
+    font<span class="operator">-</span>weight: normal;
+}
+@font<span class="operator">-</span>face {
+    font<span class="operator">-</span>family: BodyText;
+    src: url(fonts<span class="operator">/</span>customFontBold<span class="operator">.</span>ttf);
+    font<span class="operator">-</span>weight: <span class="number">600</span>;
+}
+@font<span class="operator">-</span>face {
+    font<span class="operator">-</span>family: BodyText;
+    src: url(fonts<span class="operator">/</span>customFontLight<span class="operator">.</span>ttf);
+    font<span class="operator">-</span>weight: <span class="number">300</span>;
+}
+
+em {
+    font<span class="operator">-</span>family: BodyText;
+    font<span class="operator">-</span>weight: <span class="number">600</span>;
+}
+em<span class="operator">.</span>light {
+    font<span class="operator">-</span>family: BodyText;
+    font<span class="operator">-</span>weight: <span class="number">200</span>;
+}</pre>
+</div>
+<!-- @@@font.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>canvas</title>
+<link href="img/app_icon.png" rel="apple-touch-icon"/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<link href='css/mobileForm.css' type='text/css' rel='stylesheet'/>
+
+<style>
+
+body {
+    font-family : sans-serif;
+}
+
+input[type=range] {
+    width       : 200px;
+}
+
+input:disabled {
+    opacity     : 0.5;
+}
+
+label {
+    width       : 100px;
+    height      : 2em;
+}
+
+canvas {
+    border      : thin solid #777;
+}
+
+pre, canvas, div {
+    width       : 320px;
+    background  : #eee;
+}
+
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+
+<canvas width="320" height="320"></canvas>
+
+<div>
+
+<table>
+
+<tr>
+
+<td><label>Arc</label></td> 
+<td><input class="yn" type="radio" name="mode" value="arc" checked/></td>
+</tr><tr>
+<td><label>Quadratic</label></td>
+<td><input class="yn" type="radio" name="mode" value="quad" /></td>
+</tr><tr>
+<td><label>Bezier</label></td>
+<td><input class="yn" type="radio" name="mode" value="bez" /></td>
+
+
+
+</tr><tr>
+<td><label>start x</label></td>
+<td><input type="range" min="-50" max="370" value="50" id="startX"/></td>
+
+</tr><tr><td><label>start y</label></td>
+<td><input type="range" min="-50" max="370" value="50" id="startY"/></td>
+
+
+</tr><tr><td><label>c1 x</label></td>
+<td><input type="range" min="-50" max="370" value="250" id="c1X"/></td>
+
+</tr><tr><td><label>c1 y</label></td>
+<td><input type="range" min="-50" max="370" value="50" id="c1Y"/></td>
+
+
+</tr><tr><td><label>radius</label></td>
+<td><input type="range" min="-50" max="200" value="100" id="radius"/></td>
+
+
+</tr><tr><td><label>c2 x</label></td>
+<td><input type="range" min="-50" max="370" value="50" id="c2X" disabled /></td>
+
+</tr><tr><td><label>c2 y</label></td>
+<td><input type="range" min="-50" max="370" value="250" id="c2Y" disabled /></td>
+
+
+</tr><tr><td><label>end x</label></td>
+<td><input type="range" min="-50" max="370" value="250" id="endX"/></td>
+
+</tr><tr><td><label>end y</label></td>
+<td><input type="range" min="-50" max="370" value="250" id="endY"/></td>
+
+</tr>
+
+</table>
+
+</div>
+
+<pre id="debug"></pre>
+
+<script>
+var app = {};
+app.p = {};
+var cx;
+
+window.onload = function() {
+    cx = document.querySelector('canvas').getContext('2d');
+    app.inRad = document.querySelector('#radius');
+    app.inX = document.querySelector('#c2x');
+    app.inY = document.querySelector('#c2y');
+
+
+
+    app.dotWidth = 6;
+    app.lineWidth = 4;
+
+    app.in = document.querySelectorAll('input[type=range]');
+    for (var i = 0, l = app.in.length; i < l; i++) {
+        app.in[i].addEventListener('change', app.mod);
+        app.p[app.in[i].id] = app.in[i].value;
+    }
+    app.rad = document.querySelectorAll('input[type=radio]');
+    for (var i = 0, l = app.rad.length; i < l; i++) {
+        app.rad[i].addEventListener('change', app.changeMode);
+    }
+    app.mode = 'arc';
+    app.render();
+};
+
+app.d = function(s) {
+    document.querySelector('pre').innerHTML = s;
+};
+
+app.changeMode = function(e) {
+    app.mode = e.target.value;
+    app.d(app.mode);
+
+    if ( app.mode == 'arc' ) {
+        app.inRad.disabled = false;
+    }
+    else {
+        app.inRad.disabled = 'disabled';
+    }
+
+    if ( app.mode == 'bez' ) {
+        app.inX.disabled = false;
+        app.inY.disabled = false;
+    }
+    else {
+        app.inX.disabled = 'disabled';
+        app.inY.disabled = 'disabled';
+    }
+
+    app.render();
+}
+
+app.mod = function(e) {
+    var tgt = e.target;
+    app.p[tgt.id] = tgt.value;
+    app.render();
+};
+
+app.render = function() {
+    cx.clearRect(0,0,320,320);
+    cx.code = '';
+    cx.lineWidth = app.lineWidth;
+
+    cx.strokeStyle = 'orange';
+
+    app.mode == 'bez' ? app.renderBez() :
+    app.mode == 'arc' ? app.renderArc() :
+    app.mode == 'quad' ? app.renderQuad() :
+    app.d('!');
+
+    cx.strokeStyle = 'black';
+
+    cx.beginPath();
+    cx.arc(app.p.startX, app.p.startY, app.dotWidth, 0, (Math.PI*2));
+    cx.closePath();
+    cx.fill();
+
+    cx.beginPath();
+    cx.arc(app.p.c1X, app.p.c1Y, app.dotWidth, 0, (Math.PI*2));
+    cx.closePath();
+    cx.fill();
+
+    if (app.mode == 'bez') {
+        cx.beginPath();
+        cx.arc(app.p.c2X, app.p.c2Y, app.dotWidth, 0, (Math.PI*2));
+        cx.closePath();
+        cx.fill();
+    }
+
+    cx.beginPath();
+    cx.arc(app.p.endX, app.p.endY, app.dotWidth, 0, (Math.PI*2));
+    cx.closePath();
+    cx.fill();
+
+};
+
+app.renderArc = function(e) {
+    app.code = "cx.beginPath();\n";
+    app.code += "cx.moveTo(" +app.p.startX+", "+app.p.startY+");\n";
+    app.code += "cx.arcTo(" + app.p.c1X +", " + app.p.c1Y + ", " + app.p.endX+", "+app.p.endY+", "+app.p.radius+");\n";
+    app.code += "// cx.lineTo("+app.p.endX+", "+app.p.endY+");\n";
+    app.code += "cx.stroke();\n";
+    app.code += "cx.closePath();\n";
+    eval(app.code);
+    app.d(app.code);
+};
+
+app.renderQuad = function(e) {
+    app.code = "cx.beginPath();\n";
+    app.code += "cx.moveTo(" +app.p.startX+", "+app.p.startY+");\n";
+    app.code += "cx.quadraticCurveTo(" + app.p.c1X +", " + app.p.c1Y + ", " + app.p.endX+", "+app.p.endY+");\n";
+    app.code += "cx.stroke();\n";
+    app.code += "cx.closePath();\n";
+    eval(app.code);
+    app.d(app.code);
+};
+
+app.renderBez = function(e) {
+    app.code = "cx.beginPath();\n";
+    app.code += "cx.moveTo(" +app.p.startX+", "+app.p.startY+");\n";
+    app.code += "cx.bezierCurveTo(" + app.p.c1X +", " + app.p.c1Y + ", " + + app.p.c2X +", " + app.p.c2Y + ", " + app.p.endX+", "+app.p.endY+");\n";
+    app.code += "cx.stroke();\n";
+    app.code += "cx.closePath();\n";
+    eval(app.code);
+    app.d(app.code);
+};
+
+</script>
+
+<script src="js/all.js"></script>
+</body>
+</html>
+

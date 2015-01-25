@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>form</title>
+<link href="img/app_icon.png" rel="apple-touch-icon"/>
+<link href='css/all.css' type='text/css' rel='stylesheet'/>
+<link href='css/form.css' type='text/css' rel='stylesheet'/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+</head>
+<body>
+<section>
+<article>
+<h1>forms</h1>
+
+<form>
+
+<div>
+<input type="search" placeholder="Search site..." />
+<label>search</label>
+<span>&nbsp;</span>
+</div>
+
+<div>
+<input type="text" required pattern="^[A-Za-z0-9]+$"/>
+<label>login</label>
+<span>alphanumeric only</span>
+</div>
+
+<div>
+<input type="password" pattern="^.{8,}$" placeholder="********" required />
+<label>password</label>
+<span>at least 8 characters</span>
+</div>
+
+<div>
+<input type="email" placeholder="you@where.com" required />
+<label>email</label>
+<span>please check email address</span>
+</div>
+
+<div>
+<input type="url" value="http://" pattern="^https?://.+\..+" />
+<label>website</label>
+<span>please check URL</span>
+</div>
+
+<div>
+<input type="button" id="decr" value="V"/>
+<input type="button" id="incr" value="^"/>
+<input type="number" min="0" step="1" value="1" required />
+<label>quantity</label>
+<span>how many?</span>
+</div>
+
+<div>
+<input type="range" min="0" max="5" step="1" />
+<label>rating</label>
+<span>number</span>
+</div>
+
+<div>
+<input type="date" />
+<label>date</label>
+<span>date</span>
+</div>
+
+<div>
+<input type="time" />
+<label>time</label>
+<span>time</span>
+</div>
+
+<div>
+<input type="color" />
+<label>color</label>
+<span>color</span>
+</div>
+
+<div>
+<input type="file" />
+<label>file</label>
+<span>file</span>
+</div>
+
+<div>
+<input type="file" multiple/>
+<label>files</label>
+<span>files</span>
+</div>
+
+</form>
+
+</article>
+</section>
+
+<script src="js/form.js"></script>
+<script src="js/download.js"></script>
+<script src="js/all.js"></script>
+</body>
+</html>
+

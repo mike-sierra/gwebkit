@@ -1,0 +1,81 @@
+body {
+    background         : #aaaaaa;
+    font-family        : sans-serif;
+    font-weight        : bold;
+}
+
+h1,h2,h3,h4 {
+    text-align         : center;
+}
+
+section {
+    position           : absolute;
+    top                : 0;
+    left               : 0;
+    right              : 0;
+    bottom             : 0;
+    max-width          : 320px;
+}
+
+article {
+    background         : #ffffff;
+    border-radius      : 0.5em;
+    padding            : 1.0em;
+    margin             : 1em;
+    min-height         : 50%;
+}
+
+input, span {
+    -webkit-transition: all 1s;
+}
+
+input {
+    -webkit-box-shadow: 0 0 0.5em 0.5em transparent;
+    -webkit-appearance: none;
+    display: block;
+    float: right;
+    height: 2em;
+    width: 70%;
+}
+
+label {
+    -webkit-transform: translateY(0.5em);
+    display: inline-block;
+    float: left;
+    font-size: 12px;
+    max-height: 1.5em;
+    width: 28%;
+}
+
+span {
+    color: red;
+    display: inline-block;
+    font-size: smaller;
+    height: 2em;
+    opacity: 0;
+    text-align: right;
+    width: 100%;
+}
+
+input:required + label:before {
+    color: red;
+    content: "* ";
+    font-size: larger;
+}
+
+input:focus {
+    -webkit-box-shadow: 0 0 0.5em 0.5em #aaa;
+}
+
+input.validate:invalid ~ span {
+    opacity: 1;
+}
+
+input.validate:invalid {
+    background-color: pink;
+}
+
+::-webkit-input-placeholder {
+    font-style: italic;
+    color: #777;
+}

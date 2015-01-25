@@ -1,0 +1,20 @@
+body {
+    font-family            : sans-serif;
+    background             : #ffffff;
+}
+
+h1,h2,h3,h4 {
+    text-align             : center;
+}
+
+img {
+    -webkit-mask-box-image : -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)));
+    border-radius          : 0.25em;
+    margin                 : 0.1em;
+}
+
+img.select {
+    -webkit-mask-box-image : none;
+    -webkit-box-shadow     : 0.2em 0.2em 0.4em #aaaaaa;
+}
+

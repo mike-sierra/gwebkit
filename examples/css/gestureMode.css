@@ -1,0 +1,59 @@
+body {
+    text-align: center;
+    font-family: sans-serif;
+    background: #ddd;
+    -webkit-user-select: none;
+}
+
+article {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 480px;
+    padding: 1em;
+    box-sizing: border-box;
+}
+
+div {
+    margin: 0.5em;
+    box-sizing: border-box;
+    border-radius: 1em;
+}
+
+#button {
+    border: medium #aaa solid;
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    height: 5em;
+    width: 5em;
+    cursor: pointer;
+    padding: 1em;
+    background: lightgreen;
+}
+
+#button.disabled {
+    background: pink;
+}
+
+#vt {
+    -webkit-transform-origin: 80%;
+    -webkit-transform: rotate(90deg) translate(70%);
+}
+
+meter, input {
+    height: 2em;
+    width: 75%;
+    margin-top: 1em;
+}
+
+.disabled ~ div > meter {
+    -webkit-appearance: none;
+    background: #bbb;
+}
+
+.disabled ~ div > meter::-webkit-meter-bar { background: #bbb; }
+.disabled ~ div > meter::-webkit-meter-optimum-value { background: #bbb; }
+.disabled ~ div > meter::-webkit-meter-suboptimum-value { background: #bbb; }
+.disabled ~ div > meter::-webkit-meter-even-less-good-value { background: #aaa; }

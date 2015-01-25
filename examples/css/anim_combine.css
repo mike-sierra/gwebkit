@@ -1,0 +1,96 @@
+body {
+    background-color           : #aaaaaa;
+    font-family                : sans-serif;
+}
+
+h1,h2,h3,h4 {
+    margin-top                 : 0.5em;
+    font-size                  : 18px;
+    text-align                 : center;
+}
+
+article {
+    max-width                  : 320px;
+    background                 : #ffffff;
+    border-radius              : 1.0em;
+    padding                    : 1.0em;
+    margin                     : 1.0em 0.5em 6.0em 0.5em;
+    min-height                 : 50%;
+}
+
+ul {
+    list-style-type            : none;
+    padding                    : 0;
+    text-align                 : justify;
+    line-height                : 400%;
+}
+
+li {
+    padding                    : 2px;
+    background-repeat          : no-repeat;
+    background-position        : 50% 50%;
+    -webkit-transition         : all 1s;
+    border-radius              : 1em;
+    height                     : 48px;
+    width                      : 48px;
+    display                    : inline-block;
+    text-align                 : center;
+    -webkit-box-shadow         : transparent 0 0 0 0;
+}
+
+li:target {
+    -webkit-box-shadow         : lightgreen 0em 0em 0.5em 0.25em ;
+    -webkit-animation-duration : 1s;
+    -webkit-animation-name     : nod;
+}
+
+li.na:target {
+    -webkit-box-shadow         : pink 0em 0em 0.5em 0.25em ;
+    -webkit-animation-name     : shake;
+}
+
+li:nth-of-type(1) { background-image: url(../img/icon_avatar01.png); }
+li:nth-of-type(2) { background-image: url(../img/icon_avatar02.png); }
+li:nth-of-type(3) { background-image: url(../img/icon_avatar03.png); }
+li:nth-of-type(4) { background-image: url(../img/icon_avatar04.png); }
+li:nth-of-type(5) { background-image: url(../img/icon_avatar05.png); }
+li:nth-of-type(6) { background-image: url(../img/icon_avatar06.png); }
+li:nth-of-type(7) { background-image: url(../img/icon_avatar07.png); }
+li:nth-of-type(8) { background-image: url(../img/icon_avatar08.png); }
+li:nth-of-type(9) { background-image: url(../img/icon_avatar09.png); }
+li:nth-of-type(10) { background-image: url(../img/icon_avatar10.png); }
+li:nth-of-type(11) { background-image: url(../img/icon_avatar11.png); }
+li:nth-of-type(12) { background-image: url(../img/icon_avatar12.png); }
+li:nth-of-type(13) { background-image: url(../img/icon_avatar13.png); }
+li:nth-of-type(14) { background-image: url(../img/icon_avatar14.png); }
+li:nth-of-type(15) { background-image: url(../img/icon_avatar15.png); }
+li:nth-of-type(16) { background-image: url(../img/icon_avatar16.png); }
+
+li:last-of-type {
+    margin-left                : 100%;
+}
+
+a {
+    text-decoration            : none;
+    height                     : 48px;
+    width                      : 48px;
+    display                    : inline-block;
+}
+
+@-webkit-keyframes nod {
+    from { background-position : 50% 50% }
+    20%  { background-position : 50% 90% }
+    40%  { background-position : 50% 10% }
+    60%  { background-position : 50% 90% }
+    80%  { background-position : 50% 10% }
+    to   { background-position : 50% 50% }
+}
+
+@-webkit-keyframes shake {
+    from { background-position : 50% 50% }
+    20%  { background-position : 90% 50% }
+    40%  { background-position : 10% 50% }
+    60%  { background-position : 90% 50% }
+    80%  { background-position : 10% 50% }
+    to   { background-position : 50% 50% }
+}

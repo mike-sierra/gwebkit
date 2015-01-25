@@ -1,0 +1,134 @@
+/* CUSTOM LAYOUT */
+
+article {
+    -webkit-perspective        : 250;
+    -webkit-perspective-origin : 1em 1em;
+}
+
+body {
+    -webkit-user-select        : none;
+}
+
+ul {
+    margin-bottom              : 6em;
+}
+
+audio {
+    width                      : 100%;
+    -webkit-transition         : all 1s;
+}
+
+audio.custom {
+    opacity                    : 0.3;
+}
+
+#playlist {
+    padding                    : 0;
+    list-style-type            : none;
+}
+
+#playlist > li > progress {
+    -webkit-appearance         : none;
+    cursor                     : pointer;
+    height                     : 2em;
+    width                      : 80%;
+    margin-top                 : 0.5em;
+    color: transparent;
+}
+
+progress + p {
+    pointer-events             : none;
+    cursor                     : pointer;
+    padding-left               : 1em;
+    margin                     : 0;
+    margin-top                 : -1.8em;
+    height                     : 1.5em;
+    white-space                : pre-line;
+    overflow                   : visible;
+    line-height                : 1.5;
+    color                      : transparent;
+}
+
+progress + p:first-line {
+    color                      : #000;
+}
+
+.playing, .paused {
+    border                     : medium solid lightgreen;
+}
+
+.playing + p, .paused + p {
+    color                      : #000;
+    overflow                   : -webkit-marquee;
+    -webkit-marquee-direction  : up;
+    -webkit-marquee-increment  : small;
+    -webkit-marquee-repetition : infinite;
+    -webkit-marquee-speed      : normal;
+    -webkit-marquee-style      : scroll;
+
+}
+
+.paused {
+    -webkit-animation          : pulse 1s infinite alternate;
+}
+
+progress::-webkit-progress-bar   { 
+    background-color           : lightblue;
+}
+progress::-webkit-progress-value {
+    background-color           : lightgreen;
+}
+
+@-webkit-keyframes pulse {
+    from { border              : medium solid lightgreen }
+    to { border                : medium solid orange }
+}
+
+#cover {
+    background-size            : cover;
+    width                      : 120px;
+    height                     : 120px;
+    float                      : right;
+}
+
+input[type=range] {
+    -webkit-animation-name     : '';
+    -webkit-transition         : all 1s;
+    width                      : 30%;
+    height                     : 2em;
+    border-radius              : 1em;
+    -webkit-appearance         : none;
+    background                 : #aaa;
+    padding-left               : 0.5em;
+    padding-right              : 0.5em;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance         : none;
+    width                      : 5em;
+    border-radius              : 0.75em;
+    height                     : 1.5em;
+    background                 : #fff;
+}
+
+input.mute {
+    -webkit-animation          : mute 0.5s infinite alternate ease-in-out;
+}
+
+@-webkit-keyframes mute {
+    from { background          : #aaa }
+    to { background            : #ddd }
+}
+
+article > img,
+article > #cover,
+article > input[type=range] {
+    display: none;
+}
+
+article.custom > img,
+article.custom > #cover,
+article.custom > input[type=range] {
+    display: inline-block;
+}
+

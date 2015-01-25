@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 41_touch.qdoc -->
+  <title>mobile_html5 : Touch Gestures</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level2"><a href="#touch-events-vs-mouse-events">Touch Events vs. Mouse Events</a></li>
+<li class="level2"><a href="#tapping-the-screen">Tapping the Screen</a></li>
+<li class="level2"><a href="#dragging-a-finger">Dragging a Finger</a></li>
+<li class="level2"><a href="#touching-with-more-than-one-finger">Touching with More Than One Finger</a></li>
+<li class="level1"><a href="#xxx-mt">XXX MT</a></li>
+</ul>
+</div>
+<h1 class="title">Touch Gestures</h1>
+<span class="subtitle"></span>
+<!-- $$$touch.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>This section provides a short guide to handling various kinds of touch input: simple taps on the screen, drag gestures across the screen, and touches that use more than one finger. It shows how applications can specify their own touch functionality along with that built into the browser, and how to use touch events along with mouse events in hybrid mobile/desktop web apps. An illustrative sample application uses drag gestures to navigate within an image gallery, and multi-point touch to crop images.</p>
+<a name="touch-events-vs-mouse-events"></a>
+<h3>Touch Events vs. Mouse Events</h3>
+<p>When you touch a mobile browser's screen, various DOM events fire. Mobile web apps can rely upon traditional <i>mouse</i> events, or they can use <i>touch</i> events. Touch events accommodate multi-point touch input, and tend to perform more responsively on mobile browsers than mouse events. The <tt>touchstart</tt>, <tt>touchend</tt>, and <tt>touchmove</tt> events can be substituted for <tt>mousedown</tt>, <tt>mouseup</tt> (or <tt>click</tt>), and <tt>mousemove</tt> events.</p>
+<p>The DOM dispatches touch events prior to mouse events. Touch event handlers can prevent mouse events from firing:</p>
+<pre class="cpp">element<span class="operator">.</span>addEventListener(<span class="char">'touchstart'</span><span class="operator">,</span>
+    function touchHandler(event) {
+        event<span class="operator">.</span>preventDefault();
+        <span class="comment">// corresponding mouse event does not fire</span>
+    }
+);</pre>
+<p>When deploying touch events within <a href="query.html">hybrid desktop/mobile sites</a>, adding <tt>preventDefault()</tt> to touch handlers effectively keeps mouse-triggered functionality separated from mobile browsers. When viewed on desktop browsers, touch events never fire, so touch handlers have no effect.</p>
+<p><b>Note: </b>If there is a need within a hybrid desktop/mobile application to determine a browser's support for touch events, use the method above to check which set of events actually fire. <i>Object detection</i> tests such as the following may be less reliable in cases when latent browser engine components are deployed in contexts where they are never used:</p><pre class="cpp">var maySupportTouch <span class="operator">=</span> document<span class="operator">.</span>createEvent(<span class="string">&quot;TouchEvent&quot;</span>)</pre>
+<p>Since touch handsets lack a cursor, there are no touch equivalents for <tt>mouseover</tt> and <tt>mouseout</tt> events with which to implement <i>rollover</i> or <i>hover</i> effects in desktop interfaces. However, these two events actually fire along with <tt>mousedown</tt> and <tt>mouseup</tt>, which may lead to unexpected results on mobile browsers.</p>
+<a name="tapping-the-screen"></a>
+<h3>Tapping the Screen</h3>
+<p>Information about a touch point's coordinates is accessed via the event's <tt>touches</tt> array, rather than directly from the event. Simple taps that involve one finger are available as <tt>touches[0]</tt>, the first element of that array. The following shows comparable functions for both touch and click events:</p>
+<pre class="cpp">function touchHandler(event) {
+    event<span class="operator">.</span>preventDefault();  <span class="comment">// disable mouse events &amp; browser scrroll</span>
+    event<span class="operator">.</span>stopPropagation(); <span class="comment">// disable</span>
+    var x <span class="operator">=</span> event<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>screenX;
+    var y <span class="operator">=</span> event<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>screenY;
+}
+function clickHandler(event) {
+    var x <span class="operator">=</span> event<span class="operator">.</span>screenX;
+    var y <span class="operator">=</span> event<span class="operator">.</span>screenY;
+}</pre>
+<p>Responsive mobile interfaces often feature default background touch functionality along with more specific functionality for foreground elements. In that case, assign a default function to a full-screen ancestor element. Any foreground functions assigned to descendent elements that call <tt>event.stopPropagation()</tt> prevent the background function from executing:</p>
+<pre class="cpp"><span class="operator">&lt;</span>section <span class="keyword">class</span><span class="operator">=</span><span class="string">&quot;backgroundLayer&quot;</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>nav <span class="keyword">class</span><span class="operator">=</span><span class="string">&quot;foregroundElement&quot;</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span><span class="operator">/</span>nav<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>section<span class="operator">&gt;</span>
+
+<span class="operator">&lt;</span>script<span class="operator">&gt;</span>
+document<span class="operator">.</span>querySelector(<span class="char">'.backgroundLayer'</span>)<span class="operator">.</span>addEventListener(<span class="char">'touchstart'</span><span class="operator">,</span> backgroundHandler);
+document<span class="operator">.</span>querySelector(<span class="char">'.foregroundElement'</span>)<span class="operator">.</span>addEventListener(<span class="char">'touchstart'</span><span class="operator">,</span> foregroundHandler);
+
+function backgroundHandler(e) {
+    <span class="comment">// default touch function executes</span>
+}
+function foregroundHandler(e) {
+    e<span class="operator">.</span>stopPropagation();
+    <span class="comment">// default touch function does not execute</span>
+}
+<span class="operator">&lt;</span><span class="operator">/</span>script<span class="operator">&gt;</span></pre>
+<p>The following example shows an accordion-style navigation interface that relies on <tt>event.stopPropagation()</tt> to layer touch functions. It features a pervasive background function that collapses the interface down to a small icon. Only by tapping on specific foreground elements that expand the interface is this default function prevented from executing:</p>
+<p><a href="../examples/anim_accord.htm"><img src="images/scr_anim_accord1.png" alt="" /> <img src="images/scr_anim_accord3.png" alt="" /> <img src="images/scr_anim_accord4.png" alt="" /> </a></p>
+<p><a href="../examples/css/anim_accord.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/anim_accord.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>By setting the <tt>pointer-events</tt> CSS property to <tt>none</tt>, an application can selectively prevent touch or mouse events from firing on foreground elements, in which case only background functionality would execute. Setting it back to <tt>auto</tt> makes foreground elements intercept the event as usual, thus preventing background functions from executing if the associated handler calls <tt>stopPropagation()</tt>.</p>
+<p><b>Note: </b>When users tap on a touch-activated element such as a link, mobile browsers customarily apply default visual highlighting. The all-purpose <tt>:active</tt> dynamic CSS class cannot reliably be used to re-style this visual feedback. The <tt>-webkit-tap-highlight-color</tt> CSS property can be used as an alternative, but only on Apple iPhone Safari.</p><p>When pressing and holding a link or image, mobile browsers customarily respond by presenting a contextual menu to copy or share the item. On Apple iPhone Safari, setting an element's <tt>-webkit-touch-callout</tt> CSS property to <tt>none</tt> selectively disables this feature. Otherwise, any time-thresholded functionality triggered by pressing and holding an element may interfere with this default browser feature.</p>
+<a name="dragging-a-finger"></a>
+<h3>Dragging a Finger</h3>
+<p>By default, dragging your finger across a touch-enabled mobile browser window scrolls within overflowing content. Applications that must respond to dragging gestures call <tt>preventDefault()</tt> to override this built-in browser feature. Calling <tt>preventDefault()</tt> from a <tt>touchstart</tt> event handler disables browser scrolling for the duration of the touch gesture. It can also be called from a <tt>touchmove</tt> handler:</p>
+<pre class="cpp">element<span class="operator">.</span>addEventListener(<span class="char">'touchstart'</span><span class="operator">,</span>
+    function touchHandler(event) {
+        event<span class="operator">.</span>preventDefault();
+        <span class="comment">// browser does not scroll content</span>
+    }
+);</pre>
+<p>Even for screen layouts that <a href="layout.html#constraining-touch-response">constrain the range of drag gestures</a>, it is generally good practice to call <tt>preventDefault()</tt> to override the browser's default navigation.</p>
+<p>If the viewport is configured to allow users to <a href="layout.html#constraining-touch-response">scale content</a>, calling <tt>preventDefault()</tt> disables double-tap zoom gestures that magnify columns. However, two-finger pinch-zooming gestures cannot be selectively disabled; those can only be disabled for the entire viewport.</p>
+<p><b>Note: </b>An application in which browser scrolling is enabled may respond to the window's <tt>scroll</tt> event, but it responds more slowly than on desktop browsers. For relatively slow dragging gestures, the <tt>scroll</tt> event fires only after the finger has been lifted from the screen. Touch-based mobile browsers also feature <i>kinetic</i> scrolling. Rapid <i>flicking</i> gestures cause the page to keep scrolling and gradually come to a stop long after the finger has lifted from the screen. Unlike desktop browsers, the <tt>scroll</tt> event only fires on the window once the entire scroll has come to a stop.</p><p>Applications should set a threshold before responding to drag gestures, especially if they respond differently to simple tapping gestures. A slow drag gesture below that threshold might provide finely detailed functionality such as positioning screen elements. A faster touch gesture might provide higher-level interface options, such as navigating among screens.</p>
+<p>In the following example, the <tt>touchmove</tt> handler sets the threshold as a distance of 48 pixels, short of which any slight drag gestures are ignored:</p>
+<pre class="cpp">dragThreshold <span class="operator">=</span> <span class="number">48</span>; <span class="comment">// number of pixels to recognize drag gesture</span>
+
+function touchstartHandler(e) {
+    e<span class="operator">.</span>preventDefault();
+    initialX <span class="operator">=</span> e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>pageX;
+}
+
+function touchmoveHandler(e) {
+    e<span class="operator">.</span>preventDefault();
+    currentX <span class="operator">=</span> e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>pageX;
+    deltaX <span class="operator">=</span> currentX <span class="operator">-</span> initialX;
+    <span class="keyword">if</span> (deltaX <span class="operator">&gt;</span> dragThreshold) {
+        navigatePrev();
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (deltaX <span class="operator">&lt;</span> (dragThreshold <span class="operator">*</span> <span class="operator">-</span><span class="number">1</span>) ) {
+        navigateNext();
+    }
+}</pre>
+<p>The following example uses thresholded drag gestures to navigate within an image gallery:</p>
+<p><a href="../examples/event_touch-crop.htm"><img src="images/scr_event_touch-crop2.png" alt="" /> </a></p>
+<p><a href="../examples/css/event_touch-crop.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/event_touch-crop.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>A simple <a href="animation.html">animation</a> results when users try to navigate outside the start or end of the gallery, useful feedback for any pervasive touch interface. To account for presentation on both desktop and mobile browsers, the example uses mouse event handlers along with touch handlers that call <tt>preventDefault()</tt> to specify a mobile-only application mode. It also presents different visual effects depending on whether the browser supports <a href="trans.html">3D transforms</a>.</p>
+<p><b>Note: </b>The W3C's Touch API specifies <tt>touchenter</tt> and <tt>touchleave</tt> events for drag-and-drop interfaces, but they are not implemented. Likewise, the <tt>touchcancel</tt> event should respond when a handset imposes an interface during the course of a touch gesture, such as when receiving an incoming call, but the event remains unimplemented.</p><a name="touching-with-more-than-one-finger"></a>
+<h3>Touching with More Than One Finger</h3>
+<p>While each mouse event corresponds to a single point on the screen, touch events can track complex combinations and sequences involving several touch points. Various tools are available:</p>
+<ul>
+<li>The <tt>event.touches</tt> array lists all active touch points currently on the screen. The <tt>event.touches.length</tt> property yields the current number of fingers.</li>
+<li>When a <tt>touchstart</tt> event fires, the target of the first detected touch point (<tt>event.touches[0].target</tt>) is considered the target of the entire touch gesture. Touch points that fall within that target are available in the <tt>event.targetTouches</tt> array. (Unless <tt>stopPropagation()</tt> is called, touch events propagate upwards from different targets towards common elements in the DOM tree.)</li>
+<li>The <tt>event.changedTouches</tt> array lists all touch points that move over the course of the sequence. These changes are handled via the <tt>touchmove</tt> event, which also responds to the introduction of new touch points within a sequence. (At least one finger touches the screen for the duration of each touch event.)</li>
+</ul>
+<p>Each distinct touch point features an <tt>identifier</tt> that help track the progression of complex finger sequences or movements.</p>
+<p>The following shows simple ways to deal with potentially ambiguous touch input. These tests fail if more than two fingers touch the screen, or if the two fingers span different targets:</p>
+<pre class="cpp"><span class="keyword">if</span> ( event<span class="operator">.</span>touches<span class="operator">.</span>length <span class="operator">&gt;</span> <span class="number">2</span> ) <span class="keyword">return</span> <span class="keyword">false</span>;
+<span class="keyword">if</span> ( event<span class="operator">.</span>targetTouches<span class="operator">.</span>length <span class="operator">!</span><span class="operator">=</span> event<span class="operator">.</span>touches<span class="operator">.</span>length ) <span class="keyword">return</span> <span class="keyword">false</span>;</pre>
+<p>The following shows the same image gallery example as above, but with an additional multi-point touch feature that allows users to crop images:</p>
+<p><a href="../examples/event_touch-crop.htm"><img src="images/scr_event_touch-crop.png" alt="" /> </a></p>
+<p><a href="../examples/css/event_touch-crop.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/event_touch-crop.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>As before, a single-finger drag gesture navigates within the gallery. A two-finger tap gesture defines a region to crop, and subsequent two-finger taps resize the rectangle. When a crop selection is visible, tapping outside the rectangle dismisses it. Tapping inside the rectangle prompts users to crop the image. The rectangle is a nested element whose own touch handler calls <tt>stopPropagation</tt> to keep its functionality separate from that of the background.</p>
+<p><b>Note: </b>This example features an alternative mouse-event mode that responds to sequences of clicks on desktop browsers. See <a href="canvas.html">Canvas</a> for details on how to crop images.</p><a name="xxx-mt"></a>
+<h2>XXX MT</h2>
+<p>The Browser supports <i>touch</i> events, which serve as a more flexible and responsive alternative to various <i>mouse</i> and <i>click</i> events used for desktop browser interfaces.</p>
+<p>This example captures touch input in two ways. Dragging a finger sideways navigates within an image gallery, presented with <a href="animation.html">animated</a>, <a href="trans.html">3D shapes</a>. Tapping on the screen with two fingers presents a selection box that invites users to tap again to <a href="canvas.html">crop the image</a>.</p>
+<p><a href="../examples/touch.htm"> <img src="images/touch1.png" alt="" /> <img src="images/touch2.png" alt="" /> </a></p>
+<p><a href="../examples/touch.htm"> __IFRAME__ </a> <a href="../examples/touch.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/touch.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/touch.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>Use the <tt>touchstart</tt>, <tt>touchmove</tt>, and <tt>touchend</tt> events instead of mouse events. The sequence of the touch event starts when any finger touches the screen, and ends when all fingers are off the screen.</p>
+<p>Calling <tt>preventDefault()</tt> from within touch handlers prevents the page from scrolling when users drag their fingers:</p>
+<pre class="cpp">element<span class="operator">.</span>addEventListener(<span class="char">'touchstart'</span><span class="operator">,</span> function(e) {
+    e<span class="operator">.</span>preventDefault();
+    <span class="comment">// browser drag gestures are disabled...</span>
+    <span class="comment">// ...and corresponding mouse event does not fire</span>
+    var x <span class="operator">=</span> event<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>screenX;
+    var y <span class="operator">=</span> event<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>screenY;
+});</pre>
+<p>Calling <tt>preventDefault()</tt> also prevents corresponding <tt>mousedown</tt>, <tt>mouseup</tt>, and <tt>mousemove</tt> events from subsequently firing, allowing you to capture both kinds of input in <a href="query.html">hybrid mobile/desktop pages</a>, without them interfering with each other. The gallery example above mixes both touch and mouse event handlers to implement a desktop mode, in which a sequence of two taps on the screen defines the image-crop region.</p>
+<p>Since there may be more than one touch point on the screen at any one time, information such as screen coordinates is not available directly from the event, but from elements with the <tt>touches</tt> array. The first element of that array corresponds to the first detected touch point:</p>
+<pre class="cpp">element<span class="operator">.</span>addEventListener(<span class="char">'touchstart'</span><span class="operator">,</span> function(e) {
+    e<span class="operator">.</span>preventDefault();
+    e<span class="operator">.</span>stopPropagation(); <span class="comment">// &quot;background&quot; elements do not respond to touch</span>
+    var x <span class="operator">=</span> event<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>screenX;
+    var y <span class="operator">=</span> event<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>screenY;
+});</pre>
+<p>Like mouse events, applying <tt>stopPropagation()</tt> allows foreground elements to capture touch input and prevent default touch functionality assigned to background layers from executing. In this example, touching the crop box keeps the background page-dragging touch handlers from executing.</p>
+<p>This example also implements a simple <i>threshold</i> for drag gestures, to prevent navigation within the gallery from becoming unpredictably sensitive:</p>
+<pre class="cpp">var app <span class="operator">=</span> {};
+app<span class="operator">.</span>threshold <span class="operator">=</span> <span class="number">48</span>; <span class="comment">// number of pixels</span>
+
+function touchstartHandler(e) {
+    e<span class="operator">.</span>preventDefault();
+    app<span class="operator">.</span>initialX <span class="operator">=</span> e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>pageX;
+}
+
+function touchmoveHandler(e) {
+    e<span class="operator">.</span>preventDefault();
+    app<span class="operator">.</span>currentX <span class="operator">=</span> e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>pageX;
+    app<span class="operator">.</span>deltaX <span class="operator">=</span> app<span class="operator">.</span>currentX <span class="operator">-</span> app<span class="operator">.</span>initialX;
+    <span class="keyword">if</span> (app<span class="operator">.</span>deltaX <span class="operator">&gt;</span> app<span class="operator">.</span>threshold) {
+        app<span class="operator">.</span>navigatePrev();
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (app<span class="operator">.</span>deltaX <span class="operator">&lt;</span> (app<span class="operator">.</span>threshold <span class="operator">*</span> <span class="operator">-</span><span class="number">1</span>) ) {
+        app<span class="operator">.</span>navigateNext();
+    }
+}</pre>
+<p>The <tt>touchmove</tt> event also fires when additional fingers touch the screen. Various tools help you track input from more than one finger:</p>
+<ul>
+<li>The <tt>touches</tt> array features all current touch points. The first element <tt>touches[0]</tt> at <tt>touchstart</tt> is the first detected touch point, but it may lift before other fingers do.</li>
+<li>The <tt>changedTouches</tt> array allows <tt>touchmove</tt> handlers to tell which touch points have moved, or which have been added.</li>
+<li>Since touch points can fall anywhere on the screen, the <tt>targetTouches</tt> array lists all that fall within the element on which the event fired.</li>
+<li>Each touch point features an <tt>identifier</tt> that allows individual fingers to be tracked for the duration of complex touch gestures.</li>
+</ul>
+<p>The gallery example above filters out three-finger touch input, along with ambiguous two-finger touches that straddle the currently displaying crop box:</p>
+<pre class="cpp"><span class="keyword">if</span> ( event<span class="operator">.</span>touches<span class="operator">.</span>length <span class="operator">&gt;</span> <span class="number">2</span> ) <span class="keyword">return</span> <span class="keyword">false</span>;
+<span class="keyword">if</span> ( event<span class="operator">.</span>targetTouches<span class="operator">.</span>length <span class="operator">!</span><span class="operator">=</span> event<span class="operator">.</span>touches<span class="operator">.</span>length ) <span class="keyword">return</span> <span class="keyword">false</span>;</pre>
+</div>
+<!-- @@@touch.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

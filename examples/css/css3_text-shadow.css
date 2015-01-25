@@ -1,0 +1,33 @@
+body {
+    background    : #aaaaaa;
+    font-family   : sans-serif;
+}
+
+h1,h2,h3,h4 {
+    text-align    : center;
+    text-shadow   : 0.20em 0.20em 0.20em #999;
+    color         : #206ead;
+}
+
+h1 {
+    font-size: 28px;
+    margin-top: 0.25em;
+}
+
+section {
+    position      : absolute;
+    top           : 0;
+    left          : 0;
+    right         : 0;
+    bottom        : 0;
+}
+
+article {
+    max-width     : 320px;
+    background    : #ffffff;
+    border-radius : 1.0em;
+    padding       : 1.0em;
+    margin        : 1em;
+    min-height    : 50%;
+}
+

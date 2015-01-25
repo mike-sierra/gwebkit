@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# application version 1.0.0
+
+CACHE:
+storage_appcache.htm
+css/storage_appcache.css
+js/storage_appcache.js
+
+media/Band.mp3
+media/Organ.mp3
+media/Violin.mp3
+media/Harmonica.mp3
+media/Musicbox.mp3

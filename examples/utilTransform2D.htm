@@ -1,0 +1,273 @@
+<!--
+/****************************************************************************
+**
+** Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (qt-info@nokia.com)
+**
+** This file is part of the QtWebKit module of the Qt Toolkit.
+**
+** You may use this file under the terms of the BSD license as follows:
+**
+** "Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are
+** met:
+**   * Redistributions of source code must retain the above copyright
+**     notice, this list of conditions and the following disclaimer.
+**   * Redistributions in binary form must reproduce the above copyright
+**     notice, this list of conditions and the following disclaimer in
+**     the documentation and/or other materials provided with the
+**     distribution.
+**   * Neither the name of Nokia Corporation and its Subsidiary(-ies) nor
+**     the names of its contributors may be used to endorse or promote
+**     products derived from this software without specific prior written
+**     permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+**
+****************************************************************************/
+-->
+
+<html>
+<head>
+<title>utility</title>
+
+<style>
+body {
+    background                  : #aaaaaa;
+    overflow                    : hidden;
+}
+
+pre.debug {
+    background                  : #ffffff;
+    text-align                  : center;
+}
+
+img {
+    border-radius               : 0.5em;
+    -webkit-backface-visibility : hidden;
+}
+
+input[type=range] {
+    height                      : 0.5em;
+}
+
+section {
+    position                    : absolute;
+    right                       : 1em;
+    left                        : 1em;
+    top                         : 8em;
+    bottom                      : 1em;
+    padding                     : 1em;
+    border-radius               : 1em;
+    background                  : #ffffff
+}
+
+pre {
+    z-index                     : 100;
+    position                    : absolute;
+    top                         : 0.5em;
+    left                        : 1em;
+    right                       : 1em;
+    padding                     : 0.5em;
+    border-radius               : 0.5em;
+    background                  : #ffffff;
+}
+
+#display {
+    right                       : 52%;
+    text-align                  : center;
+}
+
+#display > img {
+    max-width                   : 100%;
+}
+
+#control {
+    left                        : 52%;
+    background                  : #ffffff;
+    min-width: 300px;
+    bottom                      : inherit;
+}
+
+</style>
+
+<link rel="apple-touch-icon-precomposed" href="img/html5x128.png" />
+<link rel="apple-touch-icon" href="img/html5x128.png" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<pre>
+-webkit-transform: <span id="code"></span>;
+-webkit-transform: <span id="matrix">FOO</span>;
+-webkit-transform-origin-x: <span id="x"></span>;
+-webkit-transform-origin-y: <span id="y"></span>;
+</pre>
+
+<section id="display">
+<img src="img/gal1.png"/>
+</section>
+
+<section id="control">
+
+<form>
+
+<input type="reset" value="Start Over">
+
+<fieldset>
+<legend>translate</legend>
+<label>x</label>
+<input id="translate_x" type="range" min="-150" max="150" value="0"/>&plusmn; 150%
+<br/><label>y</label>
+<input id="translate_y" type="range" min="-150" max="150" value="0"/>&plusmn; 150%
+</fieldset>
+
+<fieldset>
+<legend>scale</legend>
+<label>x</label>
+<input id="scale_x" type="range" min="0" max="2" value="1" step="0.05"/>0-2x
+<br/><label>y</label>
+<input id="scale_y" type="range" min="0" max="2" value="1" step="0.05"/>0-2x
+</fieldset>
+
+<fieldset>
+<legend>skew</legend>
+<label>x</label>
+<input id="skew_x" type="range" min="-90" max="90" value="0"/>0-90&deg;
+<br/><label>y</label>
+<input id="skew_y" type="range" min="-90" max="90" value="0"/>0-90&deg;
+</fieldset>
+
+<fieldset>
+<legend>rotate</legend>
+<label></label>
+<input id="rotate" type="range" min="-360" max="360" value="0"/>0-360&deg;
+</fieldset>
+
+<fieldset>
+<legend>-webkit-transform-origin:</legend>
+<label>x</label>
+<input id="origin_x" type="range" min="-50" max="150" value="50"/>-50%/150%
+<br/><label>y</label>
+<input id="origin_y" type="range" min="-50" max="150" value="50"/>-50%/150%
+
+</fieldset>
+
+</form>
+
+</section>
+
+<script>
+var app = new Function();
+
+window.onload = function() {
+    app.init();
+    document.querySelector('input[type=reset]').addEventListener('click', function( ) { app.init() } );
+};
+
+app.init = function() {
+
+    app.initValue = 'translate(0%, 0%) scale(1, 1) skew(0deg, 0deg) rotate(0deg)';
+    app.showCode('code', app.initValue);
+    app.showCode('x', '50%');
+    app.showCode('y', '50%');
+
+    app.img = document.querySelector('img');
+    app.img.style.webkitTransform = app.initValue;
+    app.mx = document.querySelector('#matrix');
+
+    app.inputs = document.querySelectorAll('select, input:not([type=reset])');
+    for (var i = 0, l = app.inputs.length ; i < l ; i++) {
+        app.inputs[i].addEventListener('change', app.modify);
+    }
+    app['origin_x'] = 50;
+    app['origin_y'] = 50;
+    app['rotate'] = 0;
+    app['scale_x'] = 1;
+    app['scale_y'] = 1;
+    app['skew_x'] = 0;
+    app['skew_y'] = 0;
+    app['translate_x'] = 0;
+    app['translate_y'] = 0;
+
+    app.showMatrix();
+
+};
+
+app.modify = function(event) {
+    app[event.target.id] = app.trimArtifact(event.target.value);
+    app.render();
+    app.showMatrix();
+};
+
+app.showMatrix = function() {
+    var prop = window.getComputedStyle(app.img, null).getPropertyValue("-webkit-transform");
+    prop = prop.replace(/(\.[0-9][0-9][0-9])[0-9]+/g, "$1");
+    app.mx.innerHTML = prop;
+};
+
+app.trimArtifact = function(n) {
+    if (n.match(/^[0-9.-]+$/)) {
+        return(Math.floor(n * 100) / 100);
+    }
+    else if (n.match(/^[a-z]+$/)) {
+        return(n);
+    }
+    else {
+        alert(n);
+    }
+}
+
+app.render = function() {
+
+    var trStr = 'translate(';
+    trStr += app.translate_x;
+    trStr += '%, ';
+    trStr += app.translate_y;
+    trStr += '%) ';
+
+    trStr += 'scale(';
+    trStr += app.scale_x;
+    trStr += ', ';
+    trStr += app.scale_y;
+    trStr += ') ';
+
+    trStr += 'skew(';
+    trStr += app.skew_x;
+    trStr += 'deg, ';
+    trStr += app.skew_y;
+    trStr += 'deg) ';
+
+    trStr += 'rotate(';
+    trStr += app.rotate;
+    trStr += 'deg) ';
+
+    app.img.style.webkitTransform = trStr;
+    app.img.style.webkitTransformOriginX = app.origin_x + '%';
+    app.img.style.webkitTransformOriginY = app.origin_y + '%';
+
+    app.showCode('code', trStr);
+    app.showCode('x', app.origin_x + '%');
+    app.showCode('y', app.origin_y + '%');
+
+};
+
+app.showCode = function(id, str) {
+    document.getElementById(id).innerHTML = str;
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>audio</title>
+<link href="img/app_icon.png" rel="apple-touch-icon"/>
+<link href='css/all.css' type='text/css' rel='stylesheet'/>
+<link href='css/audioOld.css' type='text/css' rel='stylesheet'/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+<section>
+<article>
+<img src="img/audio_soft.jpg"/>
+<input id="slider" type="range" min="0" max="1" value="1" step="0.05"/>
+<img src="img/audio_loud.jpg"/>
+<div id="cover"></div>
+<h1 id="text">audio</h1>
+
+<audio controls autoplay id="a" src="media/Shout_It_In.mp3"></audio>
+
+<ul id="playlist">
+<li><progress data-artist="The Click Five">I_Quit</progress><p>...</p>
+</li><li><progress data-artist="Frederik Olufsen">Rocks</progress><p>...</p>
+</li><li><progress data-artist="El Ten Eleven">Hot_Cakes</progress><p>...</p>
+</li><li><progress data-artist="Coati Mundi">No_More_Blues</progress><p>...</p>
+</li><li><progress data-artist="Joshua Heath ft. Colette">Call_On_Me</progress><p>...</p>
+</li><li><progress data-artist="Dr. Lonnie Smith">A_Matterapat</progress><p>...</p>
+</li><li><progress data-artist="Redstone Hall">Get_Back_Jack</progress><p>...</p>
+</li><li><progress data-artist="El Ten Eleven">Every_Direction_Is_North</progress><p>...</p>
+</li><li><progress data-artist="Dirty Ghosts">Shout_It_In</progress><p>...</p>
+</li>
+
+<!--
+<li><progress data-artist="???">Shake</progress><p>...</p>
+</li><li><progress data-artist="???">The_Happy_Song</progress><p>...</p>
+</li><li><progress data-artist="???">Colors</progress><p>...</p>
+</li>
+-->
+
+</ul>
+
+</article>
+</section>
+
+<script src="js/audioOld.js"></script>
+<script src="js/download.js"></script>
+
+<script src="js/all.js"></script>
+</body>
+</html>

@@ -1,0 +1,119 @@
+<!--
+/****************************************************************************
+**
+** Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (qt-info@nokia.com)
+**
+** This file is part of the QtWebKit module of the Qt Toolkit.
+**
+** You may use this file under the terms of the BSD license as follows:
+**
+** "Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are
+** met:
+**   * Redistributions of source code must retain the above copyright
+**     notice, this list of conditions and the following disclaimer.
+**   * Redistributions in binary form must reproduce the above copyright
+**     notice, this list of conditions and the following disclaimer in
+**     the documentation and/or other materials provided with the
+**     distribution.
+**   * Neither the name of Nokia Corporation and its Subsidiary(-ies) nor
+**     the names of its contributors may be used to endorse or promote
+**     products derived from this software without specific prior written
+**     permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+**
+****************************************************************************/
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name='viewport' content='width=device-width, initial-scale=1, user-scalable=no' />
+<title>Timing Functions</title>
+<link href='css/anim_timer.css' type='text/css' rel='stylesheet'/>
+
+<link rel="apple-touch-icon-precomposed" href="img/html5x128.png" />
+<link rel="apple-touch-icon" href="img/html5x128.png" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<div id="panel">
+
+<h4>Press Within the Box</h4>
+
+<img class="linear" src="img/icon_nav-up.png"/><span>linear</span>
+<hr/>
+<img class="ease" src="img/icon_nav-up.png"/><span>ease (default)</span>
+<hr/>
+<img class="ease-in" src="img/icon_nav-up.png"/><span>ease-in</span>
+<hr/>
+<img class="ease-out" src="img/icon_nav-up.png"/><span>ease-out</span>
+<hr/>
+<img class="ease-in-out" src="img/icon_nav-up.png"/><span>ease-in-out</span>
+<hr/>
+<img id="custom" src="img/icon_nav-up.png"/><span id="code">(0.0, 0.0, 1.0, 1.0)</span>
+<hr/>
+<h4>Set a cubic-bezier() value:</h4>
+
+<input id="cp1x" type="range" min="0" max="1" value="0" step="0.05"/>
+<br/><input id="cp1y" type="range" min="0" max="1" value="0" step="0.05"/>
+<br/><input id="cp2x" type="range" min="0" max="1" value="1" step="0.05"/>
+<br/><input id="cp2y" type="range" min="0" max="1" value="1" step="0.05"/>
+
+</div>
+
+<script>
+var app = new Function();
+
+window.onload = function() {
+
+    app.code = document.querySelector('#code');
+    app.el = document.querySelector('#custom');
+
+    app.cp1x = 0;
+    app.cp1y = 0;
+    app.cp2x = 1;
+    app.cp2y = 1;
+
+    var inputs = document.querySelectorAll('input');
+    for (var i = 0, l = inputs.length; i <  l ; i++ ) {
+        inputs[i].addEventListener('change', app.modify);
+    }
+
+    document.getElementById('panel').addEventListener('click', function() {
+        var c = this.className;
+        c ? (this.className = '') : (this.className = 'alt');
+    }, false)
+
+
+};
+
+app.modify = function(event) {
+    app[event.currentTarget.id] = (Math.floor(event.currentTarget.value * 100) / 100);
+    app.bezier = '(' + app.cp1x + ', ';
+    app.bezier += app.cp1y + ', ';
+    app.bezier += app.cp2x + ', ';
+    app.bezier += app.cp2y + ')';
+    app.code.innerHTML = app.bezier;
+    app.code.style.webkitTransitionTimingFunction = 'cubic-bezier' + app.bezier;
+    app.el.style.webkitTransitionTimingFunction = 'cubic-bezier' + app.bezier;
+};
+
+</script>
+</body>
+</html>

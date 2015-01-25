@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 23_color.qdoc -->
+  <title>mobile_html5 : Colors and Backgrounds</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level2"><a href="#color-and-opacity">Color and Opacity</a></li>
+<li class="level2"><a href="#gradients">Gradients</a></li>
+<li class="level2"><a href="#masks">Masks</a></li>
+<li class="level2"><a href="#reflections">Reflections</a></li>
+<li class="level2"><a href="#backgrounds">Backgrounds</a></li>
+<li class="level2"><a href="#sidebar-positional-selectors">SIDEBAR Positional Selectors</a></li>
+<li class="level2"><a href="#adapting-images-to-screen-resolution">Adapting Images to Screen Resolution</a></li>
+</ul>
+</div>
+<h1 class="title">Colors and Backgrounds</h1>
+<span class="subtitle"></span>
+<!-- $$$color.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>This section shows how to take advantage of Level 3 CSS color definitions and visual effects supported by WebKit-based browsers. It shows ways to enhance interfaces with background images, and to target images to high-resolution handsets.</p>
+<a name="color-and-opacity"></a>
+<h3>Color and Opacity</h3>
+<p>Color models specified by Level 3 CSS make it much easier to incorporate layered transparency effects into screen layouts. The opacity of an element's <tt>background-color</tt>, <tt>color</tt>, and other color specifications can be manipulated independently of each other, and all are independent of the element's overall <tt>opacity</tt>. In addition, the HSL color model serves as an alternative to RGB. Here is how the newer color models work:</p>
+<ul>
+<li><b>HSL</b>. Colors defined with the HSL model specify the <i>hue</i> as a radial or degree coordinate, then its <i>saturation</i> and <i>luminance</i> as percentages. The following example specifies red and green values:<pre class="cpp">background: hsl(<span class="number">0</span>  <span class="operator">,</span> <span class="number">100</span><span class="operator">%</span><span class="operator">,</span> <span class="number">60</span><span class="operator">%</span>);
+background: hsl(<span class="number">128</span><span class="operator">,</span> <span class="number">75</span><span class="operator">%</span> <span class="operator">,</span> <span class="number">33</span><span class="operator">%</span>);</pre>
+</li>
+<li><b>HSLA</b>. Same as HSL, but specifying an additional decimal <i>alpha</i> value that determines opacity. The following specifies a fully opaque red, followed by a partial transparency:<pre class="cpp">background: hsla(<span class="number">0</span><span class="operator">,</span> <span class="number">100</span><span class="operator">%</span><span class="operator">,</span> <span class="number">60</span><span class="operator">%</span><span class="operator">,</span> <span class="number">1.0</span>);
+background: hsla(<span class="number">0</span><span class="operator">,</span> <span class="number">100</span><span class="operator">%</span><span class="operator">,</span> <span class="number">60</span><span class="operator">%</span><span class="operator">,</span> <span class="number">0.5</span>);</pre>
+</li>
+<li><b>RGBA</b>. Same as RGB, but an additional decimal <i>alpha</i> value specifies opacity. The following shows the same transition from opaque to transparent as above:<pre class="cpp">background: rgba(<span class="number">100</span><span class="operator">%</span><span class="operator">,</span> <span class="number">0</span><span class="operator">%</span><span class="operator">,</span> <span class="number">0</span><span class="operator">%</span><span class="operator">,</span> <span class="number">1.0</span>);
+background: rgba(<span class="number">100</span><span class="operator">%</span><span class="operator">,</span> <span class="number">0</span><span class="operator">%</span><span class="operator">,</span> <span class="number">0</span><span class="operator">%</span><span class="operator">,</span> <span class="number">0.5</span>);</pre>
+</li>
+</ul>
+<p>With the addition of opacity to color definitions, you can now also specify <tt>transparent</tt> as a color name.</p>
+<p>The following full-screen interactive utility helps you build your own RGBA and HSLA color values, and view their opacity against a background image. It displays each color along with the CSS code necessary to reproduce it:</p>
+<p><a href="../examples/utilColor.htm"><img src="images/utilColor.png" alt="" /> </a></p>
+<p><b>Note: </b>As the utility shows, manipulating each background color's alpha channel has no effect on the appearance of foreground text, but each element's <tt>opacity</tt> does. Opacity is cumulative: setting both the background color and the overall opacity to .5 results in a background color of .25.</p><a name="gradients"></a>
+<h3>Gradients</h3>
+<p>Gradients provide a graduated shading effect that can add subtle texture to background elements, and can provide screen controls a beveled, three-dimensional appearance. Support for gradients means no more need to use repeating background images to achieve the same effect.</p>
+<p>Specify gradients anywhere you use a background image:</p>
+<pre class="cpp">background<span class="operator">-</span>image: <span class="preprocessor">#aaaaaa;</span>
+background<span class="operator">-</span>image: <span class="operator">-</span>webkit<span class="operator">-</span>gradient(linear<span class="operator">,</span> center top<span class="operator">,</span> center bottom<span class="operator">,</span>
+                    from(<span class="preprocessor">#dddddd), to(#777777) );</span></pre>
+<p><b>Note: </b>In the example above, the first line serves as a fallback for browsers that don't support WebKit gradients.</p><p>The gradient function's first argument identifies it as <tt>linear</tt>. The following two arguments position the gradient's start and end points from the <tt>center top</tt> to the <tt>center bottom</tt> of the element, which corresponds in x/y terms to <tt>50% 0%</tt> and <tt>50% 100%</tt>. (Fixed units also apply.) The <tt>from</tt> and <tt>to</tt> arguments specify a color shift, in this case from a light to a darker gray. If the start and end points are offset from the edge of the element, these color values fill the remaining space.</p>
+<p>The following example shows how this gradient can be applied to a background element that provides a visual hint for the user's progress through a page:</p>
+<p><a href="../examples/css3_gradientBack.htm"><img src="images/scr_css3_gradientBack.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_gradientBack.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>You can specify more than one gradient for the same element. The following shifts from a dark to a light gray halfway down the element, then back to dark:</p>
+<pre class="cpp">background<span class="operator">-</span>image: <span class="operator">-</span>webkit<span class="operator">-</span>gradient(linear<span class="operator">,</span> center top<span class="operator">,</span> center bottom<span class="operator">,</span>
+                    from(<span class="preprocessor">#777777), color-stop(50%, #dddddd), to(#777777) );</span></pre>
+<p>Here is how the additional <tt>color-stop</tt> appears when applied to the same background element:</p>
+<p><a href="../examples/css3_gradientBackStop.htm"><img src="images/scr_css3_gradientBackStop.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_gradientBackStop.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>Gradients can provide a textured, three-dimensional appearance for buttons. In the following example, pressing a button inverts and darkens its gradient:</p>
+<p><a href="../examples/css3_gradientButton.htm"><img src="images/scr_css3_gradientButton.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_gradientButton.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The following interactive utility helps you build your own linear gradient effects, with any specified transparencies visible against a background image. The sample gradient includes a single <tt>color-stop</tt>, which you can position anywhere between the gradient's <tt>start</tt> and <tt>end</tt> points:</p>
+<p><a href="../examples/utilGradientLinear.htm"><img src="images/utilGradientLinear.png" alt="" /> </a></p>
+<p>Linear gradients progress across an element, but <i>radial</i> gradients emanate from a single point. The following example demonstrates a colorful radial gradient used to mark where users touch the screen:</p>
+<p><a href="../examples/css3_grad-radial.htm"><img src="images/scr_css3_grad-radial.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_grad-radial.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/css3_grad-radial.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>The syntax is slightly different than for linear gradients. The first two comma-separated arguments after the <tt>radial</tt> statement specify the pair of coordinates of the inner circle, and its radius. The next two arguments specify the coordinates and radius of the outer circle. (The <tt>from</tt>, <tt>to</tt>, and <tt>color-stop</tt> syntax elements are the same as for linear gradients.)</p>
+<pre class="cpp">background<span class="operator">-</span>image: <span class="operator">-</span>webkit<span class="operator">-</span>gradient(radial<span class="operator">,</span> <span class="number">90</span> <span class="number">120</span><span class="operator">,</span> <span class="number">5</span><span class="operator">,</span> <span class="number">100</span> <span class="number">130</span><span class="operator">,</span> <span class="number">48</span><span class="operator">,</span>
+                    from(<span class="preprocessor">#777777), color-stop(50%, #dddddd), to(#777777) );</span></pre>
+<p>The following interactive utility helps you build your own radial gradient effects:</p>
+<p><a href="../examples/utilGradientRadial.htm"><img src="images/utilGradientRadial.png" alt="" /> </a></p>
+<a name="masks"></a>
+<h3>Masks</h3>
+<p>Masks offer a way to modify an image by overlaying either a gradient or another image. The following example shows a series of thumbnail images that, until selected, appear faded along their bottom edges due to the linear gradient that has been applied:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>mask<span class="operator">-</span>box<span class="operator">-</span>image : <span class="operator">-</span>webkit<span class="operator">-</span>gradient(linear<span class="operator">,</span> left top<span class="operator">,</span> left
+   bottom<span class="operator">,</span> from(rgba(<span class="number">0</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> <span class="number">1</span>))<span class="operator">,</span> to(rgba(<span class="number">0</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> <span class="number">0</span>)));</pre>
+<p><a href="../examples/css3_mask-grad.htm"><img src="images/scr_css3_mask-grad.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_mask-grad.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/css3_mask-grad.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>The following example demonstrates an image used as a mask to frame another image:</p>
+<p><a href="../examples/css3_mask-img.htm"><img src="images/scr_css3_mask-img.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_mask-img.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>Separately, the component images look like this:</p>
+<p class="centerAlign"><img src="images/mask0.png" alt="" /></p><p class="centerAlign"><img src="images/mask1.png" alt="" /></p><p>The syntax is the same for <a href="border.html#border-images">border images</a>, allowing you to <tt>stretch</tt> one image over the other:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>mask<span class="operator">-</span>box<span class="operator">-</span>image : url(img<span class="operator">/</span>mask<span class="operator">.</span>png) <span class="number">5</span><span class="operator">%</span> stretch;</pre>
+<a name="reflections"></a>
+<h3>Reflections</h3>
+<p>Reflections offer a mirror-like effect which, in the following example, adds a sense of weight to headings and images:</p>
+<p><a href="../examples/css3_reflect.htm"><img src="images/scr_css3_reflect.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_reflect.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The property's syntax specifies the edge of the element at which to reflect, the offset, and an overlay color. In this case, the color is a linear gradient that causes the reflection to gradually fade:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>reflect : below <span class="operator">-</span><span class="number">0.25em</span> <span class="operator">-</span>webkit<span class="operator">-</span>gradient(linear<span class="operator">,</span> center
+            top<span class="operator">,</span> center bottom<span class="operator">,</span> from(transparent)<span class="operator">,</span> color<span class="operator">-</span>stop(<span class="number">0.25</span><span class="operator">,</span>
+            transparent)<span class="operator">,</span> to(black));</pre>
+<a name="backgrounds"></a>
+<h3>Backgrounds</h3>
+<p>Level 3 CSS allows elements to specify more than one background image, and enables greater flexibility over their size and position.</p>
+<p>The following example shows an accordion-style tabbed interface. In their default collapsed state, tabs display a single background icon image, but when selected feature an additional <a href="#gradients">gradient image</a> in the background. Specifications for each are separated with commas:</p>
+<pre class="cpp">background<span class="operator">-</span>image    : url(img<span class="operator">/</span>icon_head<span class="operator">-</span>expanded_x13<span class="operator">.</span>png)<span class="operator">,</span>
+    <span class="operator">-</span>webkit<span class="operator">-</span>gradient(linear<span class="operator">,</span> <span class="number">50</span><span class="operator">%</span> <span class="number">0</span><span class="operator">%</span><span class="operator">,</span> <span class="number">50</span><span class="operator">%</span> <span class="number">100</span><span class="operator">%</span><span class="operator">,</span> from(<span class="preprocessor">#777777), to(#eeeeee));</span>
+background<span class="operator">-</span>position : <span class="number">12px</span> <span class="number">12px</span><span class="operator">,</span> <span class="number">0</span> <span class="number">0</span>;
+background<span class="operator">-</span>repeat   : no<span class="operator">-</span>repeat;</pre>
+<p><a href="../examples/css3_backgrounds.htm"><img src="images/scr_css3_backgrounds.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_backgrounds.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/css3_backgrounds.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p><b>Note: </b>In addition to gradients, backgrounds may reference SVGs via URL.</p><p>In the example above, the icon image is offset by 12 pixels, while the gradient is alignd with the edge of the element. Offsets can be used to produce creative visual effects, such as the following modified example in which <a href="animation.html">animated icons</a> slide in and out of view:</p>
+<pre class="cpp">dt {
+    background<span class="operator">-</span>image    : url(img<span class="operator">/</span>icon_head<span class="operator">-</span>collapsed_x13<span class="operator">.</span>png)<span class="operator">,</span>
+                          url(img<span class="operator">/</span>icon_head<span class="operator">-</span>expanded_x13<span class="operator">.</span>png);
+    background<span class="operator">-</span>repeat   : no<span class="operator">-</span>repeat;
+    background<span class="operator">-</span>position : <span class="number">12px</span> <span class="number">12px</span><span class="operator">,</span> <span class="number">12px</span> <span class="operator">-</span><span class="number">12px</span>;
+    <span class="operator">-</span>webkit<span class="operator">-</span>transition  : background<span class="operator">-</span>position <span class="number">0.5s</span>;
+}
+dt<span class="operator">.</span>selected {
+    background<span class="operator">-</span>position : <span class="operator">-</span><span class="number">12px</span> <span class="number">12px</span><span class="operator">,</span> <span class="number">12px</span> <span class="number">12px</span>;
+}</pre>
+<p><a href="../examples/css3_backgrounds-pos.htm"><img src="images/scr_css3_backgrounds_pos.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_backgrounds-pos.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The following shows the various properties available for each background image:</p>
+<ul>
+<li><tt>background-size</tt> allows you to customize the size of the image to fit the element within which it appears. It accepts three keywords:<ul>
+<li><tt>auto</tt> maintains the original size of the image.</li>
+<li><tt>contain</tt> resizes the image as large as possible so that it fully displays within the containing element, while keeping its aspect ratio intact.</li>
+<li><tt>cover</tt> resizes the image to fill the element completely, clipping an edge from the image if necessary.</li>
+</ul>
+<p>You can also supply percentage arguments for X/Y dimensions. For example, <tt>100% 100%</tt> snaps the image to the exact dimensions of the containing element, distorting the image's aspect ratio if necessary. You can also specify fixed measurements such as pixels.</p>
+</li>
+<li><tt>background-position</tt> specifies where within the element the image is to appear. It accepts up to two percentage measurements for X/Y position. You can substitute keywords <tt>top</tt> and <tt>left</tt> (0%), <tt>bottom</tt> and <tt>right</tt> (100%), as well as <tt>center</tt> (50%). You can also specify fixed measurents such as pixels, or any kind of negative measurement to bleed the image outside the containing element.</li>
+<li><tt>background-origin</tt> specifies the portion of the element from which to calculate position, either the outer <tt>border-box</tt>, the <tt>padding-box</tt>, or the innermost <tt>content-box</tt>.</li>
+<li><tt>background-clip</tt> specifies the portion of the element within which to display, either the outer <tt>border-box</tt>, the <tt>padding-box</tt>, or the innermost <tt>content-box</tt>. Thus if the image originates in the <tt>border-box</tt> but displays in the <tt>content-box</tt>, its top and left edges may be clipped.</li>
+<li><tt>background-repeat</tt> specifies whether to display the image once or to tile images repeatedly along any axis. Values include <tt>repeat</tt>, <tt>repeat-x</tt>, <tt>repeat-y</tt>, or <tt>no-repeat</tt>. While this property pre-dates Level 3 CSS, note that it can be applied separately to more than one background image using comma-separated values as described above.</li>
+</ul>
+<p>The following interactive utility shows how all these properties interact within an element with generous border and padding widths.</p>
+<p><a href="../examples/utilBackground.htm"><img src="images/utilBackground.png" alt="" /> </a></p>
+<p><b>Note: </b>Mobile browsers may not support <tt>background-attachment:fixed</tt>, which would ordinarily assign a background image to a fixed portion of the screen so that it doesn't scroll along with other content. See <a href="layout.html#flexible-positioning">Flexible Positioning</a> for information on the more useful <tt>position:fixed</tt> property.</p><blockquote><a name="sidebar-positional-selectors"></a>
+<h3>SIDEBAR Positional Selectors</h3>
+<p>Various dynamic classes allow you to style elements depending on their position with a series of elements: either elements of the same type, or other child elements of the same parent. The following example aligns a series of icons to a grid:</p>
+<p><a href="../examples/css3_sel-nth.htm"><img src="images/scr_css3_sel-nth.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_sel-nth.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>Columns are specified with the <tt>:nth-of-type()</tt> selector, which accepts numeric expressions as arguments. The following selectors refer to every fourth <tt>img</tt> element, but offset by a specified number:</p>
+<pre class="cpp">img                   { position: absolute }
+img:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">4n</span><span class="operator">-</span><span class="number">3</span>) { left: <span class="number">2</span><span class="operator">%</span> }
+img:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">4n</span><span class="operator">-</span><span class="number">2</span>) { left: <span class="number">27</span><span class="operator">%</span> }
+img:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">4n</span><span class="operator">-</span><span class="number">1</span>) { left: <span class="number">52</span><span class="operator">%</span> }
+img:nth<span class="operator">-</span>of<span class="operator">-</span>type(<span class="number">4n</span><span class="operator">-</span><span class="number">0</span>) { left: <span class="number">77</span><span class="operator">%</span> }</pre>
+<p>Alternately, keywords <tt>odd</tt> and <tt>even</tt> correspond to <tt>2n-1</tt> and <tt>2n</tt> expressions. These are useful, for example, when styling table rows with alternating background colors.</p>
+<p>Rows are represented as the number of the element within the series, plus a fixed number. In this case, each selector redefines the previous selector's upper range of values:</p>
+<pre class="cpp">img:nth<span class="operator">-</span>of<span class="operator">-</span>type(n)    { top: <span class="number">5</span><span class="operator">%</span> }
+img:nth<span class="operator">-</span>of<span class="operator">-</span>type(n<span class="operator">+</span><span class="number">5</span>)  { top: <span class="number">20</span><span class="operator">%</span> }
+img:nth<span class="operator">-</span>of<span class="operator">-</span>type(n<span class="operator">+</span><span class="number">9</span>)  { top: <span class="number">35</span><span class="operator">%</span> }
+img:nth<span class="operator">-</span>of<span class="operator">-</span>type(n<span class="operator">+</span><span class="number">13</span>) { top: <span class="number">50</span><span class="operator">%</span> }
+img:nth<span class="operator">-</span>of<span class="operator">-</span>type(n<span class="operator">+</span><span class="number">17</span>) { top: <span class="number">65</span><span class="operator">%</span> }
+img:nth<span class="operator">-</span>of<span class="operator">-</span>type(n<span class="operator">+</span><span class="number">21</span>) { top: <span class="number">80</span><span class="operator">%</span> }</pre>
+<p>Level 3 CSS defines the following positional selectors:</p>
+<ul>
+<li><tt>:first-child</tt>, <tt>:last-child</tt>, and <tt>:only-child</tt> refer to the first or last child element within a series, or when it is the only one.</li>
+<li><tt>:first-of-type</tt>, <tt>:last-of-type</tt>, and <tt>:only-of-type</tt> refer to the first or last specified element within a series, or when it is the only one.</li>
+<li><tt>:nth-first-child()</tt> and <tt>:nth-last-child()</tt> refer to the specified child element positioned from the start or end of the series.</li>
+<li><tt>:nth-first-of-type()</tt> and <tt>:nth-last-of-type()</tt> refer to the specified element positioned from the start or end of the series.</li>
+<li><tt>:nth-of-type()</tt> refers to any series of specified elements.</li>
+<li><tt>:nth-child()</tt> refers to any series of child elements.</li>
+</ul>
+</blockquote>
+<a name="adapting-images-to-screen-resolution"></a>
+<h3>Adapting Images to Screen Resolution</h3>
+<p>Mobile browsers operate on handsets with increasingly high-resolution screens. By default, these screens would render images far too small. There is also significant variation among handsets as screen resolutions increase. To compensate, browsers use a separate grid of <i>CSS pixels</i> to calculate measurements. This lower-resolution grid undergoes a translation to each handset's set of higher-resolution device screen pixels. The typical ratio between CSS pixels and device pixels, available via <tt>window.devicePixelRatio</tt>, ranges from 1.5 to 2.</p>
+<p><a href="query.html">CSS media queries</a> allow you to target images to each handset so that they scale to display at the best possible resolution. The following example shows three differently sized icons set to fit as a <a href="#backgrounds">background image</a> within a 64-pixel-wide block. As shown in the magnified image on the right, the quality of the assigned image increases along with screen resolution. The media queries specified below assigns the 128-pixel icon on handsets whose <tt>device-pixel-ratio</tt> is 2.</p>
+<pre class="cpp">nav:last<span class="operator">-</span>of<span class="operator">-</span>type {
+    background<span class="operator">-</span>image     : url(<span class="string">&quot;img/webkit64.png&quot;</span>);
+}
+@media all <span class="keyword">and</span> (<span class="operator">-</span>webkit<span class="operator">-</span>min<span class="operator">-</span>device<span class="operator">-</span>pixel<span class="operator">-</span>ratio:<span class="number">1.5</span>) {
+    nav:last<span class="operator">-</span>of<span class="operator">-</span>type {
+        background<span class="operator">-</span>image : url(<span class="string">&quot;img/webkit96.png&quot;</span>);
+    }
+}
+@media all <span class="keyword">and</span> (<span class="operator">-</span>webkit<span class="operator">-</span>min<span class="operator">-</span>device<span class="operator">-</span>pixel<span class="operator">-</span>ratio:<span class="number">2</span>) {
+    nav:last<span class="operator">-</span>of<span class="operator">-</span>type {
+        background<span class="operator">-</span>image : url(<span class="string">&quot;img/webkit128.png&quot;</span>);
+    }
+}</pre>
+<p><a href="../examples/layout_res.htm"><img src="images/scr_layout_res2.png" alt="" /> <img src="images/scr_layout_res.png" alt="" /> </a></p>
+<p><a href="../examples/css/layout_res.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>Resolution-specific media queries can be used very flexibly. The <a href="layout.html#the-mobile-viewport">viewport meta tag</a> features a separate <tt>target-densitydpi</tt> option to scale down images, but one that <i>cannot</i> be customized for different handsets. The following viewport specifies that when displaying images (or other elements that rely on pixel measurements), ignore the CSS pixel grid and instead use the <tt>device-dpi</tt>. The images show a page before and after this viewport property is applied, as it appears on a handset whose <tt>device-pixel-ratio</tt> is 1.5:</p>
+<pre class="cpp"><span class="operator">&lt;</span>meta name<span class="operator">=</span><span class="string">&quot;viewport&quot;</span> content<span class="operator">=</span><span class="string">&quot;width=device-width, target-densitydpi=device-dpi&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p><img src="images/view_on_p.PNG" alt="" /> <img src="images/view_on_dpi_p.PNG" alt="" /> .</p>
+<p><b>Note: </b>The <tt>target-densitydpi</tt> viewport property should be used with great care. It can only be applied to entire windows, and it may affect non-image content in unexpected ways. Since it can't be customized for handsets with different resolutions, the feature is most appropriate for repeating background patterns or similarly open-ended graphic interfaces such as maps or virtual reality games.</p></div>
+<!-- @@@color.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

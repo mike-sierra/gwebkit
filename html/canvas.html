@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 34_canvas.qdoc -->
+  <title>mobile_html5 : Canvas</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#paths">Paths</a></li>
+<li class="level1"><a href="#rectangles">Rectangles</a></li>
+<li class="level1"><a href="#reading-and-writing-images">Reading and Writing Images</a></li>
+<li class="level1"><a href="#clipping-paths">Clipping Paths</a></li>
+<li class="level1"><a href="#arcs-and-curves">Arcs and Curves</a></li>
+<li class="level1"><a href="#transforms-and-canvas-state">Transforms and Canvas State</a></li>
+<li class="level1"><a href="#placing-text">Placing Text</a></li>
+<li class="level1"><a href="#line-effects-shadows-gradients-and-patterns">Line Effects, Shadows, Gradients, and Patterns</a></li>
+<li class="level1"><a href="#compositing">Compositing</a></li>
+<li class="level1"><a href="#editing-selections">Editing Selections</a></li>
+<li class="level1"><a href="#canvas-via-css">Canvas via CSS</a></li>
+</ul>
+</div>
+<h1 class="title">Canvas</h1>
+<span class="subtitle"></span>
+<!-- $$$canvas.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>The Browser supports HTML5 <i>canvas</i> graphics. The <tt>canvas</tt> element provides a transparent painting surface on which newly placed graphic elements overwrite existing pixel data. To start drawing, specify the canvas's <tt>width</tt> and <tt>height</tt> to set the pixel dimensions of the painting surface:</p>
+<pre class="cpp"><span class="operator">&lt;</span>canvas id<span class="operator">=</span><span class="string">&quot;graphic&quot;</span> width<span class="operator">=</span><span class="string">&quot;320&quot;</span> height<span class="operator">=</span><span class="string">&quot;370&quot;</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span><span class="operator">!</span><span class="operator">-</span><span class="operator">-</span> fallback content <span class="operator">-</span><span class="operator">-</span><span class="operator">&gt;</span>
+    Sorry<span class="operator">,</span> your browser does <span class="keyword">not</span> support HTML5 Canvas<span class="operator">.</span>
+<span class="operator">&lt;</span><span class="operator">/</span>canvas<span class="operator">&gt;</span></pre>
+<p>The canvas's dimensions can be modified superficially via CSS, but changing the actual number of pixels clears any current image data. Here are two ways to shrink a canvas to half its size, the latter of which clears any displaying pixels:</p>
+<pre class="cpp">var cv <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'canvas'</span>);
+
+<span class="comment">// displays pixels:</span>
+cv<span class="operator">.</span>style<span class="operator">.</span>width <span class="operator">=</span> Math<span class="operator">.</span>floor(cv<span class="operator">.</span>width <span class="operator">/</span> <span class="number">2</span>) <span class="operator">+</span> <span class="char">'px'</span>;
+cv<span class="operator">.</span>style<span class="operator">.</span>height <span class="operator">=</span> Math<span class="operator">.</span>floor(cv<span class="operator">.</span>width <span class="operator">/</span> <span class="number">2</span>) <span class="operator">+</span> <span class="char">'px'</span>;
+
+<span class="comment">// clears pixels:</span>
+cv<span class="operator">.</span>width <span class="operator">=</span> Math<span class="operator">.</span>floor(cv<span class="operator">.</span>width <span class="operator">/</span> <span class="number">2</span>);
+cv<span class="operator">.</span>height <span class="operator">=</span> Math<span class="operator">.</span>floor(cv<span class="operator">.</span>height <span class="operator">/</span> <span class="number">2</span>);</pre>
+<p>Use the canvas's two-dimensional <i>context</i> to access the API that modifies its contents:</p>
+<pre class="cpp">var cv <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'canvas'</span>);
+var cx <span class="operator">=</span> cv<span class="operator">.</span>getContext(<span class="char">'2d'</span>);
+<span class="comment">// canvas also available as cx.canvas</span></pre>
+<p><b>Note: </b>Mobile browsers do not yet support the three-dimensional WebGL canvas context.</p><p>This section offers a brief tour of canvas's core graphics effects.</p>
+<a name="paths"></a>
+<h2>Paths</h2>
+<p>This simple example shows a series of graphic commands that draws the accompanying arrow:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasArrow.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>fillStyle <span class="operator">=</span> <span class="char">'red'</span>;
+cx<span class="operator">.</span>strokeStyle <span class="operator">=</span> <span class="char">'rgba(100%, 100%, 100%, 0.5)'</span>; <span class="comment">// semi-transparent</span>
+cx<span class="operator">.</span>lineWidth <span class="operator">=</span> <span class="number">10</span>;
+
+cx<span class="operator">.</span>beginPath();
+cx<span class="operator">.</span>moveTo(<span class="number">70</span><span class="operator">,</span><span class="number">15</span>);
+cx<span class="operator">.</span>lineTo(<span class="number">10</span><span class="operator">,</span><span class="number">115</span>);
+cx<span class="operator">.</span>lineTo(<span class="number">40</span><span class="operator">,</span><span class="number">115</span>);
+cx<span class="operator">.</span>lineTo(<span class="number">40</span><span class="operator">,</span><span class="number">225</span>);
+cx<span class="operator">.</span>lineTo(<span class="number">100</span><span class="operator">,</span><span class="number">225</span>);
+cx<span class="operator">.</span>lineTo(<span class="number">100</span><span class="operator">,</span><span class="number">115</span>);
+cx<span class="operator">.</span>lineTo(<span class="number">130</span><span class="operator">,</span><span class="number">115</span>);
+cx<span class="operator">.</span>lineTo(<span class="number">70</span><span class="operator">,</span><span class="number">15</span>);
+cx<span class="operator">.</span>closePath();
+
+cx<span class="operator">.</span>fill();
+cx<span class="operator">.</span>stroke();</pre>
+</td></tr>
+</table>
+<p>After an initial <tt>beginPath()</tt> declaration, the <tt>moveTo()</tt> coordinate sets an origin point for the shape. The path is defined by a series of <tt>lineTo()</tt> coordinates, ended by <tt>closePath()</tt>. The shape only renders when either <tt>fill()</tt> or <tt>stroke()</tt> are called. Global properties such as <tt>fillStyle</tt>, <tt>strokeStyle</tt>, and <tt>lineWidth</tt> configure their appearance.</p>
+<p>Since canvases are based on pixels rather than vector objects, most shapes you add cannot respond independently to touch input. However, the <tt>isPointInPath()</tt> method allows you to test whether a coordinate falls within the most recently declared path. The following touch handler, attached to the <tt>canvas</tt> element, responds only when the touch point falls within the arrow:</p>
+<pre class="cpp">document<span class="operator">.</span>querySelector(<span class="char">'canvas'</span>)<span class="operator">.</span>addEventListener(<span class="char">'touchstart'</span><span class="operator">,</span> function(e) {
+    <span class="keyword">if</span> (<span class="operator">!</span> event<span class="operator">.</span>target<span class="operator">.</span>getContext(<span class="char">'2d'</span>)<span class="operator">.</span>isPointInPath(
+       e<span class="operator">.</span>targetTouches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>offsetX<span class="operator">,</span> e<span class="operator">.</span>targetTouches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>offsetY ) )
+           <span class="keyword">return</span>(<span class="keyword">false</span>);
+    <span class="comment">// touch falls within arrow</span>
+});</pre>
+<p>The <tt>targetTouches</tt> array further helps identify touch points that fall within the canvas itself. For more information, see <a href="touch.html">Touch Gestures</a>.</p>
+<a name="rectangles"></a>
+<h2>Rectangles</h2>
+<p>The <tt>rect()</tt> method defines a rectangular path that behaves the same way as the polygon above. It requires <i>x</i> and <tt>y</tt> offsets, followed by width and height. The <tt>fillRect()</tt> and <tt>strokeRect()</tt> methods provide common shortcuts, while <tt>clearRect()</tt> removes regions of pixels. (Adding transparent pixels does not change existing pixels.) This draws various rectangular patterns behind the arrow:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasArrowRect.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>fillStyle <span class="operator">=</span> <span class="char">'lightblue'</span>;
+<span class="comment">// cx.rect(0,0,140,240);</span>
+<span class="comment">// cx.fill();</span>
+cx<span class="operator">.</span>fillRect(<span class="number">0</span><span class="operator">,</span><span class="number">0</span><span class="operator">,</span><span class="number">140</span><span class="operator">,</span><span class="number">240</span>);  <span class="comment">// same as 2 commented lines above</span>
+
+cx<span class="operator">.</span>clearRect(<span class="number">20</span><span class="operator">,</span><span class="number">20</span><span class="operator">,</span><span class="number">100</span><span class="operator">,</span><span class="number">200</span>); <span class="comment">// removes pixels</span>
+
+cx<span class="operator">.</span>strokeStyle <span class="operator">=</span> <span class="char">'gold'</span>;
+cx<span class="operator">.</span>lineWidth <span class="operator">=</span> <span class="number">6</span>;
+<span class="comment">// cx.rect(30,30,80,180);</span>
+<span class="comment">// cx.stroke();</span>
+cx<span class="operator">.</span>strokeRect(<span class="number">30</span><span class="operator">,</span><span class="number">30</span><span class="operator">,</span><span class="number">80</span><span class="operator">,</span><span class="number">180</span>); <span class="comment">// same as 2 commented lines above</span>
+
+<span class="comment">// ...draw arrow</span></pre>
+</td></tr>
+</table>
+<a name="reading-and-writing-images"></a>
+<h2>Reading and Writing Images</h2>
+<p>To import an image into a canvas, reference its DOM object. This places the image at the top left corner:</p>
+<pre class="cpp">var img <span class="operator">=</span> <span class="keyword">new</span> Image();
+img<span class="operator">.</span>src <span class="operator">=</span> <span class="string">&quot;img/sign.jpg&quot;</span>;
+cx<span class="operator">.</span>drawImage(img<span class="operator">,</span><span class="number">0</span><span class="operator">,</span><span class="number">0</span>);</pre>
+<p>Alternately, you can import another <tt>canvas</tt> object. With two additional measurements, <tt>drawImage()</tt> only renders the image within a specified width and height. With eight measurements, the first four specify the offsets and dimensions of the source image, and the next four specify the same for the destination canvas. This shows a 42 &times; 42 selection from the source image that is doubled in size and placed at the canvas's top left corner:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasImgSize.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>drawImage(img<span class="operator">,</span><span class="number">160</span><span class="operator">,</span><span class="number">272</span><span class="operator">,</span><span class="number">42</span><span class="operator">,</span><span class="number">42</span><span class="operator">,</span><span class="number">0</span><span class="operator">,</span><span class="number">0</span><span class="operator">,</span><span class="number">84</span><span class="operator">,</span><span class="number">84</span>);</pre>
+</td></tr>
+</table>
+<p>To save the contents of a canvas as a static image, use the canvas object's <tt>toDataURL()</tt> method. The canvas object is also available by calling <tt>context.canvas</tt>:</p>
+<pre class="cpp">var img <span class="operator">=</span> <span class="keyword">new</span> Image();
+img<span class="operator">.</span>src <span class="operator">=</span> cx<span class="operator">.</span>canvas<span class="operator">.</span>toDataUrl();
+<span class="comment">// also toDataUrl('image/png') or toDataUrl('image/jpeg');</span>
+<span class="comment">// toDataUrl('image/jpeg', 0.5) renders JPEG at &quot;half&quot; quality</span></pre>
+<p>This produces a <tt>data:</tt> prefixed encoding of the image data that can be substituted for an external filename. Here's an example of an image that's been modified to include the arrow:</p>
+<p class="centerAlign"><img src="images/canvasDrawImage.png" alt="" /></p><a name="clipping-paths"></a>
+<h2>Clipping Paths</h2>
+<p>The <tt>clip()</tt> method allows you to limit the scope of graphics operations to within the currently defined path. For example, after defining the path for the arrow as shown above, you can fill it with an image:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvas_clip.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>beginPath();
+<span class="comment">// ...define arrow</span>
+cx<span class="operator">.</span>endPath();
+
+cx<span class="operator">.</span>clip(); <span class="comment">// subsequent graphics appear only within path</span>
+
+var img <span class="operator">=</span> <span class="keyword">new</span> Image();
+img<span class="operator">.</span>src <span class="operator">=</span> <span class="string">&quot;img/sign.jpg&quot;</span>;
+cx<span class="operator">.</span>drawImage(img<span class="operator">,</span><span class="operator">-</span><span class="number">110</span><span class="operator">,</span><span class="operator">-</span><span class="number">200</span>); <span class="comment">// offsets to frame selected portion</span></pre>
+</td></tr>
+</table>
+<a name="arcs-and-curves"></a>
+<h2>Arcs and Curves</h2>
+<p>Arcs offer another way to define a path. The <tt>arc()</tt> method accepts six arguments: a pair of <i>x</i>/<i>y</i> coordinates at the center point, a radius measurement in pixels, and a pair of start and end angles, originating from the right edge and measured in radians. A sixth boolean argument specifies if the arc renders along a counterclockwise path. The following shows a pair of arcs that specify a 5:00 position relative to the origin:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasArc.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>beginPath();
+cx<span class="operator">.</span>arc(<span class="number">50</span><span class="operator">,</span> <span class="number">50</span><span class="operator">,</span> <span class="number">40</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> (Math<span class="operator">.</span>PI<span class="operator">*</span><span class="number">5</span>)<span class="operator">/</span><span class="number">6</span><span class="operator">,</span> <span class="keyword">false</span>);
+cx<span class="operator">.</span>closePath()
+cx<span class="operator">.</span>stroke();
+
+cx<span class="operator">.</span>beginPath();
+cx<span class="operator">.</span>arc(<span class="number">150</span><span class="operator">,</span> <span class="number">50</span><span class="operator">,</span> <span class="number">40</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> (Math<span class="operator">.</span>PI<span class="operator">*</span><span class="number">5</span>)<span class="operator">/</span><span class="number">6</span><span class="operator">,</span> <span class="keyword">true</span>);
+cx<span class="operator">.</span>stroke();
+cx<span class="operator">.</span>closePath()</pre>
+</td></tr>
+</table>
+<p>The <tt>arcTo()</tt> method accepts five arguments: a pair of <i>x</i>/<i>y</i> coordinates for a control point, another pair for a destination point, and a radius. It works differently than the <tt>arc()</tt> method, fitting the arc within the angle that forms between the starting point, the control point, and the destination point. This example compares arcs that are defined by the same set of control and destination points, but that vary in radius:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><pre class="cpp">cx<span class="operator">.</span>arcTo(<span class="number">250</span><span class="operator">,</span> <span class="number">50</span><span class="operator">,</span> <span class="number">250</span><span class="operator">,</span> <span class="number">250</span><span class="operator">,</span> <span class="number">100</span>);</pre>
+<p class="centerAlign"><img src="images/canvasArcTo1.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>arcTo(<span class="number">250</span><span class="operator">,</span> <span class="number">50</span><span class="operator">,</span> <span class="number">250</span><span class="operator">,</span> <span class="number">250</span><span class="operator">,</span> <span class="number">50</span>);</pre>
+<p class="centerAlign"><img src="images/canvasArcTo2.png" alt="" /></p></td></tr>
+</table>
+<p>The <tt>arcTo()</tt> method renders any necessary line leading up to the arc, but not following it. The <tt>quadraticCurveTo()</tt> method also requires coordinates for control point and destination point, and renders curves more flexibly:</p>
+<pre class="cpp">cx<span class="operator">.</span>quadraticCurveTo(<span class="number">250</span><span class="operator">,</span> <span class="number">50</span><span class="operator">,</span> <span class="number">250</span><span class="operator">,</span> <span class="number">250</span>);</pre>
+<p class="centerAlign"><img src="images/canvasQuad.png" alt="" /></p><p>The <tt>bezierCurveTo()</tt> method works the same way, but uses an additional control point to define more complex curves:</p>
+<pre class="cpp">cx<span class="operator">.</span>bezierCurveTo(<span class="number">250</span><span class="operator">,</span> <span class="number">50</span><span class="operator">,</span> <span class="number">50</span><span class="operator">,</span> <span class="number">250</span><span class="operator">,</span> <span class="number">250</span><span class="operator">,</span> <span class="number">250</span>);</pre>
+<p class="centerAlign"><img src="images/canvasBez.png" alt="" /></p><p>Use the following interactive utility to see how various curves appear with different sets of control points, and see how they are reflected as JavaScript code. This example shows how <tt>arcTo()</tt> behaves when there's not enough room to place the arc between a set of control points.</p>
+<p><a href="../examples/canvasCurve.htm"> <img src="images/canvasCurve.png" alt="" /> </a></p>
+<a name="transforms-and-canvas-state"></a>
+<h2>Transforms and Canvas State</h2>
+<p>In the examples above, all new graphics are positioned relative to the canvas's default top-left origin point. <i>Transforms</i> allow you to shift this origin point, and rotate and scale the painting surface within the canvas prior to rendering a graphic.</p>
+<p>In this example, invoking a series of transforms prior to drawing the arrow repositions, rotates, and shrinks it. (The second example highlights the transformed coordinate space.)</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasTrans.png" alt="" /></p></td><td ><p class="centerAlign"><img src="images/canvasTrans2.png" alt="" /></p></td><td ><pre class="cpp">var deg <span class="operator">=</span> <span class="number">120</span>;
+cx<span class="operator">.</span>translate(<span class="number">180</span><span class="operator">,</span><span class="number">240</span>);
+cx<span class="operator">.</span>rotate((Math<span class="operator">.</span>PI<span class="operator">/</span><span class="number">180</span>) <span class="operator">*</span> deg); <span class="comment">// requires radians</span>
+cx<span class="operator">.</span>scale(<span class="number">0.5</span><span class="operator">,</span> <span class="number">0.5</span>);
+
+<span class="comment">// show original dimensions:</span>
+cx<span class="operator">.</span>strokeStyle <span class="operator">=</span> <span class="char">'gold'</span>;
+cx<span class="operator">.</span>lineWidth <span class="operator">=</span> <span class="number">4</span>;;
+cx<span class="operator">.</span>strokeRect(<span class="number">0</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> cv<span class="operator">.</span>width<span class="operator">,</span> cv<span class="operator">.</span>height);</pre>
+</td></tr>
+</table>
+<p>Unlike CSS, subsequent transforms appear <i>relative</i> to the current transformed space, so resetting each to default values has no effect. To reset transforms to their original state, use <tt>setTransform()</tt> to specify a two-dimensional <i>matrix</i> using default values:</p>
+<pre class="cpp">setTransform(<span class="number">1</span><span class="operator">,</span><span class="number">0</span><span class="operator">,</span><span class="number">0</span><span class="operator">,</span><span class="number">1</span><span class="operator">,</span><span class="number">0</span><span class="operator">,</span><span class="number">0</span>);</pre>
+<p>Matrixes provide an alternative mathematical representation that consolidates individual transform effects. The <tt>transform()</tt> method also accepts a 2D matrix, but makes only relative changes, as with <tt>translate()</tt>, <tt>rotate()</tt>, and <tt>scale()</tt>. (See the <a href="api.html#use-advanced-css-formatting">section on Level 3 CSS</a> for an interactive demonstration of 2D matrix transforms.)</p>
+<p>The <tt>save()</tt> method provides an alternate way to control transforms and other global properties. It pushes the current transform onto a stack of application states, and the <tt>restore()</tt> method pops the previous state. This example performs the same transform as above, but returns the canvas to its original state:</p>
+<pre class="cpp"><span class="comment">// ...render graphics within default coordinates...</span>
+cx<span class="operator">.</span>save();
+var deg <span class="operator">=</span> <span class="number">120</span>;
+cx<span class="operator">.</span>translate(<span class="number">180</span><span class="operator">,</span><span class="number">240</span>);
+cx<span class="operator">.</span>rotate((Math<span class="operator">.</span>PI<span class="operator">/</span><span class="number">180</span>) <span class="operator">*</span> deg);
+cx<span class="operator">.</span>scale(<span class="number">0.5</span><span class="operator">,</span> <span class="number">0.5</span>);
+<span class="comment">// ...render arrow within transformed coordinates...</span>
+cx<span class="operator">.</span>restore();
+<span class="comment">// ...render subsequent graphics within default coordinates...</span></pre>
+<p>Along with transforms, most of canvas's global properties can be altered and restored in this fashion.</p>
+<a name="placing-text"></a>
+<h2>Placing Text</h2>
+<p>Text behaves much the same as paths, applying the same global <tt>fillText()</tt> and <tt>strokeText()</tt> values as shapes you define. The <tt>font()</tt> method accepts the same syntax as shorthand CSS font properties, but with no support for <a href="font.html">custom fonts</a>:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasText.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>fillStyle <span class="operator">=</span> <span class="char">'red'</span>;
+cx<span class="operator">.</span>strokeStyle <span class="operator">=</span> <span class="char">'black'</span>;
+cx<span class="operator">.</span>lineWidth <span class="operator">=</span> <span class="number">1</span>;
+
+cx<span class="operator">.</span>textBaseline <span class="operator">=</span> <span class="char">'bottom'</span>;
+cx<span class="operator">.</span>font <span class="operator">=</span> <span class="char">'bold 40px sans-serif'</span>;
+cx<span class="operator">.</span>fillText(<span class="char">'You Are Here'</span><span class="operator">,</span> <span class="number">30</span><span class="operator">,</span> <span class="number">100</span>);
+cx<span class="operator">.</span>strokeText(<span class="char">'You Are Here'</span><span class="operator">,</span> <span class="number">30</span><span class="operator">,</span> <span class="number">100</span>);</pre>
+</td></tr>
+</table>
+<p>Text appears at the specified coordinates, with <tt>textBaseline</tt> controlling how it is placed relative to the horizontal line starting from the <i>y</i> coordinate. The <tt>alphabetic</tt> baseline is a standard for Roman fonts, excluding descenders, and <tt>ideographic</tt> provides similar metrics to align CJK characters. The <tt>top</tt> and <tt>bottom</tt> baselines provide clearance around descenders and various accent marks, and <tt>middle</tt> falls between those two lines. The <tt>hanging</tt> baseline is for Indic scripts that fall from a baseline in much the same way that Roman characters rise from it.</p>
+<p>Canvas does not provide any native method to wrap text. To check if text fits within the available area, use the <tt>measureText()</tt> method, testing the returned <tt>TextMetrics</tt> object's <tt>width</tt> value:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasTextMetric.png" alt="" /></p></td><td ><pre class="cpp"><span class="keyword">if</span> (cx<span class="operator">.</span>measureText(<span class="char">'This is Where You Are'</span>)<span class="operator">.</span>width <span class="operator">&gt;</span> <span class="number">250</span>) {
+    cx<span class="operator">.</span>textAlign <span class="operator">=</span> <span class="char">'center'</span>;
+    <span class="comment">// 1st line:</span>
+    cx<span class="operator">.</span>fillText(<span class="char">'This is Where'</span><span class="operator">,</span> <span class="number">160</span><span class="operator">,</span> <span class="number">100</span>);
+    cx<span class="operator">.</span>strokeText(<span class="char">'This is Where'</span><span class="operator">,</span> <span class="number">160</span><span class="operator">,</span> <span class="number">100</span>);
+    <span class="comment">// 2nd line:</span>
+    cx<span class="operator">.</span>fillText(<span class="char">'You Are'</span><span class="operator">,</span> <span class="number">160</span><span class="operator">,</span> <span class="number">150</span>);
+    cx<span class="operator">.</span>strokeText(<span class="char">'You Are'</span><span class="operator">,</span> <span class="number">160</span><span class="operator">,</span> <span class="number">150</span>);
+}</pre>
+</td></tr>
+</table>
+<p>The <tt>textAlign()</tt> method specifies how text flows relative to the supplied <i>x</i> coordinate. It accepts <tt>left</tt>, <tt>right</tt>, <tt>center</tt> values, or locale-independent variants <tt>start</tt> or <tt>end</tt>.</p>
+<a name="line-effects-shadows-gradients-and-patterns"></a>
+<h2>Line Effects, Shadows, Gradients, and Patterns</h2>
+<p>The <tt>lineJoin</tt> property affects how angles appear along a path. It accepts <tt>round</tt>, <tt>bevel</tt>, and the default <tt>miter</tt> as values. With the <tt>lineJoin</tt> set to <tt>miter</tt>, setting an accompanying <tt>miterLimit</tt> limits the extent to which corners can extend from the joint before they are beveled. In this case, it affects only sharper exterior angles, not the square interior angles, or the path's origin point at the top of the arrow:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><pre class="cpp">cx<span class="operator">.</span>lineJoin <span class="operator">=</span> <span class="char">'round'</span>;</pre>
+<p class="centerAlign"><img src="images/canvasRound.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>lineJoin <span class="operator">=</span> <span class="char">'bevel'</span>;</pre>
+<p class="centerAlign"><img src="images/canvasBevel.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>lineJoin <span class="operator">=</span> <span class="char">'miter'</span>;</pre>
+<p class="centerAlign"><img src="images/canvasMiter.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>lineJoin <span class="operator">=</span> <span class="char">'miter'</span>;
+cx<span class="operator">.</span>miterLimit <span class="operator">=</span> <span class="number">2</span>;</pre>
+<p class="centerAlign"><img src="images/canvasMiterLimit.png" alt="" /></p></td></tr>
+</table>
+<p>The <tt>lineCap</tt> property affects how the end of a line appears. These examples show how various cap styles appear relative to the underlying line:</p>
+<p><img src="images/canvasCapButt.png" alt="" /> <tt>cx.lineCap = &quot;butt&quot;;</tt></p>
+<p><img src="images/canvasCapSquare.png" alt="" /> <tt>cx.lineCap = &quot;square&quot;;</tt></p>
+<p><img src="images/canvasCapRound.png" alt="" /> <tt>cx.lineCap = &quot;round&quot;;</tt></p>
+<p>Shadows apply to both fill and stroke effects, and are controlled with <tt>shadowColor</tt>, <tt>shadowOffsetX</tt>, <tt>shadowOffsetY</tt>, and <tt>shadowBlur</tt> methods. These examples show a crisp offset shadow along with a nono-offset blur:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasShadow.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>fillStyle <span class="operator">=</span> <span class="char">'red'</span>;
+cx<span class="operator">.</span>shadowColor <span class="operator">=</span> <span class="char">'#777777'</span>;
+cx<span class="operator">.</span>shadowOffsetX <span class="operator">=</span> <span class="number">6</span>;
+cx<span class="operator">.</span>shadowOffsetY <span class="operator">=</span> <span class="number">4</span>;
+cx<span class="operator">.</span>fill();</pre>
+</td><td ><p class="centerAlign"><img src="images/canvasShadowBlur.png" alt="" /></p></td><td ><pre class="cpp">cx<span class="operator">.</span>fillStyle <span class="operator">=</span> <span class="char">'red'</span>;
+cx<span class="operator">.</span>shadowColor <span class="operator">=</span> <span class="char">'black'</span>;
+cx<span class="operator">.</span>shadowBlur <span class="operator">=</span> <span class="number">10</span>;
+cx<span class="operator">.</span>fill();</pre>
+</td></tr>
+</table>
+<p>Gradients can substitute for standard fill abd stroke colors. The <tt>createLinearGradient()</tt> method defines start and end coordinates marking the gradient's dimensions. The <tt>CanvasGradient</tt> object it returns can be assigned to the <tt>fillStyle()</tt> method. The <tt>addColorStop()</tt> method defines colors for start and end states, and any others along the way. If the gradient's dimensions are smaller than the element it's used to fill, start and end colors extend to the edge. This example applies a transparent gradient to the bottom of the arrow, tapering off from approximately midway across the shape:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasGradient.png" alt="" /></p></td><td ><pre class="cpp">var g <span class="operator">=</span> cx<span class="operator">.</span>createLinearGradient(<span class="number">65</span><span class="operator">,</span><span class="number">0</span><span class="operator">,</span><span class="number">65</span><span class="operator">,</span><span class="number">225</span>);
+g<span class="operator">.</span>addColorStop(<span class="number">0</span><span class="operator">,</span> <span class="char">'red'</span>);
+g<span class="operator">.</span>addColorStop(<span class="number">0.5</span><span class="operator">,</span> <span class="char">'red'</span>);
+g<span class="operator">.</span>addColorStop(<span class="number">1</span><span class="operator">,</span> <span class="char">'transparent'</span>);
+cx<span class="operator">.</span>fillStyle <span class="operator">=</span> g;
+cx<span class="operator">.</span>fill();</pre>
+</td></tr>
+</table>
+<p>The <tt>createRadialGradient()</tt> method requires six arguments: two sets of <i>x</i>/<i>y</i> coordinates and radius of each circle, but otherwise functions the same. This example renders a series of concentric color stops, slightly off center, within a clipped circle.</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasGradientRadial.png" alt="" /></p></td><td ><pre class="cpp">var g <span class="operator">=</span> cx<span class="operator">.</span>createRadialGradient(<span class="number">100</span><span class="operator">,</span> <span class="number">100</span><span class="operator">,</span> <span class="number">80</span><span class="operator">,</span> <span class="number">100</span><span class="operator">,</span> <span class="number">80</span><span class="operator">,</span> <span class="number">30</span>);
+g<span class="operator">.</span>addColorStop(<span class="number">0</span><span class="operator">,</span> <span class="char">'pink'</span>);
+g<span class="operator">.</span>addColorStop(<span class="number">0.25</span><span class="operator">,</span> <span class="char">'lightblue'</span>);
+g<span class="operator">.</span>addColorStop(<span class="number">0.5</span><span class="operator">,</span> <span class="char">'gold'</span>);
+g<span class="operator">.</span>addColorStop(<span class="number">0.75</span><span class="operator">,</span> <span class="char">'lightgreen'</span>);
+g<span class="operator">.</span>addColorStop(<span class="number">1</span><span class="operator">,</span> <span class="char">'plum'</span>);
+cx<span class="operator">.</span>fillStyle <span class="operator">=</span> g;
+
+cx<span class="operator">.</span>beginPath();
+cx<span class="operator">.</span>arc(<span class="number">100</span><span class="operator">,</span> <span class="number">100</span><span class="operator">,</span> <span class="number">90</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> (Math<span class="operator">.</span>PI<span class="operator">*</span><span class="number">2</span>));
+cx<span class="operator">.</span>closePath()
+cx<span class="operator">.</span>clip();
+cx<span class="operator">.</span>fill();</pre>
+</td></tr>
+</table>
+<p>The <tt>createPattern()</tt> method offers another way to import images as repeating fill patterns. It accepts <tt>repeat-x</tt>, <tt>repeat-y</tt>, <tt>repeat</tt> (the default), and <tt>no-repeat</tt> as valid options.</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><p class="centerAlign"><img src="images/canvasPattern.png" alt="" /></p></td><td ><pre class="cpp">var img <span class="operator">=</span> <span class="keyword">new</span> Image();
+img<span class="operator">.</span>src <span class="operator">=</span> <span class="string">&quot;img/iconPattern.png&quot;</span>;
+var pattern <span class="operator">=</span> cx<span class="operator">.</span>createPattern(img<span class="operator">,</span> <span class="char">'repeat'</span>);
+cx<span class="operator">.</span>fillStyle <span class="operator">=</span> pattern;
+cx<span class="operator">.</span>stroke();
+cx<span class="operator">.</span>fill();</pre>
+</td></tr>
+</table>
+<a name="compositing"></a>
+<h2>Compositing</h2>
+<p>The <tt>globalCompositeOperation</tt> property changes how new graphics interact with what is already on the canvas. The default composite value is <tt>source-over</tt>:</p>
+<pre class="cpp">cx<span class="operator">.</span>globalCompositeOperation <span class="operator">=</span> <span class="char">'source-over'</span>;</pre>
+<p>The <tt>globalAlpha</tt> property specifies overall opacity for newly rendered graphics:</p>
+<pre class="cpp">cx<span class="operator">.</span>globalAlpha <span class="operator">=</span> <span class="number">0.7</span>; <span class="comment">// semi-transparent</span></pre>
+<p>Here is how it looks when you place a new image (the <i>source</i>) over an existing canvas graphic element (the <i>destination</i>) under various <tt>globalCompositeOperation</tt> settings:</p>
+<table class="generic">
+ <tr valign="top" class="odd"><td ><tt>source-over</tt><p class="centerAlign"><img src="images/canvasCompSourceOver.png" alt="" /></p></td><td ><tt>source-in</tt><p class="centerAlign"><img src="images/canvasCompSourceIn.png" alt="" /></p></td><td ><tt>source-out</tt><p class="centerAlign"><img src="images/canvasCompSourceOut.png" alt="" /></p></td><td ><tt>source-atop</tt><p class="centerAlign"><img src="images/canvasCompSourceAtop.png" alt="" /></p></td></tr>
+<tr valign="top" class="even"><td ><tt>destination-over</tt><p class="centerAlign"><img src="images/canvasCompDestOver.png" alt="" /></p></td><td ><tt>destination-in</tt><p class="centerAlign"><img src="images/canvasCompDestIn.png" alt="" /></p></td><td ><tt>destination-out</tt><p class="centerAlign"><img src="images/canvasCompDestOut.png" alt="" /></p></td><td ><tt>destination-atop</tt><p class="centerAlign"><img src="images/canvasCompDestAtop.png" alt="" /></p></td></tr>
+<tr valign="top" class="odd"><td ><tt>copy</tt><p class="centerAlign"><img src="images/canvasCompCopy.png" alt="" /></p></td><td ><tt>lighter</tt><p class="centerAlign"><img src="images/canvasCompLighter.png" alt="" /></p></td><td ><tt>xor</tt><p class="centerAlign"><img src="images/canvasCompXor.png" alt="" /></p></td></tr>
+</table>
+<a name="editing-selections"></a>
+<h2>Editing Selections</h2>
+<p>The <tt>imageData</tt> interface allows you to extract and replace rectangular selections within the canvas, and modify the pixel data.</p>
+<p>The <tt>getImageData()</tt> method uses standard x/y offset and width/height arguments. The following extracts the entire canvas:</p>
+<pre class="cpp">var imgData <span class="operator">=</span> cx<span class="operator">.</span>getImageData(<span class="number">0</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> canvas<span class="operator">.</span>width<span class="operator">,</span> canvas<span class="operator">.</span>height);</pre>
+<p>Alternately, the <tt>createImageData()</tt> method makes a new, blank image with specified dimensions, which become available as <tt>width</tt> and <tt>height</tt>:</p>
+<pre class="cpp">var imgData <span class="operator">=</span> cx<span class="operator">.</span>createImageData(w<span class="operator">,</span>h);
+<span class="comment">// imgData.width == w;</span>
+<span class="comment">// imgData.height == y;</span></pre>
+<p>The <tt>data</tt> property gives you access to the image's pixel data. This yields a <tt>CanvasPixelArray</tt> object, a flat array that uses four values to represent each pixel, corresponding to red, green, blue, and alpha transparency values. This shows how to quickly access component color values for each pixel:</p>
+<pre class="cpp">var imgData <span class="operator">=</span> cx<span class="operator">.</span>getImageData(<span class="number">0</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> canvas<span class="operator">.</span>width<span class="operator">,</span> canvas<span class="operator">.</span>height);
+var data <span class="operator">=</span> imgData<span class="operator">.</span>data; <span class="comment">// data is CanvasPixelArray</span>
+var r<span class="operator">,</span>g<span class="operator">,</span>b<span class="operator">,</span>a;
+<span class="keyword">for</span> (var i <span class="operator">=</span> <span class="number">0</span>; l <span class="operator">=</span> data<span class="operator">.</span>length; i <span class="operator">+</span><span class="operator">=</span> <span class="number">4</span>) {
+   r <span class="operator">=</span> data<span class="operator">[</span>i<span class="operator">]</span>;
+   g <span class="operator">=</span> data<span class="operator">[</span>i<span class="operator">+</span><span class="number">1</span><span class="operator">]</span>;
+   b <span class="operator">=</span> data<span class="operator">[</span>i<span class="operator">+</span><span class="number">2</span><span class="operator">]</span>;
+   a <span class="operator">=</span> data<span class="operator">[</span>i<span class="operator">+</span><span class="number">3</span><span class="operator">]</span>;
+}</pre>
+<p>You can also access pixel values in terms of the image's <tt>width</tt> and <tt>height</tt>:</p>
+<pre class="cpp">var imgData <span class="operator">=</span> cx<span class="operator">.</span>getImageData(<span class="number">0</span><span class="operator">,</span> <span class="number">0</span><span class="operator">,</span> canvas<span class="operator">.</span>width<span class="operator">,</span> canvas<span class="operator">.</span>height);
+var data <span class="operator">=</span> imgData<span class="operator">.</span>data;
+var w <span class="operator">=</span> imgData<span class="operator">.</span>width;
+var h <span class="operator">=</span> imgData<span class="operator">.</span>height;
+var r<span class="operator">,</span> g<span class="operator">,</span> b<span class="operator">,</span> a;
+<span class="keyword">for</span> (var y <span class="operator">=</span> <span class="number">0</span>; y <span class="operator">&lt;</span> h; y<span class="operator">+</span><span class="operator">+</span>) {
+    <span class="keyword">for</span> (var x <span class="operator">=</span> <span class="number">0</span>; x <span class="operator">&lt;</span> w; x<span class="operator">+</span><span class="operator">+</span>) {
+       r <span class="operator">=</span> data<span class="operator">[</span>((w <span class="operator">*</span> y) <span class="operator">+</span> x) <span class="operator">*</span> <span class="number">4</span><span class="operator">]</span>;
+       g <span class="operator">=</span> data<span class="operator">[</span>((w <span class="operator">*</span> y) <span class="operator">+</span> x) <span class="operator">*</span> <span class="number">4</span> <span class="operator">+</span> <span class="number">1</span><span class="operator">]</span>;
+       b <span class="operator">=</span> data<span class="operator">[</span>((w <span class="operator">*</span> y) <span class="operator">+</span> x) <span class="operator">*</span> <span class="number">4</span> <span class="operator">+</span> <span class="number">2</span><span class="operator">]</span>;
+       a <span class="operator">=</span> data<span class="operator">[</span>((w <span class="operator">*</span> y) <span class="operator">+</span> x) <span class="operator">*</span> <span class="number">4</span> <span class="operator">+</span> <span class="number">3</span><span class="operator">]</span>;
+    }
+}</pre>
+<p>To place the edited selection onto the canvas, the <tt>putImageData()</tt> method works the same as <tt>Reading and Writing Images</tt> {the <tt>drawImage()</tt> method described above}. The simple form positions the image at offsets <tt>x</tt> and <tt>y</tt>:</p>
+<pre class="cpp">cx<span class="operator">.</span>putImageData(imgData<span class="operator">,</span> x<span class="operator">,</span> y);</pre>
+<p>This extracts a region from within the image, defined by <tt>iw</tt> and <tt>ih</tt>:</p>
+<pre class="cpp">cx<span class="operator">.</span>putImageData(imgData<span class="operator">,</span> x<span class="operator">,</span> y<span class="operator">,</span> iw<span class="operator">,</span> ih);</pre>
+<p>This specifies both offsets (<tt>ix</tt>, <tt>iy</tt>) and dimensions (<tt>iw</tt>, <tt>ih</tt>) within the image selection:</p>
+<pre class="cpp">cx<span class="operator">.</span>putImageData(imgData<span class="operator">,</span> x<span class="operator">,</span> y<span class="operator">,</span> ix<span class="operator">,</span> iy<span class="operator">,</span> iw<span class="operator">,</span> ih);</pre>
+<a name="canvas-via-css"></a>
+<h2>Canvas via CSS</h2>
+<p>On WebKit-based browsers, canvases can be referenced as background images. The <tt>getCSSCanvasContext()</tt> method allows you to create a canvas object directly within JavaScript, then reference its identifier (&quot;shape&quot; in this case) as a static image from within CSS:</p>
+<pre class="cpp"><span class="operator">&lt;</span>script<span class="operator">&gt;</span>
+var cx <span class="operator">=</span> document<span class="operator">.</span>getCSSCanvasContext(<span class="char">'2d'</span><span class="operator">,</span> <span class="char">'shape'</span><span class="operator">,</span> <span class="number">320</span><span class="operator">,</span> <span class="number">370</span>);
+<span class="comment">// ...draw shape</span>
+<span class="operator">&lt;</span><span class="operator">/</span>script<span class="operator">&gt;</span>
+
+<span class="operator">&lt;</span>style<span class="operator">&gt;</span>
+div { background<span class="operator">-</span>image: <span class="operator">-</span>webkit<span class="operator">-</span>canvas(shape) }
+<span class="operator">&lt;</span><span class="operator">/</span>style<span class="operator">&gt;</span></pre>
+</div>
+<!-- @@@canvas.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

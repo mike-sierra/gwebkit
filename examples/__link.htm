@@ -1,0 +1,302 @@
+<html>
+<head>
+<meta name='viewport' content='width=device-width' />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>links & inline scroll</title>
+
+<style>
+
+body {
+    font-family: sans-serif;
+    overflow-x: hidden;
+}
+
+a {
+    display: block;
+    padding: 0.5em;
+}
+
+a:nth-of-type(1):before {
+    content: '(1) default: ';
+}
+
+a:nth-of-type(2):before {
+    content: '(2) :active dynamic class (red on gold)';
+}
+
+a:nth-of-type(2):active {
+    color: red;
+    background: gold;
+}
+
+a:nth-of-type(3):before {
+    content: '(3) same as (2), plus empty touchstart handler';
+}
+
+a:nth-of-type(3):active {
+    color: red;
+    background: gold;
+}
+
+a:nth-of-type(4):before {
+    content: '(4) same as (2), plus empty mousedown handler';
+}
+
+a:nth-of-type(4):active {
+    color: red;
+    background: gold;
+}
+
+a:nth-of-type(5):before {
+    content: '(5) -webkit-tap-highlight-color should override visual feedback';
+}
+
+a:nth-of-type(5) {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a:nth-of-type(6):before {
+    content: '(6) same as (5), but with color added';
+}
+
+a:nth-of-type(6) {
+    -webkit-tap-highlight-color: green;
+}
+
+a:nth-of-type(7):before {
+    content: '(7) same as (6), but internal link';
+}
+
+a:nth-of-type(7) {
+    -webkit-tap-highlight-color: green;
+}
+
+a:nth-of-type(8):before {
+    content: '(8) -webkit-touch-callout should disable long-tap';
+}
+
+a:nth-of-type(8) {
+    -webkit-touch-callout: none;
+}
+
+a:nth-of-type(9):before {
+    content: '(9) -webkit-highlight-color:transparent; :active red on gold; empty mouse handler';
+}
+
+a:nth-of-type(9):active {
+    color: red;
+    background: gold;
+}
+
+a:nth-of-type(9) {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a:nth-of-type(10):before {
+    content: '(10) pointer-events:none CSS prevents link from firing & element from changing color';
+}
+
+a:nth-of-type(10), img:first-of-type {
+    pointer-events: none;
+}
+
+img { max-width: 100px }
+
+
+div {
+    margin: 1em 3em 1em 0em;
+    padding: 1em 1em 4em 1em;
+    border-radius: 1em;
+    height: 200px;
+    overflow-y: scroll;
+    background: #777;
+    color: #fff;
+}
+
+div::-webkit-scrollbar { width : 0 }
+
+
+div:first-of-type {
+    -webkit-overflow-scrolling: touch;
+}
+
+div:last-of-type {
+    -webkit-overflow-scrolling: auto;
+}
+
+div:first-of-type:before {
+    font-weight: bold;
+    content: "-webkit-overflow-scrolling: touch; ";
+}
+
+div:last-of-type:before {
+    font-weight: bold;
+    content: "-webkit-overflow-scrolling: auto; ";
+}
+
+span {
+    display: inline-block;
+    background: #ddd;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+
+span:active {
+    background: #aaa;
+}
+
+article {
+    padding: 0.5em;
+    border-radius: 0.5em;
+    min-height: 120px;
+    background: #000;
+    color: #fff;
+}
+
+
+</style>
+
+</head>
+<body>
+<h1>links</h1>
+
+<p>
+  <a href="http://www.google.com"></a>
+  <a href="http://www.google.com"></a>
+  <a href="http://www.google.com" ontouchstart=""></a>
+  <a href="http://www.google.com" onmousedown=""></a>
+  <a href="http://www.google.com"></a>
+  <a href="http://www.google.com"></a>
+  <a href="#scroll"></a>
+  <a href="http://www.google.com"></a>
+  <a href="http://www.google.com" ontouchstart=""></a>
+  <a href="#" onclick="alter(event)"></a>
+
+<hr/>
+  <span>SPAN with :active</span>
+<hr/>
+  <span ontouchstart="">...plus empty touchstart</span>
+</p>
+
+<div id="scroll">
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+</div>
+
+<div>
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+All work and no play makes Jack a dull boy.
+</div>
+
+<span onclick="override()">add touch handlers with preventDefault() to
+above scrolling regions</span>
+
+<img src="img/gal1.png"/>
+<img src="img/gal2.png"/>
+
+
+<article>Drag a finger into this box, or interrupt with phone call
+while touching it to see which events fire. </article>
+
+<script>
+
+document.querySelector('article').addEventListener('mouseover', log);
+document.querySelector('article').addEventListener('mouseout', log);
+document.querySelector('article').addEventListener('touchenter', log);
+document.querySelector('article').addEventListener('touchleave', log);
+document.querySelector('article').addEventListener('touchcancel', log);
+
+function override() {
+    var el = document.querySelectorAll('div');
+    for (var i = 0, l = el.length; i < l; i++) {
+        el[i].addEventListener('touchstart', function(e){ e.preventDefault() });
+        el[i].addEventListener('mousedown', function(e){ e.preventDefault() });
+    }
+}
+
+function alter(event) {
+    event.target.style.backgroundColor = 'pink';
+}
+
+function log(e) { e.preventDefault(); this.innerHTML += e.type + ' ' }
+
+</script>
+
+</body>
+</html>

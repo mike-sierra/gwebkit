@@ -1,0 +1,69 @@
+body {
+    background                        : #aaaaaa;
+    font-weight                       : bold;
+    overflow                          : hidden;
+}
+
+section {
+    color                             : #ffffff;
+    background                        : #777777;
+    font-size                         : x-large;
+    position                          : absolute;
+    text-align                        : center;
+    padding                           : 1em;
+    border-radius                     : 0.5em;
+    top                               : 2em;
+    left                              : 2em;
+    bottom                            : 2em;
+    right                             : 2em;
+    -webkit-transform-origin          : bottom;
+    -webkit-animation-iteration-count : 1;
+    -webkit-transform                 : translate(-150%);
+    -webkit-animation-name            : slideFrame;
+    -webkit-animation-duration        : 5s;
+}
+
+#slide1 {
+    -webkit-animation-delay           : 2s;
+}
+
+#slide2 {
+    -webkit-animation-delay           : 8s;
+}
+
+#slide3 {
+    -webkit-animation-delay           : 14s;
+}
+
+#slide4 {
+    -webkit-animation-delay           : 20s;
+    -webkit-animation-duration        : 8s;
+}
+
+#slide5 {
+    -webkit-animation-delay           : 29s;
+}
+
+@-webkit-keyframes slideFrame {
+  0% {
+    -webkit-animation-timing-function : linear;
+    -webkit-transform                 : translate(-150%) skewX(5deg);
+  }
+  10% {
+    -webkit-transform                 : translate(0)  skewX(5deg);
+  }
+  15% {
+    -webkit-animation-timing-function : default;
+    -webkit-transform                 : translate(0)  skewX(-5deg);
+  }
+  20% {
+    -webkit-transform                 : translate(0)  skewX(0deg);
+  }
+  90% {
+    -webkit-transform                 : translate(0) skewX(0deg);
+  }
+  100% {
+    -webkit-transform                 : translate(180%) skewX(10deg);
+  }
+}
+

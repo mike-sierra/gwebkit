@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 43_form.qdoc -->
+  <title>mobile_html5 : Input Validation</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level2"><a href="#new-types">New Types</a></li>
+<li class="level2"><a href="#marking-invalid-input">Marking Invalid Input</a></li>
+<li class="level2"><a href="#refining-validation-criteria">Refining Validation Criteria</a></li>
+<li class="level2"><a href="#sidebar-other-selectors">SIDEBAR Other Selectors</a></li>
+<li class="level2"><a href="#refining-a-validation-interface">Refining a Validation Interface</a></li>
+<li class="level2"><a href="#sidebar-sibling-selectors">SIDEBAR Sibling Selectors</a></li>
+<li class="level2"><a href="#refining-validition-errors">Refining Validition Errors</a></li>
+<li class="level1"><a href="#xxx-mt-forms">XXX MT Forms</a></li>
+<li class="level1"><a href="#text-input">Text Input</a></li>
+<li class="level1"><a href="#numeric-input">Numeric Input</a></li>
+<li class="level1"><a href="#responding-to-invalid-text">Responding to Invalid Text</a></li>
+</ul>
+</div>
+<h1 class="title">Input Validation</h1>
+<span class="subtitle"></span>
+<!-- $$$form.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>HTML5's new input types and client-based form validation allow more immediate and responsive feedback when entering text, and may help reduce unnecessary server traffic. This section provides a tutorial that shows how to fashion a progressively more responsive text validation interface.</p>
+<p>The most popular mobile smartphone handsets do not feature a slide-out keyboard, in which case browsers introduce a virtual keyboard that takes up much of the screen. Since this potentially obscures parts of the form, validation error messages should be positioned as close to the inputs as possible. Likewise, validation errors should display immediately, as text is entered, rather than waiting until the entire form is submitted. Browsers may also magnify form inputs when selected for editing. While this may make text users enter easier to read, it may obscure nearby validation errors. To keep this from happening, specify a viewport that <a href="layout.html#constraining-touch-response">disables magnification</a>.</p>
+<a name="new-types"></a>
+<h3>New Types</h3>
+<p>HTML5 specifies several new input <i>types</i> that extend the default <tt>text</tt> input with native text validation. The following are widely supported:</p>
+<ul>
+<li><tt>email</tt> validates to patterns such as <b>x@x.x</b>.</li>
+<li><tt>url</tt> validates to patterns such as <b>x://x</b>.</li>
+<li><tt>number</tt> validates to positive or negative numeric values. (Some virtual keyboard interfaces may even prevent users from entering non-numeric characters.)</li>
+</ul>
+<p>Adding <tt>min</tt> and <tt>max</tt> attributes to <tt>number</tt> inputs narrows the valid range of values. The <tt>step</tt> attribute specifies valid intervals between values. The <tt>step</tt> attribute is <tt>1</tt> by default, which excludes non-integers. If set to <tt>2</tt>, it requires even values, or odd values if the <tt>min</tt> is an odd number.</p>
+<p>If users want to modify the value of a <tt>number</tt>, such as by changing the quantity of a purchased item, an application can supply separate controls to avoid keyboard input. The <tt>stepUp()</tt> or <tt>stepDown()</tt> methods can be called directly on the <tt>input</tt> element. By default, they change the value depending on the <tt>step</tt>, but an optional integer argument allows jumps of several steps.</p>
+<p><b>Note: </b>The <tt>tel</tt> input type, designed to validate telephone numbers, entails locale-specific values that do not yet validate, so it behaves like a default <tt>text</tt> input. Still, applying this input type should not cause a problem, and you can <a href="#refining-validation-criteria">apply your own validation criteria</a>.</p><p>The new <tt>search</tt> type does not validate or appear any differently than text inputs by default. It's customary to distinguish search inputs, as in the following example that applies <a href="border.html#rounded-corners">rounded corners</a> and a <a href="color.html#backgrounds">search icon</a>. When each input is open for editing, a <a href="border.html#shadows">shadow</a> is applied using the <tt>:focus</tt> CSS dynamic class:</p>
+<pre class="cpp">input<span class="operator">[</span>type<span class="operator">=</span>search<span class="operator">]</span> {
+    <span class="operator">-</span>webkit<span class="operator">-</span>appearance  : none;
+    <span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>shadow  : <span class="number">0em</span> <span class="number">0em</span> <span class="number">0.5em</span> <span class="number">0.5em</span> <span class="preprocessor">#ffffff;</span>
+    <span class="operator">-</span>webkit<span class="operator">-</span>transition  : all <span class="number">1s</span>;
+    background<span class="operator">-</span>image    : url(img<span class="operator">/</span>ic16_search<span class="operator">.</span>png);
+    background<span class="operator">-</span>position : <span class="number">97</span><span class="operator">%</span> <span class="number">50</span><span class="operator">%</span>;
+    background<span class="operator">-</span>repeat   : no<span class="operator">-</span>repeat;
+    border              : thin <span class="preprocessor">#777777 solid;</span>
+    border<span class="operator">-</span>radius       : <span class="number">1.0em</span>;
+}
+input<span class="operator">[</span>type<span class="operator">=</span>search<span class="operator">]</span>:focus {
+    <span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>shadow  : <span class="number">0em</span> <span class="number">0em</span> <span class="number">0.5em</span> <span class="number">0.5em</span> <span class="preprocessor">#aaa;</span>
+}</pre>
+<p><a href="../examples/form_search.htm"><img src="images/scr_form_search.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_search.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>This example shows how the <tt>placeholder</tt> attribute can be used to provide a text hint, appearing grayed-out by default on empty fields, that indicates the scope of the search or for the kind of text that is expected:</p>
+<pre class="cpp"><span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;search&quot;</span> placeholder<span class="operator">=</span><span class="string">&quot;Search site...&quot;</span> maxlength<span class="operator">=</span><span class="string">&quot;256&quot;</span> name<span class="operator">=</span><span class="string">&quot;q&quot;</span><span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>Unlike the <tt>value</tt> attribute, which also displays within text inputs, <tt>placeholder</tt> text is not used to help build the input string. It can be styled using the following CSS pseudo element:</p>
+<pre class="cpp"><span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>input<span class="operator">-</span>placeholder { font<span class="operator">-</span>style: italic }</pre>
+<p>This example also shows a field that uses the <tt>autofocus</tt> attribute, which would ordinarily open the input for editing when the page loads. This feature is disabled on mobile browsers that impose a virtual keyboard editing interface.</p>
+<a name="marking-invalid-input"></a>
+<h3>Marking Invalid Input</h3>
+<p>Once input types and other validation criteria are specified, problems with input text can be highlighted with CSS's <tt>:valid</tt> and <tt>:invalid</tt> dynamic classes. The following colors invalid input as a shade of red, and returns it to white once corrected, with <a href="animation.html">gentle transitions</a> between the two states:</p>
+<pre class="cpp">input:invalid { background: pink  }
+input:valid   { background: white }
+input { <span class="operator">-</span>webkit<span class="operator">-</span>transition: all <span class="number">1s</span> }</pre>
+<p>Inputs that are <tt>:required</tt> or <tt>:optional</tt> can be styled. For <tt>number</tt> inputs that specify <tt>min</tt> and <tt>max</tt> attributes, values that are <tt>:in-range</tt> or <tt>:out-of-range</tt> can also be styled.</p>
+<p>The following example does not yet represent a friendly interface, but shows the simplest way to mark invalid input:</p>
+<p><a href="../examples/form_validSimple.htm"><img src="images/scr_form_validSimple.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_validSimple.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The static text along the left of the screen allows users an area to safely scroll up and down without triggering the form input interface. The inputs display the following behavior:</p>
+<ul>
+<li>Once users start to type within the <i>Email</i> and <i>Website</i> fields, validity is determined by the built-in <tt>email</tt> and <tt>url</tt> input types.</li>
+<li>The first three inputs specify the <tt>required</tt> attribute. Until they contain text, they are marked as invalid.</li>
+<li>Labels for <tt>required</tt> inputs are marked automatically:<pre class="cpp">input:required <span class="operator">+</span> label:before {
+    content   : <span class="string">&quot;* &quot;</span>;
+    font<span class="operator">-</span>size : larger;
+    color     : red;
+}</pre>
+<p>For the <tt>+</tt> selector to work, the <tt>&lt;label&gt;</tt> tag must be ordered immediately after the <tt>&lt;input&gt;</tt>, regardless of how it appears on the screen:</p>
+<pre class="cpp">input { width: <span class="number">70</span><span class="operator">%</span> }
+label { width: <span class="number">28</span><span class="operator">%</span>; <span class="type">float</span>: left; }</pre>
+</li>
+<li>Most of the fields feature <tt>placeholder</tt> test to guide users to supply text in the expected format:<pre class="cpp"><span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;email&quot;</span> required placeholder<span class="operator">=</span><span class="string">&quot;who@where.com&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span></pre>
+</li>
+<li>The <i>Website</i> field uses the <tt>value</tt> attribute to initialize text, which saves users several keystrokes:<pre class="cpp"><span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;url&quot;</span> value<span class="operator">=</span><span class="string">&quot;http://&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span></pre>
+</li>
+<li>The <i>Website</i> field is marked as invalid until more text is added after the <tt>http://</tt>.</li>
+<li>The <i>Quantity</i> <tt>number</tt> field specifies a <tt>min</tt> of <tt>0</tt>, which filters out negative integers.</li>
+<li>The <i>Zip Code</i> field is specified as a standard text field, as explained in the <a href="#refining-validation-criteria">following section</a>. But note that once users start to type, the input is marked as invalid until it contains five digits.</li>
+</ul>
+<p>The following sections show how to make the overall interface work better.</p>
+<a name="refining-validation-criteria"></a>
+<h3>Refining Validation Criteria</h3>
+<p>Specifying a regular expression as a <tt>pattern</tt> attribute allows for more detailed validation criteria than built-in input types allow.</p>
+<p>The example above specifies the <i>Zip Code</i> field as a standard text input, but with a pattern that requires any five digits:</p>
+<pre class="cpp"><span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;text&quot;</span> pattern<span class="operator">=</span><span class="string">&quot;^[0-9]{5}$&quot;</span> placeholder<span class="operator">=</span><span class="string">&quot;#####&quot;</span><span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p><b>Note: </b>Specifying a <tt>number</tt> field above might make it difficult to accomodate numbers with leading zeroes.</p><p>A <tt>pattern</tt> can also correct shortcomings in a valdiating field's default criteria. The following may all be marked valid <tt>url</tt> input values:</p>
+<pre class="cpp">http:<span class="comment">//.com</span>
+http:<span class="comment">//website</span>
+http:<span class="comment">//website.</span>
+http:<span class="comment">//z</span>
+http:<span class="comment">//zzz.</span>
+ftp:<span class="comment">//zzz</span>
+zzz:<span class="comment">//zzz.zzz</span></pre>
+<p>A <tt>pattern</tt> attribute such as the following may help prevent such errors:</p>
+<pre class="cpp"><span class="operator">^</span>https<span class="operator">?</span>:<span class="comment">//.+\.[a-z]+$</span></pre>
+<p>The example above uses the <tt>pattern</tt> attribute to specify a minimum of ten digits for the <i>Phone</i> field (<tt>^[0-9]{10,}$</tt>), alphanumeric characters for the <i>Login</i> field (<tt>^[A-Za-z0-9]+$</tt>), and a minimum of eight characters for the <i>Password</i> field (<tt>^.{8,}$</tt>).</p>
+<p><b>Note: </b>Regular expressions specified by the <tt>pattern</tt> attribute supplement rather than override an input type's underlying validation pattern. Input that matches a <tt>pattern</tt> may still be invalid for an input's type. Be careful when supplementing built-in validation, since URL and email address formats are potentially complex.</p><blockquote><a name="sidebar-other-selectors"></a>
+<h3>SIDEBAR Other Selectors</h3>
+<p>Level 3 CSS specifies several other potentially useful dynamic classes that can be added to selectors:</p>
+<ul>
+<li><tt>:empty</tt> refers to an element that contains no child elements, including text nodes.</li>
+<li><tt>:root</tt> is a markup-independent way to refer to elements that are positioned at the root of the document, in most cases the <tt>html</tt> tag.</li>
+<li>The <tt>:not()</tt> dynamic class allows you to narrow a range of selectors. When applying style sheets, you can always define one set of properties that overrides another. The <tt>:not()</tt> dynamic class may thus be more useful when gathering elements via the Selectors API. For example, the following JavaScript gathers form inputs, but not including submit buttons:<pre class="cpp">var inputs <span class="operator">=</span> document<span class="operator">.</span>querySelectorAll(<span class="string">&quot;input:not([type=submit])&quot;</span>);</pre>
+</li>
+</ul>
+</blockquote>
+<a name="refining-a-validation-interface"></a>
+<h3>Refining a Validation Interface</h3>
+<p>The example below modifies the one <a href="#marking-invalid-input">above</a> by marking invalid input only after users have made an effort to edit each field:</p>
+<p><a href="../examples/form_validBlur.htm"><img src="images/scr_form_validBlur.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_validBlur.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/form_validBlur.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>Invalid inputs are marked only if they are classed <tt>validate</tt>. This only occurs once users leave a field (the <tt>blur</tt> event) they have actually applied edits to (the <tt>change</tt> event):</p>
+<pre class="cpp">window<span class="operator">.</span>onload <span class="operator">=</span> function() {
+    var el <span class="operator">=</span> document<span class="operator">.</span>querySelectorAll(<span class="char">'input:not(type=submit)'</span>);
+    <span class="keyword">for</span> (var i <span class="operator">=</span> <span class="number">0</span><span class="operator">,</span> l <span class="operator">=</span> el<span class="operator">.</span>length ; i <span class="operator">&lt;</span> l ; i<span class="operator">+</span><span class="operator">+</span> ) {
+        el<span class="operator">[</span>i<span class="operator">]</span><span class="operator">.</span>addEventListener(<span class="char">'focus'</span><span class="operator">,</span> function(event){
+            event<span class="operator">.</span>target<span class="operator">.</span>dataset<span class="operator">.</span>isTyping <span class="operator">=</span> <span class="keyword">false</span>;
+        });
+        el<span class="operator">[</span>i<span class="operator">]</span><span class="operator">.</span>addEventListener(<span class="char">'change'</span><span class="operator">,</span> function(event){
+            event<span class="operator">.</span>target<span class="operator">.</span>dataset<span class="operator">.</span>isTyping <span class="operator">=</span> <span class="keyword">true</span>;
+        });
+        el<span class="operator">[</span>i<span class="operator">]</span><span class="operator">.</span>addEventListener(<span class="char">'blur'</span><span class="operator">,</span> function(event){
+            <span class="keyword">if</span> (<span class="operator">!</span> event<span class="operator">.</span>target<span class="operator">.</span>dataset<span class="operator">.</span>isTyping) <span class="keyword">return</span> <span class="keyword">false</span>;
+            event<span class="operator">.</span>target<span class="operator">.</span>classList<span class="operator">.</span>add(<span class="string">&quot;validate&quot;</span>);
+        });
+    }
+}</pre>
+<p>In addition to changing the input's background color, the CSS also displays a more informative error message:</p>
+<p class="centerAlign"><img src="images/scr_form_validErr.png" alt="" /></p><p>Text is represented as a hidden <tt>span</tt> element, and activated by the indirect sibling (<tt>~</tt>) CSS selector:</p>
+<pre class="cpp"><span class="operator">&lt;</span>style<span class="operator">&gt;</span>
+input <span class="operator">~</span> span { opacity: <span class="number">0</span>; }
+input<span class="operator">.</span>validate:invalid <span class="operator">~</span> span { opacity: <span class="number">1</span>; }
+<span class="operator">&lt;</span><span class="operator">/</span>style<span class="operator">&gt;</span>
+
+<span class="operator">&lt;</span>div<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;password&quot;</span> pattern<span class="operator">=</span><span class="string">&quot;^.{8,}$&quot;</span> required placeholder<span class="operator">=</span><span class="string">&quot;********&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>label<span class="operator">&gt;</span>Password<span class="operator">&lt;</span><span class="operator">/</span>label<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>span<span class="operator">&gt;</span>Minimum <span class="number">8</span> characters<span class="operator">,</span> please<span class="operator">&lt;</span><span class="operator">/</span>span<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>div<span class="operator">&gt;</span></pre>
+<blockquote><a name="sidebar-sibling-selectors"></a>
+<h3>SIDEBAR Sibling Selectors</h3>
+<p>The Level 2 <tt>+</tt> selector allows you to style elements that immediately follow other specified elements. For example, the following refers to a paragraph that immediately follows a heading at the same level of markup:</p>
+<pre class="cpp">h1 <span class="operator">+</span> p { font<span class="operator">-</span>weight: bold }</pre>
+<p>In contrast, the Level 3 <tt>~</tt> indirect sibling selector allows you to style any subsequent element at the same level within the markup. The following example shrinks paragraph text only when it follows an <tt>h2</tt>:</p>
+<pre class="cpp">h2 <span class="operator">~</span> p { font<span class="operator">-</span>size: <span class="number">90</span><span class="operator">%</span> }</pre>
+<p><b>Note: </b>Webkit-based browsers do not yet allow you to style indirect sibling elements dynamically by manipulating classnames via JavaScript. For example, the following CSS applies only when initially loading the page, but not when changing each <tt>div</tt> element's class name thereafter:</p><pre class="cpp">div<span class="operator">.</span>unselected <span class="operator">~</span> article { display: none }
+div<span class="operator">.</span>selected <span class="operator">~</span> article { display: block }</pre>
+</blockquote>
+<a name="refining-validition-errors"></a>
+<h3>Refining Validition Errors</h3>
+<p>The example above presents all-purpose error messages with no specific details about what's wrong with the input. To correct this, validation state can be checked directly from JavaScript. Check the <tt>input</tt> element's {validity} object for any of the following boolean errors:</p>
+<ul>
+<li><tt>typeMismatch</tt></li>
+<li><tt>patternMismatch</tt></li>
+<li><tt>valueMissing</tt> (input is <tt>required</tt>)</li>
+<li><tt>rangeOverflow</tt></li>
+<li><tt>rangeUnderflow</tt></li>
+<li><tt>stepMismatch</tt></li>
+<li><tt>tooLong</tt> (exceeds <tt>maxwidth</tt>)</li>
+</ul>
+<p>Alternately, <tt>input.validity.valid</tt> determines overall validity.</p>
+<p>The following example targets an error message if the wrong number of digits is entered into a credit card field:</p>
+<pre class="cpp"><span class="keyword">if</span> (input<span class="operator">.</span>validity<span class="operator">.</span>patternMismatch) {
+    <span class="keyword">if</span> (input<span class="operator">.</span>value<span class="operator">.</span>match(<span class="operator">/</span><span class="operator">^</span><span class="operator">[</span><span class="number">0</span><span class="operator">-</span><span class="number">9</span><span class="operator">]</span>{<span class="number">17</span><span class="operator">,</span>}$<span class="operator">/</span>)) {
+        dbg<span class="operator">.</span>innerHTML <span class="operator">=</span> (input<span class="operator">.</span>value<span class="operator">.</span>length <span class="operator">-</span> <span class="number">16</span>) <span class="operator">+</span> <span class="char">' too many'</span>;
+    }
+    <span class="keyword">else</span> <span class="keyword">if</span> (input<span class="operator">.</span>value<span class="operator">.</span>match(<span class="operator">/</span><span class="operator">^</span><span class="operator">[</span><span class="number">0</span><span class="operator">-</span><span class="number">9</span><span class="operator">]</span>{<span class="number">1</span><span class="operator">,</span>}$<span class="operator">/</span>)) {
+        dbg<span class="operator">.</span>innerHTML <span class="operator">=</span> (<span class="number">16</span> <span class="operator">-</span> input<span class="operator">.</span>value<span class="operator">.</span>length) <span class="operator">+</span> <span class="char">' too few'</span>;
+    }
+    <span class="keyword">else</span> {
+        dbg<span class="operator">.</span>innerHTML <span class="operator">=</span> <span class="char">'digits only please (16)'</span>;
+    }
+}</pre>
+<p><a href="../examples/form_validCheck.htm"><img src="images/scr_form_validCheck.png" alt="" /> </a></p>
+<p><a href="../examples/css/form_validCheck.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/form_validCheck.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<a name="xxx-mt-forms"></a>
+<h2>XXX MT Forms</h2>
+<p>The Browser supports updated form <i>types</i> and form <i>validation</i> features. Used together, various HTML5 form features help guide users to enter text properly. Most input validation can execute entirely on the Browser, reducing the need for network transactions.</p>
+<p>The sections below briefly discuss how specialized numeric and textual input types validate, then shows how best to present validation errors. However, some new input types provide touch-based controls, and should be used wherever practical. For example, the <tt>date</tt> and <tt>time</tt> input types provide an appropriate date-picker interface:</p>
+<p class="centerAlign"><font color="red">[Missing image form_temporal.png]</font></p><p>The <tt>color</tt> type presents a color picker:</p>
+<p class="centerAlign"><font color="red">[Missing image form_color.png]</font></p><a name="text-input"></a>
+<h2>Text Input</h2>
+<p>The Browser natively validates the <tt>email</tt> and <tt>url</tt> input types. Text entered into either of the following inputs must follow the patterns <i>x@x</i> or <i>x://x</i>, or they trigger validation errors:</p>
+<pre class="cpp"><span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;email&quot;</span> name<span class="operator">=</span><span class="string">&quot;email&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;url&quot;</span> name<span class="operator">=</span><span class="string">&quot;website&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>The <tt>placeholder</tt> attribute helps guide users to enter text in the expected format. The value of the <tt>placeholder</tt> attribute only appears when the field is empty. In contrast, the <tt>value</tt> attribute can be used to build the string to submit, in this case saving users several keystrokes:</p>
+<pre class="cpp"><span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;email&quot;</span> name<span class="operator">=</span><span class="string">&quot;email&quot;</span> placeholder<span class="operator">=</span><span class="string">&quot;who@where.com&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;url&quot;</span> name<span class="operator">=</span><span class="string">&quot;website&quot;</span> value<span class="operator">=</span><span class="string">&quot;http://&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>Placeholder text can be styled via CSS:</p>
+<pre class="cpp"><span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>input<span class="operator">-</span>placeholder { font<span class="operator">-</span>style: italic }</pre>
+<p>The <tt>pattern</tt> allows additional validation against a JavaScript <i>regular expression</i>. This example specifies a <tt>password</tt> field of at least eight characters, and another that further refines expected <i>website</i> input to exclude non-<tt>http</tt> schemes:</p>
+<pre class="cpp"><span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;email&quot;</span> name<span class="operator">=</span><span class="string">&quot;email&quot;</span> placeholder<span class="operator">=</span><span class="string">&quot;who@where.com&quot;</span> required <span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;url&quot;</span> name<span class="operator">=</span><span class="string">&quot;website&quot;</span> value<span class="operator">=</span><span class="string">&quot;http://&quot;</span> pattern<span class="operator">=</span><span class="string">&quot;^https?://&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;password&quot;</span> pattern<span class="operator">=</span><span class="string">&quot;^.{8,}$&quot;</span> placeholder<span class="operator">=</span><span class="string">&quot;********&quot;</span> required <span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>The addition of a <tt>required</tt> attribute also triggers validation when no text is present.</p>
+<p>You can also use the new <tt>search</tt> input type, which does not validate by default or appear differently than other text inputs, but which does fire its own <tt>onsearch</tt> event when text is submitted. The input can be re-styled to mark it as search-related:</p>
+<pre class="cpp">input<span class="operator">[</span>type<span class="operator">=</span>search<span class="operator">]</span> {
+    <span class="operator">-</span>webkit<span class="operator">-</span>appearance: none;
+    border<span class="operator">-</span>radius: <span class="number">1em</span>;
+    height: <span class="number">2em</span>;
+}</pre>
+<a name="numeric-input"></a>
+<h2>Numeric Input</h2>
+<p>The Browser supports both <tt>number</tt> and <tt>range</tt> form input types to handle numeric data. The <tt>number</tt> type appears as a simple text input by default, and presents a numeric virtual keyboard when activated with a touch. The <tt>range</tt> input presents a sliding handle that requires no text input:</p>
+<p class="centerAlign"><img src="images/form_range.png" alt="" /></p><p>A <tt>max</tt> attribute specifies a boundary for potential <tt>range</tt> inputs, otherwise the default value is 100:</p>
+<pre class="cpp"><span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;range&quot;</span> min<span class="operator">=</span><span class="string">&quot;0&quot;</span> max<span class="operator">=</span><span class="string">&quot;10&quot;</span> name<span class="operator">=</span><span class="string">&quot;quantity&quot;</span>
+    id<span class="operator">=</span><span class="string">&quot;quantity&quot;</span><span class="operator">/</span><span class="operator">&gt;</span><span class="operator">&lt;</span>span<span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>span<span class="operator">&gt;</span>
+<span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;range&quot;</span> min<span class="operator">=</span><span class="string">&quot;0&quot;</span> max<span class="operator">=</span><span class="string">&quot;5&quot;</span> step<span class="operator">=</span><span class="string">&quot;0.5&quot;</span> name<span class="operator">=</span><span class="string">&quot;rating&quot;</span><span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>Specify a <tt>min</tt> attribute to vary the minimum value from the default of <tt>0</tt>. The <tt>step</tt> attribute specifies allowable increments, with a default value of <tt>1</tt>, which allows only integers. The second example above allows half-star ratings.</p>
+<p>Note that <tt>range</tt> inputs do not present the selected value as visual feedback, and so may need to be modified. This example displays any modified value within an adjacent <tt>span</tt> element:</p>
+<pre class="cpp">document<span class="operator">.</span>querySelector(<span class="char">'#quantity'</span>)<span class="operator">.</span>addEventListener(<span class="char">'change'</span><span class="operator">,</span> function(e){
+    event<span class="operator">.</span>target<span class="operator">.</span>nextSibling<span class="operator">.</span>innerHTML <span class="operator">=</span> event<span class="operator">.</span>target<span class="operator">.</span>value;
+});</pre>
+<p>Note that you can restyle <tt>range</tt> inputs, by applying the <tt>-webkit-appearance</tt> CSS property to override their default presentation as a sliding control:</p>
+<pre class="cpp">input<span class="operator">[</span>type<span class="operator">=</span><span class="string">&quot;range&quot;</span><span class="operator">]</span>{ <span class="operator">-</span>webkit<span class="operator">-</span>appearance:none }
+input<span class="operator">[</span>type<span class="operator">=</span><span class="string">&quot;range&quot;</span><span class="operator">]</span><span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>slider<span class="operator">-</span>thumb { <span class="operator">-</span>webkit<span class="operator">-</span>appearance:none }</pre>
+<p>This example restyles a <tt>range</tt> input as a tappable control:</p>
+<p><a href="../examples/form.htm"> <img src="images/form3.png" alt="" /> </a></p>
+<p><a href="../examples/form.htm"> __IFRAME__ </a> <a href="../examples/form.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/form.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/form.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>The example also demonstrates a validating <tt>number</tt> field with controls that increment or decrement the current value based on the input's <tt>step</tt> attribute. Controls that call <tt>stepUp()</tt> and <tt>stepDown()</tt> methods on the <tt>input</tt> element allow users to modify existing numeric input without re-typing it as text.</p>
+<p>Any non-numeric text entered into <tt>number</tt> inputs triggers validation errors, as does numeric input that falls outside the criteria specified by <tt>min</tt>, <tt>max</tt>, and <tt>step</tt> attributes.</p>
+<a name="responding-to-invalid-text"></a>
+<h2>Responding to Invalid Text</h2>
+<p>This example demonstrates a self-validating form interface using the options described above:</p>
+<p><a href="../examples/form.htm"> <img src="images/form.png" alt="" /> <img src="images/form2.png" alt="" /> </a></p>
+<p><a href="../examples/form.htm"> __IFRAME__ </a> <a href="../examples/form.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/form.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/form.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>The <tt>:required</tt> CSS class adds a red asterisk next to inputs that specify a <tt>required</tt> attribute:</p>
+<pre class="cpp">input:required <span class="operator">+</span> label:before { color: red; content: <span class="string">&quot;* &quot;</span>; }</pre>
+<p>The <tt>:invalid</tt> class colors inputs whose text is invalid red, including missing <tt>required</tt> text:</p>
+<pre class="cpp">input<span class="operator">.</span>validate:invalid { background<span class="operator">-</span>color: pink }
+span { opacity: <span class="number">0</span>;}
+input<span class="operator">.</span>validate:invalid <span class="operator">~</span> span { opacity: <span class="number">1</span>; }</pre>
+<p>Once users correct the text, the error message contained in the nearby <tt>span</tt> element disappears.</p>
+<p>To prevent <tt>required</tt> inputs from displaying as invalid before users have had a chance to edit them, event handlers that respond to user input assign a CSS class that determines whether validation errors display:</p>
+<pre class="cpp"><span class="comment">// when users tap the input...</span>
+input<span class="operator">.</span>addEventListener(<span class="char">'focus'</span><span class="operator">,</span> function(event){
+    event<span class="operator">.</span>target<span class="operator">.</span>dataset<span class="operator">.</span>isTyping <span class="operator">=</span> <span class="keyword">false</span>;
+});
+
+<span class="comment">// when users edit text...</span>
+input<span class="operator">.</span>addEventListener(<span class="char">'change'</span><span class="operator">,</span> function(event){
+    event<span class="operator">.</span>target<span class="operator">.</span>dataset<span class="operator">.</span>isTyping <span class="operator">=</span> <span class="keyword">true</span>;
+});
+
+<span class="comment">// when users leave input by tapping outside...</span>
+input<span class="operator">.</span>addEventListener(<span class="char">'blur'</span><span class="operator">,</span> function(event){
+    <span class="keyword">if</span> (<span class="operator">!</span> event<span class="operator">.</span>target<span class="operator">.</span>dataset<span class="operator">.</span>isTyping) <span class="keyword">return</span> <span class="keyword">false</span>;
+    event<span class="operator">.</span>target<span class="operator">.</span>classList<span class="operator">.</span>add(<span class="char">'validate'</span>);
+});</pre>
+<p>Invalid numeric input can be marked with the <tt>:out-of-range</tt> CSS class. Otherwise, the <tt>:invalid</tt> selector can't be used to display contextual errors. As an alternative, use JavaScript to check the input directly for errors on its <tt>validity</tt> object:</p>
+<ul>
+<li><tt>valueMissing</tt>: missing <tt>required</tt> text</li>
+<li><tt>typeMismatch</tt>: does not match built-in pattern</li>
+<li><tt>patternMismatch</tt>: does not match additional <tt>pattern</tt> attribute</li>
+<li><tt>tooLong</tt>: text exceeds <tt>maxlength</tt></li>
+<li><tt>rangeOverflow</tt>: number is less than <tt>min</tt> attribute</li>
+<li><tt>rangeUnderflow</tt>: number is more than <tt>max</tt> attribute</li>
+<li><tt>stepMismatch</tt>: number doesn't match <tt>step</tt> attribute</li>
+</ul>
+<p>If there are no errors, <tt>input.validity.valid</tt> is <tt>true</tt>.</p>
+<p>This example responds differently to missing text and two different kinds of malformed text:</p>
+<pre class="cpp"><span class="operator">&lt;</span>input type<span class="operator">=</span><span class="string">&quot;url&quot;</span> name<span class="operator">=</span><span class="string">&quot;website&quot;</span> value<span class="operator">=</span><span class="string">&quot;http://&quot;</span>
+        pattern<span class="operator">=</span><span class="string">&quot;^https?://.+\..+&quot;</span> required <span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span>script<span class="operator">&gt;</span>
+var input <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'input[name=website]'</span>);
+<span class="keyword">if</span> (input<span class="operator">.</span>validity<span class="operator">.</span>valueMissing) {
+    <span class="comment">// no text in field</span>
+}
+<span class="keyword">else</span> <span class="keyword">if</span> (input<span class="operator">.</span>validity<span class="operator">.</span>typeMismatch) {
+    <span class="comment">// isn't prefixed with a scheme</span>
+}
+<span class="keyword">else</span> <span class="keyword">if</span> (input<span class="operator">.</span>validity<span class="operator">.</span>patternMismatch) {
+    <span class="comment">// non-http scheme, or no mix of top-level &amp; subdomains</span>
+}
+<span class="operator">&lt;</span><span class="operator">/</span>script<span class="operator">&gt;</span></pre>
+</div>
+<!-- @@@form.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

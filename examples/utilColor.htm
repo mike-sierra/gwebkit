@@ -1,0 +1,294 @@
+<!--
+/****************************************************************************
+**
+** Copyright (C) 2011 Nokia Corporation and/or its subsidiary(-ies).
+** All rights reserved.
+** Contact: Nokia Corporation (qt-info@nokia.com)
+**
+** This file is part of the QtWebKit module of the Qt Toolkit.
+**
+** You may use this file under the terms of the BSD license as follows:
+**
+** "Redistribution and use in source and binary forms, with or without
+** modification, are permitted provided that the following conditions are
+** met:
+**   * Redistributions of source code must retain the above copyright
+**     notice, this list of conditions and the following disclaimer.
+**   * Redistributions in binary form must reproduce the above copyright
+**     notice, this list of conditions and the following disclaimer in
+**     the documentation and/or other materials provided with the
+**     distribution.
+**   * Neither the name of Nokia Corporation and its Subsidiary(-ies) nor
+**     the names of its contributors may be used to endorse or promote
+**     products derived from this software without specific prior written
+**     permission.
+**
+** THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+** "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+** LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+** A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+** OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+** SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+** LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+** DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+** THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+** (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+** OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE."
+**
+****************************************************************************/
+-->
+
+<html>
+<head>
+<title>utility</title>
+
+<style>
+body {
+    background : #aaaaaa;
+    overflow : hidden;
+}
+
+pre.debug {
+    background : #ffffff;
+    text-align : center;
+}
+
+input[type=range] {
+    height: 0.5em;
+}
+
+img {
+    border-radius : 0.5em;
+    -webkit-backface-visibility: hidden;
+}
+
+section {
+    position : absolute;
+    right : 1em;
+    left : 1em;
+    top : 6em;
+    bottom : 1em;
+    padding : 1em;
+    border-radius : 1em;
+    background : #ffffff
+}
+
+pre {
+    z-index : 100;
+    position : absolute;
+    top : 0.5em;
+    left : 1em;
+    right : 1em;
+    padding : 0.5em;
+    border-radius : 0.5em;
+    background : #ffffff;
+}
+
+#display {
+    right : 52%;
+    text-align : center;
+    background-image: url(img/gal7.png);
+    background-size:cover;
+    min-width: 300px;
+}
+
+#display > img {
+    max-width : 100%;
+}
+
+#control {
+    left : 52%;
+    background : #ffffff;
+    bottom: inherit;
+    min-width: 300px;
+}
+
+label {
+    width: 4em;
+    display: inline-block;
+}
+
+fieldset {
+    margin: 0.5em;
+}
+
+section > div {
+    width: 6em;
+    height: 6em;
+    border-radius: 1.5em/0.5em;
+    z-index: 10;
+    padding: 1em;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+
+#tgt_hsla {
+    float: right;
+}
+</style>
+
+<link rel="apple-touch-icon-precomposed" href="img/html5x128.png" />
+<link rel="apple-touch-icon" href="img/html5x128.png" />
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<pre>
+background-color: <span id="rgba"></span>; opacity: <span id="rgbo"></span>
+background-color: <span id="hsla"></span>; opacity: <span id="hslo"></span>
+</pre>
+
+<section id="display">
+    <div id="tgt_hsla">HSLA</div>
+    <div id="tgt_rgba">RGBA</div>
+</section>
+
+<section id="control">
+
+<form>
+
+<input type="reset" value="Start Over">
+
+<fieldset>
+<legend>rgba</legend>
+<label>R</label>
+<input id="rgba_r" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>G</label>
+<input id="rgba_g" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>B</label>
+<input id="rgba_b" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>A</label>
+<input id="rgba_a" type="range" min="0" max="1" step="0.01" value="1"/>0-1
+<br/><label>opacity</label>
+<input id="rgba_o" type="range" min="0" max="1" step="0.01" value="1"/>0-1
+</fieldset>
+
+<fieldset>
+<legend>hsla</legend>
+<label>Hue</label>
+<input id="hsla_h" type="range" min="0" max="360" value="180"/>0-360&deg;
+<br/><label>Saturation</label>
+<input id="hsla_s" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>Luminence</label>
+<input id="hsla_l" type="range" min="0" max="100" value="50"/>0-100%
+<br/><label>A</label>
+<input id="hsla_a" type="range" min="0" max="1" step="0.01" value="1"/>0-1
+<br/><label>opacity</label>
+<input id="hsla_o" type="range" min="0" max="1" step="0.01" value="1"/>0-1
+</fieldset>
+
+</form>
+
+</section>
+
+<script>
+var app = new Function();
+
+window.onload = function() {
+    app.init();
+    document.querySelector('input[type=reset]').addEventListener('click', function( ) { app.init() } );
+};
+
+app.init = function() {
+
+    app.initValue_rgba = 'rgba(50%, 50%, 50%, 1)';
+    app.initValue_hsla = 'hsla(180, 50%, 50%, 1)';
+    app.initValue_rgbo = '1';
+    app.initValue_hslo = '1';
+    app.showCode('rgba', app.initValue_rgba);
+    app.showCode('hsla', app.initValue_hsla);
+    app.showCode('rgbo', app.initValue_rgbo);
+    app.showCode('hslo', app.initValue_hslo);
+
+    app.tgt_rgba = document.querySelector('#tgt_rgba');
+    app.tgt_rgba.style.backgroundColor = app.initValue_rgba;
+    app.tgt_rgba.style.opacity = app.initValue_rgbo;
+    app.tgt_hsla = document.querySelector('#tgt_hsla');
+    app.tgt_hsla.style.backgroundColor = app.initValue_hsla;
+    app.tgt_hsla.style.opacity = app.initValue_hslo;
+
+    app.inputs = document.querySelectorAll('select, input:not([type=reset])');
+    for (var i = 0, l = app.inputs.length ; i < l ; i++) {
+        app.inputs[i].addEventListener('change', app.modify);
+    }
+
+    app['hsla_o'] = 1;
+    app['hsla_a'] = 1;
+    app['hsla_h'] = 180;
+    app['hsla_l'] = 50;
+    app['hsla_s'] = 50;
+
+    app['rgba_o'] = 1;
+    app['rgba_a'] = 1;
+    app['rgba_b'] = 50;
+    app['rgba_g'] = 50;
+    app['rgba_r'] = 50;
+};
+
+app.modify = function(event) {
+    app[event.target.id] = app.trimArtifact(event.target.value);
+    app.render();
+}
+
+app.trimArtifact = function(n) {
+    if (n.match(/^[0-9.-]+$/)) {
+        return(Math.floor(n * 100) / 100);
+    }
+    else if (n.match(/^[a-z]+$/)) {
+        return(n);
+    }
+    else {
+        alert(n);
+    }
+}
+
+app.render = function() {
+
+    var cssStr_hsl;
+    var cssStr_hslo;
+    var cssStr_rgb;
+    var cssStr_rgbo;
+
+    cssStr_rgbo = app.rgba_o;
+    cssStr_hslo = app.hsla_o;
+
+    cssStr_rgb = 'rgba(';
+    cssStr_rgb += app.rgba_r;
+    cssStr_rgb += '%, ';
+    cssStr_rgb += app.rgba_g;
+    cssStr_rgb += '%, ';
+    cssStr_rgb += app.rgba_b;
+    cssStr_rgb += '%, ';
+    cssStr_rgb += app.rgba_a;
+    cssStr_rgb += ')';
+
+    cssStr_hsl = 'hsla(';
+    cssStr_hsl += app.hsla_h;
+    cssStr_hsl += ', ';
+    cssStr_hsl += app.hsla_s;
+    cssStr_hsl += '%, ';
+    cssStr_hsl += app.hsla_l;
+    cssStr_hsl += '%, ';
+    cssStr_hsl += app.hsla_a;
+    cssStr_hsl += ')';
+
+    app.tgt_rgba.style.backgroundColor = cssStr_rgb;
+    app.tgt_hsla.style.backgroundColor = cssStr_hsl;
+    app.tgt_rgba.style.opacity = cssStr_rgbo;
+    app.tgt_hsla.style.opacity = cssStr_hslo;
+
+    app.showCode('rgba', cssStr_rgb);
+    app.showCode('hsla', cssStr_hsl);
+    app.showCode('rgbo', cssStr_rgbo);
+    app.showCode('hslo', cssStr_hslo);
+
+};
+
+app.showCode = function(id, str) {
+    document.getElementById(id).innerHTML = str;
+}
+
+</script>
+</body>
+</html>

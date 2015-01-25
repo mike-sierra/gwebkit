@@ -1,0 +1,41 @@
+body {
+    background          : #aaaaaa;
+    font-family         : sans-serif;
+    font-weight         : bold;
+}
+
+h1,h2,h3,h4 {
+    text-align          : center;
+}
+
+section {
+    position            : absolute;
+    top                 : 0;
+    left                : 0;
+    right               : 0;
+    bottom              : 0;
+}
+
+article {
+    max-width           : 320px;
+    background          : #ffffff;
+    border-radius       : 1.0em;
+    padding             : 1.0em;
+    margin              : 1em;
+    min-height          : 50%;
+}
+
+#primary, #secondary {
+    width               : 100%;
+    min-height          : 3em;
+    font-weight         : bold;
+    -webkit-appearance  : none;
+    border              : #777777 solid medium;
+    padding             : 0.25em;
+    border-radius       : 0.25em;
+    background-image    : url(../img/icon_head-expanded.png);
+    background-repeat   : no-repeat;
+    background-position : 95% center;
+    margin-bottom       : 1em;
+}
+

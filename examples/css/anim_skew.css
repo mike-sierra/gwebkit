@@ -1,0 +1,147 @@
+body {
+    background                         : #aaaaaa;
+    padding                            : 1em;
+    font-family                        : "Helvetica";
+    font-weight                        : bold;
+    overflow                           : hidden;
+}
+
+span {
+    background                         : #ffffff;
+    font-weight                        : bold;
+    cursor                             : pointer;
+}
+
+.items > div {
+    cursor                             : pointer;
+    background                         : #ffffff;
+    height                             : 2em;
+    padding                            : 0.5em 0.5em 0.0em 0.5em;
+    border-radius                      : 0.25em;
+    position                           : absolute;
+    left                               : 1em;
+    right                              : 1em;
+    -webkit-transition-property        : -webkit-transform, top;
+    -webkit-transition-duration        : 0.5s, 0.5s;
+    -webkit-transition-delay           : 0s, 0.5s;
+    -webkit-transition-timing-function : ease-in-out;
+}
+
+.hide {
+    -webkit-transform-origin           : bottom left;
+    -webkit-transform                  : skew(40deg) translate(140%,0em);
+}
+
+.items > div:after {
+    content                            : url(../img/icon_dismiss_x22.png);
+    float                              : right;
+}
+
+.items > div {
+    padding-left                       : 3.0em;
+    color                              : #444444;
+    background-size                    : contain;
+    background-repeat                  : no-repeat;
+}
+
+.items > div[title='cat1'] {
+    background-image                   : url(../img/ic_fe_036.png);
+}
+
+.items > div[title='cat2'] {
+    background-image                   : url(../img/ic_na_036.png);
+}
+
+.items > div[title='cat3'] {
+    background-image                   : url(../img/ic_ni_036.png);
+}
+
+.items > div[title='cat4'] {
+    background-image                   : url(../img/ic_mg_036.png);
+}
+
+nav {
+    position                           : absolute;
+    background                         : #aaaaaa;
+    top                                : 0;
+    left                               : 0;
+    right                              : 0;
+    z-index                            : 10;
+    height                             : 2em;
+    text-align                         : center;
+    padding                            : 0.5em;
+}
+
+nav > div {
+    background-size                    : contain;
+    background-repeat                  : no-repeat;
+    display                            : inline-block;
+    width                              : 36px;
+    height                             : 36px;
+    margin-left                        : 0.25em;
+    margin-right                       : 0.25em;
+    background-image                   : -webkit-gradient(linear,center top,center bottom,from(#ffffff),to(#eeeeee));
+}
+
+nav > div {
+    background-image : url(../img/icon_list-all.png);
+}
+nav > .cat1 {
+    background-image : url(../img/ic_fe_036.png);
+}
+nav > .cat2 {
+    background-image : url(../img/ic_na_036.png);
+}
+nav > .cat3 {
+    background-image : url(../img/ic_ni_036.png);
+}
+nav > .cat4 {
+    background-image : url(../img/ic_mg_036.png);
+}
+
+.row1 {
+    top : 3.5em;
+}
+.row2 {
+    top : 6.5em;
+}
+.row3 {
+    top : 9.5em;
+}
+.row4 {
+    top : 12.5em;
+}
+.row5 {
+    top : 15.5em;
+}
+.row6 {
+    top : 18.5em;
+}
+.row7 {
+    top : 21.5em;
+}
+.row8 {
+    top : 24.5em;
+}
+.row9 {
+    top : 27.5em;
+}
+.row10 {
+    top : 30.5em;
+}
+.row11 {
+    top : 33.5em;
+}
+.row12 {
+    top : 36.5em;
+}
+.row13 {
+    top : 39.5em;
+}
+.row14 {
+    top : 42.5em;
+}
+.row15 {
+    top : 45.5em;
+}
+

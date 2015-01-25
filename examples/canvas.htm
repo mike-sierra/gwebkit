@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>canvas</title>
+<link href="img/app_icon.png" rel="apple-touch-icon"/>
+<link href='css/all.css' type='text/css' rel='stylesheet'/>
+<link href='css/canvas.css' type='text/css' rel='stylesheet'/>
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+</head>
+<body>
+<section>
+<article>
+<div id="tabber">
+<nav id="tab1" data-tgt="#panel1">draw</nav>
+<nav id="tab2" data-tgt="#panel2" >pen</nav>
+<!--
+<nav id="tab3" data-tgt="#panel3" >shape</nav>
+-->
+<nav id="tab4" data-tgt="#panel4" >add</nav>
+<div id="panel0">Edit the pen, draw, and keep adding new drawings.
+</div>
+<div id="panel1" hidden>
+<canvas id="cv" width="270" height="420"></canvas>
+</div>
+<div id="panel2" hidden>
+
+<div id="centered">
+<aside id="rgb">
+</aside>
+</div>
+<input id="w" type="range" min="1" max="50" value="10"/>
+<input id="r" type="range" value="0"/>
+<input id="g" type="range" value="0"/>
+<input id="b" type="range" value="0"/>
+</div>
+<!--
+<div id="panel3" hidden>panel3</div>
+-->
+<div id="panel4" hidden>
+</div>
+</div>
+
+</article>
+</section>
+
+<script src="js/canvas.js"></script>
+<script src="js/download.js"></script>
+
+<script src="js/all.js"></script>
+</body>
+</html>
+

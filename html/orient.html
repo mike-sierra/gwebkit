@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 22_orient.qdoc -->
+  <title>mobile_html5 : Tipping the Handset</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#xxx-8-5">XXX 8.5</a></li>
+<li class="level2"><a href="#adapting-the-default-screen-layout">Adapting the Default Screen Layout</a></li>
+<li class="level2"><a href="#controlling-text-adjustment">Controlling Text Adjustment</a></li>
+<li class="level2"><a href="#orientation-via-css">Orientation via CSS</a></li>
+<li class="level2"><a href="#orientation-via-javascript">Orientation via JavaScript</a></li>
+<li class="level2"><a href="#multicolumn-layout">Multicolumn Layout</a></li>
+</ul>
+</div>
+<h1 class="title">Tipping the Handset</h1>
+<span class="subtitle"></span>
+<!-- $$$orient.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>When you view browser pages or web apps and tip the device counter-clockise from portrait to landscape orientation, the browser re-orients content accordingly.</p>
+<p>Web pages and web apps can modify their appearance when the device is tipped in 90&deg; increments. The <tt>orientation</tt> <a href="query.html">CSS media query</a> allows you to assign different interface features depending on <tt>portrait</tt> or <tt>landscape</tt> orientation. In this case, landscaped pages use a two-column layout:</p>
+<pre class="cpp">@media all <span class="keyword">and</span> (orientation: landscape) {
+    article { <span class="operator">-</span>webkit<span class="operator">-</span>column<span class="operator">-</span>count: <span class="number">2</span>; }
+    h1 { <span class="operator">-</span>webkit<span class="operator">-</span>column<span class="operator">-</span>span: all; }
+}</pre>
+<p>The result can be seen in this example, by resizing the browser window so that it is alternately taller or wider:</p>
+<p><a href="../examples/orient.htm"> <img src="images/orient1.png" alt="" /> <img src="images/orient2.png" alt="" /> </a></p>
+<p><a href="../examples/orient.htm"> __IFRAME__ </a> <a href="../examples/orient.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/orient.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/orient.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p>JavaScript can respond similarly to <tt>orientationchange</tt> events that fire on the window, checking the state of the <tt>window.orientation</tt> property for <tt>portrait</tt> or <tt>landscape</tt> values:</p>
+<pre class="cpp">window<span class="operator">.</span>addEventListener(<span class="char">'orientationchange'</span><span class="operator">,</span> function(e){
+    var isUpright <span class="operator">=</span> (window<span class="operator">.</span>orientation <span class="operator">=</span><span class="operator">=</span> <span class="char">'portrait'</span>);
+});</pre>
+<p>When you apply a <a href="layout.html">mobile viewport</a>, flexible layout elements conform to the width of the device's window. Ordinarily, tipping the device to landscape orientation magnifies the content, keeping the overall width constant. To illustrate the range of available options, this example shows a flexible layout against a fixed-size background element. In landscape view, the page simply magnifies:</p>
+<p class="centerAlign"><img src="images/view_on.png" alt="" /></p><p>To disable magnification and make flexible elements expand to the wider screen, set the <tt>user-scalable=no</tt> viewport property:</p>
+<pre class="cpp"><span class="operator">&lt;</span>meta name<span class="operator">=</span><span class="string">&quot;viewport&quot;</span> content<span class="operator">=</span><span class="string">&quot;width=device-width, user-scalable=no&quot;</span><span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>Doing so disables pinch and double-tap gestures that otherwise allow users to magnify content. The following shows how the same page appears with scaling disabled. The layout element changes dimensions, but the background element shows that the magnification remains constant:</p>
+<p class="centerAlign"><img src="images/view_on_noscale.png" alt="" /></p><p>As shown above, the Browser independently magnifies text when shifting to landscape orientation. To keep the text size from changing, disable the <tt>-webkit-text-size-adjust</tt> CSS property. The following affects the entire page:</p>
+<pre class="cpp">html { <span class="operator">-</span>webkit<span class="operator">-</span>text<span class="operator">-</span>size<span class="operator">-</span>adjust: none }</pre>
+<p>The following shows the resulting page, with text appearing at the same size:</p>
+<p class="centerAlign"><img src="images/view_on_noscale_noadjust.png" alt="" /></p><p><b>Warning:</b> Applying the above CSS within a <i>desktop</i>-oriented interface interferes with the browser's zoom feature, which is not affected by mobile <tt>viewport</tt> settings. In that case, when users zoom a page, the dimensions of screen elements changes, but the size of the text does not. If your are deploying a hybrid mobile interface adapted for desktop or tablet browsers, use media queries to narrow the scope of the above CSS. For more information, see <a href="query.html">Responsive Interfaces</a>.</p>
+<p>To review, use the following techniques to adapt flexible layouts to landscape orientation:</p>
+<ul>
+<li>Set the viewport's <tt>width=device-width</tt> to fit content with the screen dimensions.</li>
+<li>Set the viewport's <tt>user-scalable=no</tt> to widen flexible content in landscape view.</li>
+<li>Set the <tt>-webkit-text-size-adjust:none</tt> CSS property to keep text from changing size.</li>
+<li>Apply flexible layout elements that adapt to available dimensions.</li>
+<li>Optionally, use <tt>orientation</tt> media queries to change layout, and <tt>orientationchange</tt> handlers to respond in other ways.</li>
+</ul>
+<a name="xxx-8-5"></a>
+<h2>XXX 8.5</h2>
+<p>By default, mobile browsers respond to simple 90&deg; shifts between portrait and landscape orientation by adjusting magnification. This section clarifies various ways to modify that behavior:</p>
+<ul>
+<li>The <a href="#adapting-the-default-screen-layout"><tt>user-scalable</tt> viewport property</a> disables magnification, and instead forces flexible layout elements to adjust to the window's altered dimensions.</li>
+<li>The <a href="#controlling-text-adjustment"><tt>-webkit-text-size-adjust</tt> CSS property </a> allows you to separately disable the browser's default text magnification.</li>
+<li>The <a href="#orientation-via-css"><tt>orientation</tt> CSS media query</a> allows you to actively target designs to portrait and landscape orientations.</li>
+<li>The <a href="#orientation-via-javascript"><tt>orientationchange</tt> event</a> allows scripts to respond to changes in orientation. Alternately, <i>media query listeners</i> can respond to changes in the <tt>orientation</tt> media query's state.</li>
+</ul>
+<p>The final section shows cases when <a href="#multicolumn-layout">multicolumn CSS properties</a> may be appropriate for landscape-oriented mobile layouts.</p>
+<p>See <a href="gesture.html">Orientation and Motion</a> for information on how to respond to smaller shifts in orientation, or to determine geographic orientation.</p>
+<p><b>Note: </b>There is not yet a standard way to override browsers' default orientation-shifting behavior if you want to lock content to a particular orientation.</p><a name="adapting-the-default-screen-layout"></a>
+<h3>Adapting the Default Screen Layout</h3>
+<p>The <a href="layout.html#constraining-touch-response">Constraining Touch Response</a> section shows how to specify a viewport that disables double-tap and pinch-zooming:</p>
+<pre class="cpp"><span class="operator">&lt;</span>meta name<span class="operator">=</span><span class="string">&quot;viewport&quot;</span> content<span class="operator">=</span><span class="string">&quot;width=device-width, user-scalable=no, initial-scale=1&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>Disabling the <tt>user-scalable</tt> property not only prevents users from changing the magnification level with double-tap and pinch-zoom gestures, but also prevents the browser from doing the same in response to orientation changes. Ordinarily, shifting to landscape orientation magnifies content so that the screen width matches that of portrait orientation:</p>
+<p><img src="images/view_on_p.PNG" alt="" /> <img src="images/view_on_l.PNG" alt="" /> .</p>
+<p>Since scaling is not an option with <tt>user-scalable</tt> disabled, as an alternative the width of the content increases to fill the space, in this case exceeding the width of the background graphic:</p>
+<p><img src="images/view_on_p.PNG" alt="" /> <img src="images/view_on_noscale_l.PNG" alt="" /> .</p>
+<p>Screen layouts can thus adapt to shifts in orientation, but only if they use flexible measurements. The example above uses <a href="layout.html#flexible-positioning">absolute positioning</a> to size the text element relative to the edges of the screen, but setting its <tt>width</tt> to <tt>100%</tt> would have much the same effect.</p>
+<a name="controlling-text-adjustment"></a>
+<h3>Controlling Text Adjustment</h3>
+<p>The <a href="#adapting-the-default-screen-layout">example above</a> is set to disable scaling, but the the <tt>user-scalable</tt> viewport property only affects the dimensions of layout elements. By default, the size of text still increases when tipping the handset to landscape orientation.</p>
+<p>The following CSS disables text adjustment throughout a page:</p>
+<pre class="cpp">html { <span class="operator">-</span>webkit<span class="operator">-</span>text<span class="operator">-</span>size<span class="operator">-</span>adjust: none }</pre>
+<p>Alternately, specifying a percentage varies the text size relative to the default. Setting adjustment to <tt>100%</tt> has the same effect as setting it to <tt>none</tt>.</p>
+<p>The following shows how <tt>-webkit-text-size-adjust:none</tt>, along with the <tt>user-scalable:no</tt> viewport property, neatly adapts a flexible mobile layout to landscape orientation:</p>
+<p class="centerAlign"><img src="images/view_on_noscale_noadjust.PNG" alt="" /></p><p><b>Note: </b>Like viewport properties, the <tt>-webkit-text-size-adjust</tt> CSS property only affects the appearance of content on mobile handsets.</p><a name="orientation-via-css"></a>
+<h3>Orientation via CSS</h3>
+<p>The examples above allow you to override default browser behavior, but no more than that. Applying <tt>orientation</tt> CSS media queries allows you to specify design elements for each orientation.</p>
+<p>Unlike <a href="query.html#what-can-you-find-out-about-a-browser">other media queries</a> that yield static values, useful when specifying an overall mobile layout, the value of <tt>orientation</tt> may change dynamically between <tt>portrait</tt> and <tt>landscape</tt> based on user input.</p>
+<p>The following example uses media queries to display portrait- or landscape-oriented images separately, based on the handset's orientation:</p>
+<p><a href="../examples/event_orient-gallery.htm"><img src="images/scr_event_orient-gallery.png" alt="" /> <img src="images/scr_event_orient-gallery2.png" alt="" /> </a></p>
+<p><a href="../examples/css/event_orient-gallery.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/event_orient-gallery.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>When viewed on a desktop browser, orientation changes can be mimicked by resizing the window.</p>
+<p>When the page loads, a script determines each image's orientation based on its inherent <tt>height</tt> and <tt>width</tt> properties. After that, the entire interface is driven by the following CSS, which toggles display of content classed either <tt>port</tt> or <tt>land</tt>:</p>
+<pre class="cpp">@media all <span class="keyword">and</span> (orientation: portrait) {
+    <span class="operator">.</span>land { display : none; }
+}
+@media all <span class="keyword">and</span> (orientation: landscape) {
+    <span class="operator">.</span>port { display : none; }
+}</pre>
+<p>Tappable navigation control bars, one for each set of images, are available at the top of the page. Their display is also driven by the above CSS.</p>
+<a name="orientation-via-javascript"></a>
+<h3>Orientation via JavaScript</h3>
+<p>Changes in orientation state can be captured from within JavaScript via the window's <tt>orientationchange</tt> event. It works like the window's <tt>resize</tt> event, but only fires when width exceeds height or vice versa. (Mobile browser windows are fixed, and only allow two possible sets of window dimensions.)</p>
+<pre class="cpp">window<span class="operator">.</span>addEventListener(<span class="char">'orientationchange'</span><span class="operator">,</span> orientationHandler);
+<span class="comment">// or...</span>
+window<span class="operator">.</span>onorientationchange <span class="operator">=</span> orientationHandler;
+
+function orientationHandler(e) {
+    var isUpright;
+    <span class="keyword">if</span> (<span class="operator">!</span><span class="operator">!</span>window<span class="operator">.</span>orientation) {
+        isUpright <span class="operator">=</span> (window<span class="operator">.</span>orientation <span class="operator">=</span><span class="operator">=</span> <span class="char">'portrait'</span>);
+    }
+    <span class="keyword">else</span> {
+        isUpright <span class="operator">=</span> (window<span class="operator">.</span>innerWidth <span class="operator">&lt;</span> window<span class="operator">.</span>innerHeight);
+    }
+    <span class="comment">// ...do something based on value of isUpright</span>
+}</pre>
+<p>Note that the <tt>orientationchange</tt> event does not identify the new orientation state, so that information needs to be calculated within the handler. If the <tt>window.orientation</tt> property is available, check it for <tt>portrait</tt> or <tt>landscape</tt> values. Otherwise, compare the window's width and height directly.</p>
+<p>As an alternative to <tt>orientationchange</tt> events, browsers are starting to support <i>media query listeners</i>, which fire whenever there is a change in a media query expression's matching state. Make sure to initially check support for this relatively new feature:</p>
+<pre class="cpp"><span class="keyword">if</span> (<span class="operator">!</span><span class="operator">!</span>window<span class="operator">.</span>matchMedia<span class="operator">.</span>addListener) {
+    window<span class="operator">.</span>matchMedia(<span class="string">&quot;(orientation: landscape)&quot;</span>)<span class="operator">.</span>addListener(orientationHandler);
+}
+<span class="keyword">else</span> {
+    window<span class="operator">.</span>addEventListener(<span class="char">'orientationchange'</span><span class="operator">,</span> function(e){
+        <span class="comment">// use alternate handler shown above</span>
+    });
+}</pre>
+<p>The handler is passed a <tt>MediaQueryList</tt> object, whose <tt>matches</tt> property determines orientation:</p>
+<pre class="cpp">function orientationHandler(mql) {
+    <span class="keyword">if</span>(mql<span class="operator">.</span>matches) {
+        <span class="comment">// landscape</span>
+    }
+    <span class="keyword">else</span> {
+        <span class="comment">// portrait</span>
+    }
+}</pre>
+<p>See <a href="query.html#script-based-adaptation">Script-based Adaptation</a> for more information on how <tt>window.matchMedia</tt> may align JavaScript functionality with CSS.</p>
+<a name="multicolumn-layout"></a>
+<h3>Multicolumn Layout</h3>
+<p>Level 3 CSS allows you to divide blocks into different columns of dynamically flowing text. While this feature is most useful for large-screen layouts, two-column formatting may occasionally apply to landscape-orientated mobile content as well.</p>
+<p>The following example uses media queries to display a single-column layout in portrait mode. In landscape mode, it displays a two-column layout featuring shorter line lengths:</p>
+<p><a href="../examples/css3_twocol.htm"><img src="images/scr_css3_twocol.png" alt="" /> <img src="images/scr_css3_twocol2.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_twocol.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The landscape-oriented layout is driven by the following CSS:</p>
+<pre class="cpp">@media all <span class="keyword">and</span> (orientation: landscape) {
+    article {
+        <span class="operator">-</span>webkit<span class="operator">-</span>column<span class="operator">-</span>count : <span class="number">2</span>;
+        <span class="operator">-</span>webkit<span class="operator">-</span>column<span class="operator">-</span>gap   : <span class="number">2em</span>;
+        <span class="operator">-</span>webkit<span class="operator">-</span>column<span class="operator">-</span>rule  : thin dashed <span class="preprocessor">#aaaaaa;</span>
+    }
+}</pre>
+<p>The <tt>-webkit-column-count</tt> property divides the main content block into two columns. The <tt>-webkit-column-gap</tt> property defines the width of the gutter that separates the two columns. The <tt>-webkit-column-rule</tt> property places a rule between each column, using the same syntax conventions as the <tt>border</tt> property.</p>
+<p>Heading elements within the block use <tt>-webkit-column-span</tt> to override the default layout, potentially dividing it into separate two-column segments:</p>
+<pre class="cpp">h1<span class="operator">,</span>h2<span class="operator">,</span>h3<span class="operator">,</span>h4 {
+    text<span class="operator">-</span>align          : center;
+    <span class="operator">-</span>webkit<span class="operator">-</span>column<span class="operator">-</span>span : all;
+}</pre>
+<p>In this example, the image is set to float within a narrow space when viewed in portrait mode, but to fill a full column within landscape mode.</p>
+<p>There are two problems with the example shown above:</p>
+<ul>
+<li>Content set to span columns, such as the heading at the top of the above page, may not always be placed reliably when switching between portrait and landscape orientation. (This is a bug.)</li>
+<li>More significantly, when users scroll to the bottom of the first column, they are obliged to awkwardly scroll back up to the top of the entire page to continue onto the second column.</li>
+</ul>
+<p>To address these problems, this modified example divides the content into much smaller segments, suitable for viewing in each screen view:</p>
+<p><a href="../examples/css3_twocol-straddle.htm"><img src="images/scr_css3_twocol_straddle.png" alt="" /> <img src="images/scr_css3_twocol_straddle2.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_twocol-straddle.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>In this case, two-column formatting is assigned to paragraph text rather than to the overall content block.</p>
+<pre class="cpp">@media all <span class="keyword">and</span> (orientation: landscape) {
+    p { <span class="operator">-</span>webkit<span class="operator">-</span>column<span class="operator">-</span>count : <span class="number">2</span> }
+}</pre>
+<p>Narrowing the scope of the multicolumn formatting ensures the headings reliably span both columns. Also in this example, floating graphics override the default two-column layout of the paragraphs within which they are nested. Designers must experiment to understand the complex set of layout options available.</p>
+<p><b>Note: </b>When changing orientation, users may find it confusing when interface items become rearranged on the screen, as in the example above. Be careful when customizing landscape-oriented layouts.</p></div>
+<!-- @@@orient.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

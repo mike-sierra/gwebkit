@@ -1,0 +1,49 @@
+body {
+    background           : #aaaaaa;
+    font-family          : sans-serif;
+}
+
+h1,h2,h3,h4 {
+    text-align           : center;
+}
+
+section {
+    position             : absolute;
+    top                  : 0;
+    left                 : 0;
+    right                : 0;
+    bottom               : 0;
+}
+
+article {
+    max-width            : 320px;
+    background           : #ffffff;
+    border-radius        : 1.0em;
+    padding              : 1.0em;
+    margin               : 1em;
+    min-height           : 50%;
+}
+
+p {
+    -webkit-border-image : url(../img/border-stretch.png) 35% 35% 35% 35% stretch stretch;
+    border-color         : rgba(100%, 0%, 0%, 0.5);
+    border-style         : dotted;
+    border-width         : 0 0 1em 0;
+    margin-bottom        : 1em;
+    padding-bottom       : 1em;
+    outline-color:transparent;
+    outline-width:2em;
+    outline-offset:2em;
+    -webkit-transition: all 0.5s;
+    outline-style:dotted;
+}
+
+p:last-of-type {
+    border-width: 0;
+}
+
+.selected {
+    outline-width: 0.25em;
+    outline-color: pink;
+    outline-offset: 0.5em;
+}

@@ -1,0 +1,58 @@
+body {
+    background               : #aaaaaa;
+    font-weight              : bold;
+}
+
+section {
+    color                    : #ffffff;
+    background               : #777777;
+    font-size                : x-large;
+    -webkit-transform        : translate(-150%) scale(1);
+    position                 : absolute;
+    text-align               : center;
+    padding                  : 1em;
+    top                      : 3em;
+    left                     : 3em;
+    bottom                   : 3em;
+    right                    : 3em;
+}
+
+@-webkit-keyframes demoSkew {
+    0% { -webkit-transform   : translate(-150%); }
+    10% { -webkit-transform  : skew(0deg) translate(0); }
+    30% { -webkit-transform  : skew(30deg) translate(0); }
+    50% { -webkit-transform  : skew(0deg) translate(0); }
+    70% { -webkit-transform  : skew(-30deg) translate(0); }
+    90% { -webkit-transform  : skew(0deg) translate(0); }
+    100% { -webkit-transform : translate(150%); }
+}
+
+@-webkit-keyframes demoSkewY {
+    0% { -webkit-transform   : translate(-150%); }
+    10% { -webkit-transform  : skewY(0deg) translate(0); }
+    30% { -webkit-transform  : skewY(30deg) translate(0); }
+    50% { -webkit-transform  : skewY(0deg) translate(0); }
+    70% { -webkit-transform  : skewY(-30deg) translate(0); }
+    90% { -webkit-transform  : skewY(0deg) translate(0); }
+    100% { -webkit-transform : translate(150%); }
+}
+
+@-webkit-keyframes end {
+    0% { -webkit-transform   : translate(150%); }
+    30% { -webkit-transform  : translate(0); }
+    70% { -webkit-transform  : translate(0); }
+    100% { -webkit-transform : translate(150%); }
+}
+
+.skew {
+    -webkit-animation        : demoSkew 9s 2s;
+    -webkit-transform-origin : bottom;
+}
+.skewY {
+    -webkit-animation        : demoSkewY 9s 12s;
+    -webkit-transform-origin : left;
+}
+.end {
+    -webkit-animation        : end 3s 22s;
+}
+

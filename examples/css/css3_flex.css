@@ -1,0 +1,68 @@
+body {
+    font-family              : sans-serif;
+    background               : #dddddd;
+}
+
+section {
+    width                    : 320px;
+    height                   : 420px;
+    position                 : absolute;
+    top                      : 0;
+    left                     : 0;
+    background               : #dddddd;
+}
+
+nav {
+    margin                   : 0.5em;
+    display                  : -webkit-box;
+    -webkit-box-orient       : horizontal;
+    height                   : 50%;
+    width                    : 95%; 
+}
+
+nav > a {
+    border                   : thin solid rgba(0,0,0,0.5);
+    padding                  : 0.5em;
+    border-radius            : 0.5em;
+    background               : #ffffff;    
+    display                  : -webkit-box;
+    -webkit-box-flex         : 1;
+    max-height               : 20%;
+    text-decoration          : none;
+    color                    : #000000;
+    background-size          : 100% 100%;
+    background-size          : contain;
+    background-size          : cover;
+    background-repeat        : no-repeat;
+    -webkit-transition       : all 0.25s linear;
+}
+
+nav > a:target {
+    -webkit-box-flex         : 10;
+    width                    : 320px;
+}
+
+nav > a:before {
+    border                   : thin solid #777;
+    border-radius            : 0.25em;
+    padding                  : 0.25em;
+    display                  : -webkit-inline-box;
+    -webkit-transform        : rotate(-90deg) translateX(-100%) translateY(-15%);
+    -webkit-transform-origin : 0% 0%;
+}
+
+nav > a:nth-of-type(1) { background-image: url(../img/gal1.png); }
+nav > a:nth-of-type(2) { background-image: url(../img/gal2.png); }
+nav > a:nth-of-type(3) { background-image: url(../img/gal3.png); }
+nav > a:nth-of-type(4) { background-image: url(../img/gal4.png); }
+nav > a:nth-of-type(5) { background-image: url(../img/gal5.png); }
+nav > a:nth-of-type(6) { background-image: url(../img/gal8.png); }
+
+nav > a:nth-of-type(1):before { content: "one"; }
+nav > a:nth-of-type(2):before { content: "two"; }
+nav > a:nth-of-type(3):before { content: "three"; }
+nav > a:nth-of-type(4):before { content: "four"; }
+nav > a:nth-of-type(5):before { content: "five"; }
+nav > a:nth-of-type(6):before { content: "six"; }
+
+nav > a:before { background-color: rgba(100%, 100%, 100%, 0.5); }

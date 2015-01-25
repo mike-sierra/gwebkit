@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 33_av.qdoc -->
+  <title>mobile_html5 : Multimedia</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#xxx-mt-video">XXX MT VIDEO</a></li>
+<li class="level1"><a href="#xxx-mt-audio">XXX MT AUDIO</a></li>
+<li class="level2"><a href="#sidebar-the-dataset-api">SIDEBAR: The DataSet API</a></li>
+<li class="level1"><a href="#example-playlist">Example: Playlist</a></li>
+<li class="level1"><a href="#html5-media-api">HTML5 Media API</a></li>
+<li class="level2"><a href="#methods-and-properties">Methods and Properties</a></li>
+<li class="level2"><a href="#interactive-events">Interactive Events</a></li>
+<li class="level2"><a href="#network-events">Network Events</a></li>
+<li class="level1"><a href="#xxx-other">XXX OTHER</a></li>
+<li class="level2"><a href="#video">&gt;&gt;&gt; Video</a></li>
+<li class="level2"><a href="#audio">&gt;&gt;&gt; Audio</a></li>
+<li class="level2"><a href="#flash-fallback">&gt;&gt;&gt; Flash Fallback</a></li>
+<li class="level2"><a href="#mobile-video-constraints">&gt;&gt;&gt; Mobile Video Constraints</a></li>
+<li class="level2"><a href="#application-controlled-multimedia">&gt;&gt;&gt; Application-Controlled Multimedia</a></li>
+<li class="level3"><a href="#ooo-multimedia">ooo Multimedia</a></li>
+<li class="level3"><a href="#ooo-multimedia-api-reference">ooo Multimedia API Reference</a></li>
+<li class="level3"><a href="#ooo-html5-audio">ooo HTML5 Audio</a></li>
+<li class="level3"><a href="#ooo-html5-video">ooo HTML5 Video</a></li>
+<li class="level3"><a href="#ooo-application-controlled-video">ooo Application-Controlled Video</a></li>
+<li class="level3"><a href="#ooo-adding-flash-fallback">ooo Adding Flash Fallback</a></li>
+<li class="level3"><a href="#ooo-targeting-video-to-mobile-browsers">ooo Targeting Video to Mobile Browsers</a></li>
+<li class="level3"><a href="#ooo-intro">ooo intro</a></li>
+<li class="level3"><a href="#ooo-intro2">ooo intro2</a></li>
+</ul>
+</div>
+<h1 class="title">Multimedia</h1>
+<span class="subtitle"></span>
+<!-- $$$av.html-description -->
+<div class="descr"> <a name="details"></a>
+<a name="xxx-mt-video"></a>
+<h2>XXX MT VIDEO</h2>
+<p>The Browser supports native HTML5 video playback for MPEG-4 videos. Videos can play within the browser or within <a href="webapp.html">full-screen web apps</a>.</p>
+<p>To enable video, add a <tt>&lt;video&gt;</tt> tag to an HTML file:</p>
+<pre class="cpp"><span class="operator">&lt;</span>video
+  id            <span class="operator">=</span> <span class="string">&quot;v&quot;</span>
+  src           <span class="operator">=</span> <span class="string">&quot;media/vid.mp4&quot;</span>
+  poster        <span class="operator">=</span> <span class="string">&quot;img/vid.png&quot;</span>
+  width         <span class="operator">=</span> <span class="string">&quot;72&quot;</span>
+  height        <span class="operator">=</span> <span class="string">&quot;72&quot;</span>
+  type          <span class="operator">=</span> <span class="string">&quot;video/mp4; codecs='avc1.42E01E, mp4a.40.2'&quot;</span>
+  controls
+<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>video<span class="operator">&gt;</span></pre>
+<p>The <tt>width</tt> and <tt>height</tt> attributes can alternately be set with CSS properties. They specify the dimensions of the preview area that, when tapped, activates the video playback. On desktop browsers, the video plays back within this preview area, in which case they should be the same size. Like most other mobile browsers, the Browser plays back videos within a separate playback panel, so video previews may take up a much smaller part of the screen with no effect on the quality of video playback. The <tt>poster</tt> attribute allows you to replace the default preview image with one you supply.</p>
+<p>This example, suitable only for mobile browsers, shows a small control that initiates video playback:</p>
+<p><a href="../examples/video.htm"> <img src="images/video.png" alt="" /> <img src="images/video2.png" alt="" /> </a></p>
+<p><a href="../examples/video.htm"> __IFRAME__ </a> <a href="../examples/video.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/video.css"> <img src="images/icon_css.png" alt="" /> </a></p>
+<p>Once the video is playing, users can control or cancel playback directly. An application can also affect playback, but not with touch controls placed on the page, which are rendered inaccessible by the playback panel. See <a href="#html5-media-api">HTML5 Media API</a> for information on tools needed to control playback for both audio and video.</p>
+<p>The sample markup above features an optional <tt>type</tt> that associates MIME types and video codecs, but any failure to specify it leads the Browser to use a default codec. As an alternative to the <tt>video</tt> tag's <tt>src</tt> attribute, nested <tt>source</tt> tags allow you to specify videos in order of preference, with the most widely supported video formats placed first:</p>
+<pre class="cpp"><span class="operator">&lt;</span>video id<span class="operator">=</span><span class="string">&quot;v&quot;</span> poster<span class="operator">=</span><span class="string">&quot;img/vid.png&quot;</span> width<span class="operator">=</span><span class="string">&quot;72&quot;</span> height<span class="operator">=</span><span class="string">&quot;72&quot;</span> controls<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;vid.mp4&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/mp4; codecs='avc1.42E01E, mp4a.40.2'&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;vid.ogv&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/ogg; codecs='theora, vorbis'&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span><span class="operator">!</span><span class="operator">-</span><span class="operator">-</span> fallback <span class="keyword">for</span> browsers that <span class="keyword">do</span> <span class="keyword">not</span> support HTML5 video <span class="operator">-</span><span class="operator">-</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>video<span class="operator">&gt;</span></pre>
+<p>The Browser and others that support the HTML5 video standard ignore any non-<tt>source</tt> content within the <tt>video</tt> tag. Those that do not, interpret it. As a fallback for non-HTML5 browsers, any Flash video implemented with the <tt>object</tt> tag can be specified as nested content.</p>
+<a name="xxx-mt-audio"></a>
+<h2>XXX MT AUDIO</h2>
+<p>The Browser supports the HTML5 <tt>audio</tt> tag. Place markup such as the following HTML page, and the browser presents a set of playback controls:</p>
+<pre class="cpp"><span class="operator">&lt;</span>audio controls autoplay src<span class="operator">=</span><span class="string">&quot;media/song.mp3&quot;</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span><span class="operator">!</span><span class="operator">-</span><span class="operator">-</span> fallback content <span class="keyword">for</span> browsers that <span class="keyword">do</span> <span class="keyword">not</span> support HTML5 audio <span class="operator">-</span><span class="operator">-</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>audio<span class="operator">&gt;</span></pre>
+<p>The <tt>controls</tt> attribute is necessary to present the browser's default <tt>audio</tt> playback element. Without it, it can still produce audio from custom interface controls using JavaScript. The <tt>autoplay</tt> attribute causes the audio to start playing immediately when the page loads.</p>
+<blockquote><a name="sidebar-the-dataset-api"></a>
+<h3>SIDEBAR: The DataSet API</h3>
+<p>Browser 8.5 supports custom data attributes, HTML5's standard mechanism to attach local data to DOM elements. For example, here is an element embedded with custom data:</p>
+<pre class="cpp"><span class="operator">&lt;</span>p data<span class="operator">-</span>key<span class="operator">=</span><span class="string">&quot;value&quot;</span><span class="operator">&gt;</span></pre>
+<p>Data can be accessed using <tt>el.dataset.key</tt> or <tt>el.dataset['key']</tt>, either of which serves as an alternative to the traditional approach: <tt>el.getAttribute('data-key')</tt>.</p>
+</blockquote>
+<a name="example-playlist"></a>
+<h2>Example: Playlist</h2>
+<p>This example shows a default set of playback controls, along with an alternative touch-based playback interface that relies on the <a href="#html5-media-api">HTML5 Media API</a> described below. Touching any of the song titles hides the <tt>audio</tt> element shown at the top of the first screen, and replaces it with a custom volume control.</p>
+<p><a href="../examples/audio.htm"> <img src="images/audio1.png" alt="" /> <img src="images/audio2.png" alt="" /> </a></p>
+<p><a href="../examples/audio.htm"> __IFRAME__ </a> <a href="../examples/audio.htm"> <img src="images/icon_html.png" alt="" /> </a> <a href="../examples/css/audio.css"> <img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/audio.js"> <img src="images/icon_js.png" alt="" /> </a></p>
+<p><b>Warning:</b> If more than one <tt>audio</tt> element is present on a page, they may potentially play back at the same time.</p>
+<p>Each of the song titles uses <a href="api.html#use-advanced-css-formatting">CSS gradient formatting</a> to indicate progress of playback. (The Browser also supports the HTML5 <tt>progress</tt> tag, which may serve as an alternative in this case.) Tapping each song title references a new embedded filename from the hidden <tt>audio</tt> element, loads it, then plays it:</p>
+<pre class="cpp"><span class="operator">&lt;</span>div data<span class="operator">-</span>artist<span class="operator">=</span><span class="string">&quot;El Ten Eleven&quot;</span> data<span class="operator">-</span>file<span class="operator">=</span><span class="string">&quot;Every_Direction_Is_North&quot;</span><span class="operator">&gt;</span><span class="operator">&lt;</span><span class="operator">/</span>div<span class="operator">&gt;</span>
+
+<span class="operator">&lt;</span>script<span class="operator">&gt;</span>
+var audio <span class="operator">=</span> document<span class="operator">.</span>querySelector(<span class="char">'audio'</span>);
+var currentSong;
+
+function play(event) {
+    currentSong <span class="operator">=</span> event<span class="operator">.</span>target;
+    currentSong<span class="operator">.</span>classList<span class="operator">.</span>add(<span class="char">'playing'</span>);
+    audio<span class="operator">.</span>src <span class="operator">=</span> <span class="string">&quot;media/&quot;</span> <span class="operator">+</span> currentSong<span class="operator">.</span>dataset<span class="operator">.</span>file <span class="operator">+</span> <span class="string">&quot;.mp3&quot;</span>;
+    audio<span class="operator">.</span>load();
+    audio<span class="operator">.</span>play();
+}
+<span class="operator">&lt;</span><span class="operator">/</span>script<span class="operator">&gt;</span></pre>
+<p>If the song is already playing, tapping again pauses it:</p>
+<pre class="cpp"><span class="keyword">if</span> (currentSong<span class="operator">.</span>classList<span class="operator">.</span>contains(<span class="char">'playing'</span>)) {
+    app<span class="operator">.</span>audio<span class="operator">.</span>pause();
+    currentSong<span class="operator">.</span>classList<span class="operator">.</span>remove(<span class="char">'playing'</span>);
+    currentSong<span class="operator">.</span>classList<span class="operator">.</span>add(<span class="char">'paused'</span>);
+} <span class="keyword">else</span> <span class="keyword">if</span> (currentSong<span class="operator">.</span>classList<span class="operator">.</span>contains(<span class="char">'paused'</span>)) {
+    app<span class="operator">.</span>audio<span class="operator">.</span>play();
+    currentSong<span class="operator">.</span>classList<span class="operator">.</span>add(<span class="char">'playing'</span>);
+    currentSong<span class="operator">.</span>classList<span class="operator">.</span>remove(<span class="char">'paused'</span>);
+}</pre>
+<p>To represent playback state within each progress tracker, you need to know each track's full duration. The <tt>duration</tt> property becomes available once the audio file loads, when the <tt>durationchange</tt> event fires on the <tt>audio</tt> element:</p>
+<pre class="cpp">var songDuration; <span class="comment">// measured in seconds</span>
+audio<span class="operator">.</span>addEventListener(<span class="char">'durationchange'</span><span class="operator">,</span> function(e) {
+    songDuration <span class="operator">=</span> e<span class="operator">.</span>target<span class="operator">.</span>duration;
+});</pre>
+<p>Likewise, the <tt>timeupdate</tt> event makes the current position within the track available via the <tt>currentTime</tt> property as the media plays:</p>
+<pre class="cpp">var songPosition; <span class="comment">// measured in seconds</span>
+var progress;     <span class="comment">// decimal value</span>
+audio<span class="operator">.</span>addEventListener(<span class="char">'timeupdate'</span><span class="operator">,</span> function(e) {
+    songPosition <span class="operator">=</span> audio<span class="operator">.</span>currentTime;
+    progress <span class="operator">=</span> songPosition <span class="operator">/</span> songDuration;
+    <span class="comment">// ...use progress to modify interface</span>
+}</pre>
+<p>The <tt>ended</tt> event occurs as each track completes playback. In this case, it signals the application to load and play the next track in the playlist, if available:</p>
+<pre class="cpp">audio<span class="operator">.</span>addEventListener(<span class="char">'ended'</span><span class="operator">,</span> function(e) {
+    var next;
+    <span class="keyword">if</span> (next <span class="operator">=</span> currentSong<span class="operator">.</span>nextSibling) {
+        <span class="comment">// play the next song</span>
+        <span class="keyword">return</span>(<span class="keyword">true</span>);
+    }
+    <span class="comment">// reset interface</span>
+    <span class="keyword">return</span>(<span class="keyword">false</span>);
+}</pre>
+<p>The draggable slider control at the top of the screen adjusts playback <tt>volume</tt>, a decimal value from 0 to 1:</p>
+<pre class="cpp">function volumeDragHandler(e) {
+    <span class="keyword">if</span> (e<span class="operator">.</span>touches<span class="operator">.</span>length <span class="operator">&gt;</span> <span class="number">1</span>) <span class="keyword">return</span>(<span class="keyword">false</span>); <span class="comment">// allow only 1-finger touches</span>
+    e<span class="operator">.</span>preventDefault(); <span class="comment">// disable page scroll and mouse events</span>
+    e<span class="operator">.</span>stopPropagation(); <span class="comment">// touch doesn't fire on background layers</span>
+    var vol <span class="operator">=</span> e<span class="operator">.</span>target; <span class="comment">// get volume controller</span>
+    <span class="comment">// calculate touch position:</span>
+    var dragProgress <span class="operator">=</span> (e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>pageX <span class="operator">-</span> vol<span class="operator">.</span>offsetLeft) <span class="operator">/</span>
+                           vol<span class="operator">.</span>scrollWidth);
+    audio<span class="operator">.</span>volume <span class="operator">=</span> dragProgress; <span class="comment">// reflect in audio volume</span>
+    <span class="comment">// modify volume slider to display new volume level here</span>
+}</pre>
+<p>The application allows the same drag gesture to skip within each track, by modifying the <tt>currentTime</tt> property:</p>
+<pre class="cpp">var dragProgress <span class="operator">=</span> ( (e<span class="operator">.</span>touches<span class="operator">[</span><span class="number">0</span><span class="operator">]</span><span class="operator">.</span>pageX <span class="operator">-</span> currentSong<span class="operator">.</span>offsetLeft) <span class="operator">/</span>
+                        currentSong<span class="operator">.</span>scrollWidth );
+audio<span class="operator">.</span>currentTime <span class="operator">=</span> app<span class="operator">.</span>songDuration <span class="operator">*</span> dragProgress;</pre>
+<p><b>Warning:</b> Mobile users are likely to skip ahead to a portion of the song that has not yet loaded, in which case the browser may send a new request for a different portion of the media file.</p>
+<p>For information on how to handle touch events, see <a href="touch.html">Touch Gestures</a>.</p>
+<a name="html5-media-api"></a>
+<h2>HTML5 Media API</h2>
+<p>The following summarizes the set of API calls available when building your own multimedia application. By default, the <tt>media</tt> element referenced can be either a <tt>audio</tt> and <tt>video</tt> elements. However, the Browser's dedicated full-screen video playback interface prevents touch input, making API control relatively inaccessible for video.</p>
+<a name="methods-and-properties"></a>
+<h3>Methods and Properties</h3>
+<ul>
+<li><tt>media.pause()</tt> halts playback.</li>
+<li><tt>media.play()</tt> initiates playback, resumes playback if <tt>paused</tt>, or restarts playback if <tt>ended</tt>.</li>
+<li><tt>media.paused</tt> returns <tt>true</tt> if playback has been paused.</li>
+<li><tt>media.ended</tt> returns <tt>true</tt> if playback has reached the end of the video or audio.</li>
+<li><tt>media.playbackRate</tt> can slow down or speed up playback from the default numeric value of 1.0 for normal speed.</li>
+<li><tt>media.duration</tt> is a read-only property that represents the total length of the media, in seconds.</li>
+<li><tt>media.currentTime</tt> represents the current playback position, in seconds. Assigning a new value skips to a new position within the media.</li>
+<li><tt>media.played</tt> returns a <tt>TimeRanges</tt> object representing the portions of the video or audio that users have already played. You can access individual timestamps from this object's <tt>.start</tt> and <tt>.end</tt> arrays.</li>
+<li><tt>media.load()</tt> loads or reloads media specified by the <tt>src</tt> attribute or nested <tt>source</tt> tags' <tt>src</tt> attributes. To start playing a new media file, reference a URL for a different media file, then run <tt>load()</tt> and <tt>play()</tt>.</li>
+<li><tt>media.volume</tt> represents playback volume as a decimal from 0 to 1. Volume is limited by the device's overall volume setting, which this property does not affect.</li>
+<li><tt>media.muted</tt> is a boolean property that toggles volume on and off.</li>
+</ul>
+<a name="interactive-events"></a>
+<h3>Interactive Events</h3>
+<p>The following events that fire on the media element respond to various forms of user input:</p>
+<ul>
+<li><tt>play</tt> occurs when users initiate playback using native controls, when the application specifies the <tt>play()</tt> method, or when a loaded <tt>video</tt> or <tt>audio</tt> element specifies an <tt>autoplay</tt> attribute.</li>
+<li><tt>timeupdate</tt> each second the media plays.</li>
+<li><tt>pause</tt> occurs when users pause playback using native controls, or when the application specifies the <tt>pause()</tt> method.</li>
+<li><tt>ended</tt> occurs when playback has reached the end of the media.</li>
+<li><tt>ratechange</tt> occurs when the <tt>playbackRate</tt> changes.</li>
+<li><tt>volumechange</tt> occurs when the video's volume setting has been changed or muted.</li>
+<li><tt>durationchange</tt>: occurs after the media loads, when a new <tt>duration</tt> value becomes available.</li>
+</ul>
+<a name="network-events"></a>
+<h3>Network Events</h3>
+<p>Other API events allow applications to respond to various network states as data is buffered over a network. The following list briefly summarizes the conditions that would fire each event:</p>
+<ul>
+<li><tt>loadstart</tt>: browser first attempts to load data.</li>
+<li><tt>progress</tt>: browser is loading data.</li>
+<li><tt>loadedmetadata</tt>: browser has calculated the media's duration or dimensions from the media header.</li>
+<li><tt>loadeddata</tt>: browser has loaded data and can start playing at the current position.</li>
+<li><tt>stalled</tt>: data can't be fetched prior to completion.</li>
+<li><tt>playing</tt>: occurs when playback starts or resumes after having been <tt>stalled</tt>.</li>
+<li><tt>waiting</tt>: playback stalls as the browser waits for more data.</li>
+<li><tt>canplay</tt>: browser estimates it has enough buffered data to resume playback, but can't reach the end of the media before stopping to rebuffer.</li>
+<li><tt>canplaythrough</tt>: browser estimates it can resume playback and reach the end of the media without stopping to rebuffer.</li>
+<li><tt>error</tt>: a network error occurs while fetching data.</li>
+<li><tt>abort</tt>: browser stops fetching data, but not due to an error.</li>
+<li><tt>suspend</tt>: browser temporarily stops fetching data, but not due to an error.</li>
+<li><tt>emptied</tt>: may occur when flushing a buffer, as when loading new media.</li>
+<li><tt>seeking</tt>: browser is trying to recalculate which data it needs to fetch, as may occur when the playback position changes.</li>
+<li><tt>seeked</tt>: browser has calculated which new data it needs to fetch, and is ready to start loading.</li>
+</ul>
+<a name="xxx-other"></a>
+<h2>XXX OTHER</h2>
+<a name="video"></a>
+<h3>&gt;&gt;&gt; Video</h3>
+<a name="audio"></a>
+<h3>&gt;&gt;&gt; Audio</h3>
+<a name="flash-fallback"></a>
+<h3>&gt;&gt;&gt; Flash Fallback</h3>
+<a name="mobile-video-constraints"></a>
+<h3>&gt;&gt;&gt; Mobile Video Constraints</h3>
+<a name="application-controlled-multimedia"></a>
+<h3>&gt;&gt;&gt; Application-Controlled Multimedia</h3>
+<a name="ooo-multimedia"></a>
+<h4>ooo Multimedia</h4>
+<p>Browser 8_5 supports browser-based HTML5 multimedia via the <tt>&lt;video&gt;</tt> and <tt>&lt;audio&gt;</tt> tags. When touched, both videos and audios play back within a dedicated, landscape-oriented interface outside the specified screen layout. Other than differences in how they are presented, <tt>&lt;video&gt;</tt> and <tt>&lt;audio&gt;</tt> tags support the same set of features.</p>
+<p>The following shows a simple way to specify a video:</p>
+<pre class="cpp"><span class="operator">&lt;</span>video id<span class="operator">=</span><span class="string">&quot;vid&quot;</span> width<span class="operator">=</span><span class="string">&quot;480&quot;</span> height<span class="operator">=</span><span class="string">&quot;320&quot;</span> src<span class="operator">=</span><span class="string">&quot;vid.mp4&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/mp4; codecs='avc1.42E01E, mp4a.40.2'&quot;</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>video<span class="operator">&gt;</span></pre>
+<p>Ordinarily, the <tt>height</tt> and <tt>width</tt> attributes (or corresponding CSS) would determine the dimensions of the video, but the dedicated playback interface allows you to size them to smaller icons, specified with the <tt>poster</tt> attribute, used to trigger this mode:</p>
+<pre class="cpp"><span class="operator">&lt;</span>video id<span class="operator">=</span><span class="string">&quot;vid&quot;</span> width<span class="operator">=</span><span class="string">&quot;72&quot;</span> height<span class="operator">=</span><span class="string">&quot;72&quot;</span> poster<span class="operator">=</span><span class="string">&quot;vid.png&quot;</span> src<span class="operator">=</span><span class="string">&quot;vid.mp4&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/mp4; codecs='avc1.42E01E, mp4a.40.2'&quot;</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>video<span class="operator">&gt;</span></pre>
+<p>The <tt>controls</tt> attribute has no effect on how the video playback interface appears in Browser 8_5.</p>
+<p>Use the <tt>source</tt> tag to specify a list of available alternative file formats, in order of preference:</p>
+<pre class="cpp"><span class="operator">&lt;</span>video id<span class="operator">=</span><span class="string">&quot;vid&quot;</span> width<span class="operator">=</span><span class="string">&quot;480&quot;</span> height<span class="operator">=</span><span class="string">&quot;320&quot;</span> preload loop<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;vid.mp4&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/mp4; codecs='avc1.42E01E, mp4a.40.2'&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;vid.ogv&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/ogg; codecs='theora, vorbis'&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>video<span class="operator">&gt;</span></pre>
+<p><b>Note: </b>To extend video support to non-HTML5 browsers, you can nest additional markup within the <tt>video</tt> element to specify <a href="http://www.developer.nokia.com/Resources/Library/Web/nokia-browsers/common-elements-of-nokia-browsers/media-and-plug-ins/audio-and-video-on-nokia-devices.html">Flash video as a fallback</a>.</p><p>The <tt>preload</tt> attribute forces the media file to cache before it is played; otherwise specifying <tt>autoplay</tt> plays it immediately. The <tt>loop</tt> attribute plays the video continuously. The <tt>type</tt> attribute specifies pairings of MIME encodings and media codecs. The following <tt>type</tt> attribute values are supported:</p>
+<ul>
+<li><tt>video/mp4; codecs=&quot;avc1.42E01E, mp4a.40.2&quot;</tt></li>
+<li><tt>video/webm; codecs=&quot;vp8, vorbis&quot;</tt></li>
+<li><tt>video/ogg; codecs=&quot;theora, vorbis&quot;</tt></li>
+</ul>
+<p>Browser 8_5 supports MP3, AAC, PCM, and Ogg Vorbis audio file formats.</p>
+<p>Browser 8_5 supports HTML5's Media API, which consists of methods called on, or events fired on <tt>video</tt> or <tt>audio</tt> elements:</p>
+<ul>
+<li>Methods: <tt>pause()</tt>, <tt>play()</tt>, <tt>load()</tt></li>
+<li>State and configuration values: <tt>paused</tt>, <tt>ended</tt>, <tt>played</tt>, <tt>playbackRate</tt>, <tt>volume</tt>, and <tt>muted</tt></li>
+<li>Playback events: <tt>play</tt>, <tt>pause</tt>, <tt>ended</tt>, <tt>ratechange</tt>, <tt>volumechange</tt></li>
+<li>Network State Events: <tt>abort</tt>, <tt>canplay</tt>, <tt>canplaythrough</tt>, <tt>emptied</tt>, <tt>error</tt>, <tt>loadeddata</tt>, <tt>loadedmetadata</tt>, <tt>loadstart</tt>, <tt>playing</tt>, <tt>progress</tt>, <tt>seeked</tt>, <tt>seeking</tt>, <tt>stalled</tt>, <tt>suspend</tt>, <tt>timeupdate</tt>, <tt>waiting</tt></li>
+</ul>
+<p><b>Note: </b>On-screen controls that might affect media playback are unavailable while the media's playback interface displays. Exiting the playback mode requires explicit input from the user, and cannot be controlled via the Media API.</p><a name="ooo-multimedia-api-reference"></a>
+<h4>ooo Multimedia API Reference</h4>
+<p>You can call the following API functions or properties directly on <tt>video</tt> and <tt>audio</tt> elements to control multimedia content within your application:</p>
+<ul>
+<li><tt>media.pause()</tt> halts playback.</li>
+<li><tt>media.play()</tt> initiates playback, resumes playback if <tt>paused</tt>, or restarts playback if <tt>ended</tt>.</li>
+<li><tt>media.paused</tt> returns <tt>true</tt> if playback has been paused.</li>
+<li><tt>media.ended</tt> returns <tt>true</tt> if playback has reached the end of the video or audio.</li>
+<li>You can set <tt>media.playbackRate</tt> to slow down or speed up playback. By default the value is <tt>1.0</tt> for normal speed.</li>
+<li><tt>media.played</tt> returns a <tt>TimeRanges</tt> object representing the portions of the video or audio that users have played. You can access individual timestamps from the object's <tt>.start</tt> and <tt>.end</tt> arrays.</li>
+<li><tt>media.load()</tt> loads or reloads media specified by the <tt>src</tt> attribute or nested <tt>source</tt> tags' <tt>src</tt> attributes. Change the media files specified by these URLs, then run <tt>load()</tt> and <tt>play()</tt> to start playing a new media file.</li>
+</ul>
+<p>The HTML5 Multimedia API introduces numerous specialized events. The following events, called from <tt>video</tt> or <tt>audio</tt> elements, may respond to user input:</p>
+<ul>
+<li><tt>play</tt> occurs when users initiate playback, when the application specifies the <tt>play()</tt> method, or when a loaded <tt>video</tt> or <tt>audio</tt> element specifies an <tt>autoplay</tt> attribute.</li>
+<li><tt>pause</tt> occurs when users pause playback or when the application specifies the <tt>pause()</tt> method.</li>
+<li><tt>ended</tt> occurs when playback has reached the end of the media.</li>
+<li><tt>ratechange</tt> occurs when the <tt>playbackRate</tt> changes.</li>
+<li><tt>volumechange</tt> occurs when the video's volume setting has been changed. (This setting is different than the handset's volume setting.)</li>
+</ul>
+<p>Numerous other low-level events allow applications to respond to detailed sets of network states as data is buffered. The following list briefly summarizes the conditions that would fire each event:</p>
+<ul>
+<li><tt>loadstart</tt>: browser first attempts to load data</li>
+<li><tt>progress</tt>: browser is loading data</li>
+<li><tt>loadedmetadata</tt>: browser has calculated duration or dimensions from media header</li>
+<li><tt>loadeddata</tt>: browser has loaded data and can start playing at the current position</li>
+<li><tt>playing</tt>: playback has started or resumed</li>
+<li><tt>timeupdate</tt>: the current playback position has been changed</li>
+<li><tt>stalled</tt>: data can't be fetched prior to completion</li>
+<li><tt>waiting</tt>: playback stalls as the browser waits for more data</li>
+<li><tt>canplay</tt>: browser estimates it has enough buffered data to resume playback, but can't reach the end of the media before stopping to rebuffer.</li>
+<li><tt>canplaythrough</tt>: browser estimates it can resume playback and reach the end of the media without stopping to rebuffer.</li>
+<li><tt>error</tt>: a network error occurs while fetching data</li>
+<li><tt>abort</tt>: browser stops fetching data, but not due to an error</li>
+<li><tt>suspend</tt>: browser temporarily stops fetching data, but not due to an error</li>
+<li><tt>emptied</tt>: may occur when flushing a buffer, as when loading new media</li>
+<li><tt>seeking</tt>: browser is trying to recalculate which data it needs to fetch, as when the playback position changes</li>
+<li><tt>seeked</tt>: browser has calculated which new data it needs to fetch, and is ready to start loading</li>
+</ul>
+<p><b>See Also:</b></p>
+<ul>
+<li><a href="http://www.w3.org/TR/html5/video.html">W3C: HTML5 Media Elements</a></li>
+<li><a href="http://developer.apple.com/library/safari/#documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Introduction/Introduction.html#//apple_ref/doc/uid/TP40009523-CH1-SW1">Apple: Safari HTML5 Audio and Video Guide</a></li>
+</ul>
+<a name="ooo-html5-audio"></a>
+<h4>ooo HTML5 Audio</h4>
+<p>The HTML5 <tt>audio</tt> tag works very much like the <tt>video</tt> tag, and supports the same set of attributes:</p>
+<pre class="cpp"><span class="operator">&lt;</span>audio id<span class="operator">=</span><span class="string">&quot;audioplayer&quot;</span> controls loop autoplay<span class="operator">&gt;</span>
+   <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;myAudio.mp3&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+   <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;myAudio.wav&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+   <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;myAudio.ogg&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>audio<span class="operator">&gt;</span></pre>
+<p>By default, audios present a playback interface:</p>
+<p class="centerAlign"><img src="images/av_audio.png" alt="" /></p><p>To make an audio play in the background, sets its <tt>autoplay</tt> attribute and use CSS to hide the playback controls:</p>
+<pre class="cpp">audio { display: none }</pre>
+<p>As with video, the <tt>audio</tt> region can feature nested fallback content that plays on browsers that don't support HTML5 multimedia:</p>
+<pre class="cpp"><span class="operator">&lt;</span>audio id<span class="operator">=</span><span class="string">&quot;audioplayer&quot;</span> preload controls loop<span class="operator">&gt;</span>
+   <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;myAudio.mp3&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+   <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;myAudio.wav&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+   <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;myAudio.ogg&quot;</span><span class="operator">/</span><span class="operator">&gt;</span>
+   <span class="operator">&lt;</span>embed
+     type              <span class="operator">=</span> <span class="string">&quot;application/x-shockwave-flash&quot;</span>
+     src               <span class="operator">=</span> <span class="string">&quot;http://www.google.com/reader/ui/3247397568-audio-player.swf?audioUrl= myAudio.mp3&quot;</span>;
+     width             <span class="operator">=</span> <span class="string">&quot;200&quot;</span>
+     height            <span class="operator">=</span> <span class="string">&quot;27&quot;</span>
+     allowscriptaccess <span class="operator">=</span> <span class="string">&quot;never&quot;</span>
+     quality           <span class="operator">=</span> <span class="string">&quot;best&quot;</span>
+     bgcolor           <span class="operator">=</span> <span class="string">&quot;#ffffff&quot;</span>
+     wmode             <span class="operator">=</span> <span class="string">&quot;window&quot;</span>
+     flashvars         <span class="operator">=</span> <span class="string">&quot;playerMode=embedded&quot;</span>
+   <span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>audio<span class="operator">&gt;</span></pre>
+<p>The following example demonstrates a simple playback interface that loads data from each selected track into a common, hidden audio player:</p>
+<p><a href="../examples/av_audio.htm"><img src="images/scr_av_audio.png" alt="" /> </a></p>
+<p><a href="../examples/css/av_audio.css"><img src="images/icon_css.png" alt="" /> </a><a href="../examples/js/av_audio.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>It relies on three Multimedia API calls: <tt>play()</tt>, <tt>pause()</tt>, and <tt>load()</tt> to restart from the beginning of an audio track. To select new audio tracks, it modifies the audio player's <tt>src</tt> attribute.</p>
+<a name="ooo-html5-video"></a>
+<h4>ooo HTML5 Video</h4>
+<p>You can embed videos directly on a web page using the HTML5 <tt>video</tt> tag. The following example shows how to specify a set of alternative video files with which to target the widest range of browsers:</p>
+<pre class="cpp"><span class="operator">&lt;</span>video id<span class="operator">=</span><span class="string">&quot;myVideo&quot;</span> width<span class="operator">=</span><span class="string">&quot;480&quot;</span> height<span class="operator">=</span><span class="string">&quot;320&quot;</span> preload controls loop<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;lo_myVideo.mp4&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/mp4; codecs='avc1.42E01E, mp4a.40.2'&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;lo_myVideo.webm&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/webm; codecs='vp8, vorbis'&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;lo_myVideo.ogv&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/ogg; codecs='theora, vorbis'&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>video<span class="operator">&gt;</span></pre>
+<p>The <tt>video</tt> tag can contain any number of nested <tt>source</tt> tags to specify alternative video files in various media formats, along with associated mime types and codecs that help browsers determine support. Arrange in order of preference, with the most likely match placed first. Browsers do not display an error if none of these files or codecs are available, so make sure to provide a suitable range of alternatives.</p>
+<p>Various <tt>video</tt> tag attributes allow control over how the video performs:</p>
+<ul>
+<li><tt>preload</tt> makes the browser immediately cache the video file to avoid potential delays in playback.</li>
+<li><tt>autoplay</tt>, not shown in the above example, causes the video to play immediately once the page loads.</li>
+<li><tt>loop</tt> repeats video playback indefinitely.</li>
+<li><tt>controls</tt> presents a control bar allowing users to pause and skip to any point within the video.</li>
+<li><tt>poster</tt> allows you to fill the video area with an alternate preview image. (If not specified, the video area displays a random video frame.)</li>
+<li>The <tt>height</tt> and <tt>width</tt> attributes specify a fixed container in which the video displays.</li>
+</ul>
+<p>Like images, the inherent dimensions of videos should be reflected in the <tt>video</tt> tag's <tt>height</tt> and <tt>width</tt> attributes. Otherwise, consistently sized sets of videos can be sized within CSS:</p>
+<pre class="cpp">video { height: <span class="number">320</span>; width: <span class="number">432</span>; }</pre>
+<p><b>Note: </b>Preloaded videos are downloaded even if they are hidden using CSS's <tt>display:none</tt> property. Likewise if you were to apply CSS to hide a video element after playback starts, you can still hear the audio.</p><p>Videos are best viewed at their actual size, since scaling them down may lead to performance degradation and visual artifacts. To display landscape-oriented video on the widest range of touch-based browsers, specify a maximum <tt>width</tt> of 480 and a <tt>height</tt> of 320.</p>
+<p>Note that the <tt>autoplay</tt> attribute renders the <tt>preload</tt> attribute unnecessary. Since <tt>autoplay</tt> causes the video to play immediately when the page loads, there is no time prior to playback for the data to start loading into a buffer.</p>
+<p>The following demonstrates how a video appears by default, with the <tt>controls</tt> attribute specified:</p>
+<p><a href="../examples/av_video-default.htm"><img src="images/scr_av_video-default.png" alt="" /> </a></p>
+<p>To allow users to initiate video playback in desktop browsers, you must specify the <tt>controls</tt> attribute. Otherwise, unless you specify <tt>autoplay</tt> or implement your own playback controls, users would simply see the preview image with no way to start the video.</p>
+<p>Note that each video tag that appears on a page behaves independently of others, so there is nothing by default to prevent you from playing more than one video at a time. For information on implementing your own playback controls, see <a href="#html5-media-api">HTML5 Media API</a>. For an example of an audio player that loads in different media files to prevent simultaneous playback, see <a href="#audio">Audio</a>. For information on how mobile browsers present videos differently, see <a href="#video">Video</a>.</p>
+<a name="ooo-application-controlled-video"></a>
+<h4>ooo Application-Controlled Video</h4>
+<p>Specifying the <tt>video</tt> tag's <tt>controls</tt> attribute gives users full control to pause or replay a video, or to skip to any point within the video. However, you may want to implement your own playback controls outside the video's playback region, or to control playback programmatically in other ways. HTML5's Multimedia API allows you to do so.</p>
+<p><b>Note: </b>As discussed in the <a href="#video">Video</a>, mobile browsers present videos in a separate full-screen playback interface that renders the overall HTML page inaccessible. Since mobile users may not be able to interact with page elements while the video is playing back, the Multimedia API may be most relevant for desktop browsers when applied to videos.</p><p>The following uses the Multimedia API to implement a simple control switching between pause and play states. In this case, an image is made clickable:</p>
+<pre class="cpp"><span class="operator">&lt;</span>img src<span class="operator">=</span><span class="string">&quot;img/video_play.png&quot;</span> onclick<span class="operator">=</span><span class="string">&quot;play_pause()&quot;</span><span class="operator">/</span><span class="operator">&gt;</span></pre>
+<p>The <tt>play_pause</tt> function makes API calls directly on the <tt>video</tt> tag:</p>
+<pre class="cpp">var v <span class="operator">=</span> document<span class="operator">.</span>getElementById(<span class="string">&quot;vid&quot;</span>);
+
+function play_pause() {
+    <span class="keyword">if</span> ( <span class="operator">!</span> v<span class="operator">.</span>paused <span class="operator">&amp;</span><span class="operator">&amp;</span> <span class="operator">!</span> v<span class="operator">.</span>ended ) {
+        v<span class="operator">.</span>pause();
+        <span class="keyword">this</span><span class="operator">.</span>src <span class="operator">=</span> <span class="char">'img/video_play.png'</span>;
+    }
+    <span class="keyword">else</span> {
+        v<span class="operator">.</span>play();
+        <span class="keyword">this</span><span class="operator">.</span>src <span class="operator">=</span> <span class="char">'img/video_pause.png'</span>;
+    }
+}</pre>
+<p>Applications can also respond to multimedia-specific events that fire on the <tt>video</tt> element. The following example uses the <tt>ended</tt> event to display a list of related videos:</p>
+<pre class="cpp">document<span class="operator">.</span>querySelector(<span class="string">&quot;video&quot;</span>)<span class="operator">.</span>addEventListener(<span class="string">&quot;ended&quot;</span><span class="operator">,</span> function(){
+    document<span class="operator">.</span>getElementById(<span class="string">&quot;other_videos&quot;</span>)<span class="operator">.</span>className <span class="operator">=</span> <span class="string">&quot;visible&quot;</span>;
+})</pre>
+<p>See the <a href="#html5-media-api">HTML5 Media API</a> section for information on how to load in different videos, and other tools necessary to craft your own multimedia interface.</p>
+<p><b>See Also</b>: <a href="http://dev.opera.com/articles/view/everything-you-need-to-know-about-html5-video-and-audio/">dev.opera: Everything you need to know about HTML5 video and audio</a></p>
+<a name="ooo-adding-flash-fallback"></a>
+<h4>ooo Adding Flash Fallback</h4>
+<p>Browsers that do not support HTML5 video ignore the <tt>video</tt> tag and its nested <tt>source</tt> tags, but interpret any other nested markup they recognize as valid. This allows you to specify Flash video as a fallback option. The following sample provides an all-purpose approach to deploy both HTML5- and Flash-based video:</p>
+<pre class="cpp"><span class="operator">&lt;</span>video id<span class="operator">=</span><span class="string">&quot;myVideo&quot;</span> width<span class="operator">=</span><span class="string">&quot;360&quot;</span> height<span class="operator">=</span><span class="string">&quot;240&quot;</span> preload controls<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;lo_myVideo.mp4&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/mp4; codecs='avc1.42E01E, mp4a.40.2'&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;lo_myVideo.webm&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/webm; codecs='vp8, vorbis'&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>source src<span class="operator">=</span><span class="string">&quot;lo_myVideo.ogv&quot;</span> type<span class="operator">=</span><span class="string">&quot;video/ogg; codecs='theora, vorbis'&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+  <span class="operator">&lt;</span>object width<span class="operator">=</span><span class="string">&quot;320&quot;</span> height<span class="operator">=</span><span class="string">&quot;240&quot;</span> type<span class="operator">=</span><span class="string">&quot;application/x-shockwave-flash&quot;</span> data<span class="operator">=</span><span class="string">&quot;lo_myVideo.swf&quot;</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>param name<span class="operator">=</span><span class="string">&quot;movie&quot;</span> value<span class="operator">=</span><span class="string">&quot;video.swf&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>param name<span class="operator">=</span><span class="string">&quot;quality&quot;</span> value<span class="operator">=</span><span class="string">&quot;high&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>param name<span class="operator">=</span><span class="string">&quot;allowfullscreen&quot;</span> value<span class="operator">=</span><span class="string">&quot;true&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>param name<span class="operator">=</span><span class="string">&quot;bgcolor&quot;</span> value<span class="operator">=</span><span class="string">&quot;#ffffff&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>param name<span class="operator">=</span><span class="string">&quot;play&quot;</span> value<span class="operator">=</span><span class="string">&quot;true&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>param name<span class="operator">=</span><span class="string">&quot;loop&quot;</span> value<span class="operator">=</span><span class="string">&quot;true&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>param name<span class="operator">=</span><span class="string">&quot;scale&quot;</span> value<span class="operator">=</span><span class="string">&quot;showall&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>param name<span class="operator">=</span><span class="string">&quot;devicefont&quot;</span> value<span class="operator">=</span><span class="string">&quot;false&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>param name<span class="operator">=</span><span class="string">&quot;salign&quot;</span> value<span class="operator">=</span><span class="string">&quot;&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>param name<span class="operator">=</span><span class="string">&quot;allowScriptAccess&quot;</span> value<span class="operator">=</span><span class="string">&quot;sameDomain&quot;</span> <span class="operator">/</span><span class="operator">&gt;</span>
+    <span class="operator">&lt;</span>p<span class="operator">&gt;</span>Download video as <span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;lo_myVideo.mp4&quot;</span><span class="operator">&gt;</span>MP4<span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span><span class="operator">,</span> <span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;lo_myVideo.webm&quot;</span><span class="operator">&gt;</span>WebM<span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span><span class="operator">,</span> <span class="keyword">or</span> <span class="operator">&lt;</span>a href<span class="operator">=</span><span class="string">&quot;lo_myVideo.ogv&quot;</span><span class="operator">&gt;</span>Ogg<span class="operator">&lt;</span><span class="operator">/</span>a<span class="operator">&gt;</span><span class="operator">.</span><span class="operator">&lt;</span><span class="operator">/</span>p<span class="operator">&gt;</span>
+  <span class="operator">&lt;</span><span class="operator">/</span>object<span class="operator">&gt;</span>
+<span class="operator">&lt;</span><span class="operator">/</span>video<span class="operator">&gt;</span></pre>
+<p>This example also provides a fallback message for any browser that doesn't support either HTML5 or Flash video. Note that these fallbacks do <i>not</i> apply if the browser supports the video delivery mechanism, but the data or codecs are simply unavailable.</p>
+<a name="ooo-targeting-video-to-mobile-browsers"></a>
+<h4>ooo Targeting Video to Mobile Browsers</h4>
+<p>Most mobile browsers present their own playback interfaces. Unlike desktop browsers, these videos do not play back HTML5 video in <i>inline</i> mode within the context of the page layout. This allows mobile application designers considerable flexibility in presenting controls that initiate video playback. Rather than presenting video previews at the same size as the videos themselves, you can present less obtrusive icons within a smaller screen layout.</p>
+<p>The following demonstrates a <tt>video</tt> element that is sized as a 64-pixel square within a mobile interface:</p>
+<p><a href="../examples/av_video.htm"><img src="images/scr_av_video.png" alt="" /> </a></p>
+<p>The <tt>video</tt> element specifies an alternate <tt>poster</tt> image that serves as a preview prior to playback, after which the current video frame may display when the video is paused:</p>
+<pre class="cpp"><span class="operator">&lt;</span>video id<span class="operator">=</span><span class="string">&quot;myVideo&quot;</span> width<span class="operator">=</span><span class="string">&quot;64&quot;</span> height<span class="operator">=</span><span class="string">&quot;64&quot;</span> controls poster<span class="operator">=</span><span class="string">&quot;img/video.png&quot;</span><span class="operator">&gt;</span></pre>
+<p>Tapping the icon with a mobile browser opens a separate full-screen video playback interface, which users can leave by pausing the video. Note, however, that desktop browsers do <i>not</i> display the above screen layout as intended, since they attempt to fit video playback <tt>control</tt> elements, as well as the video itself, within the tiny box reserved for the icon:</p>
+<p class="centerAlign"><img src="images/scr_av_video-bad.png" alt="" /></p><p>Thus, if you want to use the icon-triggered videos described above within a hybrid desktop/mobile site, you should use CSS media queries to specify different video dimensions for each interface:</p>
+<pre class="cpp">video { width: <span class="number">480</span>; width: <span class="number">320</span>; }      ((<span class="keyword">default</span> video playback size))
+@media only screen <span class="keyword">and</span> (max<span class="operator">-</span>device<span class="operator">-</span>width: <span class="number">480px</span>) {
+    video { width: <span class="number">64</span>; width: <span class="number">64</span>; }    ((mobile video playback))
+}</pre>
+<p>Specifying <tt>height</tt> and <tt>width</tt> as CSS means you don't have to specify them as attributes to the <tt>video</tt> tag. See <a href="query.html">Responsive Interfaces</a> for information on how to use CSS to deploy hybrid desktop/mobile sites.</p>
+<p>The example above uses the same set of media files for both desktop and mobile interfaces, but hybrid sites may require much larger videos for desktop presentation. Sending such a large video to a mobile browser would be inefficient, because of lower bandwidth and the smaller mobile screen. In this case, it is best to target a separate set of low-resolution videos to mobile browsers.</p>
+<p>The following example uses the technique outlined in the section on <a href="query.html#script-based-adaptation">Script-based Adaptation</a> to assign properly sized videos to each interface. By default, video filenames are prefixed <i>lo_</i>. If the page is being viewed with a desktop browser, the prefix changes to <i>hi_</i>:</p>
+<pre class="cpp">window<span class="operator">.</span>onload <span class="operator">=</span> function() {
+    var vid <span class="operator">=</span> document<span class="operator">.</span>getElementById(<span class="string">&quot;vid&quot;</span>);
+    var sources <span class="operator">=</span> vid<span class="operator">.</span>querySelectorAll(<span class="string">&quot;source&quot;</span>);
+    <span class="keyword">if</span> ( isDesign(<span class="string">&quot;desktop&quot;</span>) ) {
+        <span class="keyword">for</span> (i <span class="operator">=</span> <span class="number">0</span><span class="operator">,</span> l <span class="operator">=</span> sources<span class="operator">.</span>length; i <span class="operator">&lt;</span> l ; i<span class="operator">+</span><span class="operator">+</span> ) {
+            sources<span class="operator">[</span>i<span class="operator">]</span><span class="operator">.</span>src <span class="operator">=</span> sources<span class="operator">[</span>i<span class="operator">]</span><span class="operator">.</span>src<span class="operator">.</span>replace(<span class="operator">/</span>lo_<span class="operator">/</span><span class="operator">,</span> <span class="string">&quot;hi_&quot;</span>);
+        }
+        vid<span class="operator">.</span>setAttribute(<span class="char">'width'</span><span class="operator">,</span> <span class="number">720</span>);
+        vid<span class="operator">.</span>setAttribute(<span class="char">'height'</span><span class="operator">,</span> <span class="number">480</span>);
+        vid<span class="operator">.</span>setAttribute(<span class="char">'preload'</span><span class="operator">,</span> <span class="char">'preload'</span>);
+    }
+};</pre>
+<p>In this example, the video's screen dimensions are boosted, but these can also be controlled using CSS media queries as described above. This example also sets the <tt>preload</tt> attribute specifically for desktop browsers, which usually enjoy higher bandwidth.</p>
+<a name="ooo-intro"></a>
+<h4>ooo intro</h4>
+<p>WebKit supports HTML5 multimedia, which offers a common open Web standard and an alternative to proprietary technologies such as Flash. This section outlines how to specify multimedia using uniform markup conventions that address both HTML5- and Flash-capable browsers. It also discusses how best to present them to mobile users.</p>
+<p>When offering multimedia, mobile web developers need to consider the greater bandwidth it requires. You should avoid including multimedia for any content users don't specifically request, such as advertisements. You should likewise be careful when the multimedia content is somewhat relevant, but optional. For example, if a news item features a related video, it may be best to place it on a separate page, or else prevent it from loading unless users specifically request it. Preloading or automatically playing media files is inappropriate for pages that contain non-media content that may interest users more. For those on slow or unreliable data networks, navigation items should make the likelihood of downloading multimedia items unambiguous.</p>
+<p>Web designs also need to account for variation in how videos are presented. Desktop browsers play back videos in <i>inline</i> format, embedded within the context of the web page's layout. Most mobile browsers present videos within a dedicated, landscape-oriented playback interface. Mobile users thus may not always have access to nearby controls, such as rating bars or comment forms, that invite feedback while a video is playing.</p>
+<a name="ooo-intro2"></a>
+<h4>ooo intro2</h4>
+<p>QtWebKit-based browsers support HTML5 standards-based audio and video playback. Many other browsers that support multimedia instead rely on Flash. This chapter tells you how to specify multimedia using uniform markup conventions that address each class of browser, and how best to present them to mobile users.</p>
+<p>When offering multimedia, mobile web developers first need to consider the greater bandwidth it requires. You should avoid including multimedia for any content users don't specifically request, such as advertisements. You should likewise be careful when the multimedia content is relevant, but optional. For example, if a news item features a related video, it may be best to place it on a separate page, or else prevent it from loading unless users specifically request it. Preloaded videos are only appropriate when they represent the page's primary content. Likewise, media that automatically plays when the page loads is only appropriate when the page features no other content users might pursue, and if the navigation to that page makes the presence of multimedia unambiguous.</p>
+<p>Web designs also need to account for variation in how videos are presented. Desktop browsers play back videos in <i>inline</i> format, embedded within the web page layout. Some mobile browsers present videos within a dedicated, landscape-oriented playback interface. Mobile users thus may not always have access to nearby controls, such as rating bars or comment forms, that invite feedback while a video is playing.</p>
+<p><b>See Also</b>:</p>
+<ul>
+<li><a href="http://www.codeblog.co/getting-autoplay-working-on-ios/">Getting Autoplay Working on iOS</a></li>
+<li><a href="http://diveintohtml5.org/video.html">Dive Into HTML5: Feature Detection</a></li>
+</ul>
+<ul>
+<li>inline poster attr</li>
+<li>full-screen playback</li>
+<li>source tags &amp; codecs</li>
+<li>Flash fallback</li>
+<li>No preload, autoplay, loop, controls</li>
+<li>Controlling playback</li>
+<li>captions</li>
+</ul>
+</div>
+<!-- @@@av.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

@@ -1,0 +1,69 @@
+body {
+    font-family        : sans-serif;
+    font-weight        : bold;
+    text-align         : center;
+}
+
+section {
+    position           : absolute;
+    top                : 0;
+    left               : 0;
+    right              : 0;
+}
+
+#map {
+    top                : 3em;
+    bottom             : 0;
+    border-top         : thin solid #777777;
+}
+
+#err {
+    opacity            : 0;
+    padding            : 3em;
+    border-radius      : 0.5em;
+    top                : 0em;
+    left               : 0em;
+    right              : 0em;
+    bottom             : 0em;
+    background         : #ffffff;
+    color              : #777777;
+    -webkit-transition : opacity 1s linear;
+    z-index            : -10;
+}
+
+#err.show {
+    opacity            : 1;
+    z-index            : 10;
+}
+
+#err:after {
+    display            : inline-block;
+    float              : right;
+    content            : url(../img/icon_nav-up.png);
+    border             : solid medium white;
+    border-radius      : 1.5em;
+    padding            : 0;
+    -webkit-transform  : rotate(-90deg);
+}
+
+nav {
+    background         : transparent;
+    z-index            : -100;
+}
+
+nav > img {
+    margin-right       : 3em;
+}
+
+nav > img:last-of-type {
+    margin-right       : 0em;
+}
+
+@media all and (orientation:landscape) {
+    #map {
+        top            : 0em;
+    }
+    nav {
+        display        : none;
+    }
+}

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<!-- 24_border.qdoc -->
+  <title>mobile_html5 : Borders and Overflows</title>
+  <link rel="stylesheet" type="text/css" href="style/styles.css" />
+</head>
+<body>
+<?php $title = 'Documentation'; include('../../header.inc'); ?>
+<style>
+.level1 { margin-left: 0em }
+.level2 { margin-left: 2em }
+.level3 { margin-left: 4em }
+.level4 { margin-left: 6em }
+.level5 { margin-left: 8em }
+pre, blockquote { padding: 1.0em; border: thin solid #777; border-radius: 1.0em; margin: 1.0em; }
+pre{white-space:pre;overflow-x:scroll;background-image:-webkit-linear-gradient(0deg,#ddd,#aaa);}
+blockquote { background: #ddd; width: 500px; float: right;  }
+blockquote > h3 { text-align: center; margin: 0 }
+footer { font-size: x-small; text-align: center }
+img[src*='support_'] { float: right; margin-left: 0.25em; height: 36px; width: 36px; border-radius: 0.5em }
+</style>
+<a href=index.html>[Index]</a>
+<!-- START --><div class="toc">
+<h3><a name="toc">Contents</a></h3>
+<ul>
+<li class="level1"><a href="#rounded-corners">Rounded Corners</a></li>
+<li class="level2"><a href="#sidebar-attribute-matching">SIDEBAR Attribute Matching</a></li>
+<li class="level1"><a href="#shadows">Shadows</a></li>
+<li class="level1"><a href="#border-images">Border Images</a></li>
+<li class="level1"><a href="#outlines">Outlines</a></li>
+<li class="level1"><a href="#text-overflow">Text Overflow</a></li>
+<li class="level1"><a href="#word-wrap">Word Wrap</a></li>
+<li class="level1"><a href="#scrollbars">Scrollbars</a></li>
+<li class="level1"><a href="#marquees">Marquees</a></li>
+</ul>
+</div>
+<h1 class="title">Borders and Overflows</h1>
+<span class="subtitle"></span>
+<!-- $$$border.html-description -->
+<div class="descr"> <a name="details"></a>
+<p>This section offers a brief tour of Level 3 CSS properties that help style the boundaries of block elements, and suggests various mobile-accessible ways to present content that exceeds their dimensions.</p>
+<a name="rounded-corners"></a>
+<h2>Rounded Corners</h2>
+<p>Use the <tt>border-radius</tt> property to round off corners, typically in conjunction with the <tt>padding</tt> used to offset nested content:</p>
+<pre class="cpp"><span class="operator">.</span>rounded {
+    border<span class="operator">-</span>radius : <span class="number">1em</span>;
+    padding       : <span class="number">1em</span>;
+}</pre>
+<p>The following example uses rounded corners to help distinguish active items from static background elements, and to identify the edges of a large block element that doesn't entirely fit on the screen:</p>
+<p><a href="../examples/layout_link-fmt.htm"><img src="images/scr_layout_link-fmt.png" alt="" /> </a></p>
+<p><a href="../examples/css/layout_link-fmt.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>To make a circle, specify a <tt>border-radius</tt> that is half an element's dimensions:</p>
+<pre class="cpp"><span class="operator">.</span>circle {
+    width              : <span class="number">4em</span>;
+    height             : <span class="number">4em</span>;
+    border<span class="operator">-</span>radius      : <span class="number">2em</span>;
+}</pre>
+<p>Alternately, separate <i>x</i>/<i>y</i> values define oval shapes, which the following applies to the top corners only:</p>
+<pre class="cpp">border<span class="operator">-</span>top<span class="operator">-</span>left<span class="operator">-</span>radius  : <span class="number">3em</span><span class="operator">/</span><span class="number">1em</span>;
+border<span class="operator">-</span>top<span class="operator">-</span>right<span class="operator">-</span>radius : <span class="number">3em</span><span class="operator">/</span><span class="number">1em</span>;</pre>
+<p class="centerAlign"><img src="images/scr_layout_link-oval.png" alt="" /></p><blockquote><a name="sidebar-attribute-matching"></a>
+<h3>SIDEBAR Attribute Matching</h3>
+<p>It is often useful to offer visual hints marking different kinds of link. Users might want to know the difference between a link to a page on the same website and one on an external site. Links to non-HTML file types might pose special challenges to mobile users. Alternately, mobile users might get special benefit from telephone links.</p>
+<p>You can automate this by using the CSS attribute prefix and suffix matching selectors. The following uses <tt>^=</tt> to mark external HTTP links, email, SMS, and telephone links, each of which is identified by the URL's scheme prefix. The CSS inserts an icon after the text of the link:</p>
+<pre class="cpp">a<span class="operator">[</span>href<span class="operator">^</span><span class="operator">=</span><span class="string">&quot;http://&quot;</span><span class="operator">]</span>:after<span class="operator">,</span>
+a<span class="operator">[</span>href<span class="operator">^</span><span class="operator">=</span><span class="string">&quot;https://&quot;</span><span class="operator">]</span>:after { content : url(icon<span class="operator">/</span>external<span class="operator">.</span>png); }
+a<span class="operator">[</span>href<span class="operator">^</span><span class="operator">=</span><span class="string">&quot;mailto:&quot;</span><span class="operator">]</span>:after  { content : url(icon<span class="operator">/</span>email<span class="operator">.</span>png); }
+a<span class="operator">[</span>href<span class="operator">^</span><span class="operator">=</span><span class="string">&quot;sms:&quot;</span><span class="operator">]</span>:after     { content : url(icon<span class="operator">/</span>sms<span class="operator">.</span>png); }
+a<span class="operator">[</span>href<span class="operator">^</span><span class="operator">=</span><span class="string">&quot;tel:&quot;</span><span class="operator">]</span>:after     { content : url(icon<span class="operator">/</span>tel<span class="operator">.</span>gif); }</pre>
+<p>The following uses <tt>$=</tt> to identify various file types by common suffixes:</p>
+<pre class="cpp">a<span class="operator">[</span>href$<span class="operator">=</span><span class="string">&quot;.doc&quot;</span><span class="operator">]</span>:after { content : url(icon<span class="operator">/</span>ms_word<span class="operator">.</span>gif) }
+a<span class="operator">[</span>href$<span class="operator">=</span><span class="string">&quot;.ppt&quot;</span><span class="operator">]</span>:after { content : url(icon<span class="operator">/</span>powerpoint<span class="operator">.</span>gif) }
+a<span class="operator">[</span>href$<span class="operator">=</span><span class="string">&quot;.rss&quot;</span><span class="operator">]</span>:after<span class="operator">,</span>
+a<span class="operator">[</span>href$<span class="operator">=</span><span class="string">&quot;.xml&quot;</span><span class="operator">]</span>:after { content : url(icon<span class="operator">/</span>feed<span class="operator">.</span>gif) }
+a<span class="operator">[</span>href$<span class="operator">=</span><span class="string">&quot;.pdf&quot;</span><span class="operator">]</span>:after { content : url(icon<span class="operator">/</span>pdf<span class="operator">.</span>jpg) }
+a<span class="operator">[</span>href$<span class="operator">=</span><span class="string">&quot;.xls&quot;</span><span class="operator">]</span>:after { content : url(icon<span class="operator">/</span>excel<span class="operator">.</span>jpg) }</pre>
+<p>You can also use <tt>*=</tt> to freely match substrings within any attribute value. The following might distinguish links to a site's blog area based on how the URL is organized:</p>
+<pre class="cpp">a<span class="operator">[</span>href<span class="operator">*</span><span class="operator">=</span><span class="string">&quot;/blog/&quot;</span><span class="operator">]</span>:after { content : url(icon<span class="operator">/</span>blog<span class="operator">.</span>jpg )}</pre>
+<p>The following example demonstrates links identified by dynamically generated icons:</p>
+<p><a href="../examples/layout_link-fmt.htm"><img src="images/scr_layout_link-fmt.png" alt="" /> </a></p>
+<p><a href="../examples/css/layout_link-fmt.css"><img src="images/icon_css.png" alt="" /> </a></p>
+</blockquote>
+<a name="shadows"></a>
+<h2>Shadows</h2>
+<p>Shadows make elements appear more substantial, and often help distinguish interface elements.</p>
+<p>The basic syntax specifies the shadow's color and its <i>x</i> and <i>y</i> offset:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>shadow: <span class="number">0.5em</span> <span class="number">0.5em</span> <span class="preprocessor">#777777;</span></pre>
+<p><a href="../examples/css3_shadow.htm"><img src="images/scr_css3_shadow.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_shadow.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>An additional third measurement defines a region within which to blur the edge. Increasing the measurement makes the blur appear more diffuse:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>shadow: <span class="number">0.5em</span> <span class="number">0.5em</span> <span class="number">1.0</span> <span class="preprocessor">#777777;</span></pre>
+<p>Adding a fourth measurement allows you to spread the shadow effect beyond the box's ordinary boundaries. Specifying a blur with no offset applies a uniform diffusion pattern around an element:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>shadow: <span class="number">0</span> <span class="number">0</span> <span class="number">1.0em</span> <span class="number">0.5em</span> <span class="preprocessor">#777777;</span></pre>
+<p><a href="../examples/css3_shadowBlur.htm"><img src="images/scr_css3_shadowBlur.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_shadowBlur.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>You can use commas to specify more than one shadow. The following example shows an animated interface in which the first shadow remains fixed, but the second pulses three times to catch users' attention:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>shadow : <span class="number">0.25em</span> <span class="number">0.25em</span> <span class="number">0.5em</span> <span class="preprocessor">#444444,</span>
+                     <span class="number">0.25em</span> <span class="number">0.25em</span> <span class="number">1.0em</span> <span class="number">0.5em</span> pink;</pre>
+<p><a href="../examples/css3_shadowMulti.htm"><img src="images/scr_css3_shadowMulti.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_shadowMulti.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>(See <a href="animation.html">Animations</a> for information on how to implement these animations.)</p>
+<p>Adding the <tt>inset</tt> keyword makes the element appear to recede rather than raise up:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>box<span class="operator">-</span>shadow : <span class="number">0.25em</span> <span class="number">0.25em</span> <span class="number">0.25em</span> <span class="preprocessor">#666666 inset;</span></pre>
+<p><a href="../examples/css3_shadowInset.htm"><img src="images/scr_css3_shadowInset.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_shadowInset.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The following interactive utility helps you build CSS for your own shadow effects, both for block elements and <a href="font.html#text-shadows">text</a>.</p>
+<p><a href="../examples/utilShadow.htm"><img src="images/utilShadow.png" alt="" /> </a></p>
+<a name="border-images"></a>
+<h2>Border Images</h2>
+<p>CSS3 border images allow you to apply customized marquee effects in place of standard borders. The most flexible way to do so is to create a <i>template</i> image, such as the following, that corresponds to a 3 &times; 3 grid:</p>
+<p class="centerAlign"><img src="images/border-round.png" alt="" /></p><p>The <tt>-webkit-border-image</tt> property specifies not only the image file, but how much to carve off each side of the template for use in forming the overall border effect:</p>
+<pre class="cpp"><span class="operator">-</span>webkit<span class="operator">-</span>border<span class="operator">-</span>image : url(img<span class="operator">/</span>border<span class="operator">-</span>round<span class="operator">.</span>png) <span class="number">33</span><span class="operator">%</span> round;
+border<span class="operator">-</span>width: <span class="number">2em</span>;</pre>
+<p>The <tt>33%</tt> measurement provides an even grid, with each component filled into the corresponding area defined by the <tt>border-width</tt>. Alternately, you can supply up to four separate measurements that correspond to top, right, bottom, and left edges:</p>
+<p class="centerAlign"><img src="images/borderimg_grid.png" alt="" /></p><p>The <tt>round</tt> keyword causes the top, right, bottom, and left components of the grid to be distributed evenly within the allotted screen area:</p>
+<p><a href="../examples/css3_borderimg_round.htm"><img src="images/scr_css3_borderimg_round.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_borderimg_round.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>Note that the boundary between the corner and side components may not transition gracefully. Many WebKit browsers do not fully support the <tt>round</tt> option, presenting instead the simpler <tt>repeat</tt> fill option that leads corner images to overlap.</p>
+<p>As an alternative to cover the widest range of browsers, the <tt>stretch</tt> keyword distorts the side components' appearance. This template image and CSS stretches the diamond element in the example that follows:</p>
+<p class="centerAlign"><img src="images/border-stretch.png" alt="" /></p><pre class="cpp">border<span class="operator">-</span>width : <span class="number">2em</span>;
+<span class="operator">-</span>webkit<span class="operator">-</span>border<span class="operator">-</span>image : url(img<span class="operator">/</span>border<span class="operator">-</span>stretch<span class="operator">.</span>png) <span class="number">40</span><span class="operator">%</span> stretch stretch;</pre>
+<p><a href="../examples/css3_borderimg_stretch.htm"><img src="images/scr_css3_borderimg_stretch.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_borderimg_stretch.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>While the CSS above specifies <tt>stretch</tt> twice, you can apply different fill options to the top/bottom and left/right edges.</p>
+<p>Border images can be used more flexibly to insert decorative design elements. The following example enables only the bottom border for each paragraph, leaving no room in which to render other border image components:</p>
+<pre class="cpp">p {
+    <span class="operator">-</span>webkit<span class="operator">-</span>border<span class="operator">-</span>image : url(img<span class="operator">/</span>border<span class="operator">-</span>stretch<span class="operator">.</span>png) <span class="number">35</span><span class="operator">%</span> <span class="number">35</span><span class="operator">%</span> <span class="number">35</span><span class="operator">%</span> <span class="number">35</span><span class="operator">%</span> stretch stretch;
+    border<span class="operator">-</span>width : <span class="number">0</span> <span class="number">0</span> <span class="number">1em</span> <span class="number">0</span>;
+}</pre>
+<p><a href="../examples/css3_borderimg_bottom.htm"><img src="images/scr_css3_borderimg_bottom.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_borderimg_bottom.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>While the examples above rely on an image template, if the area you are framing is fixed in size, you can apply a corresponding fixed image. Doing so allows you full control over how the image's corners appear. The following image can be applied to a relatively constrained area defined in the sample that follows:</p>
+<p class="centerAlign"><img src="images/border-frame.png" alt="" /></p><p><a href="../examples/css3_borderimg.htm"><img src="images/scr_css3_borderimg.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_borderimg.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The interface uses the following CSS:</p>
+<pre class="cpp">padding              : <span class="number">2.5em</span>;
+border<span class="operator">-</span>width         : <span class="number">1px</span>;
+<span class="operator">-</span>webkit<span class="operator">-</span>border<span class="operator">-</span>image : url(img<span class="operator">/</span>border<span class="operator">-</span>frame<span class="operator">.</span>png) <span class="number">0</span> stretch;</pre>
+<p>In this case, none of the image is carved off into the nominal border zone, and the remaining portion of the image stretches across the element, behaving much like a <a href="color.html#backgrounds">background image</a>. The <tt>padding</tt> property offsets the text from the edge of the element so that it doesn't overlap with the image.</p>
+<a name="outlines"></a>
+<h2>Outlines</h2>
+<p>The examples above use the border mechanism to insert decorative images around an element. But what if you want to place an actual <i>border</i> around it as well? Level 3 CSS specifies a separate border-like <i>outline</i> mechanism. Unlike borders, outlines are applied superfically so that they don't affect an element's dimensions. The <tt>outline-offset</tt> specifies the outline's distance from the element, independently of its <tt>margin</tt>.</p>
+<p>The following <a href="animation.html">animated</a> example places a separate hilighting outline around elements that are tapped:</p>
+<pre class="cpp"><span class="operator">.</span>hilight {
+    outline<span class="operator">-</span>style  : dotted;
+    outline<span class="operator">-</span>width  : <span class="number">0.25em</span>;
+    outline<span class="operator">-</span>color  : pink;
+    outline<span class="operator">-</span>offset : <span class="number">0.5em</span>;
+}</pre>
+<p><a href="../examples/css3_borderimg_bottom.htm"><img src="images/scr_css3_outline.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_borderimg_bottom.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<a name="text-overflow"></a>
+<h2>Text Overflow</h2>
+<p>Mobile interfaces must often embed areas of expandable content on a small screen. Setting the <tt>overflow</tt> CSS property to <tt>hidden</tt> prevents content from exceeding an element's dimensions. Level 3 CSS specifies an additional <tt>text-overflow</tt> property that makes ellipses appear as a hint to indicate the presence of additional text.</p>
+<p>The following example shows how the <tt>text-overflow</tt> property allows you to present user-selectable links to expanded regions of text within a page:</p>
+<p><a href="../examples/css3_text-overflow.htm"><img src="images/scr_css3_text-overflow.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_text-overflow.css"><img src="images/icon_css.png" alt="" /> </a> <a href="../examples/js/css3_text-overflow.js"><img src="images/icon_js.png" alt="" /> </a></p>
+<p>Use the <tt>text-overflow</tt> property in conjunction with <tt>overflow</tt> and <tt>white-space</tt>:</p>
+<pre class="cpp">text<span class="operator">-</span>overflow  : ellipsis;
+text<span class="operator">-</span>overflow  : ellipsis<span class="operator">-</span>word;
+overflow       : hidden;
+white<span class="operator">-</span>space    : nowrap;</pre>
+<p>For <tt>text-overflow</tt> to work, the element's <tt>white-space</tt> must be set to <tt>nowrap</tt>, overriding the default <tt>normal</tt> value. This prevents words from wrapping onto another line as is standard behavior outside the <tt>pre</tt> tag, and forces text past the right edge of the element.</p>
+<p><b>Note: </b>The element's <tt>text-overflow</tt> may specify both <tt>ellipsis</tt> and <tt>ellipsis-word</tt>, the latter of which respects word boundaries but is not as widely implemented. The example above specifies the more common value as a fallback.</p><a name="word-wrap"></a>
+<h2>Word Wrap</h2>
+<p>Text may not always fit properly within narrow columns on a mobile screen. By default, longs words simply run off the edge of their containing element. Setting the <tt>word-wrap</tt> property to <tt>break-word</tt> fixes this. The following example shows how a long word displays, with and without this property:</p>
+<p><a href="../examples/css3_wordwrap.htm"><img src="images/scr_css3_wordwrap.png" alt="" /> <img src="images/scr_css3_wordwrap2.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_wordwrap.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>Note that no hyphenation is applied, and that there is still a gap before the first line where the word starts.</p>
+<a name="scrollbars"></a>
+<h2>Scrollbars</h2>
+<p>As <a href="layout.html#constraining-touch-response">discussed earlier</a>, scrollable regions within a screen layout may lead to confusion when they interfere with drag gestures that affect browsers' default page navigation. Alternately, browsers may not support dragging to navigate within scrollable regions. Either way, mobile browsers may not display scrollbars by default.</p>
+<p>WebKit-based browsers allow scrollbars to be styled via CSS, allowing them to be visually distinguished, and perhaps inviting users to access them via familiar tap gestures. The following example presents a wide block of code within a <tt>&lt;pre&gt;</tt> element:</p>
+<p><a href="../examples/css3_scroll.htm"><img src="images/scr_css3_scroll.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_scroll.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The layout uses <tt>overflow-x:auto</tt> to assign standard scrollbars when content overflows, but enhances their appearance using low-level <b>pseudo-element</b> CSS classes that refer to individual components within the scrollbar. Invoking the following CSS selector disables scrollbars' default appearance:</p>
+<pre class="cpp">pre<span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>scrollbar { height : <span class="number">3em</span> }</pre>
+<p>In this case, the specified property increases the scrollbar's default <tt>height</tt> to make it easier for mobile users to tap it with their fingers.</p>
+<p>Each additional scrollbar component must then be explicitly defined, otherwise it does not render. The following CSS provides custom styling for the tappable horizontal panning buttons:</p>
+<pre class="cpp"><span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>scrollbar<span class="operator">-</span>button:increment {
+    background<span class="operator">-</span>image  : url(img<span class="operator">/</span>arrow_right<span class="operator">.</span>png);
+    background<span class="operator">-</span>size   : contain;
+    background<span class="operator">-</span>repeat : no<span class="operator">-</span>repeat;
+    width             : <span class="number">3em</span>;
+    height            : <span class="number">3em</span>;
+}
+<span class="operator">::</span><span class="operator">-</span>webkit<span class="operator">-</span>scrollbar<span class="operator">-</span>button:decrement {
+    background<span class="operator">-</span>image  : url(img<span class="operator">/</span>arrow_left<span class="operator">.</span>png);
+    background<span class="operator">-</span>size   : contain;
+    background<span class="operator">-</span>repeat : no<span class="operator">-</span>repeat;
+    width             : <span class="number">3em</span>;
+    height            : <span class="number">3em</span>;
+}</pre>
+<p>In this case, the scrollbar region between the two navigation icons is still active, but not obviously so since its visual formatting has been disabled.</p>
+<p>Webkit provides pseudo-elements for the following scrollbar components:</p>
+<ul>
+<li><tt>scrollbar</tt> refers to the scrollbar as a whole. Additional dynamic classes can be appended to specify <tt>:vertical</tt> and <tt>:horizontal</tt> scrollbars. The <tt>:corner-present</tt> dynamic class activates when both scrollbars are present.</li>
+<li><tt>scrollbar-button</tt> refers to incremental navigation buttons. Each button can be styled separately with <tt>:increment</tt> and <tt>:decrement</tt> dynamic classes.</li>
+<li><tt>scrollbar-thumb</tt> refers to the scrollbar's slider control.</li>
+<li><tt>scrollbar-track</tt> refers to the active navigation region between buttons.</li>
+<li><tt>scrollbar-track-piece</tt> refers to each portion of the track on either side of the thumb control. These can be styled separately using <tt>:start</tt> and <tt>:end</tt> dynamic classes.</li>
+<li><tt>scrollbar-corner</tt> refers to the corner where scrollbar tracks meet. The <tt>resizer</tt> pseudo-element also refers to this corner, but for resizable elements such as a <tt>textarea</tt>.</li>
+<li>The <tt>:double-button</tt> and <tt>:single-button</tt> dynamic classes refer to whether incrementor and decrementors are paired together redundantly at each end of the track, while <tt>:no-button</tt> refers to whether they display at all.</li>
+</ul>
+<a name="marquees"></a>
+<h2>Marquees</h2>
+<p><a href="#scrollbars">Scrollbars</a> offer one way for users to view overflowing content, and marquees offer another. Marquees apply a simple animation that scrolls through the contents of a block of text, much as if it were being scrolled by hand. Text can scroll horizontally like a news ticker, or vertically like film credits.</p>
+<p>The following example shows an message that displays within a narrow strip at the top of the screen. The animated scroll draws attention to the message and allows users to read all of the text within a narrow area with no additional action on their part:</p>
+<p><a href="../examples/anim_marquee.htm"><img src="images/scr_anim_marquee.png" alt="" /> </a></p>
+<p><a href="../examples/css/anim_marquee.css"><img src="images/icon_css.png" alt="" /> </a></p>
+<p>The animation relies upon the following CSS:</p>
+<pre class="cpp"><span class="operator">.</span>banner {
+    white<span class="operator">-</span>space               : nowrap;
+    overflow                  : <span class="operator">-</span>webkit<span class="operator">-</span>marquee;
+    <span class="operator">-</span>webkit<span class="operator">-</span>marquee<span class="operator">-</span>repetition: infinite;
+    <span class="operator">-</span>webkit<span class="operator">-</span>marquee<span class="operator">-</span>speed     : fast;
+    <span class="operator">-</span>webkit<span class="operator">-</span>marquee<span class="operator">-</span>increment : <span class="number">2px</span>;
+    <span class="operator">-</span>webkit<span class="operator">-</span>marquee<span class="operator">-</span>direction : left;
+    <span class="operator">-</span>webkit<span class="operator">-</span>marquee<span class="operator">-</span>style     : scroll;
+}</pre>
+<p>In this case it's necessary to set <tt>white-space</tt> to <tt>nowrap</tt>, otherwise the text wouldn't run off the element's right edge. The animation activates when the element's <tt>overflow</tt> is set to <tt>-webkit-marquee</tt>. Unlike other <tt>overflow</tt> properties such as <tt>scroll</tt>, the animation is applied even if the contents don't overflow the box, so you can also specify the marquee using <tt>overflow-x</tt> or <tt>overflow-y</tt>, regardless of whether either edge of the box overflows.</p>
+<p>The animation is controlled by the following CSS properties:</p>
+<ul>
+<li><tt>-webkit-marquee-repetition</tt>: the number of times the animation executes, or the default <tt>infinite</tt>.</li>
+<li><tt>-webkit-marquee-speed</tt>: either <tt>slow</tt>, <tt>medium</tt>, <tt>fast</tt>, or the number of milliseconds for each frame.</li>
+<li><tt>-webkit-marquee-increment</tt>: either <tt>small</tt>, <tt>medium</tt>, <tt>large</tt>, or any valid measurement (including percentages) indicating the distance to jump for each frame.</li>
+<li><tt>-webkit-marquee-direction</tt>: either <tt>left</tt>, <tt>right</tt>, <tt>up</tt>, or <tt>down</tt>. (Alternately, use <tt>backwards</tt>, <tt>forwards</tt>, <tt>ahead</tt>, or <tt>reverse</tt>, which adaptively apply the same set of effects to bidirectional text.)</li>
+<li><tt>-webkit-marquee-style</tt>: either <tt>scroll</tt>, <tt>slide</tt>, or <tt>alternate</tt>. The example above allows you to see how each behaves:<ul>
+<li><tt>scroll</tt> slides in the content from outside of the box, then slides it back out before the animation is possibly repeated.</li>
+<li><tt>slide</tt> works the same as <tt>scroll</tt>, but the animation halts once the end of the text becomes visible, with no slide-out effect to match the initial slide-in.</li>
+<li><tt>alternate</tt> removes both slide-in and slide-out effects, starting the text where it ordinarily would, then sliding it until the end of the text becomes visible. If the marquee's increment is more than 1, even-numbered iterations animate in the reverse direction.</li>
+</ul>
+</li>
+</ul>
+<p><b>Note: </b>Marquees do not offer a way to delay the animation's execution. For a richer set of animation options, see <a href="animation.html#keyframe-animations">Keyframe Animation</a>.</p><p>Marquees are most appropriate for the sort of transient alerts or advertisements demonstrated above. They may also be useful when presenting users with a good deal of content without requiring them to actively scroll through each screenful. The following example shows how you might use marquees to passively display information about a gallery item. It can be viewed in browsers, such as Safari, that support 3D transforms. (See <a href="trans.html#3d-transforms">3D Transforms</a> for details.)</p>
+<p><a href="../examples/css3_marquee.htm"><img src="images/scr_css3_marquee.png" alt="" /> </a></p>
+<p><a href="../examples/css/css3_marquee.css"><img src="images/icon_css.png" alt="" /> </a></p>
+</div>
+<!-- @@@border.html -->
+<!-- END -->
+<?php include('../../footer.inc'); ?></body>
+</html>

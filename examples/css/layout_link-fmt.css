@@ -1,0 +1,100 @@
+body {
+    background               : #aaaaaa;
+    font-family              : sans-serif;
+    font-weight              : bold;
+}
+
+p {
+    font-weight              : normal;
+}
+
+a {
+    text-wrap                : suppress;
+    -webkit-text-wrap        : suppress;
+}
+
+article {
+    max-width                : 320px;
+    background               : #ffffff;
+    position                 : absolute;
+    top                      : 1em;
+    left                     : 1em;
+    right                    : 1em;
+    padding                  : 1em;
+    border-radius            : 1em;
+    margin-bottom            : 2em;
+}
+
+ol {
+    padding-left             : 1em;
+}
+
+ol.links {
+    margin-bottom            : 1em;
+    border                   : #aaaaaa thin solid;
+    list-style               : none;
+    padding-top              : 0.5em;
+    padding-bottom           : 0.5em;
+    padding-left             : 0em;
+    border-radius            : 1.0em;
+}
+
+ol.links > li {
+    min-height               : 2em;
+    border-bottom            : #aaaaaa thin solid;
+    padding-left             : 0.5em;
+    padding-right            : 0.5em;
+    padding-top              : 0.5em;
+}
+
+ol.links > li:last-of-type {
+    border                   : none;
+}
+
+p a[href]:after {
+    -webkit-transform        : scale(0.6);
+    -webkit-transform-origin : bottom;
+    padding-left             : 0.25em;
+    padding-right            : 0.0em;
+    display                  : inline-block;
+}
+
+a[href] {
+    text-decoration          : none;
+}
+
+ol.links > li > a {
+    display                  : block;
+    color                    : black;
+}
+
+ol.links a:after {
+    -webkit-transform        : scale(0.8);
+    -webkit-transform-origin : top;
+}
+
+a[href^="http://"]:after, a[href^="https://"]:after {
+    content                  : url(../img/icon_link-external.png);
+}
+
+ol.links a:after {
+    float                    : right;
+}
+
+a[href^="mailto:"]:after { content : url(../img/icon_link-email.png); }
+
+a[href^="sms:"]:after { content : url(../img/icon_link-sms.png); }
+
+a[href^="tel:"]:after { content : url(../img/icon_link-tel.png); }
+
+a[href$=".doc"]:after { content : url(../img/icon_link-doc.png); }
+
+a[href$=".ppt"]:after { content : url(../img/icon_link-ppt.png); }
+
+a[href$=".rss"]:after,
+a[href$=".xml"]:after { content : url(../img/icon_link-rss.png); }
+
+a[href$=".pdf"]:after { content : url(../img/icon_link-pdf.png); }
+
+a[href$=".xls"]:after { content : url(../img/icon_link-xls.png); }
+
