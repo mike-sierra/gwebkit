@@ -1,5 +1,5 @@
 window.onload = function() {
-    var err = "Sorry, your browser does not support 3D transforms. Try Apple Safari or Nokia Browser 8.5.";
+    var err = "Sorry, your browser does not support 3D transforms. Try Apple Safari.";
     var supports_3d;
     var query = '(-webkit-transform-3d)';
     if (!!window.matchMedia) {

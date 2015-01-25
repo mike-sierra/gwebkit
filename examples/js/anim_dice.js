@@ -1,4 +1,4 @@
-if ( !!window.matchMedia && ! window.matchMedia('(-webkit-transform-3d)').matches ) alert("Sorry, your browser doesn't support 3D transforms. Try Apple Safari or the Nokia N9 Browser.");
+if ( !!window.matchMedia && ! window.matchMedia('(-webkit-transform-3d)').matches ) alert("Sorry, your browser doesn't support 3D transforms. Try Apple Safari.");
 
 document.querySelector('.dice').addEventListener('mousedown', function(e){
     if (this.classList.contains('roll')) return(false); // already rolling?
