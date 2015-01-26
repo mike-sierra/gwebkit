@@ -1,12 +1,8 @@
-/*!
+# Flexible Mobile Layout
 
-\page layout.html
+##  The Mobile Viewport
 
-\title Flexible Mobile Layout
-
-\section1 The Mobile Viewport
-
-Applying a \e{viewport} is the first and most important step to make
+Applying a _viewport_ is the first and most important step to make
 web pages presentable on mobile browsers.
 
 Touch-based smartphone browsers are capable of presenting web pages
@@ -28,8 +24,8 @@ column's magnification. When users reach the end of the column, they
 often experience difficulty reorienting themselves within the page.
 
 The fixed rectangular area within which touch-based smartphone
-browsers display larger web pages is called the \e{viewport}.
-Applying a viewport \c{meta} tag allows you to control how mobile
+browsers display larger web pages is called the _viewport_.
+Applying a viewport `meta` tag allows you to control how mobile
 browsers render content within this rectangle, and whether users can
 use magnification controls.
 
@@ -43,48 +39,48 @@ relatively inacessible:
 This reflects the browser's default assumption that content should
 extend 980 pixels wide.
 
-\note This sample layout displays a \l{Flexible Positioning} {flexibly
+> __NOTE__: This sample layout displays a \l{Flexible Positioning} {flexibly
 positioned} element that adapts to the full width of the screen,
 along with a fixed-size \l{Colors and Backgrounds} {background image}.
 
 To correct this behavior, place the following line within the HTML's
-\c{head} region:
+`head` region:
 
-\code
+```
 <meta name="viewport" content="width=device-width" />
-\endcode
+```
 
 The following shows the screen layout after the above viewport is
 applied:
 
 \image view_on.PNG
 
-Setting the \c{width} to \c{device-width} recalculates flexible CSS
-measurements (such as \c{width:100%}) within the width of the
+Setting the `width` to `device-width` recalculates flexible CSS
+measurements (such as `width:100%`) within the width of the
 handset's screen rather than the default page width. (Tipping the
 handset maintains the overall width of the content within the wider
 window.)
 
-On a majority of touch-based mobile browsers, the \c{device-width} is
+On a majority of touch-based mobile browsers, the `device-width` is
 320 pixels. make sure images and other fixed-dimension elements are
 sized accordingly. The screen height varies significantly among
 devices, and increases for \l{Full-Screen Web Apps} {full-screen web
 apps} that suppress the browser's native screen controls.
 
-\note Applying a viewport has no effect on desktop browsers. It is
+> __NOTE__: Applying a viewport has no effect on desktop browsers. It is
 interpreted only once when the page loads, and cannot be modified
 thereafter.
 
-\section1 Constraining Touch Response
+##  Constraining Touch Response
 
 Applying the above viewport forces content to scroll downward, though
 it can still extend horizontally or be positioned outside the screen.
 By default, horizontal panning is disabled when the content fits
-within the viewport. (A similar \c{height=device-height} property may
+within the viewport. (A similar `height=device-height` property may
 also resize content, but does not disable vertical panning to navigate
 to overflowing content.)
 
-\note CSS's \c{translate()} transform function offers the best way to stage
+> __NOTE__: CSS's `translate()` transform function offers the best way to stage
 hidden interface elements off the edge of the screen, since it is a
 more superficial visual effect that doesn't modify the dimensions of
 the overall content within the page. (See \l{Transforms} for
@@ -97,17 +93,17 @@ default double-tap and pinch-zoom gestures and ensure that content
 appears at the proper magnification level, apply the following
 viewport:
 
-\code
+```
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-\endcode
+```
 
 As an alternative to disabling scaling, you can apply decimal
-\c{minimum-scale} and \c{maximum-scale} values to control the
-potential \e{range} of magnification. See \l{Tipping the Handset} for
+`minimum-scale` and `maximum-scale` values to control the
+potential _range_ of magnification. See \l{Tipping the Handset} for
 details on how these viewport options and related CSS affects the
 appearance of landscape-oriented content.
 
-\note The \c{user-scalable} property only affects access to the overall
+> __NOTE__: The `user-scalable` property only affects access to the overall
 page.  \l{Touch Gestures} {touch-enabled web content} within that page
 such as map interfaces may still respond independently to pinch-zoom
 and drag-scroll gestures.
@@ -116,10 +112,10 @@ To disable vertical scrolling, you need to make sure there is not so
 much content on each page that it would overflow the screen. Screen
 layouts may also explicitly disable vertical scrolling, but they do so
 simply by making any overflowing content inaccessible. The following
-viewport-enabled example presents a full-screen \c{<section>} element
+viewport-enabled example presents a full-screen `<section>` element
 whose dimensions align with each edge of the screen:
 
-\code
+```
 <head>
 <meta name="viewport" content="width=device-width" />
 <style>
@@ -134,14 +130,14 @@ section {
   ...
   </section>
 </body>
-\endcode
+```
 
-\note Even if content overflows the screen without being hidden, setting
+> __NOTE__: Even if content overflows the screen without being hidden, setting
 the following CSS renders it inaccessible:
 
-\code
+```
 body { overflow: hidden }
-\endcode
+```
 
 Increasingly, mobile browsers allow users to navigate scrollable
 content elements that appear within a page, but these should be used
@@ -160,21 +156,21 @@ a time:
 \l{x_layout_tbl-keyhole_css} {\inlineimage icon_css.png
 }
 
-Re-styling the \c{display} of table cells as \c{block} overrides
+Re-styling the `display` of table cells as `block` overrides
 their default horizontal arrangement.
 
-\note Screen layout should be driven entirely by CSS properties. HTML table
+> __NOTE__: Screen layout should be driven entirely by CSS properties. HTML table
 elements should be used only for tabular data, and never to arrange
 elements on the screen. Likewise, do not use the deprecated
-\c{<frameset>} tag to define layouts that indirectly reference other
+`<frameset>` tag to define layouts that indirectly reference other
 HTML files. Both of these older web layout techniques render poorly on
 mobile browsers.
 
-\section1 Flexible Positioning
+##  Flexible Positioning
 
 After applying a \l{The Mobile Viewport} {viewport}, CSS-based page
 layout allows designs to flexibly adapt to different screen
-dimensions. This section demonstrates how the CSS \c{position}
+dimensions. This section demonstrates how the CSS `position`
 property can be used effectively for most screen layout.
 
 The following example shows a typical mobile layout, with navigation
@@ -187,25 +183,25 @@ content area:
 \l{x_layout_nav_css} {\inlineimage icon_css.png
 }
 
-The main \c{<section>} panel relies on \c{position:absolute}, with
-\e{em} units offsetting it from the \c{left}, \c{right}, and \c{top}
+The main `<section>` panel relies on `position:absolute`, with
+_em_ units offsetting it from the `left`, `right`, and `top`
 of the screen. To account for overflowing content, the bottom edge is
-allowed to expand past the element's default \c{min-height}. Its
-generous bottom \c{margin} clearly marks the end of the content.
+allowed to expand past the element's default `min-height`. Its
+generous bottom `margin` clearly marks the end of the content.
 
 In this example, text overflows the bottom edge of the screen, which
 forces the fixed navigation items off the top of the screen. (The
 button at the bottom of the page is offered as a convenience to allow
 users to jump back to the top to access other navigation options.)  To
-address this accessibility problem, the \c{position:fixed} property
+address this accessibility problem, the `position:fixed` property
 allows navigation elements to remain on the screen regardless of
 scrolling.
 
 The following example repositions the navigation items at the bottom
 of the screen, offset using a percentage to account for potential
 variation in screen height. The main content area still uses
-\c{position:absolute} as described above, but the navigation area uses
-\c{position:fixed} to keep it on the screen at all times:
+`position:absolute` as described above, but the navigation area uses
+`position:fixed` to keep it on the screen at all times:
 
 \l{x_layout_nav_fixed} {\inlineimage scr_layout_nav_fixed.png
 \inlineimage scr_layout_nav_fixed2.png
@@ -222,24 +218,24 @@ the application using one hand. Since navigation controls are always
 available in this example, there is no longer any need to provide a
 link back to the top of each page.
 
-Despite its usefulness, the \c{position:fixed} property is not yet
+Despite its usefulness, the `position:fixed` property is not yet
 widely deployed among mobile browsers. The
-\l{http://www.modernizr.com/} {Modernizr} JavaScript plug-in offers a
+[Modernizr](http://www.modernizr.com/) JavaScript plug-in offers a
 comprehensive suite of browser feature detection tests, including a
-\l{http://www.modernizr.com/docs/#s3} {method to test support for
-\c{position:fixed}}. As an added benefit, Modernizr extends CSS so
-that classes such as \c{.no-positionfixed} can define a set of
+[method to test support for
+`position:fixed`](http://www.modernizr.com/docs/#s3). As an added benefit, Modernizr extends CSS so
+that classes such as `.no-positionfixed` can define a set of
 fallback style sheets. Some JavaScript plug-ins such as
-\l{http://cubiq.org/scrolling-div-on-iphone-ipod-touch} {Cubiq's
-iScroll} and \l{http://www.sencha.com/products/touch/} {Sencha Touch}
-emulate \c{position:fixed} by defining a screen region that uses touch
+[Cubiq's
+iScroll](http://cubiq.org/scrolling-div-on-iphone-ipod-touch) and [Sencha Touch](http://www.sencha.com/products/touch/)
+emulate `position:fixed` by defining a screen region that uses touch
 events to mimic the browser's default scrolling behavior. (Mobile
 browsers customarily respond with a bounce effect when you hit the
-edge of a scrollable area, and allow quick \e{flick} gestures to keep
+edge of a scrollable area, and allow quick _flick_ gestures to keep
 content scrolling after the finger lifts from the screen.)
 
-Browsers that do not implement \c{position:fixed} respond by applying
-\c{position:absolute}, which may serve as a fallback. The following
+Browsers that do not implement `position:fixed` respond by applying
+`position:absolute`, which may serve as a fallback. The following
 example uses a single expandable icon to access many different
 navigation options, implemented as accordion lists:
 
@@ -261,9 +257,9 @@ harmlessly.
 See \l{Animations} for more information on how to implement the
 navigation icon's two-stage transition.
 
-\section1 Flexible Boxes
+##  Flexible Boxes
 
-This section introduces Level 3 CSS \e{flexible box} properties, which
+This section introduces Level 3 CSS _flexible box_ properties, which
 may serve as an alternative to positioning in mobile screen layouts.
 
 The following example reproduces the full-screen layout featuring
@@ -278,7 +274,7 @@ bottom-aligned navigation controls:
 
 The basic markup is structured as follows:
 
-\code
+```
 <body>
   <section>
     <nav>
@@ -294,78 +290,78 @@ The basic markup is structured as follows:
     </article>
   </section>
 </body>
-\endcode
+```
 
-To enable flexible box properties, the full-screen \c{<section>} is
-defined as a \c{box} rather than the default \c{block}. The
-\c{box-orient} property determines how nested child elements are to be
+To enable flexible box properties, the full-screen `<section>` is
+defined as a `box` rather than the default `block`. The
+`box-orient` property determines how nested child elements are to be
 visually arranged within the box:
 
-\code
+```
 section {
     display            : -webkit-box;
     -webkit-box-orient : vertical;
 }
-\endcode
+```
 
-The \c{<nav>} element uses the default \e{inflexible} formatting,
+The `<nav>` element uses the default _inflexible_ formatting,
 wrapping around the navigation icons with no extra spacing. The
-\c{<article>} element, however is set to be \e{flexible}, which allows
+`<article>` element, however is set to be _flexible_, which allows
 it to expand tp fill unused screen area:
 
-\code
+```
 article {
     -webkit-box-flex   : 1;
 }
-\endcode
+```
 
-The \e{flexibility} of boxes is expressed in relative terms. Relative
-to the \c{<nav>} element, the \c{<article>} is fully flexible, so it
-fills all the remaining space not taken up by the \c{<nav>}
-element. (If there were another element with a \c{box-flex} of \c{2},
-it would take up twice the available area as the \c{<article>}.)
+The _flexibility_ of boxes is expressed in relative terms. Relative
+to the `<nav>` element, the `<article>` is fully flexible, so it
+fills all the remaining space not taken up by the `<nav>`
+element. (If there were another element with a `box-flex` of `2`,
+it would take up twice the available area as the `<article>`.)
 
-Note that the \c{<nav>} element is defined first within the markup,
-but appears below the \c{<article>} on the screen. The
-\c{box-ordinal-group} property overrides the default arrangement of
-boxes, in this case making the \c{<nav>} appear second:
+Note that the `<nav>` element is defined first within the markup,
+but appears below the `<article>` on the screen. The
+`box-ordinal-group` property overrides the default arrangement of
+boxes, in this case making the `<nav>` appear second:
 
-\code
+```
 nav {
     -webkit-box-ordinal-group : 2;
 }
-\endcode
+```
 
 Another way to do this would be to reverse the direction in which
 child elements appear:
 
-\code
+```
 section {
     -webkit-box-direction : reverse;
 }
-\endcode
+```
 
-The \c{<nav>} element is itself set to display as a \c{box}:
+The `<nav>` element is itself set to display as a `box`:
 
-\code
+```
 nav {
     display                   : -webkit-box;
     -webkit-box-orient        : horizontal;
     -webkit-box-pack          : justify;
 }
-\endcode
+```
 
-The \c{box-orient} property arranges nested navigation elements
-horizontally, and the \c{box-pack} property distributes them evenly
+The `box-orient` property arranges nested navigation elements
+horizontally, and the `box-pack` property distributes them evenly
 within the available space. (This improves upon the
 \l{x_layout_nav_fixed} {previous version of the layout}, which used
 text justification to distribute the icons.)
 
-\note CSS's flexible box properties are more widely supported than
-\c{position:fixed}, but overflowing content has to be implemented as
+> __NOTE__: CSS's flexible box properties are more widely supported than
+`position:fixed`, but overflowing content has to be implemented as
 scrollable regions, which may not always perform as smoothly as
 scrolling within an entire page. On iPhone Safari, setting
-\c{-webkit-overflow-scroll:touch} makes scrollable regions perform as
+`-webkit-overflow-scroll:touch` makes scrollable regions perform as
 well as full-page scrolling. See \l{Scrollbars} for information on
 how to suppress the appearance of scrollbars while keeping content
 scrollable.
@@ -379,22 +375,22 @@ highlight selected images:
 \l{x_css3_flex_css} {\inlineimage icon_css.png
 }
 
-\section1 Box Sizing
+##  Box Sizing
 
 The \l{Flexible Positioning} {examples above} use absolute positioning
 to make layout elements snap to both the left and right edges of the
-screen. Elements specified as \c{width:100%} can also be made to fill
+screen. Elements specified as `width:100%` can also be made to fill
 the screen.
 
 However, there has long been ambiguity among browsers in how an
 element's dimensions are measured. By default, WebKit-based browsers
 do not incorporate padding and borders into such measurements, which
 often leads to unexpected results. To address this problem, Level 3
-CSS includes a \c{box-sizing} property that allows designers to
+CSS includes a `box-sizing` property that allows designers to
 specify how to apply measurements.
 
 The following example illustrates how failure to specify
-\c{box-sizing} may adversely affect screen layout:
+`box-sizing` may adversely affect screen layout:
 
 \l{x_layout_boxsizing} {\inlineimage scr_layout_boxsizing.png
 \inlineimage scr_layout_boxsizing2.png
@@ -403,86 +399,78 @@ The following example illustrates how failure to specify
 \l{x_layout_boxsizing_css} {\inlineimage icon_css.png
 }
 
-The \c{<section>} element that contains navigation elements, hilighted
-here with a border, is defined with a \c{width} of \c{100%} and a
-\c{height} of \c{6em}. The default \c{box-sizing} is \c{content-box}.
-Unless it is set to \c{border-box}, measurements only apply to the
+The `<section>` element that contains navigation elements, hilighted
+here with a border, is defined with a `width` of `100%` and a
+`height` of `6em`. The default `box-sizing` is `content-box`.
+Unless it is set to `border-box`, measurements only apply to the
 interior content, not to the element's full width. In this case, it
 means the element doesn't fit within the screen, and becomes much
 taller than intended.
 
-\note Despite its name, \c{box-sizing} applies to all block elements, not
-just to flexible \c{box} elements \l{Flexible Boxes} {described above}.
+> __NOTE__: Despite its name, `box-sizing` applies to all block elements, not
+just to flexible `box` elements \l{Flexible Boxes} {described above}.
 
-\section1 Semantic Tags
+##  Semantic Tags
 
-The examples above use various HTML5 \e{semantic} tags to define
+The examples above use various HTML5 _semantic_ tags to define
 high-level regions of the page. These tags serve as a clearer
-alternative to more abstract block \c{<div>} and inline \c{<span>}
+alternative to more abstract block `<div>` and inline `<span>`
 elements that don't reference what kind of content they encapsulate.
 
 None of these semantic tags is required, but they help standardize
 overall information design, and may help search engines assign
-relevance to content. Except for the \c{<mark>} tag, they are not
+relevance to content. Except for the `<mark>` tag, they are not
 presented with any default styling.
 
 Block-level semantic tags include:
 
-\list
-
-\li \c{<section>}: Major groupings of content within a page. For example,
+- `<section>`: Major groupings of content within a page. For example,
 separate sections for main content and for user comments.
 
-\li \c{<article>}: The main item of interest within a page or section.
+- `<article>`: The main item of interest within a page or section.
 
-\li \c{<figure>}: An image relevant to content within a page, as opposed
+- `<figure>`: An image relevant to content within a page, as opposed
 to a background design element or an image featured within an
 advertisement.
 
-\li \c{<figcaption>}: Text describing a \c{<figure>}.
+- `<figcaption>`: Text describing a `<figure>`.
 
-\li \c{<nav>}: Regions reserved for groups of navigation links.
+- `<nav>`: Regions reserved for groups of navigation links.
 
-\li \c{<header>}: Regions of site-wide banner elements such as logos,
+- `<header>`: Regions of site-wide banner elements such as logos,
 search boxes, and navigation elements.
 
-\li \c{<footer>}: Regions of site-wide elements, such as legal notices or
-contact links, that are not as prominent as \c{<header>} elements, and
+- `<footer>`: Regions of site-wide elements, such as legal notices or
+contact links, that are not as prominent as `<header>` elements, and
 typically appear at the bottom of the page.
 
-\li \c{<aside>}: Tangentially related content, such as highlighted
+- `<aside>`: Tangentially related content, such as highlighted
 quotes, items of related interest, and advertisements.
 
-\li \c{<hgroup>}: Typically a cluster of information about a heading. For
+- `<hgroup>`: Typically a cluster of information about a heading. For
 example, next to a standard heading tag providing the title of an
-item, an \c{<hgroup>} might feature a related subtitle, author byline,
+item, an `<hgroup>` might feature a related subtitle, author byline,
 publication date, or a series of categories.
-
-\endlist
 
 The following HTML5 tags are appropriate to apply semantic meaning to
 in-line text:
 
-\list
-
-\li \c{<mark>}: Highlighted text, for example to draw attention to search
+- `<mark>`: Highlighted text, for example to draw attention to search
 terms within text. (Appears by default with a yellow background.)
 
-\li \c{<time>}: Identifies when an item was published or updated.
+- `<time>`: Identifies when an item was published or updated.
 
-\li \c{<command>}: Identifies text used to trigger an interface or other
+- `<command>`: Identifies text used to trigger an interface or other
 process.
 
-\li \c{<output>}: Like \c{<command>}, but presents the result of an action.
-
-\endlist
+- `<output>`: Like `<command>`, but presents the result of an action.
 
 Other newly introduced HTML5 tags offer more specialized
-functionality. For example, \c{<progress>} and \c{<meter>} tags
+functionality. For example, `<progress>` and `<meter>` tags
 represent the status of numeric data. See \l{Input Types} for more
 information.
 
-\section1 XXX MT Viewport
+##  XXX MT Viewport
 
 The Browser is capable of displaying web pages with complex
 layouts that are targeted to desktop and laptop-sized screens. Users
@@ -498,21 +486,21 @@ is much better to offer a mobile-optimized interface, which can be
 \l{Responsive Interfaces} {deployed
 along with a desktop-style interface} if necessary.
 
-When designing the page, specifying a \e{viewport} tells the browser
+When designing the page, specifying a _viewport_ tells the browser
 to fit design elements to the width of the mobile device, rather than
 letting them extend to the default width sized for desktop-style
 browsers. Add the following viewport specification to the HTML's
-\c{<head>} region:
+`<head>` region:
 
-\code
+```
 <meta name="viewport" content="width=device-width" />
-\endcode
+```
 
 A single-column page such as the following ordinarily appears very
 wide, but with the viewport enabled it conforms to the width of the
 mobile screen, with no effect on desktop browsers:
 
-\code
+```
 <head>
 <style>
 section { padding: 1em 1em 10em 1em; }
@@ -533,7 +521,7 @@ h1 { text-align: center; }
 </article>
 </section>
 </body>
-\endcode
+```
 
 Here is how the page initially appears without a viewport:
 
@@ -546,8 +534,7 @@ Here is how the page appears after the viewport is added:
 }
 
 Note that to simulate the mobile viewport's appearance on
-desktop-style browsers, the example above uses \c{max-width} CSS to
+desktop-style browsers, the example above uses `max-width` CSS to
 constrain the width of the page. It is not necessary to set the width
 of the page in a mobile interface that has the viewport enabled.
 
-*/

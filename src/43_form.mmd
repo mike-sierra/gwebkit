@@ -1,8 +1,4 @@
-/*!
-
-\page form.html
-
-\title Input Validation
+# Input Validation
 
 HTML5's new input types and client-based form validation allow more
 immediate and responsive feedback when entering text, and may help
@@ -22,58 +18,54 @@ read, it may obscure nearby validation errors. To keep this from
 happening, specify a viewport that \l{Constraining Touch Response}
 {disables magnification}.
 
-\section2 New Types
+###  New Types
 
-HTML5 specifies several new input \e{types} that extend the default
-\c{text} input with native text validation. The following are widely
+HTML5 specifies several new input _types_ that extend the default
+`text` input with native text validation. The following are widely
 supported:
 
-\list
+- `email` validates to patterns such as __x@x.x__.
 
-\li \c{email} validates to patterns such as \b{x@x.x}.
+- `url` validates to patterns such as __x://x__.
 
-\li \c{url} validates to patterns such as \b{x://x}.
-
-\li \c{number} validates to positive or negative numeric values. (Some
+- `number` validates to positive or negative numeric values. (Some
 virtual keyboard interfaces may even prevent users from entering
 non-numeric characters.)
 
-\endlist
+Adding `min` and `max` attributes to `number` inputs narrows
+the valid range of values. The `step` attribute specifies valid
+intervals between values. The `step` attribute is `1` by default,
+which excludes non-integers. If set to `2`, it requires even values,
+or odd values if the `min` is an odd number.
 
-Adding \c{min} and \c{max} attributes to \c{number} inputs narrows
-the valid range of values. The \c{step} attribute specifies valid
-intervals between values. The \c{step} attribute is \c{1} by default,
-which excludes non-integers. If set to \c{2}, it requires even values,
-or odd values if the \c{min} is an odd number.
-
-If users want to modify the value of a \c{number}, such as by changing
+If users want to modify the value of a `number`, such as by changing
 the quantity of a purchased item, an application can supply separate
-controls to avoid keyboard input. The \c{stepUp()} or \c{stepDown()}
-methods can be called directly on the \c{input} element. By default,
-they change the value depending on the \c{step}, but an optional
+controls to avoid keyboard input. The `stepUp()` or `stepDown()`
+methods can be called directly on the `input` element. By default,
+they change the value depending on the `step`, but an optional
 integer argument allows jumps of several steps.
 
-\note The \c{tel} input type, designed to validate telephone numbers,
+> __NOTE__: The `tel` input type, designed to validate telephone numbers,
 entails locale-specific values that do not yet validate, so it behaves
-like a default \c{text} input. Still, applying this input type should
+like a default `text` input. Still, applying this input type should
 not cause a problem, and you can \l{Refining Validation Criteria}
 {apply your own validation criteria}.
 
 \omit
-<<< Various date- and time-related types (\c{date}, \c{month}, \c{week},
-\c{time}, \c{datetime}, and \c{datetime-local}) validate to universal
-time code strings. The \c{color} type validates to standard web color
+<<< Various date- and time-related types (`date`, `month`, `week`,
+`time`, `datetime`, and `datetime-local`) validate to universal
+time code strings. The `color` type validates to standard web color
 names.
 \endomit
 
-The new \c{search} type does not validate or appear any differently
+The new `search` type does not validate or appear any differently
 than text inputs by default. It's customary to distinguish search
 inputs, as in the following example that applies \l{Rounded Corners}
 {rounded corners} and a \l{Backgrounds} {search icon}. When each input
 is open for editing, a \l{Shadows} {shadow} is applied using the
-\c{:focus} CSS dynamic class:
+`:focus` CSS dynamic class:
 
-\code
+```
 input[type=search] {
     -webkit-appearance  : none;
     -webkit-box-shadow  : 0em 0em 0.5em 0.5em #ffffff;
@@ -87,7 +79,7 @@ input[type=search] {
 input[type=search]:focus {
     -webkit-box-shadow  : 0em 0em 0.5em 0.5em #aaa;
 }
-\endcode
+```
 
 \l{x_form_search} {\inlineimage scr_form_search.png
 }
@@ -95,45 +87,45 @@ input[type=search]:focus {
 \l{x_form_search_css} {\inlineimage icon_css.png
 }
 
-This example shows how the \c{placeholder} attribute can be used to
+This example shows how the `placeholder` attribute can be used to
 provide a text hint, appearing grayed-out by default on empty fields,
 that indicates the scope of the search or for the kind of text that is
 expected:
 
-\code
+```
 <input type="search" placeholder="Search site..." maxlength="256" name="q"/>
-\endcode
+```
 
-Unlike the \c{value} attribute, which also displays within text
-inputs, \c{placeholder} text is not used to help build the input
+Unlike the `value` attribute, which also displays within text
+inputs, `placeholder` text is not used to help build the input
 string. It can be styled using the following CSS pseudo element:
 
-\code
+```
 ::-webkit-input-placeholder { font-style: italic }
-\endcode
+```
 
-This example also shows a field that uses the \c{autofocus} attribute,
+This example also shows a field that uses the `autofocus` attribute,
 which would ordinarily open the input for editing when the page
 loads. This feature is disabled on mobile browsers that impose a
 virtual keyboard editing interface.
 
-\section2 Marking Invalid Input
+###  Marking Invalid Input
 
 Once input types and other validation criteria are specified, problems
-with input text can be highlighted with CSS's \c{:valid} and
-\c{:invalid} dynamic classes. The following colors invalid input as a
+with input text can be highlighted with CSS's `:valid` and
+`:invalid` dynamic classes. The following colors invalid input as a
 shade of red, and returns it to white once corrected, with
 \l{Animations} {gentle transitions} between the two states:
 
-\code
+```
 input:invalid { background: pink  }
 input:valid   { background: white }
 input { -webkit-transition: all 1s }
-\endcode
+```
 
-Inputs that are \c{:required} or \c{:optional} can be styled.
-For \c{number} inputs that specify \c{min} and \c{max} attributes,
-values that are \c{:in-range} or \c{:out-of-range} can also be styled.
+Inputs that are `:required` or `:optional` can be styled.
+For `number` inputs that specify `min` and `max` attributes,
+values that are `:in-range` or `:out-of-range` can also be styled.
 
 The following example does not yet represent a friendly interface, but
 shows the simplest way to mark invalid input:
@@ -148,84 +140,80 @@ The static text along the left of the screen allows users an area to
 safely scroll up and down without triggering the form input interface.
 The inputs display the following behavior:
 
-\list
-
-\li Once users start to type within the \e{Email} and \e{Website}
-fields, validity is determined by the built-in \c{email} and \c{url}
+- Once users start to type within the _Email_ and _Website_
+fields, validity is determined by the built-in `email` and `url`
 input types.
 
-\li The first three inputs specify the \c{required} attribute. Until
+- The first three inputs specify the `required` attribute. Until
 they contain text, they are marked as invalid.
 
-\li Labels for \c{required} inputs are marked automatically:
+- Labels for `required` inputs are marked automatically:
 
-\code
+```
 input:required + label:before {
     content   : "* ";
     font-size : larger;
     color     : red;
 }
-\endcode
+```
 
-For the \c{+} selector to work, the \c{<label>} tag must be ordered
-immediately after the \c{<input>}, regardless of how it appears on the
+For the `+` selector to work, the `<label>` tag must be ordered
+immediately after the `<input>`, regardless of how it appears on the
 screen:
 
-\code
+```
 input { width: 70% }
 label { width: 28%; float: left; }
-\endcode
+```
 
-\li Most of the fields feature \c{placeholder} test to guide users to
+- Most of the fields feature `placeholder` test to guide users to
 supply text in the expected format:
 
-\code
+```
 <input type="email" required placeholder="who@where.com" />
-\endcode
+```
 
-\li The \e{Website} field uses the \c{value} attribute to initialize
+- The _Website_ field uses the `value` attribute to initialize
 text, which saves users several keystrokes:
 
-\code
+```
 <input type="url" value="http://" />
-\endcode
+```
 
-\li The \e{Website} field is marked as invalid until more text is added
-after the \c{http://}.
+- The _Website_ field is marked as invalid until more text is added
+after the `http://`.
 
-\li The \e{Quantity} \c{number} field specifies a \c{min} of \c{0},
+- The _Quantity_ `number` field specifies a `min` of `0`,
 which filters out negative integers.
 
-\li The \e{Zip Code} field is specified as a standard text field, as
+- The _Zip Code_ field is specified as a standard text field, as
 explained in the \l{Refining Validation Criteria} {following section}.
 But note that once users start to type, the input is marked as invalid
 until it contains five digits.
 
-\endlist
-
 The following sections show how to make the overall interface work
 better.
 
-\section2 Refining Validation Criteria
+###  Refining Validation Criteria
 
-Specifying a regular expression as a \c{pattern} attribute allows for
+Specifying a regular expression as a `pattern` attribute allows for
 more detailed validation criteria than built-in input types allow.
 
-The example above specifies the \e{Zip Code} field as a standard text
+The example above specifies the _Zip Code_ field as a standard text
 input, but with a pattern that requires any five digits:
 
-\code
+```
 <input type="text" pattern="^[0-9]{5}$" placeholder="#####"/>
-\endcode
+```
 
-\note Specifying a \c{number} field above might make it difficult to
+> __NOTE__: Specifying a `number` field above might make it difficult to
 accomodate numbers with leading zeroes.
 
-A \c{pattern} can also correct shortcomings in a valdiating field's
-default criteria. The following may all be marked valid \c{url} input
+A `pattern` can also correct shortcomings in a valdiating field's
+default criteria. The following may all be marked valid `url` input
 values:
 
-\code
+```
 http://.com
 http://website
 http://website.
@@ -233,57 +221,53 @@ http://z
 http://zzz.
 ftp://zzz
 zzz://zzz.zzz
-\endcode
+```
 
-A \c{pattern} attribute such as the following may help prevent such
+A `pattern` attribute such as the following may help prevent such
 errors:
 
-\code
+```
 ^https?://.+\.[a-z]+$
-\endcode
+```
 
-The example above uses the \c{pattern} attribute to specify a minimum
-of ten digits for the \e{Phone} field (\c{^[0-9]{10,}$}), alphanumeric
-characters for the \e{Login} field (\c{^[A-Za-z0-9]+$}), and a minimum
-of eight characters for the \e{Password} field (\c{^.{8,}$}).
+The example above uses the `pattern` attribute to specify a minimum
+of ten digits for the _Phone_ field (`^[0-9]{10,`$}), alphanumeric
+characters for the _Login_ field (`^[A-Za-z0-9]+$`), and a minimum
+of eight characters for the _Password_ field (`^.{8,`$}).
 
-\note Regular expressions specified by the \c{pattern} attribute supplement
+> __NOTE__: Regular expressions specified by the `pattern` attribute supplement
 rather than override an input type's underlying validation pattern.
-Input that matches a \c{pattern} may still be invalid for an input's
+Input that matches a `pattern` may still be invalid for an input's
 type. Be careful when supplementing built-in validation, since
 URL and email address formats are potentially complex.
 
 \quotation
 
-\section2 SIDEBAR Other Selectors
+###  SIDEBAR Other Selectors
 
 Level 3 CSS specifies several other potentially useful dynamic
 classes that can be added to selectors:
 
-\list
-
-\li \c{:empty} refers to an element that contains no child elements,
+- `:empty` refers to an element that contains no child elements,
 including text nodes.
 
-\li \c{:root} is a markup-independent way to refer to elements that are
-positioned at the root of the document, in most cases the \c{html} tag.
+- `:root` is a markup-independent way to refer to elements that are
+positioned at the root of the document, in most cases the `html` tag.
 
-\li The \c{:not()} dynamic class allows you to narrow a range of
+- The `:not()` dynamic class allows you to narrow a range of
 selectors. When applying style sheets, you can always define one set
-of properties that overrides another. The \c{:not()} dynamic class
+of properties that overrides another. The `:not()` dynamic class
 may thus be more useful when gathering elements via the Selectors API.
 For example, the following JavaScript gathers form inputs, but not
 including submit buttons:
 
-\code
+```
 var inputs = document.querySelectorAll("input:not([type=submit])");
-\endcode
-
-\endlist
+```
 
 \endquotation
 
-\section2 Refining a Validation Interface
+###  Refining a Validation Interface
 
 The example below modifies the one \l{Marking Invalid Input} {above}
 by marking invalid input only after users have made an effort to edit
@@ -296,11 +280,11 @@ each field:
 }\l{x_form_validBlur_js} {\inlineimage icon_js.png
 }
 
-Invalid inputs are marked only if they are classed \c{validate}. This
-only occurs once users leave a field (the \c{blur} event) they have
-actually applied edits to (the \c{change} event):
+Invalid inputs are marked only if they are classed `validate`. This
+only occurs once users leave a field (the `blur` event) they have
+actually applied edits to (the `change` event):
 
-\code
+```
 window.onload = function() {
     var el = document.querySelectorAll('input:not(type=submit)');
     for (var i = 0, l = el.length ; i < l ; i++ ) {
@@ -316,17 +300,17 @@ window.onload = function() {
         });
     }
 }
-\endcode
+```
 
-In addition to changing the input\'s background color, the CSS also
+In addition to changing the input's background color, the CSS also
 displays a more informative error message:
 
 \image scr_form_validErr.png
 
-Text is represented as a hidden \c{span} element, and activated by the
-indirect sibling (\c{~}) CSS selector:
+Text is represented as a hidden `span` element, and activated by the
+indirect sibling (`~`) CSS selector:
 
-\code
+```
 <style>
 input ~ span { opacity: 0; }
 input.validate:invalid ~ span { opacity: 1; }
@@ -337,67 +321,65 @@ input.validate:invalid ~ span { opacity: 1; }
   <label>Password</label>
   <span>Minimum 8 characters, please</span>
 </div>
-\endcode
+```
 
 \quotation
 
-\section2 SIDEBAR Sibling Selectors
+###  SIDEBAR Sibling Selectors
 
-The Level 2 \c{+} selector allows you to style elements that
+The Level 2 `+` selector allows you to style elements that
 immediately follow other specified elements. For example, the
 following refers to a paragraph that immediately follows a heading at
 the same level of markup:
 
-\code
+```
 h1 + p { font-weight: bold }
-\endcode
+```
 
-In contrast, the Level 3 \c{~} indirect sibling selector allows you to
+In contrast, the Level 3 `~` indirect sibling selector allows you to
 style any subsequent element at the same level within the markup. The
 following example shrinks paragraph text only when it follows an
-\c{h2}:
+`h2`:
 
-\code
+```
 h2 ~ p { font-size: 90% }
-\endcode
+```
 
-\note Webkit-based browsers do not yet allow you to style
+> __NOTE__: Webkit-based browsers do not yet allow you to style
 indirect sibling elements dynamically by manipulating classnames via
 JavaScript. For example, the following CSS applies only when initially
-loading the page, but not when changing each \c{div} element's class
+loading the page, but not when changing each `div` element's class
 name thereafter:
 
-\code
+```
 div.unselected ~ article { display: none }
 div.selected ~ article { display: block }
-\endcode
+```
 
 \endquotation
 
-\section2 Refining Validition Errors
+###  Refining Validition Errors
 
 The example above presents all-purpose error messages with no specific
 details about what's wrong with the input. To correct this,
 validation state can be checked directly from JavaScript. Check the
-\c{input} element's {validity} object for any of the following boolean
+`input` element's {validity} object for any of the following boolean
 errors:
 
-\list
-\li \c{typeMismatch}
-\li \c{patternMismatch}
-\li \c{valueMissing} (input is \c{required})
-\li \c{rangeOverflow}
-\li \c{rangeUnderflow}
-\li \c{stepMismatch}
-\li \c{tooLong} (exceeds \c{maxwidth})
-\endlist
+- `typeMismatch`
+- `patternMismatch`
+- `valueMissing` (input is `required`)
+- `rangeOverflow`
+- `rangeUnderflow`
+- `stepMismatch`
+- `tooLong` (exceeds `maxwidth`)
 
-Alternately, \c{input.validity.valid} determines overall validity.
+Alternately, `input.validity.valid` determines overall validity.
 
 The following example targets an error message if the wrong number of
 digits is entered into a credit card field:
 
-\code
+```
 if (input.validity.patternMismatch) {
     if (input.value.match(/^[0-9]{17,}$/)) {
         dbg.innerHTML = (input.value.length - 16) + ' too many';
@@ -409,7 +391,7 @@ if (input.validity.patternMismatch) {
         dbg.innerHTML = 'digits only please (16)';
     }
 }
-\endcode
+```
 
 \l{x_form_validCheck} {\inlineimage scr_form_validCheck.png
 }
@@ -418,9 +400,9 @@ if (input.validity.patternMismatch) {
 }\l{x_form_validCheck_js} {\inlineimage icon_js.png
 }
 
-\section1 XXX MT Forms
+##  XXX MT Forms
 
-The Browser supports updated form \e{types} and form \e{validation}
+The Browser supports updated form _types_ and form _validation_
 features. Used together, various HTML5 form features help guide users
 to enter text properly. Most input validation can execute entirely on
 the Browser, reducing the need for network transactions.
@@ -428,114 +410,114 @@ the Browser, reducing the need for network transactions.
 The sections below briefly discuss how specialized numeric and textual
 input types validate, then shows how best to present validation
 errors. However, some new input types provide touch-based controls,
-and should be used wherever practical.  For example, the \c{date} and
-\c{time} input types provide an appropriate date-picker interface:
+and should be used wherever practical.  For example, the `date` and
+`time` input types provide an appropriate date-picker interface:
 
 \image form_temporal.png
 
-The \c{color} type presents a color picker:
+The `color` type presents a color picker:
 
 \image form_color.png
 
-\section1 Text Input
+##  Text Input
 
-The Browser natively validates the \c{email} and \c{url} input
+The Browser natively validates the `email` and `url` input
 types. Text entered into either of the following inputs must follow
-the patterns \e{x@x} or \e{x://x}, or they trigger validation errors:
+the patterns _x@x_ or _x://x_, or they trigger validation errors:
 
-\code
+```
 <input type="email" name="email" />
 <input type="url" name="website" />
-\endcode
+```
 
-The \c{placeholder} attribute helps guide users to enter text in the
-expected format. The value of the \c{placeholder} attribute only
-appears when the field is empty. In contrast, the \c{value} attribute
+The `placeholder` attribute helps guide users to enter text in the
+expected format. The value of the `placeholder` attribute only
+appears when the field is empty. In contrast, the `value` attribute
 can be used to build the string to submit, in this case saving users
 several keystrokes:
 
-\code
+```
 <input type="email" name="email" placeholder="who@where.com" />
 <input type="url" name="website" value="http://" />
-\endcode
+```
 
 Placeholder text can be styled via CSS:
 
-\code
+```
 ::-webkit-input-placeholder { font-style: italic }
-\endcode
+```
 
-The \c{pattern} allows additional validation against a JavaScript
-\e{regular expression}.  This example specifies a \c{password} field
+The `pattern` allows additional validation against a JavaScript
+_regular expression_.  This example specifies a `password` field
 of at least eight characters, and another that further refines
-expected \e{website} input to exclude non-\c{http} schemes:
+expected _website_ input to exclude non-`http` schemes:
 
-\code
+```
 <input type="email" name="email" placeholder="who@where.com" required />
 <input type="url" name="website" value="http://" pattern="^https?://"/>
 <input type="password" pattern="^.{8,}$" placeholder="********" required />
-\endcode
+```
 
-The addition of a \c{required} attribute also triggers validation
+The addition of a `required` attribute also triggers validation
 when no text is present.
 
-You can also use the new \c{search} input type, which does not
+You can also use the new `search` input type, which does not
 validate by default or appear differently than other text inputs, but
-which does fire its own \c{onsearch} event when text is submitted. The
+which does fire its own `onsearch` event when text is submitted. The
 input can be re-styled to mark it as search-related:
 
-\code
+```
 input[type=search] {
     -webkit-appearance: none;
     border-radius: 1em;
     height: 2em;
 }
-\endcode
+```
 
-\section1 Numeric Input
+##  Numeric Input
 
-The Browser supports both \c{number} and \c{range} form input
-types to handle numeric data.  The \c{number} type appears as a simple
+The Browser supports both `number` and `range` form input
+types to handle numeric data.  The `number` type appears as a simple
 text input by default, and presents a numeric virtual keyboard when
-activated with a touch.  The \c{range} input presents a sliding handle
+activated with a touch.  The `range` input presents a sliding handle
 that requires no text input:
 
 \image form_range.png
 
-A \c{max} attribute specifies a boundary for potential \c{range}
+A `max` attribute specifies a boundary for potential `range`
 inputs, otherwise the default value is 100:
 
-\code
+```
 <input type="range" min="0" max="10" name="quantity"
     id="quantity"/><span></span>
 <input type="range" min="0" max="5" step="0.5" name="rating"/>
-\endcode
+```
 
-Specify a \c{min} attribute to vary the minimum value from the default
-of \c{0}. The \c{step} attribute specifies allowable increments, with
-a default value of \c{1}, which allows only integers. The second
+Specify a `min` attribute to vary the minimum value from the default
+of `0`. The `step` attribute specifies allowable increments, with
+a default value of `1`, which allows only integers. The second
 example above allows half-star ratings.
 
-Note that \c{range} inputs do not present the selected value as visual
+Note that `range` inputs do not present the selected value as visual
 feedback, and so may need to be modified. This example displays any
-modified value within an adjacent \c{span} element:
+modified value within an adjacent `span` element:
 
-\code
+```
 document.querySelector('#quantity').addEventListener('change', function(e){
     event.target.nextSibling.innerHTML = event.target.value;
 });
-\endcode
+```
 
-Note that you can restyle \c{range} inputs, by applying the
-\c{-webkit-appearance} CSS property to override their default
+Note that you can restyle `range` inputs, by applying the
+`-webkit-appearance` CSS property to override their default
 presentation as a sliding control:
 
-\code
+```
 input[type="range"]{ -webkit-appearance:none }
 input[type="range"]::-webkit-slider-thumb { -webkit-appearance:none }
-\endcode
+```
 
-This example restyles a \c{range} input as a tappable control:
+This example restyles a `range` input as a tappable control:
 
 \l{x_form_htm} {
   \inlineimage form3.png
@@ -554,17 +536,17 @@ This example restyles a \c{range} input as a tappable control:
     \inlineimage icon_js.png
 }
 
-The example also demonstrates a validating \c{number} field with
+The example also demonstrates a validating `number` field with
 controls that increment or decrement the current value based on the
-input's \c{step} attribute. Controls that call \c{stepUp()} and
-\c{stepDown()} methods on the \c{input} element allow users to modify
+input's `step` attribute. Controls that call `stepUp()` and
+`stepDown()` methods on the `input` element allow users to modify
 existing numeric input without re-typing it as text.
 
-Any non-numeric text entered into \c{number} inputs triggers
+Any non-numeric text entered into `number` inputs triggers
 validation errors, as does numeric input that falls outside the
-criteria specified by \c{min}, \c{max}, and \c{step} attributes.
+criteria specified by `min`, `max`, and `step` attributes.
 
-\section1 Responding to Invalid Text
+##  Responding to Invalid Text
 
 This example demonstrates a self-validating form interface using the
 options described above:
@@ -587,31 +569,31 @@ options described above:
     \inlineimage icon_js.png
 }
 
-The \c{:required} CSS class adds a red asterisk next to inputs that
-specify a \c{required} attribute:
+The `:required` CSS class adds a red asterisk next to inputs that
+specify a `required` attribute:
 
-\code
+```
 input:required + label:before { color: red; content: "* "; }
-\endcode
+```
 
-The \c{:invalid} class colors inputs whose text is invalid red,
-including missing \c{required} text:
+The `:invalid` class colors inputs whose text is invalid red,
+including missing `required` text:
 
-\code
+```
 input.validate:invalid { background-color: pink }
 span { opacity: 0;}
 input.validate:invalid ~ span { opacity: 1; }
-\endcode
+```
 
 Once users correct the text, the error message contained in the
-nearby \c{span} element disappears.
+nearby `span` element disappears.
 
-To prevent \c{required} inputs from displaying as invalid before users
+To prevent `required` inputs from displaying as invalid before users
 have had a chance to edit them, event handlers that respond to user
 input assign a CSS class that determines whether validation errors
 display:
 
-\code
+```
 // when users tap the input...
 input.addEventListener('focus', function(event){
     event.target.dataset.isTyping = false;
@@ -627,29 +609,27 @@ input.addEventListener('blur', function(event){
     if (! event.target.dataset.isTyping) return false;
     event.target.classList.add('validate');
 });
-\endcode
+```
 
-Invalid numeric input can be marked with the \c{:out-of-range} CSS
-class. Otherwise, the \c{:invalid} selector can't be used to display
+Invalid numeric input can be marked with the `:out-of-range` CSS
+class. Otherwise, the `:invalid` selector can't be used to display
 contextual errors. As an alternative, use JavaScript to check the
-input directly for errors on its \c{validity} object:
+input directly for errors on its `validity` object:
 
-\list
-\li \c{valueMissing}: missing \c{required} text
-\li \c{typeMismatch}: does not match built-in pattern
-\li \c{patternMismatch}: does not match additional \c{pattern} attribute
-\li \c{tooLong}: text exceeds \c{maxlength}
-\li \c{rangeOverflow}: number is less than \c{min} attribute
-\li \c{rangeUnderflow}: number is more than \c{max} attribute
-\li \c{stepMismatch}: number doesn't match \c{step} attribute
-\endlist
+- `valueMissing`: missing `required` text
+- `typeMismatch`: does not match built-in pattern
+- `patternMismatch`: does not match additional `pattern` attribute
+- `tooLong`: text exceeds `maxlength`
+- `rangeOverflow`: number is less than `min` attribute
+- `rangeUnderflow`: number is more than `max` attribute
+- `stepMismatch`: number doesn't match `step` attribute
 
-If there are no errors, \c{input.validity.valid} is \c{true}.
+If there are no errors, `input.validity.valid` is `true`.
 
 This example responds differently to missing text and two different
 kinds of malformed text:
 
-\code
+```
 <input type="url" name="website" value="http://"
         pattern="^https?://.+\..+" required />
 <script>
@@ -664,6 +644,5 @@ else if (input.validity.patternMismatch) {
     // non-http scheme, or no mix of top-level & subdomains
 }
 </script>
-\endcode
+```
 
-*/

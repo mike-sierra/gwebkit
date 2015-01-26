@@ -1,21 +1,17 @@
-/*!
-
-\page font.html
-
-\title Typography
+# Typography
 
 This section shows Lever 3 CSS features that enhance the appearance of
 text.
 
-\section2 Server-Based Fonts
+###  Server-Based Fonts
 
 Past web design has been limited to a narrow set of standard fonts
 built into the browser application. Level 3 CSS offers the ability to
-specify your own font files. Specify your own \c{font-family}
+specify your own font files. Specify your own `font-family`
 identifier, then assign those identifiers to external font files using
-the \c{@font-face} rule:
+the `@font-face` rule:
 
-\code
+```
 body {
     font-family : Body, sans-serif;
 }
@@ -34,11 +30,11 @@ h1,h2,h3,h4 {
     font-family: Pullquote;
     src: url(/fonts/script.ttf)
 }
-\endcode
+```
 
-\note TrueType is the most widely supported font file format. Still, the
-example above specifies \c{sans-serif} as a standard fallback font for
-any browser that don't support \c{@font-face}.
+> __NOTE__: TrueType is the most widely supported font file format. Still, the
+example above specifies `sans-serif` as a standard fallback font for
+any browser that don't support `@font-face`.
 
 The following example displays custom server-based fonts:
 
@@ -48,7 +44,7 @@ The following example displays custom server-based fonts:
 \l{x_css3_text-font_css} {\inlineimage icon_css.png
 }
 
-\section2 Text Shadows
+###  Text Shadows
 
 You can apply shadows to text elements using much the same syntax as
 for \l{Shadows} {shadows applied to blocks}. As the following example
@@ -62,15 +58,15 @@ headings:
 \l{x_css3_text-shadow_css} {\inlineimage icon_css.png
 }
 
-In addition to the shadow\'s color, the property accepts two
+In addition to the shadow's color, the property accepts two
 measurements to represent its offset from the text, while the third
 specifies the extent to which the shadow is blurred:
 
-\code
+```
 h1,h2,h3,h4 { text-shadow : 0.20em 0.20em 0.20em #aaaaaa; }
-\endcode
+```
 
-\note Unlike box shadows, you cannot apply a fourth measurement to spread
+> __NOTE__: Unlike box shadows, you cannot apply a fourth measurement to spread
 the shadow beyond the underlying text.
 
 As with box shadows, you can specify numerous comma-separated text
@@ -78,9 +74,9 @@ shadow values. Embossing effects may help keep text legible against a
 background whose color may vary. The following example specifies two
 shadows that contrast each other:
 
-\code
+```
 text-shadow : 0.05em 0.05em #dddddd, 0.1em 0.1em #777777;
-\endcode
+```
 
 \l{x_css3_text-shadowMulti} {\inlineimage scr_css3_text-shadowMulti.png
 }
@@ -94,21 +90,21 @@ shadow effects along with several font families:
 \l{x_utilShadow} {\inlineimage utilShadow.png
 }
 
-\section2 Text Stroke
+###  Text Stroke
 
 The text stroke feature enable outlining effects along the edges of
 text. Unlike \l{Text Shadows} {text shadows}, text strokes affect the
 interior of the letterforms. Like text shadows, this effect is most
 suitable for larger display type or for subtle animations:
 
-In the following example, \c{-webkit-text-fill-color} is synonymous
-with the standard \c{color} property:
+In the following example, `-webkit-text-fill-color` is synonymous
+with the standard `color` property:
 
-\code
+```
 -webkit-text-stroke-color : #000000;
 -webkit-text-stroke-width : 1px;
 -webkit-text-fill-color   : #206ead;
-\endcode
+```
 
 \l{x_css3_text-stroke} {\inlineimage scr_css3_text-stroke.png
 }
@@ -118,74 +114,70 @@ with the standard \c{color} property:
 
 \omit
 
-\list
-
-\li alignment-adjust
-\li alignment-baseline
-\li baseline-shift
-\li dominant-baseline
-\li drop-initial-after-adjust
-\li drop-initial-after-align
-\li drop-initial-before-adjust
-\li drop-initial-before-align
-\li drop-initial-size
-\li drop-initial-value
-\li font-size-adjust
-\li font-stretch
-\li hanging-punctuation
-\li inline-box-align
-\li kerning-mode
-\li kerning-pair-threshold
-\li letter-spacing
-\li line-break
-\li line-stacking
-\li line-stacking-shift
-\li line-stacking-strategy
-\li max-font-size
-\li min-font-size
-\li punctuation-trim
-\li text-align-last
-\li text-height
-\li text-indent
-\li text-wrap
-\li white-space-collapsing
-\li word-break
-\li word-break-inside
-\li word-spacing
-\li wrap-option
-
-\endlist
+- alignment-adjust
+- alignment-baseline
+- baseline-shift
+- dominant-baseline
+- drop-initial-after-adjust
+- drop-initial-after-align
+- drop-initial-before-adjust
+- drop-initial-before-align
+- drop-initial-size
+- drop-initial-value
+- font-size-adjust
+- font-stretch
+- hanging-punctuation
+- inline-box-align
+- kerning-mode
+- kerning-pair-threshold
+- letter-spacing
+- line-break
+- line-stacking
+- line-stacking-shift
+- line-stacking-strategy
+- max-font-size
+- min-font-size
+- punctuation-trim
+- text-align-last
+- text-height
+- text-indent
+- text-wrap
+- white-space-collapsing
+- word-break
+- word-break-inside
+- word-spacing
+- wrap-option
 
 \endomit
 
-\section1 XXX MT Fonts
+##  XXX MT Fonts
 
 Web designers have long been limited to a small, core group of fonts
 distributed by browser vendors. The Browser supports the CSS
-\c{@font-face} rule, which allows you to reference any fonts you wish.
+`@font-face` rule, which allows you to reference any fonts you wish.
 
-Place custom font files on your server, then add a \c{@font-face} rule
-to a CSS region specifying a new \c{font-family} name, making sure it
+Place custom font files on your server, then add a `@font-face` rule
+to a CSS region specifying a new `font-family` name, making sure it
 doesn't conflict with standard font names:
 
-\code
+```
 @font-face {
     font-family: BodyText;
     src: url(fonts/customFont.ttf);
 }
-\endcode
+```
 
-The Browser supports the TrueType (\e{.ttf}) font format.
+The Browser supports the TrueType (_.ttf_) font format.
 
 Reference the family name as you ordinarily would.  It is a good idea
 to also specify standard font family names as a fallback for any
 browser that doesn't support custom fonts:
 
-\code
+```
 article {
     font-family: BodyText, Ariel, sans-serif;
 }
-\endcode
+```
 
 This example shows an interface that displays custom fonts:
 
@@ -208,10 +200,10 @@ This example shows an interface that displays custom fonts:
 
 Note that font files typically do not specify variations such as bold
 and italic, so these need to be assigned separately. In the example
-above, the \c{<em>} tag is reassigned to a bold font, overriding its
+above, the `<em>` tag is reassigned to a bold font, overriding its
 default appearance as italic:
 
-\code
+```
 @font-face {
     font-family: Emphasis;
     src: url(fonts/customFontBold.ttf);
@@ -219,14 +211,14 @@ default appearance as italic:
 em {
     font-family: Emphasis;
 }
-\endcode
+```
 
 Alternately, you can specify the same family name within different
-\c{@font-face} rules, along with other criteria to assign specific
+`@font-face` rules, along with other criteria to assign specific
 font files. This example assigns an additional light font when the
-\c{font-weight} property falls below a specified numeric threshold:
+`font-weight` property falls below a specified numeric threshold:
 
-\code
+```
 @font-face {
     font-family: BodyText;
     src: url(fonts/customFont.ttf);
@@ -251,7 +243,5 @@ em.light {
     font-family: BodyText;
     font-weight: 200;
 }
-\endcode
-
-*/
+```
 

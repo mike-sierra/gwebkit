@@ -1,28 +1,24 @@
-/*!
+# Canvas
 
-\page canvas.html
-
-\title Canvas
-
-The Browser supports HTML5 \e{canvas} graphics. The \c{canvas}
+The Browser supports HTML5 _canvas_ graphics. The `canvas`
 element provides a transparent painting surface on which newly placed
 graphic elements overwrite existing pixel data.  To start drawing,
-specify the canvas's \c{width} and \c{height} to set the pixel
+specify the canvas's `width` and `height` to set the pixel
 dimensions of the painting surface:
 
-\code
+```
 <canvas id="graphic" width="320" height="370">
     <!-- fallback content -->
     Sorry, your browser does not support HTML5 Canvas.
 </canvas>
-\endcode
+```
 
 The canvas's dimensions can be modified superficially via CSS, but
 changing the actual number of pixels clears any current image data.
 Here are two ways to shrink a canvas to half its size, the latter of
 which clears any displaying pixels:
 
-\code
+```
 var cv = document.querySelector('canvas');
 
 // displays pixels:
@@ -32,23 +28,23 @@ cv.style.height = Math.floor(cv.width / 2) + 'px';
 // clears pixels:
 cv.width = Math.floor(cv.width / 2);
 cv.height = Math.floor(cv.height / 2);
-\endcode
+```
 
-Use the canvas's two-dimensional \e{context} to access the API that
+Use the canvas's two-dimensional _context_ to access the API that
 modifies its contents:
 
-\code
+```
 var cv = document.querySelector('canvas');
 var cx = cv.getContext('2d');
 // canvas also available as cx.canvas
-\endcode
+```
 
-\note Mobile browsers do not yet support the three-dimensional WebGL
+> __NOTE__: Mobile browsers do not yet support the three-dimensional WebGL
 canvas context.
 
 This section offers a brief tour of canvas's core graphics effects.
 
-\section1 Paths
+##  Paths
 
 This simple example shows a series of graphic commands that draws the
 accompanying arrow:
@@ -63,7 +59,7 @@ accompanying arrow:
 
 \li
 
-\code
+```
 cx.fillStyle = 'red';
 cx.strokeStyle = 'rgba(100%, 100%, 100%, 0.5)'; // semi-transparent
 cx.lineWidth = 10;
@@ -81,43 +77,43 @@ cx.closePath();
 
 cx.fill();
 cx.stroke();
-\endcode
+```
 
 \endtable
 
-After an initial \c{beginPath()} declaration, the \c{moveTo()}
+After an initial `beginPath()` declaration, the `moveTo()`
 coordinate sets an origin point for the shape. The path is defined by
-a series of \c{lineTo()} coordinates, ended by \c{closePath()}.  The
-shape only renders when either \c{fill()} or \c{stroke()} are called.
-Global properties such as \c{fillStyle}, \c{strokeStyle}, and
-\c{lineWidth} configure their appearance.
+a series of `lineTo()` coordinates, ended by `closePath()`.  The
+shape only renders when either `fill()` or `stroke()` are called.
+Global properties such as `fillStyle`, `strokeStyle`, and
+`lineWidth` configure their appearance.
 
 Since canvases are based on pixels rather than vector objects, most
 shapes you add cannot respond independently to touch input. However,
-the \c{isPointInPath()} method allows you to test whether a coordinate
+the `isPointInPath()` method allows you to test whether a coordinate
 falls within the most recently declared path. The following touch
-handler, attached to the \c{canvas} element, responds only when the
+handler, attached to the `canvas` element, responds only when the
 touch point falls within the arrow:
 
-\code
+```
 document.querySelector('canvas').addEventListener('touchstart', function(e) {
     if (! event.target.getContext('2d').isPointInPath(
        e.targetTouches[0].offsetX, e.targetTouches[0].offsetY ) )
            return(false);
     // touch falls within arrow
 });
-\endcode
+```
 
-The \c{targetTouches} array further helps identify touch points that
+The `targetTouches` array further helps identify touch points that
 fall within the canvas itself. For more information, see
 \l{Touch Gestures}.
 
-\section1 Rectangles
+##  Rectangles
 
-The \c{rect()} method defines a rectangular path that behaves the same
-way as the polygon above. It requires \e{x} and \c{y} offsets,
-followed by width and height.  The \c{fillRect()} and \c{strokeRect()}
-methods provide common shortcuts, while \c{clearRect()} removes
+The `rect()` method defines a rectangular path that behaves the same
+way as the polygon above. It requires _x_ and `y` offsets,
+followed by width and height.  The `fillRect()` and `strokeRect()`
+methods provide common shortcuts, while `clearRect()` removes
 regions of pixels. (Adding transparent pixels does not change existing
 pixels.) This draws various rectangular patterns behind the arrow:
 
@@ -131,7 +127,7 @@ pixels.) This draws various rectangular patterns behind the arrow:
 
 \li
 
-\code
+```
 cx.fillStyle = 'lightblue';
 // cx.rect(0,0,140,240);
 // cx.fill();
@@ -146,23 +142,23 @@ cx.lineWidth = 6;
 cx.strokeRect(30,30,80,180); // same as 2 commented lines above
 
 // ...draw arrow
-\endcode
+```
 
 \endtable
 
-\section1 Reading and Writing Images
+##  Reading and Writing Images
 
 To import an image into a canvas, reference its DOM object. This
 places the image at the top left corner:
 
-\code
+```
 var img = new Image();
 img.src = "img/sign.jpg";
 cx.drawImage(img,0,0);
-\endcode
+```
 
-Alternately, you can import another \c{canvas} object.  With two
-additional measurements, \c{drawImage()} only renders the image within
+Alternately, you can import another `canvas` object.  With two
+additional measurements, `drawImage()` only renders the image within
 a specified width and height. With eight measurements, the first four
 specify the offsets and dimensions of the source image, and the next
 four specify the same for the destination canvas. This shows a 42
@@ -179,32 +175,32 @@ placed at the canvas's top left corner:
 
 \li
 
-\code
+```
 cx.drawImage(img,160,272,42,42,0,0,84,84);
-\endcode
+```
 
 \endtable
 
 To save the contents of a canvas as a static image, use the canvas
-object's \c{toDataURL()} method. The canvas object is also available
-by calling \c{context.canvas}:
+object's `toDataURL()` method. The canvas object is also available
+by calling `context.canvas`:
 
-\code
+```
 var img = new Image();
 img.src = cx.canvas.toDataUrl();
 // also toDataUrl('image/png') or toDataUrl('image/jpeg');
 // toDataUrl('image/jpeg', 0.5) renders JPEG at "half" quality
-\endcode
+```
 
-This produces a \c{data:} prefixed encoding of the image data that can
+This produces a `data:` prefixed encoding of the image data that can
 be substituted for an external filename. Here's an example of an image
 that's been modified to include the arrow:
 
 \image canvasDrawImage.png
 
-\section1 Clipping Paths
+##  Clipping Paths
 
-The \c{clip()} method allows you to limit the scope of graphics
+The `clip()` method allows you to limit the scope of graphics
 operations to within the currently defined path. For example, after
 defining the path for the arrow as shown above, you can fill it with
 an image:
@@ -219,7 +215,7 @@ an image:
 
 \li
 
-\code
+```
 cx.beginPath();
 // ...define arrow
 cx.endPath();
@@ -229,14 +225,14 @@ cx.clip(); // subsequent graphics appear only within path
 var img = new Image();
 img.src = "img/sign.jpg";
 cx.drawImage(img,-110,-200); // offsets to frame selected portion
-\endcode
+```
 
 \endtable
 
-\section1 Arcs and Curves
+##  Arcs and Curves
 
-Arcs offer another way to define a path. The \c{arc()} method accepts
-six arguments: a pair of \e{x}/\e{y} coordinates at the center point,
+Arcs offer another way to define a path. The `arc()` method accepts
+six arguments: a pair of _x_/_y_ coordinates at the center point,
 a radius measurement in pixels, and a pair of start and end angles,
 originating from the right edge and measured in radians. A sixth
 boolean argument specifies if the arc renders along a counterclockwise
@@ -253,7 +249,7 @@ relative to the origin:
 
 \li
 
-\code
+```
 cx.beginPath();
 cx.arc(50, 50, 40, 0, (Math.PI*5)/6, false);
 cx.closePath()
@@ -263,13 +259,13 @@ cx.beginPath();
 cx.arc(150, 50, 40, 0, (Math.PI*5)/6, true);
 cx.stroke();
 cx.closePath()
-\endcode
+```
 
 \endtable
 
-The \c{arcTo()} method accepts five arguments: a pair of \e{x}/\e{y}
+The `arcTo()` method accepts five arguments: a pair of _x_/_y_
 coordinates for a control point, another pair for a destination point,
-and a radius. It works differently than the \c{arc()} method, fitting
+and a radius. It works differently than the `arc()` method, fitting
 the arc within the angle that forms between the starting point, the
 control point, and the destination point.  This example compares arcs
 that are defined by the same set of control and destination points,
@@ -281,45 +277,45 @@ but that vary in radius:
 
 \li
 
-\code
+```
 cx.arcTo(250, 50, 250, 250, 100);
-\endcode
+```
 
 \image canvasArcTo1.png
 
 \li
 
-\code
+```
 cx.arcTo(250, 50, 250, 250, 50);
-\endcode
+```
 
 \image canvasArcTo2.png
 
 \endtable
 
-The \c{arcTo()} method renders any necessary line leading up to the
-arc, but not following it. The \c{quadraticCurveTo()} method also
+The `arcTo()` method renders any necessary line leading up to the
+arc, but not following it. The `quadraticCurveTo()` method also
 requires coordinates for control point and destination point, and
 renders curves more flexibly:
 
-\code
+```
 cx.quadraticCurveTo(250, 50, 250, 250);
-\endcode
+```
 
 \image canvasQuad.png
 
-The \c{bezierCurveTo()} method works the same way, but uses an
+The `bezierCurveTo()` method works the same way, but uses an
 additional control point to define more complex curves:
 
-\code
+```
 cx.bezierCurveTo(250, 50, 50, 250, 250, 250);
-\endcode
+```
 
 \image canvasBez.png
 
 Use the following interactive utility to see how various curves appear
 with different sets of control points, and see how they are reflected
-as JavaScript code. This example shows how \c{arcTo()} behaves when
+as JavaScript code. This example shows how `arcTo()` behaves when
 there's not enough room to place the arc between a set of control
 points.
 
@@ -327,10 +323,10 @@ points.
   \inlineimage canvasCurve.png
 }
 
-\section1 Transforms and Canvas State
+##  Transforms and Canvas State
 
 In the examples above, all new graphics are positioned relative to the
-canvas's default top-left origin point. \e{Transforms} allow you to
+canvas's default top-left origin point. _Transforms_ allow you to
 shift this origin point, and rotate and scale the painting surface
 within the canvas prior to rendering a graphic.
 
@@ -352,7 +348,7 @@ highlights the transformed coordinate space.)
 
 \li
 
-\code
+```
 var deg = 120;
 cx.translate(180,240);
 cx.rotate((Math.PI/180) * deg); // requires radians
@@ -362,33 +358,33 @@ cx.scale(0.5, 0.5);
 cx.strokeStyle = 'gold';
 cx.lineWidth = 4;;
 cx.strokeRect(0, 0, cv.width, cv.height);
-\endcode
+```
 
 \endtable
 
-Unlike CSS, subsequent transforms appear \e{relative} to the current
+Unlike CSS, subsequent transforms appear _relative_ to the current
 transformed space, so resetting each to default values has no effect.
-To reset transforms to their original state, use \c{setTransform()} to
-specify a two-dimensional \e{matrix} using default values:
+To reset transforms to their original state, use `setTransform()` to
+specify a two-dimensional _matrix_ using default values:
 
-\code
+```
 setTransform(1,0,0,1,0,0);
-\endcode
+```
 
 Matrixes provide an alternative mathematical representation that
-consolidates individual transform effects.  The \c{transform()} method
+consolidates individual transform effects.  The `transform()` method
 also accepts a 2D matrix, but makes only relative changes, as with
-\c{translate()}, \c{rotate()}, and \c{scale()}. (See the
+`translate()`, `rotate()`, and `scale()`. (See the
 \l{Use Advanced CSS Formatting} {section on Level 3 CSS} for an
 interactive demonstration of 2D matrix transforms.)
 
-The \c{save()} method provides an alternate way to control transforms
+The `save()` method provides an alternate way to control transforms
 and other global properties. It pushes the current transform onto a
-stack of application states, and the \c{restore()} method pops the
+stack of application states, and the `restore()` method pops the
 previous state. This example performs the same transform as above, but
 returns the canvas to its original state:
 
-\code
+```
 // ...render graphics within default coordinates...
 cx.save();
 var deg = 120;
@@ -398,16 +394,16 @@ cx.scale(0.5, 0.5);
 // ...render arrow within transformed coordinates...
 cx.restore();
 // ...render subsequent graphics within default coordinates...
-\endcode
+```
 
 Along with transforms, most of canvas's global properties can be
 altered and restored in this fashion.
 
-\section1 Placing Text
+##  Placing Text
 
 Text behaves much the same as paths, applying the same global
-\c{fillText()} and \c{strokeText()} values as shapes you define.  The
-\c{font()} method accepts the same syntax as shorthand CSS font
+`fillText()` and `strokeText()` values as shapes you define.  The
+`font()` method accepts the same syntax as shorthand CSS font
 properties, but with no support for \l{Typography} {custom
 fonts}:
 
@@ -421,7 +417,7 @@ fonts}:
 
 \li
 
-\code
+```
 cx.fillStyle = 'red';
 cx.strokeStyle = 'black';
 cx.lineWidth = 1;
@@ -430,23 +426,23 @@ cx.textBaseline = 'bottom';
 cx.font = 'bold 40px sans-serif';
 cx.fillText('You Are Here', 30, 100);
 cx.strokeText('You Are Here', 30, 100);
-\endcode
+```
 
 \endtable
 
-Text appears at the specified coordinates, with \c{textBaseline}
+Text appears at the specified coordinates, with `textBaseline`
 controlling how it is placed relative to the horizontal line starting
-from the \e{y} coordinate.  The \c{alphabetic} baseline is a standard
-for Roman fonts, excluding descenders, and \c{ideographic} provides
-similar metrics to align CJK characters.  The \c{top} and \c{bottom}
+from the _y_ coordinate.  The `alphabetic` baseline is a standard
+for Roman fonts, excluding descenders, and `ideographic` provides
+similar metrics to align CJK characters.  The `top` and `bottom`
 baselines provide clearance around descenders and various accent
-marks, and \c{middle} falls between those two lines.  The \c{hanging}
+marks, and `middle` falls between those two lines.  The `hanging`
 baseline is for Indic scripts that fall from a baseline in much the
 same way that Roman characters rise from it.
 
 Canvas does not provide any native method to wrap text. To check if
-text fits within the available area, use the \c{measureText()} method,
-testing the returned \c{TextMetrics} object's \c{width} value:
+text fits within the available area, use the `measureText()` method,
+testing the returned `TextMetrics` object's `width` value:
 
 \table
 
@@ -458,7 +454,7 @@ testing the returned \c{TextMetrics} object's \c{width} value:
 
 \li
 
-\code
+```
 if (cx.measureText('This is Where You Are').width > 250) {
     cx.textAlign = 'center';
     // 1st line:
@@ -468,20 +464,20 @@ if (cx.measureText('This is Where You Are').width > 250) {
     cx.fillText('You Are', 160, 150);
     cx.strokeText('You Are', 160, 150);
 }
-\endcode
+```
 
 \endtable
 
-The \c{textAlign()} method specifies how text flows relative to the
-supplied \e{x} coordinate.  It accepts \c{left}, \c{right}, \c{center}
-values, or locale-independent variants \c{start} or \c{end}.
+The `textAlign()` method specifies how text flows relative to the
+supplied _x_ coordinate.  It accepts `left`, `right`, `center`
+values, or locale-independent variants `start` or `end`.
 
-\section1 Line Effects, Shadows, Gradients, and Patterns
+##  Line Effects, Shadows, Gradients, and Patterns
 
-The \c{lineJoin} property affects how angles appear along a path. It
-accepts \c{round}, \c{bevel}, and the default \c{miter} as values.
-With the \c{lineJoin} set to \c{miter}, setting an accompanying
-\c{miterLimit} limits the extent to which corners can extend from the
+The `lineJoin` property affects how angles appear along a path. It
+accepts `round`, `bevel`, and the default `miter` as values.
+With the `lineJoin` set to `miter`, setting an accompanying
+`miterLimit` limits the extent to which corners can extend from the
 joint before they are beveled. In this case, it affects only sharper
 exterior angles, not the square interior angles, or the path's origin
 point at the top of the arrow:
@@ -492,55 +488,55 @@ point at the top of the arrow:
 
 \li
 
-\code
+```
 cx.lineJoin = 'round';
-\endcode
+```
 
 \image canvasRound.png
 
 \li
 
-\code
+```
 cx.lineJoin = 'bevel';
-\endcode
+```
 
 \image canvasBevel.png
 
 \li
 
-\code
+```
 cx.lineJoin = 'miter';
-\endcode
+```
 
 \image canvasMiter.png
 
 \li
 
-\code
+```
 cx.lineJoin = 'miter';
 cx.miterLimit = 2;
-\endcode
+```
 
 \image canvasMiterLimit.png
 
 \endtable
 
-The \c{lineCap} property affects how the end of a line appears. These
+The `lineCap` property affects how the end of a line appears. These
 examples show how various cap styles appear relative to the underlying
 line:
 
 \inlineimage canvasCapButt.png
-\c{cx.lineCap = "butt";}
+`cx.lineCap = "butt";`
 
 \inlineimage canvasCapSquare.png
-\c{cx.lineCap = "square";}
+`cx.lineCap = "square";`
 
 \inlineimage canvasCapRound.png
-\c{cx.lineCap = "round";}
+`cx.lineCap = "round";`
 
 Shadows apply to both fill and stroke effects, and are controlled with
-\c{shadowColor}, \c{shadowOffsetX}, \c{shadowOffsetY}, and
-\c{shadowBlur} methods. These examples show a crisp offset shadow
+`shadowColor`, `shadowOffsetX`, `shadowOffsetY`, and
+`shadowBlur` methods. These examples show a crisp offset shadow
 along with a nono-offset blur:
 
 \table
@@ -553,13 +549,13 @@ along with a nono-offset blur:
 
 \li
 
-\code
+```
 cx.fillStyle = 'red';
 cx.shadowColor = '#777777';
 cx.shadowOffsetX = 6;
 cx.shadowOffsetY = 4;
 cx.fill();
-\endcode
+```
 
 \li
 
@@ -567,20 +563,20 @@ cx.fill();
 
 \li
 
-\code
+```
 cx.fillStyle = 'red';
 cx.shadowColor = 'black';
 cx.shadowBlur = 10;
 cx.fill();
-\endcode
+```
 
 \endtable
 
 Gradients can substitute for standard fill abd stroke colors. The
-\c{createLinearGradient()} method defines start and end coordinates
-marking the gradient's dimensions. The \c{CanvasGradient} object it
-returns can be assigned to the \c{fillStyle()} method.  The
-\c{addColorStop()} method defines colors for start and end states, and
+`createLinearGradient()` method defines start and end coordinates
+marking the gradient's dimensions. The `CanvasGradient` object it
+returns can be assigned to the `fillStyle()` method.  The
+`addColorStop()` method defines colors for start and end states, and
 any others along the way. If the gradient's dimensions are smaller
 than the element it's used to fill, start and end colors extend to the
 edge.  This example applies a transparent gradient to the bottom of
@@ -596,19 +592,19 @@ the arrow, tapering off from approximately midway across the shape:
 
 \li
 
-\code
+```
 var g = cx.createLinearGradient(65,0,65,225);
 g.addColorStop(0, 'red');
 g.addColorStop(0.5, 'red');
 g.addColorStop(1, 'transparent');
 cx.fillStyle = g;
 cx.fill();
-\endcode
+```
 
 \endtable
 
-The \c{createRadialGradient()} method requires six arguments: two sets
-of \e{x}/\e{y} coordinates and radius of each circle, but otherwise
+The `createRadialGradient()` method requires six arguments: two sets
+of _x_/_y_ coordinates and radius of each circle, but otherwise
 functions the same. This example renders a series of concentric color
 stops, slightly off center, within a clipped circle.
 
@@ -622,7 +618,7 @@ stops, slightly off center, within a clipped circle.
 
 \li
 
-\code
+```
 var g = cx.createRadialGradient(100, 100, 80, 100, 80, 30);
 g.addColorStop(0, 'pink');
 g.addColorStop(0.25, 'lightblue');
@@ -636,13 +632,13 @@ cx.arc(100, 100, 90, 0, (Math.PI*2));
 cx.closePath()
 cx.clip();
 cx.fill();
-\endcode
+```
 
 \endtable
 
-The \c{createPattern()} method offers another way to import images as
-repeating fill patterns. It accepts \c{repeat-x}, \c{repeat-y},
-\c{repeat} (the default), and \c{no-repeat} as valid options.
+The `createPattern()` method offers another way to import images as
+repeating fill patterns. It accepts `repeat-x`, `repeat-y`,
+`repeat` (the default), and `no-repeat` as valid options.
 
 \table
 
@@ -654,113 +650,113 @@ repeating fill patterns. It accepts \c{repeat-x}, \c{repeat-y},
 
 \li
 
-\code
+```
 var img = new Image();
 img.src = "img/iconPattern.png";
 var pattern = cx.createPattern(img, 'repeat');
 cx.fillStyle = pattern;
 cx.stroke();
 cx.fill();
-\endcode
+```
 
 \endtable
 
-\section1 Compositing
+##  Compositing
 
-The \c{globalCompositeOperation} property changes how new graphics
+The `globalCompositeOperation` property changes how new graphics
 interact with what is already on the canvas. The default composite
-value is \c{source-over}:
+value is `source-over`:
 
-\code
+```
 cx.globalCompositeOperation = 'source-over';
-\endcode
+```
 
-The \c{globalAlpha} property specifies overall opacity for newly
+The `globalAlpha` property specifies overall opacity for newly
 rendered graphics:
 
-\code
+```
 cx.globalAlpha = 0.7; // semi-transparent
-\endcode
+```
 
-Here is how it looks when you place a new image (the \e{source}) over
-an existing canvas graphic element (the \e{destination}) under various
-\c{globalCompositeOperation} settings:
+Here is how it looks when you place a new image (the _source_) over
+an existing canvas graphic element (the _destination_) under various
+`globalCompositeOperation` settings:
 
 \table
 
 \row
 
 \li
-\c{source-over}
+`source-over`
 \image canvasCompSourceOver.png
 \li
-\c{source-in}
+`source-in`
 \image canvasCompSourceIn.png
 \li
-\c{source-out}
+`source-out`
 \image canvasCompSourceOut.png
 \li
-\c{source-atop}
+`source-atop`
 \image canvasCompSourceAtop.png
 
 \row
 
 \li
-\c{destination-over}
+`destination-over`
 \image canvasCompDestOver.png
 \li
-\c{destination-in}
+`destination-in`
 \image canvasCompDestIn.png
 \li
-\c{destination-out}
+`destination-out`
 \image canvasCompDestOut.png
 \li
-\c{destination-atop}
+`destination-atop`
 \image canvasCompDestAtop.png
 
 \row
 
 \li
-\c{copy}
+`copy`
 \image canvasCompCopy.png
 \li
-\c{lighter}
+`lighter`
 \image canvasCompLighter.png
 \li
-\c{xor}
+`xor`
 \image canvasCompXor.png
 
 \endtable
 
-\section1 Editing Selections
+##  Editing Selections
 
-The \c{imageData} interface allows you to extract and replace
+The `imageData` interface allows you to extract and replace
 rectangular selections within the canvas, and modify the pixel data.
 
-The \c{getImageData()} method uses standard x/y offset and
+The `getImageData()` method uses standard x/y offset and
 width/height arguments.  The following extracts the entire canvas:
 
-\code
+```
 var imgData = cx.getImageData(0, 0, canvas.width, canvas.height);
-\endcode
+```
 
-Alternately, the \c{createImageData()} method makes a new, blank image
-with specified dimensions, which become available as \c{width} and
-\c{height}:
+Alternately, the `createImageData()` method makes a new, blank image
+with specified dimensions, which become available as `width` and
+`height`:
 
-\code
+```
 var imgData = cx.createImageData(w,h);
 // imgData.width == w;
 // imgData.height == y;
-\endcode
+```
 
-The \c{data} property gives you access to the image's pixel data. This
-yields a \c{CanvasPixelArray} object, a flat array that uses four
+The `data` property gives you access to the image's pixel data. This
+yields a `CanvasPixelArray` object, a flat array that uses four
 values to represent each pixel, corresponding to red, green, blue, and
 alpha transparency values. This shows how to quickly access component
 color values for each pixel:
 
-\code
+```
 var imgData = cx.getImageData(0, 0, canvas.width, canvas.height);
 var data = imgData.data; // data is CanvasPixelArray
 var r,g,b,a;
@@ -770,12 +766,12 @@ for (var i = 0; l = data.length; i += 4) {
    b = data[i+2];
    a = data[i+3];
 }
-\endcode
+```
 
-You can also access pixel values in terms of the image's \c{width} and
-\c{height}:
+You can also access pixel values in terms of the image's `width` and
+`height`:
 
-\code
+```
 var imgData = cx.getImageData(0, 0, canvas.width, canvas.height);
 var data = imgData.data;
 var w = imgData.width;
@@ -789,39 +785,39 @@ for (var y = 0; y < h; y++) {
        a = data[((w * y) + x) * 4 + 3];
     }
 }
-\endcode
+```
 
-To place the edited selection onto the canvas, the \c{putImageData()}
-method works the same as \c{Reading and Writing Images} {the
-\c{drawImage()} method described above}. The simple form positions the
-image at offsets \c{x} and \c{y}:
+To place the edited selection onto the canvas, the `putImageData()`
+method works the same as `Reading and Writing Images` {the
+`drawImage()` method described above}. The simple form positions the
+image at offsets `x` and `y`:
 
-\code
+```
 cx.putImageData(imgData, x, y);
-\endcode
+```
 
-This extracts a region from within the image, defined by \c{iw} and
-\c{ih}:
+This extracts a region from within the image, defined by `iw` and
+`ih`:
 
-\code
+```
 cx.putImageData(imgData, x, y, iw, ih);
-\endcode
+```
 
-This specifies both offsets (\c{ix}, \c{iy}) and dimensions (\c{iw},
-\c{ih}) within the image selection:
+This specifies both offsets (`ix`, `iy`) and dimensions (`iw`,
+`ih`) within the image selection:
 
-\code
+```
 cx.putImageData(imgData, x, y, ix, iy, iw, ih);
-\endcode
+```
 
-\section1 Canvas from CSS
+##  Canvas from CSS
 
 On WebKit-based browsers, canvases can be referenced as background
-images. The \c{getCSSCanvasContext()} method allows you to create a
+images. The `getCSSCanvasContext()` method allows you to create a
 canvas object directly within JavaScript, then reference its
 identifier ("shape" in this case) as a static image from within CSS:
 
-\code
+```
 <script>
 var cx = document.getCSSCanvasContext('2d', 'shape', 320, 370);
 // ...draw shape
@@ -830,7 +826,5 @@ var cx = document.getCSSCanvasContext('2d', 'shape', 320, 370);
 <style>
 div { background-image: -webkit-canvas(shape) }
 </style>
-\endcode
-
-*/
+```
 

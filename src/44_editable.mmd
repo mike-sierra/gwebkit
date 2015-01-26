@@ -1,65 +1,61 @@
-/*!
+# Editable Text
 
-\page editable.html
+##  contenteditable
 
-\title Editable Text
-
-\section1 contenteditable
-
-The HTML5 \e{contenteditable} feature allows most any displaying text
+The HTML5 _contenteditable_ feature allows most any displaying text
 to becomes editable in place, potentially allowing more powerful
 interfaces than those that rely on form inputs to edit small portions
 of content.
 
-To enable edits for any element, specify a \c{contenteditable}
+To enable edits for any element, specify a `contenteditable`
 attribute:
 
-\code
+```
 <p contenteditable="true">edit me!</p>
-\endcode
+```
 
-Change the attribute to \c{false} or else remove it to make the
-element static.  Use the \c{element.isContentEditable} property from
+Change the attribute to `false` or else remove it to make the
+element static.  Use the `element.isContentEditable` property from
 JavaScript to determine if the element is currently editable.
 
 Editability can also be specified more generally with CSS's
-\c{user-modify} property. This uses a \c{noedit} class to toggle
+`user-modify` property. This uses a `noedit` class to toggle
 editability:
 
-\code
+```
 li { -webkit-user-modify: read-write }
 li.noedit { -webkit-user-modify: read-only; }
-\endcode
+```
 
 By default, text selections can incorporate in-line formatting
 changes, such as bold or italic. This alternative CSS strips such
 formatting from pasted selections:
 
-\code
+```
 li { -webkit-user-modify: read-write-plaintext-only }
-\endcode
+```
 
-The \c{designMode} property provides an even higher-level alternative.
-When enabled, \e{all} displaying text becomes editable:
+The `designMode` property provides an even higher-level alternative.
+When enabled, _all_ displaying text becomes editable:
 
-\code
+```
 document.designMode = 'on';
-\endcode
+```
 
 Editable text elements behave much like form inputs, opening the
 browser's virtual keyboard for text entry. Editable elements respond
-to \c{focus} events when users tap to edit them, and \c{blur} events
-when users complete their edits and tap elsewhere.  Use \c{input}
+to `focus` events when users tap to edit them, and `blur` events
+when users complete their edits and tap elsewhere.  Use `input`
 events as an alternative to key events to track changes to the text
 that are still in progress.
 
-\note Make sure pages are not crowded with so many editable elements
+> __NOTE__: Make sure pages are not crowded with so many editable elements
 that users can't touch to navigate within a page without mistakenly
 activating the keyboard.
 
 This example shows an editable interface. Elements currently open for
-editing are styled with the \c{:focus} CSS class. After edits are
-complete, a \c{blur} handler checks whether the text is correct.
+editing are styled with the `:focus` CSS class. After edits are
+complete, a `blur` handler checks whether the text is correct.
 
 \l{x_editable_htm} {
   \inlineimage editable.png
@@ -82,55 +78,55 @@ After edits are made, they may need to be stored on the device, at
 least temporarily before transmitting the data to a server. See
 \l{Data Storage} for options.
 
-\section1 Selections
+##  Selections
 
 By default, users can press and hold text to select it. The selected
 text is highlighted, along with handles to modify the range of the
-selection, and \b{cut}, \b{copy}, and \b{paste} controls where
+selection, and __cut__, __copy__, and __paste__ controls where
 appropriate.
 
-\note Selection controls are only available within standard web pages,
+> __NOTE__: Selection controls are only available within standard web pages,
 not within \l{Web Apps} {full-screen web applications}.
 
 The ability to select text can be controlled with CSS. In this
 example, text selections are disabled by default, and enabled only
 within paragraph elements:
 
-\code
+```
 body { -webkit-user-select: none; }
 p    { -webkit-user-select: auto; }
-\endcode
+```
 
-\note It is good practice to allow only content elements to be
+> __NOTE__: It is good practice to allow only content elements to be
 selected, not irrelevant interface controls such as buttons.
 
-The dynamic \c{::selection} CSS class allows you to modify how the
+The dynamic `::selection` CSS class allows you to modify how the
 selected range of text appears. By default, text appears inverted, but
 in this example it is lightly highlighted with yellow:
 
-\code
+```
 *::selection {
     background: gold;
     color: black;
 }
-\endcode
+```
 
 \quotation
 
-\section2 SIDEBAR  The ClassList API
+###  SIDEBAR  The ClassList API
 
 Browser 8.5's support for the ClassList API allows for easy
 manipulation of class names, which are typically used along with CSS
 to drive interfaces. This feature is typically found in third-party
 JavaScript libraries. For example, the following markup:
 
-\code
+```
 <img id="ic" class="icon colleague" src="img/samantha.png"/>
-\endcode
+```
 
 ...may be manipulated with the following API calls:
 
-\code
+```
 var img = document.querySelector('#ic');
 var cl = img.classList; // "icon colleague"
 cl.remove('colleague')  // "icon"
@@ -139,23 +135,23 @@ cl.toggle('selected')   // "icon friend selected"
 cl.contains('selected') // true
 cl.toggle('selected')   // "icon friend"
 cl.contains('selected') // false
-\endcode
+```
 
 \endquotation
 
-\section1 Cut, Copy, and Paste
+##  Cut, Copy, and Paste
 
 The  Browser allows users to copy text selections from web
 pages into other applications, or paste selections into editable
 pages.
 
-Applications may respond to these actions by listening for \c{cut},
-\c{copy}, and \c{paste} events, which fire on the \c{window} object.
+Applications may respond to these actions by listening for `cut`,
+`copy`, and `paste` events, which fire on the `window` object.
 Event handlers can access the selected text using the window's
-\c{getSelection()} method. This example places the selected text and
+`getSelection()` method. This example places the selected text and
 a shortened URL into a box that's used as a prompt:
 
-\code
+```
 window.addEventListener('copy', copyHandler);
 var prompt = document.querySelector('div#share_prompt')
 
@@ -164,7 +160,7 @@ function copyHandler(e) {
     prompt.innerHTML = window.getSelection() + " (" + url + ")";
     prompt.classList.add('visible');
 };
-\endcode
+```
 
 In the accompaying sample interface, copying text gives users the
 option to share the selection and accompanying link using a social web
@@ -188,82 +184,82 @@ into other applications, but without the additional link text.
     \inlineimage icon_js.png
 }
 
-\section1 XXX EDITABLE GROB
+##  XXX EDITABLE GROB
 
-\section2 >> Enabling Editable Text
+###  >> Enabling Editable Text
 
-\section2 >> Mobile Constraints
+###  >> Mobile Constraints
 
-\section3 ooo ContentEditable
+####  ooo ContentEditable
 
 As an alternative to forms for text input, Browser 8_5 also supports
 HTML5's ContentEditable feature, which allows users to edit most any
 displaying text.
 
-Setting an element's \c{contenteditable} attribute to \c{true} enables
-direct editing, as does setting its \c{-webkit-user-modify} CSS
-property to \c{read-write}. Setting the attribute to \c{false} or the
-CSS to \c{read-only} allows a web app to control this feature. Current
-state is available via \c{element.isContentEditable}.
+Setting an element's `contenteditable` attribute to `true` enables
+direct editing, as does setting its `-webkit-user-modify` CSS
+property to `read-write`. Setting the attribute to `false` or the
+CSS to `read-only` allows a web app to control this feature. Current
+state is available via `element.isContentEditable`.
 
 Tapping within an editable region of text allows users to place an
 insertion point and start typing. Like form inputs, editable text
-areas respond to \c{focus} event handlers, and can be styled using the
-\c{:focus} CSS selector. (However, running \c{element.focus()} does
+areas respond to `focus` event handlers, and can be styled using the
+`:focus` CSS selector. (However, running `element.focus()` does
 not present the keyboard; that requires users to tap within the
-element.)  Applications can rely on \c{input} event handlers to
-respond to changes in the text as it is entered, or \c{blur} handlers
+element.)  Applications can rely on `input` event handlers to
+respond to changes in the text as it is entered, or `blur` handlers
 once edits are complete and users have tapped outside the
 element. (See \l{Web Storage} and \l{Web SQL} for information on ways
 to cache edited text locally.)
 
-\section3 ooo The execCommand editing API
+####  ooo The execCommand editing API
 
-Browser 8_5 offers partial support for the \c{execCommand()}
+Browser 8_5 offers partial support for the `execCommand()`
 interface, which allows applications to perform basic editing and
-formatting tasks. By itself, the \c{contenteditable} feature allows
+formatting tasks. By itself, the `contenteditable` feature allows
 users to type text into editable regions. This editing API offers
 options to format text and alternatives to keyboard input. This
 section offers illustrative examples of editing commands.
 
 Browser 8_5 does not support text selections within web content, so
-the \c{selectAll} and \c{unselect} have no effect. As an alternative,
+the `selectAll` and `unselect` have no effect. As an alternative,
 the example below shows how to apply in-line formatting to a text
-insertion using the \c{insertText} command.
+insertion using the `insertText` command.
 
-The \c{bold}, \c{italic}, \c{subscript} and \c{superscript} commands
+The `bold`, `italic`, `subscript` and `superscript` commands
 toggles the state of in-line formatting at the insertion point.
-Running the command is equivalent to opening or closing \c{<b>},
-\c{<i>}, \c{<sub>}, or \c{<sup>} tags while typing within a block
+Running the command is equivalent to opening or closing `<b>`,
+`<i>`, `<sub>`, or `<sup>` tags while typing within a block
 element.
 
 The following example inserts text at the insertion point, surrounds
 it with linebreaks, and applies italic formatting:
 
-\code
+```
 textBuffer = "This is text, perhaps copied from an element's textContent";
 document.execCommand('insertLineBreak');
 document.execCommand('italic');
 document.execCommand('insertText', false, textBuffer);
 document.execCommand('italic');
 document.execCommand('insertLineBreak');
-\endcode
+```
 
-The second argument shown in the above \c{insertText} command refers
+The second argument shown in the above `insertText` command refers
 to cases in which users might be prompted for input, false for all
 commands on Browser 8_5.
 
 If the cursor is positioned within already italicized text, the
 insertion would have no italic formatting. Running
-\c{document.queryCommandState('italic')} allows applications to better
+`document.queryCommandState('italic')` allows applications to better
 respond to the editing context.
 
-The \c{insertImage} command accepts a URL argument, which it wraps
-within \c{<img src="URL">}. Likewise the \c{createLink} command wraps
-a URL with \c{<a href="URL">URL</a>}. The following function accounts
+The `insertImage` command accepts a URL argument, which it wraps
+within `<img src="URL">`. Likewise the `createLink` command wraps
+a URL with `<a href="URL">URL</a>`. The following function accounts
 for both cases based on the URL's filename extension:
 
-\code
+```
 function insert(url) {
     var cmd;
     (url.match(/\.(png|jpe?g|gif)$/))
@@ -271,18 +267,18 @@ function insert(url) {
         : (cmd = 'createLink');
     document.execCommand(cmd, false, url);
 }
-\endcode
+```
 
-The \c{unlink} command, which removes link formatting from a text
+The `unlink` command, which removes link formatting from a text
 selection, is not supported on Browser 8_5.
 
-The \c{delete} and \c{forwardDelete} commands allow you to remove one
+The `delete` and `forwardDelete` commands allow you to remove one
 character at a time, with no information available on the character to
 be deleted. The following example shows how text deletion might be
 incorporated into a gestural interface in which tipping the N9 left or
 right past a certain point causes text to be deleted:
 
-\code
+```
 var timer;
 var rate = 50;
 // currentTilt, initialTilt derived from deviceorientation API
@@ -310,34 +306,34 @@ function delete() {
         timer = setTimeout(delete, rate);
     }
 }
-\endcode
+```
 
-\note Since the N9's text entry interface appears on the screen
+> __NOTE__: Since the N9's text entry interface appears on the screen
 while users edit content blocks, accessing such editing functions via
 touch controls may be overly difficult. Applying a hidden gestural
 text editing mode may help address this constraint. For more
 information on gestural interface modes, see \l{Orientation and Motion}.
 
-The \c{formatBlock} command wraps whatever block element most directly
+The `formatBlock` command wraps whatever block element most directly
 contains the insertion point within another block element. The
 following example marks text as a quoted block:
 
-\code
+```
 document.execCommand('formatBlock', false, 'blockquote')
-\endcode
+```
 
-The \c{undo} and \c{redo} editing commands are not supported by
+The `undo` and `redo` editing commands are not supported by
 Browser 8_5.
 
-Browser 8_5 supports the \c{insertOrderedList},
-\c{insertUnorderedList}, and \c{insertParagraph} commands. Running
-\c{insertParagraph} splits or inserts a new instance of the current
-block element. Running \c{insertOrderedList} or
-\c{insertUnorderedList} creates a list container, from which
-subsequent calls to \c{insertParagraph} inserts new items. The
+Browser 8_5 supports the `insertOrderedList`,
+`insertUnorderedList`, and `insertParagraph` commands. Running
+`insertParagraph` splits or inserts a new instance of the current
+block element. Running `insertOrderedList` or
+`insertUnorderedList` creates a list container, from which
+subsequent calls to `insertParagraph` inserts new items. The
 following example inserts a three-item list:
 
-\code
+```
 document.execCommand('insertParagraph');
 document.execCommand('insertText', false, 'The following is a list:');
 document.execCommand('insertOrderedList');
@@ -346,13 +342,13 @@ document.execCommand('insertParagraph');
 document.execCommand('insertText', false, 'This is the second item');
 document.execCommand('insertParagraph');
 document.execCommand('insertText', false, 'This is the third item');
-\endcode
+```
 
-The \c{insertHTML} command allows for insertion of HTML markup
+The `insertHTML` command allows for insertion of HTML markup
 directly into editable text. The following example builds the same
 three-item list as in the example above:
 
-\code
+```
 var htm = "<p>The following is a list:";
 htm += "<ol>";
 htm += "<li>This is the first item";
@@ -360,42 +356,38 @@ htm += "<li>This is the second item";
 htm += "<li>This is the third item";
 htm += '</ol>';
 document.execCommand('insertHTML', false, htm);
-\endcode
+```
 
-As is also true for \c{innerHTML()}, Browser 8_5 resolves missing
+As is also true for `innerHTML()`, Browser 8_5 resolves missing
 closing tags and other invalid XHTML syntax wherever possible.
 
-\section3 ooo Editable Text
+####  ooo Editable Text
 
 Web development has long relied on forms to support text input. All of
 the new HTML5 features discussed so far in this section represent
 enhancements to this familiar form mechanism. But web apps can now rely
-on HTML's \e{ContentEditable} feature to make nearly any displaying
+on HTML's _ContentEditable_ feature to make nearly any displaying
 text editable, with no need for forms serving as intermediary
 interface elements.
 
 This section discusses the basic mechanism to enable edits. To
-\e{save} edits, they must be posted to a server, for example via Ajax
+_save_ edits, they must be posted to a server, for example via Ajax
 rather than a form submit transaction, or else be cached by the client
 browser. See the sections on \l{Data Storage} and \l{Web SQL}
 for more information on how to store changes.
 
 There are two ways to make a text element editable:
 
-\list
+- Set its `contenteditable` attribute to `true`. (Setting it to
+`false` changes it back to static text.)
 
-\li Set its \c{contenteditable} attribute to \c{true}. (Setting it to
-\c{false} changes it back to static text.)
-
-\li Set its \c{-webkit-user-modify} CSS property to \c{read-write}.
-(Setting it to \c{read-only} makes the text static.)
-
-\endlist
+- Set its `-webkit-user-modify` CSS property to `read-write`.
+(Setting it to `read-only` makes the text static.)
 
 The CSS approach is somewhat more efficient, in part because the
 markup doesn't require so many redundant attributes. Either way, you
 can determine an element's current state by calling
-\c{isContentEditable} on it.
+`isContentEditable` on it.
 
 The same mobile form-factor constraints that apply to text inputs on
 forms also apply to editable text. Tapping within an editable block of
@@ -417,7 +409,7 @@ content may result in the opposite problem. Users who are simply
 trying to pan within a page may become frustrated when touching the
 screen suddenly results in a text input interface. In these cases, it
 may be best to require users to enter a dedicated text-editing
-\e{mode} accessible via a smaller control.
+_mode_ accessible via a smaller control.
 
 The following sample demonstrates an interface featuring items marked
 as editable:
@@ -430,8 +422,8 @@ as editable:
 }
 
 Once a text field is editable, it can receive focus and be styled with
-CSS3's \c{:focus} selector. (See the section on \sub{Form Element State}
-selectors.)  Each editable field features a corresponding \c{blur}
+CSS3's `:focus` selector. (See the section on \sub{Form Element State}
+selectors.)  Each editable field features a corresponding `blur`
 event listener that activates once a set of edits has been completed,
 either by exiting the virtual keyboard or by tapping outside the
 field. At that point, edits are saved within the browser's local
@@ -439,100 +431,96 @@ storage cache. The most recent set of edits are reintroduced into the
 page each time it loads, and there is an option to clear them all.
 (See the section on \l{Data Storage} for more information.)
 
-\note Editable elements may require explicit touch input to
+> __NOTE__: Editable elements may require explicit touch input to
 activate, rather than setting focus from JavaScript, which provides no
 information on where to place the cursor.
 
-\list
+- contenteditable (attr & CSS)
 
-\li contenteditable (attr & CSS)
+- designMode
 
-\li designMode
+- execCommand
 
-\li execCommand
+- formatting
 
-\li formatting
+- (selections)
 
-\li (selections)
+- (copy/paste)
 
-\li (copy/paste)
+- (clipboard)
 
-\li (clipboard)
+- (undo manager)
 
-\li (undo manager)
-
-\endlist
-
-\section1 XXX 8.5 ContentEditable
+##  XXX 8.5 ContentEditable
 
 As an alternative to forms for text input, Browser 8_5 also supports
 HTML5's ContentEditable feature, which allows users to edit most any
 displaying text.
 
-Setting an element's \c{contenteditable} attribute to \c{true} enables
-direct editing, as does setting its \c{-webkit-user-modify} CSS
-property to \c{read-write}. Setting the attribute to \c{false} or the
-CSS to \c{read-only} allows a web app to control this feature. Current
-state is available via \c{element.isContentEditable}.
+Setting an element's `contenteditable` attribute to `true` enables
+direct editing, as does setting its `-webkit-user-modify` CSS
+property to `read-write`. Setting the attribute to `false` or the
+CSS to `read-only` allows a web app to control this feature. Current
+state is available via `element.isContentEditable`.
 
 Tapping within an editable region of text allows users to place an
 insertion point and start typing. Like form inputs, editable text
-areas respond to \c{focus} event handlers, and can be styled using the
-\c{:focus} CSS selector. (However, running \c{element.focus()} does
+areas respond to `focus` event handlers, and can be styled using the
+`:focus` CSS selector. (However, running `element.focus()` does
 not present the keyboard; that requires users to tap within the
-element.)  Applications can rely on \c{input} event handlers to
-respond to changes in the text as it is entered, or \c{blur} handlers
+element.)  Applications can rely on `input` event handlers to
+respond to changes in the text as it is entered, or `blur` handlers
 once edits are complete and users have tapped outside the
 element. (See \l{Web Storage} and \l{Web SQL} for information on ways
 to cache edited text locally.)
 
-\section3 ooo The execCommand editing API
+####  ooo The execCommand editing API
 
-Browser 8_5 offers partial support for the \c{execCommand()}
+Browser 8_5 offers partial support for the `execCommand()`
 interface, which allows applications to perform basic editing and
-formatting tasks. By itself, the \c{contenteditable} feature allows
+formatting tasks. By itself, the `contenteditable` feature allows
 users to type text into editable regions. This editing API offers
 options to format text and alternatives to keyboard input. This
 section offers illustrative examples of editing commands.
 
 Browser 8_5 does not support text selections within web content, so
-the \c{selectAll} and \c{unselect} have no effect. As an alternative,
+the `selectAll` and `unselect` have no effect. As an alternative,
 the example below shows how to apply in-line formatting to a text
-insertion using the \c{insertText} command.
+insertion using the `insertText` command.
 
-The \c{bold}, \c{italic}, \c{subscript} and \c{superscript} commands
+The `bold`, `italic`, `subscript` and `superscript` commands
 toggles the state of in-line formatting at the insertion point.
-Running the command is equivalent to opening or closing \c{<b>},
-\c{<i>}, \c{<sub>}, or \c{<sup>} tags while typing within a block
+Running the command is equivalent to opening or closing `<b>`,
+`<i>`, `<sub>`, or `<sup>` tags while typing within a block
 element.
 
 The following example inserts text at the insertion point, surrounds
 it with linebreaks, and applies italic formatting:
 
-\code
+```
 textBuffer = "This is text, perhaps copied from an element's textContent";
 document.execCommand('insertLineBreak');
 document.execCommand('italic');
 document.execCommand('insertText', false, textBuffer);
 document.execCommand('italic');
 document.execCommand('insertLineBreak');
-\endcode
+```
 
-The second argument shown in the above \c{insertText} command refers
+The second argument shown in the above `insertText` command refers
 to cases in which users might be prompted for input, false for all
 commands on Browser 8_5.
 
 If the cursor is positioned within already italicized text, the
 insertion would have no italic formatting. Running
-\c{document.queryCommandState('italic')} allows applications to better
+`document.queryCommandState('italic')` allows applications to better
 respond to the editing context.
 
-The \c{insertImage} command accepts a URL argument, which it wraps
-within \c{<img src="URL">}. Likewise the \c{createLink} command wraps
-a URL with \c{<a href="URL">URL</a>}. The following function accounts
+The `insertImage` command accepts a URL argument, which it wraps
+within `<img src="URL">`. Likewise the `createLink` command wraps
+a URL with `<a href="URL">URL</a>`. The following function accounts
 for both cases based on the URL's filename extension:
 
-\code
+```
 function insert(url) {
     var cmd;
     (url.match(/\.(png|jpe?g|gif)$/))
@@ -540,18 +528,18 @@ function insert(url) {
         : (cmd = 'createLink');
     document.execCommand(cmd, false, url);
 }
-\endcode
+```
 
-The \c{unlink} command, which removes link formatting from a text
+The `unlink` command, which removes link formatting from a text
 selection, is not supported on Browser 8_5.
 
-The \c{delete} and \c{forwardDelete} commands allow you to remove one
+The `delete` and `forwardDelete` commands allow you to remove one
 character at a time, with no information available on the character to
 be deleted. The following example shows how text deletion might be
 incorporated into a gestural interface in which tipping the N9 left or
 right past a certain point causes text to be deleted:
 
-\code
+```
 var timer;
 var rate = 50;
 // currentTilt, initialTilt derived from deviceorientation API
@@ -579,34 +567,34 @@ function delete() {
         timer = setTimeout(delete, rate);
     }
 }
-\endcode
+```
 
-\note Since the N9's text entry interface appears on the screen
+> __NOTE__: Since the N9's text entry interface appears on the screen
 while users edit content blocks, accessing such editing functions via
 touch controls may be overly difficult. Applying a hidden gestural
 text editing mode may help address this constraint. For more
 information on gestural interface modes, see \l{Orientation and Motion}.
 
-The \c{formatBlock} command wraps whatever block element most directly
+The `formatBlock` command wraps whatever block element most directly
 contains the insertion point within another block element. The
 following example marks text as a quoted block:
 
-\code
+```
 document.execCommand('formatBlock', false, 'blockquote')
-\endcode
+```
 
-The \c{undo} and \c{redo} editing commands are not supported by
+The `undo` and `redo` editing commands are not supported by
 Browser 8_5.
 
-Browser 8_5 supports the \c{insertOrderedList},
-\c{insertUnorderedList}, and \c{insertParagraph} commands. Running
-\c{insertParagraph} splits or inserts a new instance of the current
-block element. Running \c{insertOrderedList} or
-\c{insertUnorderedList} creates a list container, from which
-subsequent calls to \c{insertParagraph} inserts new items. The
+Browser 8_5 supports the `insertOrderedList`,
+`insertUnorderedList`, and `insertParagraph` commands. Running
+`insertParagraph` splits or inserts a new instance of the current
+block element. Running `insertOrderedList` or
+`insertUnorderedList` creates a list container, from which
+subsequent calls to `insertParagraph` inserts new items. The
 following example inserts a three-item list:
 
-\code
+```
 document.execCommand('insertParagraph');
 document.execCommand('insertText', false, 'The following is a list:');
 document.execCommand('insertOrderedList');
@@ -615,13 +603,13 @@ document.execCommand('insertParagraph');
 document.execCommand('insertText', false, 'This is the second item');
 document.execCommand('insertParagraph');
 document.execCommand('insertText', false, 'This is the third item');
-\endcode
+```
 
-The \c{insertHTML} command allows for insertion of HTML markup
+The `insertHTML` command allows for insertion of HTML markup
 directly into editable text. The following example builds the same
 three-item list as in the example above:
 
-\code
+```
 var htm = "<p>The following is a list:";
 htm += "<ol>";
 htm += "<li>This is the first item";
@@ -629,42 +617,38 @@ htm += "<li>This is the second item";
 htm += "<li>This is the third item";
 htm += '</ol>';
 document.execCommand('insertHTML', false, htm);
-\endcode
+```
 
-As is also true for \c{innerHTML()}, Browser 8_5 resolves missing
+As is also true for `innerHTML()`, Browser 8_5 resolves missing
 closing tags and other invalid XHTML syntax wherever possible.
 
-\section3 ooo Editable Text
+####  ooo Editable Text
 
 Web development has long relied on forms to support text input. All of
 the new HTML5 features discussed so far in this section represent
 enhancements to this familiar form mechanism. But web apps can now rely
-on HTML's \e{ContentEditable} feature to make nearly any displaying
+on HTML's _ContentEditable_ feature to make nearly any displaying
 text editable, with no need for forms serving as intermediary
 interface elements.
 
 This section discusses the basic mechanism to enable edits. To
-\e{save} edits, they must be posted to a server, for example via Ajax
+_save_ edits, they must be posted to a server, for example via Ajax
 rather than a form submit transaction, or else be cached by the client
 browser. See the sections on \l{Data Storage} and \l{Web SQL}
 for more information on how to store changes.
 
 There are two ways to make a text element editable:
 
-\list
+- Set its `contenteditable` attribute to `true`. (Setting it to
+`false` changes it back to static text.)
 
-\li Set its \c{contenteditable} attribute to \c{true}. (Setting it to
-\c{false} changes it back to static text.)
-
-\li Set its \c{-webkit-user-modify} CSS property to \c{read-write}.
-(Setting it to \c{read-only} makes the text static.)
-
-\endlist
+- Set its `-webkit-user-modify` CSS property to `read-write`.
+(Setting it to `read-only` makes the text static.)
 
 The CSS approach is somewhat more efficient, in part because the
 markup doesn't require so many redundant attributes. Either way, you
 can determine an element's current state by calling
-\c{isContentEditable} on it.
+`isContentEditable` on it.
 
 The same mobile form-factor constraints that apply to text inputs on
 forms also apply to editable text. Tapping within an editable block of
@@ -686,7 +670,7 @@ content may result in the opposite problem. Users who are simply
 trying to pan within a page may become frustrated when touching the
 screen suddenly results in a text input interface. In these cases, it
 may be best to require users to enter a dedicated text-editing
-\e{mode} accessible via a smaller control.
+_mode_ accessible via a smaller control.
 
 The following sample demonstrates an interface featuring items marked
 as editable:
@@ -699,8 +683,8 @@ as editable:
 }
 
 Once a text field is editable, it can receive focus and be styled with
-CSS3's \c{:focus} selector. (See the section on \sub{Form Element State}
-selectors.)  Each editable field features a corresponding \c{blur}
+CSS3's `:focus` selector. (See the section on \sub{Form Element State}
+selectors.)  Each editable field features a corresponding `blur`
 event listener that activates once a set of edits has been completed,
 either by exiting the virtual keyboard or by tapping outside the
 field. At that point, edits are saved within the browser's local
@@ -708,28 +692,23 @@ storage cache. The most recent set of edits are reintroduced into the
 page each time it loads, and there is an option to clear them all.
 (See the section on \l{Data Storage} for more information.)
 
-\note Editable elements may require explicit touch input to
+> __NOTE__: Editable elements may require explicit touch input to
 activate, rather than setting focus from JavaScript, which provides no
 information on where to place the cursor.
 
-\list
+- contenteditable (attr & CSS)
 
-\li contenteditable (attr & CSS)
+- designMode
 
-\li designMode
+- execCommand
 
-\li execCommand
+- formatting
 
-\li formatting
+- (selections)
 
-\li (selections)
+- (copy/paste)
 
-\li (copy/paste)
+- (clipboard)
 
-\li (clipboard)
+- (undo manager)
 
-\li (undo manager)
-
-\endlist
-
-*/

@@ -1,23 +1,19 @@
-/*!
-
-\page offline.html
-
-\title Offline Mode
+# Offline Mode
 
 Web apps can respond differently when there is no network connection
 available to access other data from the web. This information is
-available from the window's \c{online} and \c{offline} events, and can
-be checked at any time by testing the value of \c{navigator.onLine}.
+available from the window's `online` and `offline` events, and can
+be checked at any time by testing the value of `navigator.onLine`.
 
 The example below presents a map when the user requests it, but only
 if the necessary external mapping API is accessible:
 
-\code
+```
 if (! navigator.onLine) {
     alert('Sorry, no network connection. Cannot show map. Try again later?');
     return(false);
 }
-\endcode
+```
 
 \l{x_location_htm} {
   \inlineimage location1.png
@@ -40,7 +36,7 @@ if (! navigator.onLine) {
 The application responds similarly if the network connection stops
 while the map displays:
 
-\code
+```
 var later;
 var e = "Sorry, no connection, so can't show map. Inform you once it's back?"
 window.addEventListener('offline', function(e){
@@ -55,39 +51,39 @@ window.addEventListener('online', function(e){
         m.classList.add('active');
     }
 });
-\endcode
+```
 
-\note Web apps can respond to the presence of a network connection,
+> __NOTE__: Web apps can respond to the presence of a network connection,
 but not to its quality or its type.
 
-\section1 XXX G
+##  XXX G
 
-\section3 ooo Offline Applications
+####  ooo Offline Applications
 
 While the application cache allows a web app to execute independently
-of the server from which it was downloaded, \e{offline mode} allows
+of the server from which it was downloaded, _offline mode_ allows
 web apps to respond to overall network availability via the boolean
-\c{navigator.onLine} attribute. (Browser 8.5 does not support
-corresponding \c{online} or \c{offline} window events.)  Note that
+`navigator.onLine` attribute. (Browser 8.5 does not support
+corresponding `online` or `offline` window events.)  Note that
 this feature detects presence of a network connection, but not its
 speed or quality.
 
-\section3 ooo Responding to Network Availability
+####  ooo Responding to Network Availability
 
 Once an application is cached on the browser, it can operate
 independently of the site that provided it. If the application relies
-on no network resources, it can operate seamlessly in \b{offline}
+on no network resources, it can operate seamlessly in __offline__
 mode, with no network connection available. Since most useful
 applications depend on networked APIs, web applications need a way to
 respond to changes in network availability.
 
-To check for changes in network state as they occur, assign \c{online}
-and \c{offline} event handlers to the \c{window} object. Otherwise, at
+To check for changes in network state as they occur, assign `online`
+and `offline` event handlers to the `window` object. Otherwise, at
 any point you can check the value of the boolean
-\c{window.navigator.onLine} attribute. (Note the mixed-case attribute
+`window.navigator.onLine` attribute. (Note the mixed-case attribute
 name.)
 
-\note Applications can respond to the presence of a network
+> __NOTE__: Applications can respond to the presence of a network
 connection, but not to the quality of that connection. You cannot use
 online/offline mode to make an application behave differently at
 different connection speeds.
@@ -96,10 +92,10 @@ The following sample shows how an application might respond to a lack
 of a network connection. By default, pressing the map icon presents a
 separate map interface that relies on network-based data. Users are
 prevented from initially accessing this interface if the value of
-\c{window.navigator.onLine} is false. Thereafter, if the window
-receives the \c{offline} event, the panel disappears along with an
+`window.navigator.onLine` is false. Thereafter, if the window
+receives the `offline` event, the panel disappears along with an
 error message. When the network connection is restored as signaled by
-an \c{online} event, the user is prompted to return to the map
+an `online` event, the user is prompted to return to the map
 interface.
 
 \l{x_storage_offline} {\inlineimage scr_storage_offline.png
@@ -110,22 +106,22 @@ interface.
 \l{x_storage_offline_js} {\inlineimage icon_js.png
 }
 
-\section3 ooo Updating the Application Cache
+####  ooo Updating the Application Cache
 
 After an application is cached, the browser uses the locally cached
-files regardless of whether the server\'s files change. Only when the
+files regardless of whether the server's files change. Only when the
 contents of the manifest file change does the browser update the
 cached files. (Simply touching the manifest is not sufficient to force
 the browser to update the cache.) The examples in the
 \l{The Application Cache} feature a version number embedded within the
-manifest as a comment, which when incremented updates the browser\'s
+manifest as a comment, which when incremented updates the browser's
 cache. Files are re-cached whether they have been changed or not, and
-you can\'t limit an update to a subset of files.
+you can't limit an update to a subset of files.
 
-\note The web server must identify manifest files as MIME type
-\c{text/cache-manifest}. You may need to reconfigure your server so
-that manifest files are not cacheable using \c{Expires} and
-\c{Cache-Control} HTTP headers. Disabling HTTP caching for manifest
+> __NOTE__: The web server must identify manifest files as MIME type
+`text/cache-manifest`. You may need to reconfigure your server so
+that manifest files are not cacheable using `Expires` and
+`Cache-Control` HTTP headers. Disabling HTTP caching for manifest
 files prevents delays when updating applications based on the modified
 manifest.
 
@@ -136,120 +132,103 @@ update fails and the browser relies on the already cached version.
 
 Regardless of changes to the manifest, updates can also be initiated
 at any time from the client browser. Testing the presence of the
-\c{window.applicationCache} object checks the browser\'s support for
+`window.applicationCache` object checks the browser's support for
 the feature:
 
-\code
+```
 if ( window.applicationCache ) {
     cache = window.applicationCache;
     if (cache.status == cache.UPDATEREADY) cache.update();
 }
-\endcode
+```
 
 Possible application cache status values are:
 
-\list
+- __0__ UNCACHED
 
-\li \b{0} UNCACHED
+- __1__ IDLE
 
-\li \b{1} IDLE
+- __2__ CHECKING
 
-\li \b{2} CHECKING
+- __3__ DOWNLOADING
 
-\li \b{3} DOWNLOADING
+- __4__ UPDATEREADY
 
-\li \b{4} UPDATEREADY
+- __5__ OBSOLETE
 
-\li \b{5} OBSOLETE
-
-\endlist
-
-The \c{update()} method throws an \c{INVALID_STATE_ERR} exception if
+The `update()` method throws an `INVALID_STATE_ERR` exception if
 there is no application cache to update, or if its status is
-\c{OBSOLETE}. Users can be informed of this change in status via the
-\c{error} event:
+`OBSOLETE`. Users can be informed of this change in status via the
+`error` event:
 
-\code
+```
 window.applicationCache.addEventListener("error", function() {
     // error handling code
 }, false);
-\endcode
+```
 
-Once the update succeeds, you need to run the \c{swapCache()} method
-as part of an \c{updateready} event listener. (It is not available as
+Once the update succeeds, you need to run the `swapCache()` method
+as part of an `updateready` event listener. (It is not available as
 a callback.)
 
-\code
+```
 window.applicationCache.addEventListener("updateready", function() {
     window.applicationCache.swapCache()
 }, false);
-\endcode
+```
 
-The \c{swapcache()} method throws an \c{INVALID_STATE_ERR} exception
+The `swapcache()` method throws an `INVALID_STATE_ERR` exception
 if any of a number of problems occur. Otherwise when the cache state
-returns to \c{UPDATEREADY}, the new cache is in place.
+returns to `UPDATEREADY`, the new cache is in place.
 
-The \c{ApplicationCache} API supports the following events:
+The `ApplicationCache` API supports the following events:
 
-\list
-
-\li \c{checking} occurs when the browser is trying to initially
+- `checking` occurs when the browser is trying to initially
 download the manifest.
 
-\li \c{noupdate} occurs when no change is detected in the manifest.
+- `noupdate` occurs when no change is detected in the manifest.
 
-\li \c{obsolete} occurs when the manifest becomes a 404 or 410 page,
+- `obsolete` occurs when the manifest becomes a 404 or 410 page,
 which deletes the application cache.
 
-\li \c{downloading} occurs when the browser starts to download
-a manifest\'s files.
+- `downloading` occurs when the browser starts to download
+a manifest's files.
 
-\li \c{progress} occurs as manifest files are being downloaded.
+- `progress` occurs as manifest files are being downloaded.
 
-\li \c{error} occurs either when any file specified by the manifest
+- `error` occurs either when any file specified by the manifest
 fails to download, or when the manifest is a 404 or 410 page.
 
-\li \c{updateready} occurs when the manifest\'s files have been
+- `updateready` occurs when the manifest's files have been
 successfully downloaded, and are available to establish in the cache
-with \c{swapCache()}.
+with `swapCache()`.
 
-\li \c{cached} occurs after downloaded files have been successfully
+- `cached` occurs after downloaded files have been successfully
 cached.
 
-\endlist
+__See Also:__
 
-\b{See Also:}
+- [W3C: HTML5 Offline Web
+applications](http://www.w3.org/TR/html5/offline.html)
 
-\list
-
-\li \l{http://www.w3.org/TR/html5/offline.html} {W3C: HTML5 Offline Web
-applications}
-
-\endlist
-
-\section3 ooo Storing Applications
+####  ooo Storing Applications
 
 \l{x_storage_appcache} {\inlineimage scr_storage_appcache.png
 }
 
 \l{x_storage_appcache_manifest} {(View manifest file)}
 
-\list
+- events
 
-\li events
+- navigator.onLine
 
-\li navigator.onLine
+- (navigator.connection)
 
-\li (navigator.connection)
+- appcache API
 
-\li appcache API
+- cache events
 
-\li cache events
+- progress tracker
 
-\li progress tracker
+- (dataCache API)
 
-\li (dataCache API)
-
-\endlist
-
-*/

@@ -1,40 +1,32 @@
-/*!
+# Transforms
 
-\page trans.html
-
-\title Transforms
-
-CSS \e{transforms} allow interface elements to be moved from their
+CSS _transforms_ allow interface elements to be moved from their
 default location, rotated, or scaled. The Browser supports both two-
-and three-dimensional transforms. Transform \e{properties} specify any
-number of transform \e{functions}:
+and three-dimensional transforms. Transform _properties_ specify any
+number of transform _functions_:
 
-\list
+- Move elements horizontally (_x_), vertically (_y_), or
+back-to-front (_z_): `translate(x,y)`, `translateX(x)`,
+`translateY(y)`, `translateZ(z)`, or `translate3d(x,y,z)`.
+Movements along the _z_ axis must correspond to pixel units.
 
-\li Move elements horizontally (\e{x}), vertically (\e{y}), or
-back-to-front (\e{z}): \c{translate(x,y)}, \c{translateX(x)},
-\c{translateY(y)}, \c{translateZ(z)}, or \c{translate3d(x,y,z)}.
-Movements along the \e{z} axis must correspond to pixel units.
-
-\li Shrink/expand elements, in decimal terms with 1 as normal size.
+- Shrink/expand elements, in decimal terms with 1 as normal size.
 The following allow you to scale each axis independently:
-\c{scale(x,y)}, \c{scaleX(x)}, \c{scaleY(y)}.  Otherwise specifying
-\c{scale(n)} with a single numeric argument maintains the original
+`scale(x,y)`, `scaleX(x)`, `scaleY(y)`.  Otherwise specifying
+`scale(n)` with a single numeric argument maintains the original
 aspect ratio.
 
-\li Rotate elements, specifying either degree (\c{deg}) or radian
-(\c{rad}) measurements: \c{rotate(z)}, \c{rotateZ(z)}, \c{rotateX(x)},
-\c{rotateY(y)}. An additional \c{rotate3d()} function requires three
+- Rotate elements, specifying either degree (`deg`) or radian
+(`rad`) measurements: `rotate(z)`, `rotateZ(z)`, `rotateX(x)`,
+`rotateY(y)`. An additional `rotate3d()` function requires three
 numeric arguments that define a 3D vector, followed by a fourth
 argument representing the degree of rotation around that line.
 
-\li Two-dimensional \e{skew} transforms, which also accept \c{deg} or
-\c{rad} measurements, distort the element's default right-angle
-corners, changing the rectangle to a parallelogram: \c{skewX()} for
-the sides of the element to wobble, or \c{skewY} for the top or
+- Two-dimensional _skew_ transforms, which also accept `deg` or
+`rad` measurements, distort the element's default right-angle
+corners, changing the rectangle to a parallelogram: `skewX()` for
+the sides of the element to wobble, or `skewY` for the top or
 bottom to wobble.
-
-\endlist
 
 Applications can animate transforms dynamically using JavaScript, or
 using \l{Animations} {CSS transitions and keyframes}.
@@ -61,21 +53,21 @@ device:
 }
 
 Readings from the \l{Orientation and Motion} {3D compass}
-are translated directly to rotations along the screen element's \e{x}
-and \e{y} axes. This is how to represent such a transform as static
+are translated directly to rotations along the screen element's _x_
+and _y_ axes. This is how to represent such a transform as static
 CSS:
 
-\code
+```
 .panel {
     -webkit-transform: rotateX(12deg) rotateY(-4deg);
     -webkit-transition: all 0.5s;
     transform: rotateX(12deg) rotateY(-4deg);
     transition: all 0.5s;
 }
-\endcode
+```
 
-\note Many Level 3 CSS properties use \e{vendor prefixes} such as
-\c{-webkit-} to indicate they have not been finalized as a web
+> __NOTE__: Many Level 3 CSS properties use _vendor prefixes_ such as
+`-webkit-` to indicate they have not been finalized as a web
 standard. To ensure future coverage, specify the same set of
 properties without the prefix.
 
@@ -83,60 +75,60 @@ The \l{Animations} {transition} smoothes the
 transform's appearance when it is animated dynamically via JavaScript,
 as in this alternative example:
 
-\code
+```
 var p = document.querySelector('.panel');
 p.style.WebkitTransform = 'rotateX(' + x + 'deg) rotateY(' + y + 'deg)';
-\endcode
+```
 
 For flat elements to assume a 3D appearance, they must be nested within a
-parent element that has \e{perspective} applied to it:
+parent element that has _perspective_ applied to it:
 
-\code
+```
 section {
     -webkit-perspective: 1000;
     -webkit-perspective-origin: 50% 50%;
 }
-\endcode
+```
 
-The perspective value refers to the number of pixels along the \e{z}
-axis between the viewer and the screen. The perspective \e{origin}
-refers to the \e{x}/\e{y} position along the surface of the element
+The perspective value refers to the number of pixels along the _z_
+axis between the viewer and the screen. The perspective _origin_
+refers to the _x_/_y_ position along the surface of the element
 from which the viewer appears to back away. (Here it reflects the
-default \c{center} value.)
+default `center` value.)
 
 Elements that are transformed in 3D space may align to a plane that is
 different than that of the viewing screen. If that element specifies
-\c{preserve-3d}, any children transform within the 3D space it
-defines, rather than appearing \c{flat} by default:
+`preserve-3d`, any children transform within the 3D space it
+defines, rather than appearing `flat` by default:
 
-\code
+```
 .gesture {
     -webkit-transform-style: preserve-3d;
 }
-\endcode
+```
 
-In the example above, the cube's \e{z}-axis translation makes it
+In the example above, the cube's _z_-axis translation makes it
 appear to move towards the viewer:
 
-\code
+```
 .gesture > ol {
     -webkit-transform: translateZ(800px);
 }
-\endcode
+```
 
 As the main panel wobbles slightly, the cube appears to move more
 dramatically in relation to the panel.
 
 The cube itself defines its own nested 3D space. Four of the faces are
-postioned with 90\Edeg rotations. By default, transforms \e{originate}
-from the \c{center} of the element, but modifying the
-\c{-webkit-transform-origin} allows each face to hinge along the
-\c{left}, \c{right}, \c{top}, or \c{bottom} edges. (These correspond
-to standard \e{x}/\e{y} measurements, so that \c{bottom} can also be
-represented as \c{50% 100%}.) The back face is rotated 180\Edeg
+postioned with 90\Edeg rotations. By default, transforms _originate_
+from the `center` of the element, but modifying the
+`-webkit-transform-origin` allows each face to hinge along the
+`left`, `right`, `top`, or `bottom` edges. (These correspond
+to standard _x_/_y_ measurements, so that `bottom` can also be
+represented as `50% 100%`.) The back face is rotated 180\Edeg
 around a point behind it, so it moves backwards.
 
-\code
+```
 .gesture > ol > li:nth-of-type(1) {
     -webkit-transform: translateZ(0%);
 }
@@ -160,52 +152,47 @@ around a point behind it, so it moves backwards.
     -webkit-transform-origin: 50% 50% -18px;
     -webkit-transform: rotateY(180deg);
 }
-\endcode
+```
 
 To implement flip-panel effects, items that rotate away from view can
 be hidden; otherwise they appear as a mirror image:
 
-\code
+```
 ol {
     -webkit-backface: hidden;
 }
-\endcode
-
+```
 
 \quotation
 
-\section2 SIDEBAR CSS3 Selectors
+###  SIDEBAR CSS3 Selectors
 
 Browser 8.5 supports all Level 3 CSS Selectors:
 
-\list
+- Indirect siblings: `element ~ successors`
 
-\li Indirect siblings: \c{element ~ successors}
+- Matching attribute values: `[attr^="prefix"]`,
+`[attr$="suffix"]`, `[attr*="substring"]`
 
-\li Matching attribute values: \c{[attr^="prefix"]},
-\c{[attr$="suffix"]}, \c{[attr*="substring"]}
+- Positional classes: `:first-child`, `:last-child`,
+`:nth-child()`, `:nth-first-child()`, `:nth-last-child()`,
+`:only-child`
 
-\li Positional classes: \c{:first-child}, \c{:last-child},
-\c{:nth-child()}, \c{:nth-first-child()}, \c{:nth-last-child()},
-\c{:only-child}
+- Contextual classes: `:first-of-type`, `:last-of-type`,
+`:nth-first-of-type()`, `:nth-last-of-type()`, `:nth-of-type()`,
+`:only-of-type`
 
-\li Contextual classes: \c{:first-of-type}, \c{:last-of-type},
-\c{:nth-first-of-type()}, \c{:nth-last-of-type()}, \c{:nth-of-type()},
-\c{:only-of-type}
+- Form input state classes: `:valid`, `:invalid`,
+`:focus`, `:checked`, `:enabled`,
+`:disabled`
 
-\li Form input state classes: \c{:valid}, \c{:invalid},
-\c{:focus}, \c{:checked}, \c{:enabled},
-\c{:disabled}
+- Navigational class: `:target`
 
-\li Navigational class: \c{:target}
-
-\li Other classes: \c{:empty}, \c{:root}, \c{:not()}
-
-\endlist
+- Other classes: `:empty`, `:root`, `:not()`
 
 \endquotation
 
-\section1 XXX pre
+##  XXX pre
 
 Transforms offer visual effects that manipulate the appearance of
 screen elements, perhaps displacing them from where they would
@@ -216,85 +203,80 @@ brief guide on how to apply two- and three-dimensional CSS transforms
 to supporting browsers, and interactive tools to experiment with
 transform effects.
 
-\section2 2D Transforms
+###  2D Transforms
 
 CSS transform properties specify any of four basic functions:
 
-\list
+- `translate()` moves an element around on the screen.  It accepts
+two _x_/_y_ valid CSS measurements, which can also be expressed as
+separate `translateX()` and `translateY()` functions.
 
-\li \c{translate()} moves an element around on the screen.  It accepts
-two \e{x}/\e{y} valid CSS measurements, which can also be expressed as
-separate \c{translateX()} and \c{translateY()} functions.
-
-\li \c{scale()} resizes an element. It accepts decimal values, with 1
+- `scale()` resizes an element. It accepts decimal values, with 1
 representing the element's default size. If the element's scale is 2,
 it is double its original size, and if it is 0, it disappears.
-Alternative \c{scaleX()} and \c{scaleY()} functions allow width and
+Alternative `scaleX()` and `scaleY()` functions allow width and
 height to be manipulated independently.
 
-\li \c{rotate()} spins an element around its \e{z} axis.  It accepts a
-degree (\c{deg}) or radian (\c{rad}) measurement. (Radians are
+- `rotate()` spins an element around its _z_ axis.  It accepts a
+degree (`deg`) or radian (`rad`) measurement. (Radians are
 equivalent to the number of degrees multiplied by \Epi/180.)
 
-\li \c{skew()} distorts an element's appearance by modifying its
+- `skew()` distorts an element's appearance by modifying its
 default corner angles, with positive measurements increasing the
-bottom-left corner angle. It accepts two degree (\c{deg}) or radian
-(\c{rad}) measurements, or else can be expressed separately as
-\c{skewX()} and \c{skewY()} functions.  Skews along the \e{x} axis tip
-the side edges of the element, while skews along \e{y} tip the top and
+bottom-left corner angle. It accepts two degree (`deg`) or radian
+(`rad`) measurements, or else can be expressed separately as
+`skewX()` and `skewY()` functions.  Skews along the _x_ axis tip
+the side edges of the element, while skews along _y_ tip the top and
 bottom.
 
-\endlist
-
 Browsers represent combinations of transform functions internally as a
-two-dimensional \e{matrix}, which for two dimensions consists of six
+two-dimensional _matrix_, which for two dimensions consists of six
 values. Applications can manipulate transforms using this alternative
-\c{matrix()} function.  (For a useful summary of matrix syntax, read
-the \e{eleqtriq.com} article,
-\l{http://www.eleqtriq.com/2010/05/css-3d-matrix-transformations/}
-{The Matrix Revolutions}.)
+`matrix()` function.  (For a useful summary of matrix syntax, read
+the _eleqtriq.com_ article,
+[The Matrix Revolutions](http://www.eleqtriq.com/2010/05/css-3d-matrix-transformations/).)
 
 The following interactive utility shows the effect of various
 transform functions on an image, and how they may be expressed as a
-combined \c{matrix()} function. In addition to displaying the overall
+combined `matrix()` function. In addition to displaying the overall
 effect, it produces the CSS code necessary to produce it:
 
 \l{x_utilTransform2D} {\inlineimage utilTransform2D.png
 }
 
-\note Transform functions can't be combined or inherited from different
-selectors. Specifying only a \c{rotate()} function, for example,
-implies \c{translate()} and \c{scale()} values of zero.
+> __NOTE__: Transform functions can't be combined or inherited from different
+selectors. Specifying only a `rotate()` function, for example,
+implies `translate()` and `scale()` values of zero.
 
-\section2 The Transform Origin
+###  The Transform Origin
 
-Unless otherwise specified, transforms \e{originate} from the center
+Unless otherwise specified, transforms _originate_ from the center
 of the element. If you scale it down, for example, it shrinks towards
-the center. The \c{-webkit-transform-origin} property allows this
+the center. The `-webkit-transform-origin` property allows this
 origin point to be placed elsewhere.
 
 Transforms cannot be applied to regular inline text, but if you apply
-the following \c{skew()} transform to an \c{inline-block}, it
+the following `skew()` transform to an `inline-block`, it
 simulates an italic effect in which the top edge shifts to the right,
 while the bottom edge remains fixed in place:
 
-\code
+```
 -webkit-transform        : skewX(-10deg);
 -webkit-transform-origin : bottom;
 display                  : inline-block;
-\endcode
+```
 
 The utility \l{2D Transforms} {shown above} shows how a transform may
-be affected by its origin point. The \c{-webkit-transform-origin}
-property accepts pairs of \e{x}/\e{y} CSS measurements, but also
-recognizes \c{top}, \c{bottom}, \c{left}, and \c{right} keywords.
-(The \c{center} keyword is the same as \c{50% 50%}.)  Alternately,
-\c{-webkit-transform-origin-x} and \c{-webkit-transform-origin-y}
+be affected by its origin point. The `-webkit-transform-origin`
+property accepts pairs of _x_/_y_ CSS measurements, but also
+recognizes `top`, `bottom`, `left`, and `right` keywords.
+(The `center` keyword is the same as `50% 50%`.)  Alternately,
+`-webkit-transform-origin-x` and `-webkit-transform-origin-y`
 properties specify each axis separately.
 
 This touch-enabled image gallery example relies on a simple
-\c{rotate()} transform.  Moving the origin point far underneath the
-element (150% along \e{y}) makes each image appear to be part of a
+`rotate()` transform.  Moving the origin point far underneath the
+element (150% along _y_) makes each image appear to be part of a
 large wheel:
 
 \table
@@ -311,21 +293,21 @@ large wheel:
 
 \li
 
-\code
+```
 canvas {
   -webkit-transform-origin : 50% 150%;
   -webkit-transform        : rotate(90deg);
 }
-\endcode
+```
 
 \endtable
 
-This somewhat more complex variation uses \c{scaleX()} transforms, but
+This somewhat more complex variation uses `scaleX()` transforms, but
 with different origin points depending on whether items appear to
 collapse to the left or right. A \l{Transitional Sequences} {sequence
 of two transitions} shifts the origin point before or after the
 transform animates, depending on whether the transition navigates
-towards or away from the \e{selected} state:
+towards or away from the _selected_ state:
 
 \table
 
@@ -341,7 +323,7 @@ towards or away from the \e{selected} state:
 
 \li
 
-\code
+```
 canvas {
     -webkit-transform           : scaleX(0);
     -webkit-transform-origin    : right;
@@ -363,25 +345,25 @@ canvas {
     -webkit-transition-duration : 0.5s              , 0s;
     -webkit-transition-delay    : 0.5s              , 1s;
 }
-\endcode
+```
 
 \endtable
 
-\section2 3D Transforms
+###  3D Transforms
 
 Though they often take on the illusion of three dimensions, 2D
 transforms are strictly superficial, inhabiting the plane of the
 handset's screen. Three dimensional transforms allow content to shift
 onto other planes.
 
-To accomplish this effect, applying a \e{perspective} to an an
+To accomplish this effect, applying a _perspective_ to an an
 ancestor element indicates the perceived distance from the viewer of
-any transformed descendents. The \c{-webkit-perspective} property
-specifies CSS pixels along the handset's \e{z} axis that leads to the
+any transformed descendents. The `-webkit-perspective` property
+specifies CSS pixels along the handset's _z_ axis that leads to the
 viewer, otherwise its default value of c{none} indicates infinite
 perspective, which appears flat.
 
-\code
+```
 .parent {
     -webkit-perspective : 1000;
     -webkit-perspective-origin : 50% 50%;
@@ -389,15 +371,15 @@ perspective, which appears flat.
 .child {
     -webkit-transform: rotateY(30deg);
 }
-\endcode
+```
 
-While \c{-webkit-perspective} affects the perceived distance to an
-object along the \e{z} axis, the \c{-webkit-perspective-origin}
-property shift the perceived \e{x}/\e{y} location from which it is
+While `-webkit-perspective` affects the perceived distance to an
+object along the _z_ axis, the `-webkit-perspective-origin`
+property shift the perceived _x_/_y_ location from which it is
 viewed. The default value is shown above: the element is viewed
 at its center rather than towards its edges.
 
-Since web content is flat be default, all measurements along the \e{z}
+Since web content is flat be default, all measurements along the _z_
 axis must specify absolute units, whose appearance is affected by how
 much perspective is applied. Perspective values less than 1000 appear
 increasingly distorted. Exceptions may include immersive virtual
@@ -415,41 +397,37 @@ perspective-enabled 3D rotation:
 
 The following set of functions specify three-dimensional transforms:
 
-\list
-
-\li \c{rotateX()} and \c{rotateY()} spin elements around their
-horizontal or vertical axis. The \c{rotateZ()} function behaves the
-same as the 2D \c{rotate()} function. An alternative \c{rotate3d()}
+- `rotateX()` and `rotateY()` spin elements around their
+horizontal or vertical axis. The `rotateZ()` function behaves the
+same as the 2D `rotate()` function. An alternative `rotate3d()`
 function requires four arguments. The first three measurements specify
 a point defining a 3D vector from the origin of the element. (For
-example, setting the vector to \c{0,1,0} rotates the object entirely
-around its \e{y} axis.) The fourth argument specifies the angle of
-rotation around that vector, using \c{deg} or \c{rad} measurements.
+example, setting the vector to `0,1,0` rotates the object entirely
+around its _y_ axis.) The fourth argument specifies the angle of
+rotation around that vector, using `deg` or `rad` measurements.
 
-\li The \c{translate3d()} function requires three \e{x}, \e{y} and
-\e{z} measurements. Otherwise, use any combination of
-\c{translateX()}, \c{translateY()}, and \c{translateZ()} functions.
-Since web content is flat by default, the \e{z} translation must
+- The `translate3d()` function requires three _x_, _y_ and
+_z_ measurements. Otherwise, use any combination of
+`translateX()`, `translateY()`, and `translateZ()` functions.
+Since web content is flat by default, the _z_ translation must
 specify absolute measurements. The perceived movement towards or away
 from the viewer depends on how much perspective is applied.
 
-\li The \c{scale3d()} function accepts three \e{x}, \e{y} and \e{z}
+- The `scale3d()` function accepts three _x_, _y_ and _z_
 measurements, otherwise they can be specified separately with
-\c{scaleX()}, \c{scaleY()}, and \c{scaleZ()}.  Unlike standard \e{x}
-and \e{y} measurements, the \e{z} measurement closes the distance to
+`scaleX()`, `scaleY()`, and `scaleZ()`.  Unlike standard _x_
+and _y_ measurements, the _z_ measurement closes the distance to
 transformed children. (See \l{Nested 3D Transforms} for a
 demonstration.)
 
-\endlist
-
-The \c{-webkit-transform-origin} property accepts an additional third
-\c{z} measurement to place the transformation point behind or in front
+The `-webkit-transform-origin` property accepts an additional third
+`z` measurement to place the transformation point behind or in front
 of where the element displays, in absolute units. (Alternately,
-specify the \c{-webkit-transform-origin-z} property,)
+specify the `-webkit-transform-origin-z` property,)
 
 Elements that rotate away from view display as a mirror image by
-default. Changing the \c{-webkit-backface-visibility} property to
-\c{hidden} (from \c{visible}) enables flip-panel effects in which
+default. Changing the `-webkit-backface-visibility` property to
+`hidden` (from `visible`) enables flip-panel effects in which
 elements are only visible if they face the viewer.
 
 The following interactive utility shows how these 3D transform
@@ -458,14 +436,13 @@ functions interact with each other:
 \l{x_utilTransform3d} {\inlineimage utilTransform3d.png
 }
 
-While 2D transforms can be represented as a 6-element \c{matrix()}
-function, 3D transforms correspond to 16-element \c{matrix3d()}
+While 2D transforms can be represented as a 6-element `matrix()`
+function, 3D transforms correspond to 16-element `matrix3d()`
 functions. (Read
-\l{http://www.eleqtriq.com/2010/05/css-3d-matrix-transformations/}
-{The Matrix Revolutions} and experiment with the utility above to see
+[The Matrix Revolutions](http://www.eleqtriq.com/2010/05/css-3d-matrix-transformations/) and experiment with the utility above to see
 how they work.)
 
-\section2 Targeting 2D and 3D Transforms
+###  Targeting 2D and 3D Transforms
 
 The image gallery \l{x_event_touch-crop} {shown above} specifies a
 \l{What Can You Find Out About a Browser?} {CSS media query} to
@@ -473,7 +450,7 @@ display a different set of visual effects depending on the browser's
 support for 3D transforms. The 2D interface displays a horizontal
 swipe, and the 3D interface displays a rotation:
 
-\code
+```
 canvas {
     -webkit-transform : translateX(150%);
 }
@@ -483,7 +460,7 @@ canvas {
         -webkit-backface-visibility   : hidden;
     }
 }
-\endcode
+```
 
 The \l{x_utilTransform3d} {utility above} tests the same \l{Script-based Adaptation} {media query from within JavaScript} to produce an error
 message on unsupporting browsers.
@@ -493,26 +470,26 @@ which may allow visual effects to degrade gracefully. The following
 two transforms have the same effect on 3D-enabled browsers: moving the
 element towards the right and pushing it backwards. Browsers that
 only support 2D ignore the first line altogether, but interpret the
-\c{translate()} function from the second line:
+`translate()` function from the second line:
 
-\code
+```
 -webkit-transform: translate3d(120%, 0, -320px);
 -webkit-transform: translate(120%, 0) translateZ(-320px);
-\endcode
+```
 
-\note It is a good idea to always specify 3D transforms for animating
+> __NOTE__: It is a good idea to always specify 3D transforms for animating
 elements, even if they do not change their appearance in any way.
 Mobile handsets are relatively constrained in their processing power,
-and may assign hardware that performs \e{accelerated compositing} on
-3D elements.  For example, adding \c{translateZ(0)} has no effect on
+and may assign hardware that performs _accelerated compositing_ on
+3D elements.  For example, adding `translateZ(0)` has no effect on
 2D browsers, but may signal 3D browsers to render more quickly.
 (Availablility of hardware-accelerated rendering cannot be detected
-using media queries.) Such \e{z}-axis transforms must be reiterated
+using media queries.) Such _z_-axis transforms must be reiterated
 each time the transform is dynamically modified, otherwise elements
 may inefficiently revert to the compositing layer reserved for
 conventional 2D rendering.
 
-\section2 Nested 3D Transforms
+###  Nested 3D Transforms
 
 Applying a 3D rotation to an element aligns it to a different plane
 than that of the default viewing screen. Applying translations and
@@ -521,8 +498,8 @@ nested content can be independently transformed within that modified
 space.
 
 To position nested content relative to the transformed parent's own 3D
-space, the parent element's \c{-webkit-transform-style} property must
-be set to \c{preserve-3d}. By default, it is \c{flat}, making 3D
+space, the parent element's `-webkit-transform-style` property must
+be set to `preserve-3d`. By default, it is `flat`, making 3D
 effects display on the parent's 2D surface as if it were a viewing
 screen.
 
@@ -534,7 +511,7 @@ transform effects:
 
 Rotating the parent element moves the child element along with it, but
 offset in 3D space using a translation along the Z axis. Setting the
-child's \e{z} translation to zero, hiding both back faces, then
+child's _z_ translation to zero, hiding both back faces, then
 rotating the parent produces a flip-panel effect.
 
 For the sake of simplicity, the utility above shows how a single
@@ -546,18 +523,18 @@ magnified within a series of descendent elements:
 \l{x_utilTransform3dNest_x8} {\inlineimage utilTransform3dNest_x8.png
 }
 
-The default \e{z} translation makes the images appear expanded like an
+The default _z_ translation makes the images appear expanded like an
 accordion or a deck of cards, but the dynamic effect shown in the
 image above comes from slight manipulations to the descendents' scale
 and rotation transforms.
 
-\note This example shows \c{perspective()} used as a transform function.
+> __NOTE__: This example shows `perspective()` used as a transform function.
 Conceptually, perspective is best applied to the parent element when
 potentially many children must inherit the same value. However, this
 example demonstrates that individual children may receive their own
 independent perspectives.
 
-\section2 Example: Spinning Dice
+###  Example: Spinning Dice
 
 The following example shows how to build gaming dice with nested 3D
 transforms, so that the entire object can itself be spun using 3D
@@ -573,7 +550,7 @@ transforms:
 
 The underlying HTML markup defines a six-element list:
 
-\code
+```
 <ol class="dice">
 <li></li>
 <li></li>
@@ -582,14 +559,14 @@ The underlying HTML markup defines a six-element list:
 <li></li>
 <li></li>
 </ol>
-\endcode
+```
 
-The \c{<ol>} element serves as a wrapper element, whose
-\c{preserve-3d} defines its own transformation space. Transitions are
+The `<ol>` element serves as a wrapper element, whose
+`preserve-3d` defines its own transformation space. Transitions are
 enabled in order to allow the dice to render smoothly, and elements of
 the dice that face away from view are hidden:
 
-\code
+```
 .dice {
   -webkit-backface-visibility : hidden;
   -webkit-transform-origin    : 50px 50px -50px;
@@ -597,12 +574,12 @@ the dice that face away from view are hidden:
   -webkit-transition          : all 1s ease-in-out;
   padding                     : 0;
 }
-\endcode
+```
 
 Each side of the dice is a 100-pixel square. Absolute positioning
 forces each side to overlay by default:
 
-\code
+```
 .dice > li {
   position                    : absolute;
   height                      : 100px;
@@ -612,16 +589,16 @@ forces each side to overlay by default:
   border-radius               : 0.5em;
   list-style-type             : none;
 }
-\endcode
+```
 
 From that default position, various sides of the dice are transformed
 in 3D space.  The first side remains in its default position. Origins
 for sides 2 through 5 are shifted from the center point so their
-90-degree rotations hinge along their \c{left}, \c{right} \c{bottom}
-and \c{top} edges. The final face is flipped 180 degrees and moved
+90-degree rotations hinge along their `left`, `right` `bottom`
+and `top` edges. The final face is flipped 180 degrees and moved
 backwards to close off the cube:
 
-\code
+```
 .dice > li:nth-of-type(1) {
     -webkit-transform           : translateZ(0px);
     background-image            : url(img/die1.jpg);
@@ -651,20 +628,20 @@ backwards to close off the cube:
     -webkit-transform-origin    : center;
     background-image            : url(img/die6.jpg);
 }
-\endcode
+```
 
 Once the final shape of the cube is defined, spinning the entire
 object simply requires applying rotation transforms to the outer
-\e{dice} element that encapulates its visible faces.  See \l{Dynamic Keyframes} for information on how transforms are assigned randomly in
+_dice_ element that encapulates its visible faces.  See \l{Dynamic Keyframes} for information on how transforms are assigned randomly in
 this case. Otherwise, transforms can be applied directly to the
 element:
 
-\code
+```
 var dice = document.querySelector('ol.dice');
 dice.style.WebkitTransform = "rotateX(20deg) rotateY(40deg) rotateZ(30deg) translateZ(0)";
-\endcode
+```
 
-\section2 Example: Virtual Reality
+###  Example: Virtual Reality
 
 The following example shows how 3D transforms can build a rudimentary
 virtual reality scene:
@@ -677,7 +654,7 @@ virtual reality scene:
 \l{x_gesture_virtual_js} {\inlineimage icon_js.png
 }
 
-\note The scene can be rotated by tipping the handset, otherwise desktop
+> __NOTE__: The scene can be rotated by tipping the handset, otherwise desktop
 browsers simulate gestural navigation.
 
 Like the dice above, the object is built much like a cube. Unlike the
@@ -685,7 +662,7 @@ dice, it is pushed forwards to apparently rotate around the viewer.
 The following markup and wireframe diagram help clarify how it is
 built:
 
-\code
+```
 <section id="outer">
 <div id="rx" data-x="0">
   <div id="ry" data-y="0">
@@ -696,39 +673,37 @@ built:
   </div>
 </div>
 </section>
-\endcode
+```
 
 \image scr_gesture_virtual_wireframe.png
 
-An \e{outer} element appears in the rear of the scene, and corresponds
+An _outer_ element appears in the rear of the scene, and corresponds
 to the screen dimensions:
 
-\code
+```
 #outer { width : 480px; height : 320px; }
-\endcode
+```
 
-An \e{rx} element is positioned far in front of the \e{outer} element
-using \c{translateZ()}:
+An _rx_ element is positioned far in front of the _outer_ element
+using `translateZ()`:
 
-\code
+```
 #rx { -webkit-transform : translateZ(240px); }
-\endcode
+```
 
-The \e{ry} element matches the initial position of \e{ry}, but rotates
+The _ry_ element matches the initial position of _ry_, but rotates
 freely around a point far in front of it:
 
-\code
+```
 #ry {    
     -webkit-transform-style	: preserve-3d;
     -webkit-transform-origin-z	: 240px;
 }
-\endcode
+```
 
 To complete the illusion, each face of the inner box references the
 same panoramic image. Each is offset by different amounts using
 \l{Backgrounds} {background positioning and sizing properties}. 
 For information on how the box spins in response to tipping gestures,
 see \l{Orientation and Motion}.
-
-*/
 

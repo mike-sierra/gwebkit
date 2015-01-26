@@ -1,10 +1,6 @@
-/*!
+# Responsive Interfaces
 
-\page query.html
-
-\title Responsive Interfaces
-
-This section shows how to use CSS \e{media queries} to target a site
+This section shows how to use CSS _media queries_ to target a site
 to more than one kind of device. You can use media queries, for
 example, to make a site accessible to mobile handsets and tablet
 devices in addition to desktop browsers.
@@ -15,78 +11,72 @@ A CSS-based interface may respond by restyling or toggling the display
 of content.
 
 Prior to widespread support for media queries, the main way to adapt
-an interface was for the server to respond to the \e{User-Agent}
+an interface was for the server to respond to the _User-Agent_
 header the browser transmits with each HTTP request. Server-based
 adaptation fails when the information to classify each browser is
-inaccurate or not up to date. (Device databases such as \e{WURFL} and
-\e{DeviceAtlas} address this problem somewhat.)
+inaccurate or not up to date. (Device databases such as _WURFL_ and
+_DeviceAtlas_ address this problem somewhat.)
 
 Media queries may be most useful if you want to make a desktop-facing
 website marginally more accessible on mobile handsets and tablets, but
 if you want to avoid making major changes in implementation. They are
 appropriate in the following cases:
 
-\list
-
-\li If it makes sense to deploy a set of web pages on more than one
+- If it makes sense to deploy a set of web pages on more than one
 kind of device. A game that requires tilting a handset, for example,
 makes no sense within a desktop browser.
 
-\li If the overall user interface should be perceived similarly on each
+- If the overall user interface should be perceived similarly on each
 device. For example, a desktop site might prompt users to access
 content via hierarchical categories or search queries, while in a
 mobile site a narrower range of location-specific or recently
 published content might be more appropriate.
 
-\li If the basic mechanism to deploy different interfaces matches. For
+- If the basic mechanism to deploy different interfaces matches. For
 example, if a desktop interface relies on conventional hyperlinks to a
 shifting set of web pages, while a \l{Packaging Web Apps} {cached
 mobile web app} loads data dynamically via Ajax from a fixed set of
 files, the difference between the two approaches is more substantial
 than the content's appearance on the screen.
 
-\endlist
-
 If any of these are the case, a popular alternative to such hybrid
 sites is to provide separate access points for each interface. For
-example, a desktop site might be accessed via \e{www.website.com},
-while mobile variants might be available at \e{m.website.com},
-\e{touch.website.com}, or \e{website.mobi}. The \l{Script-based Adaptation} section shows a simpler way to use media queries: to guide
+example, a desktop site might be accessed via _www.website.com_,
+while mobile variants might be available at _m.website.com_,
+_touch.website.com_, or _website.mobi_. The \l{Script-based Adaptation} section shows a simpler way to use media queries: to guide
 users to the most appropriate site, rather than to apply different
 interfaces as in \l{Assigning Alternative Interfaces} {the following
 section}.
 
-\section2 Assigning Alternative Interfaces
+###  Assigning Alternative Interfaces
 
-Media \e{queries} extend an older CSS specification known as \e{media
-types}, which assigned browsers with high-level categories such as
-\c{screen} and \c{handheld}, or \c{print} to re-style a web page's
+Media _queries_ extend an older CSS specification known as _media
+types_, which assigned browsers with high-level categories such as
+`screen` and `handheld`, or `print` to re-style a web page's
 printed output. The original set of mobile browsers were simply typed
-\c{handheld}, and could safely be presented with far more simplified
-content than \c{screen} content. However, the introduction of
+`handheld`, and could safely be presented with far more simplified
+content than `screen` content. However, the introduction of
 higher-capability touch-based browsers led to a problem: their larger
 screens and flexible zoom controls allowed them to display complex
 page layouts. To allow access to the richer content they were able to
 present, these browsers had to be described, somewhat inaccurately,
-with the \c{screen} media type.
+with the `screen` media type.
 
 Media queries allow you to distinguish among various kinds of
-\c{screen}-typed browser. Most modern touch-based browsers have 320
+`screen`-typed browser. Most modern touch-based browsers have 320
 pixel-wide screens, which the following media query identifies:
 
-\code
+```
 screen and (max-device-width: 320px)
-\endcode
+```
 
 Queries can be activated in three ways:
 
-\list 1
-
-\li as part of \c{<link>} tags within the HTML's \c{head} region. This
+1. as part of `<link>` tags within the HTML's `head` region. This
 example targets CSS to desktop, tablet, and touch browsers, along with
 lower-end legacy mobile browsers:
 
-\code
+```
 <link media="screen"
     href="/path/to/desktop.css" type="text/css" rel="stylesheet"/>
 <link media="only screen and (max-device-width: 320px)"
@@ -95,27 +85,25 @@ lower-end legacy mobile browsers:
     href="/path/to/tablet.css" type="text/css" rel="stylesheet"/>
 <link media="handheld"
     href="/path/to/mobile.css" type="text/css" rel="stylesheet"/>
-\endcode
+```
 
-\li as part of \c{@import} rules within CSS files or \c{<style>}
+1. as part of `@import` rules within CSS files or `<style>`
 regions:
 
-\code
+```
 @import url("touch.css") screen and (max-device-width: 320px);
-\endcode
+```
 
-\li as part of \c{@media} rules, to define regions of custom style
-sheets within a single CSS file or \c{<style>} region:
+1. as part of `@media` rules, to define regions of custom style
+sheets within a single CSS file or `<style>` region:
 
-\code
+```
 .sidebar { float: right; }
 
 @media only screen and (max-device-width: 320px) {
     .sidebar { display: none }
 }
-\endcode
-
-\endlist
+```
 
 The following example demonstrates a simple color-coded message
 identifying your class of browser, which appears dynamically based on
@@ -131,10 +119,10 @@ View CSS for:
 \l{x_mq_tablet_css} {tablet},
 \l{x_mq_mobile_css} {low-end mobile}
 
-\note Unlike desktop browsers, mobile browser windows can't be resized. For
-the purpose of demonstration, the example above uses the \c{max-width}
+> __NOTE__: Unlike desktop browsers, mobile browser windows can't be resized. For
+the purpose of demonstration, the example above uses the `max-width`
 media query, which reflects the window's current width. The
-\c{max-device-width} media more accurately reflects a window's maximum
+`max-device-width` media more accurately reflects a window's maximum
 potential width on various devices.
 
 The following example shows a skeletal layout that appears differently
@@ -161,18 +149,18 @@ top of the screen. When viewed with other mobile browsers, even the
 top of the screen is simplified to replace header information with a
 simple icon.
 
-\section2 Script-based Adaptation
+###  Script-based Adaptation
 
 Media queries allow you to assign various style sheets, but they can
-also be invoked from within JavaScript, via \c{window.matchMedia}, to
+also be invoked from within JavaScript, via `window.matchMedia`, to
 adapt content in other ways.
 
 The following function specifies the same set of criteria as above.
 It allows applications to directly test whether they are being
-accessed from browsers classified \e{desktop} \e{tablet}, \e{touch},
-or low-end \e{mobile}:
+accessed from browsers classified _desktop_ _tablet_, _touch_,
+or low-end _mobile_:
 
-\code
+```
 function isDesign(str) {
     var design;
     if (!window.matchMedia) return(false);
@@ -190,7 +178,7 @@ function isDesign(str) {
     }
     return(str == design);
 }
-\endcode
+```
 
 The following example uses this technique to produce a simple message,
 dynamically generated from JavaScript, that corresponds to the same
@@ -208,14 +196,14 @@ content over potentially low-bandwidth mobile networks. The following
 example redirects references to high-resolution video files to
 lower-bandwidth variants:
 
-\code
+```
 var sources = document.getElementById("video").querySelectorAll("source");
 if (isDesign("touch")) {
     for (i = 0, l = sources.length; i < l ; i++ ) {
         sources[i].src = sources[i].src.replace(/hi_/, "lo_");
     }
 }
-\endcode
+```
 
 High-bandwidth content that is appropriate for desktop browsers may
 lead to poor performance on mobile browsers, and costly network
@@ -224,91 +212,87 @@ desktop and mobile browsers as described above, a sidebar element that
 appears in the desktop interface may be suppressed from the mobile
 interface:
 
-\code
+```
 .sidebar { display: block }
 @media only screen and (max-device-width: 320px) {
     .sidebar { display: none }
 }
-\endcode
+```
 
 In that case, it would be inefficient to load a great deal of markup
 from the server that never actually displays on mobile browsers.
 Instead, the full markup may load conditionally, depending on which
 design is in effect:
 
-\code
+```
 <section class="sidebar"><!-- empty node --></section>
 
 if (isDesign("desktop")) {
     $(".sidebar").load("sidebar_innerHTML.html");
 }
-\endcode
+```
 
 Alternately, if you want to deploy a site's various interfaces via
 separate access points, you can use the sort of tests described above
 to prompt users if they would rather load an installable web app.
 
-\section2 What Can You Find Out About a Browser?
+###  What Can You Find Out About a Browser?
 
 You can use media queries to test for any of the following device
 properties:
 
-\list
-
-\li \c{width}, \c{min-width}, \c{max-width}, \c{device-width},
-\c{min-device-width}, \c{max-device-width}: integer measurements
-specify pixels, otherwise the \e{device} keyword specifies the latent
+- `width`, `min-width`, `max-width`, `device-width`,
+`min-device-width`, `max-device-width`: integer measurements
+specify pixels, otherwise the _device_ keyword specifies the latent
 width of the non-resizable window used by mobile browsers.
 
-\li \c{height}, \c{min-height}, \c{max-height}, \c{device-height},
-\c{min-device-height}, \c{max-device-height}: same as above, yet
+- `height`, `min-height`, `max-height`, `device-height`,
+`min-device-height`, `max-device-height`: same as above, yet
 vertical.
 
-\li \c{aspect-ratio}, \c{min-aspect-ratio}, \c{max-aspect-ratio},
-\c{device-aspect-ratio}, \c{min-device-aspect-ratio},
-\c{max-device-aspect-ratio}: accepts pairs of \e{width}/\e{height}
-integers, such as \c{3/4}.
+- `aspect-ratio`, `min-aspect-ratio`, `max-aspect-ratio`,
+`device-aspect-ratio`, `min-device-aspect-ratio`,
+`max-device-aspect-ratio`: accepts pairs of _width_/_height_
+integers, such as `3/4`.
 
-\li \c{resolution}, \c{min-resolution}, \c{max-resolution}: screen
+- `resolution`, `min-resolution`, `max-resolution`: screen
 resolution expressed in dots per inch.
 
-\li \c{-webkit-device-pixel-ratio}, \c{-webkit-min-device-pixel-ratio},
-\c{-webkit-max-device-pixel-ratio}: the number of device screen pixels
+- `-webkit-device-pixel-ratio`, `-webkit-min-device-pixel-ratio`,
+`-webkit-max-device-pixel-ratio`: the number of device screen pixels
 that correspond to each CSS pixel, typically ranging from 1 for
 desktop browsers to 2 for the highest-resolution mobile screens. This
 information is also available from within scripts via
-\c{window.devicePixelRatio}. (See \l{Adapting Images to Screen Resolution} for an example.)
+`window.devicePixelRatio`. (See \l{Adapting Images to Screen Resolution} for an example.)
 
-\li \c{color}, \c{min-color}, \c{max-color}: color depth, expressed as
+- `color`, `min-color`, `max-color`: color depth, expressed as
 the number of bits used to represent each color.
 
-\li \c{color-index}, \c{min-color-index}, \c{max-color-index}: number
+- `color-index`, `min-color-index`, `max-color-index`: number
 of different colors that may display at once.
 
-\li \c{orientation}: either \c{portrait} or \c{landscape}. (See
+- `orientation`: either `portrait` or `landscape`. (See
 \l{Tipping the Handset}.)
 
-\endlist
-
 Webkit-based browsers may also test for the presence of high-level CSS
-animation features: \c{(transform-2d)}, \c{(transform-3d)},
-\c{(transition)}, and \c{(animation)}. (To extend fucntionality to
-earlier browser versions, specify \c{webkit} as a vendor prefix:
-\c{(-webkit-transform-3d)}.) See \l{Animations} and \l{Transforms} for
+animation features: `(transform-2d)`, `(transform-3d)`,
+`(transition)`, and `(animation)`. (To extend fucntionality to
+earlier browser versions, specify `webkit` as a vendor prefix:
+`(-webkit-transform-3d)`.) See \l{Animations} and \l{Transforms} for
 more information on these features.
 
 Most important remaining browser features can be tested using
-JavaScript-based \e{object detection}. For example, the following
+JavaScript-based _object detection_. For example, the following
 shows how to test support for various high-level HTML5 features:
 
-\code
+```
 var supportsLocation = !!navigator.geolocation;
 var supportsVideo    = !!document.createElement("video").canPlayType;
 var supportsStorage  = !!window.localStorage;
 var supportsTouch    = !!document.createEvent("TouchEvent")
-\endcode
+```
 
-\note Object detection tests sometimes yield incorrect results, and should
+> __NOTE__: Object detection tests sometimes yield incorrect results, and should
 be used with care. For example, the version of WebKit used within a
 particular browser may feature latent support for touch events, but
 may be deployed in a context, such as a non-tablet desktop browser, in
@@ -316,88 +300,88 @@ which the touch events never have an opportunity to fire.
 
 \quotation
 
-\section2 SIDEBAR  The Selectors API
+###  SIDEBAR  The Selectors API
 
 Browser 8.5 supports several ways to access DOM elements as
-alternatives to \c{getElementById()}. The \c{querySelector()} or
-\c{querySelectorAll()} methods accept CSS selector arguments, which
+alternatives to `getElementById()`. The `querySelector()` or
+`querySelectorAll()` methods accept CSS selector arguments, which
 allow for more flexible searches. (See \l{SIDEBAR CSS3 Selectors} for
 information on available Level 3 selectors.)
 
 For example, the following gathers unordered list items, but only when
-nested within a \c{menu}-classed ordered list, and only when unselected:
+nested within a `menu`-classed ordered list, and only when unselected:
 
-\code
+```
 var items = document.querySelectorAll('ol.menu > ul > li:not(.selected)');
-\endcode
+```
 
 Alternately, narrow the search scope by calling these methods on
 individual elements:
 
-\code
+```
 var menu = document.querySelector('ol.menu');
 var items = menu.querySelectorAll('ul > li:not(.selected)');
-\endcode
+```
 
-In addition, \c{getElementsByClassName()} allows you to search for
+In addition, `getElementsByClassName()` allows you to search for
 elements matching one or more classes:
 
-\code
+```
 var selected = document.getElementsByClassName('icon selected');
-\endcode
+```
 
-\note matchesSelector
+> __NOTE__: matchesSelector
 
 \endquotation
 
-\section1 XXX MT
+##  XXX MT
 
 If you are maintaining parallel web content for access both by mobile
 browsers and larger-screen desktop and tablet browsers, you can deploy
 the same set of pages, adapting the interface depending on qualities
 of the browser requesting each page. Alternately, you can deploy a
 different set of pages, typically featuring mobile-specific domain
-names such as \e{m.website.com} rather than \e{www.website.com}. CSS
-\e{media queries} allow you to target custom mobile interfaces in both
+names such as _m.website.com_ rather than _www.website.com_. CSS
+_media queries_ allow you to target custom mobile interfaces in both
 cases, or may be used as a way to prompt users to
 \l{Web Apps} {install an alternative web app}.
 
-\section1 Example: Present a Web Page with Different Interfaces
+##  Example: Present a Web Page with Different Interfaces
 
-Placing the following within the HTML's \c{<HEAD>} region assigns the
-CSS style sheets contained in \e{all.css}, and then applies additional
-style sheets from \e{mobile.css} only on smaller-screen mobile
+Placing the following within the HTML's `<HEAD>` region assigns the
+CSS style sheets contained in _all.css_, and then applies additional
+style sheets from _mobile.css_ only on smaller-screen mobile
 browsers:
 
-\code
+```
 <link type="text/css" rel="stylesheet" media="screen" href="/css/all.css"/>
 <link type="text/css" rel="stylesheet"
     media="only screen and (max-device-width: 320px)" href="/css/mobile.css"/>
-\endcode
+```
 
-The \e{all.css} file may specify a sidebar element, which can be
+The _all.css_ file may specify a sidebar element, which can be
 suppressed in the mobile interface simply by adding a style sheet such
 as the following:
 
-\code
+```
 .sidebar {display: none }
-\endcode
+```
 
-Note that regardless of its superficial \c{display} property, the
+Note that regardless of its superficial `display` property, the
 hidden content still loads.
 
 Using media queries, you can also reference different CSS files within
-an \c{@import} rule, or specify different interfaces within the same
-set of CSS using the \c{@media} rule:
+an `@import` rule, or specify different interfaces within the same
+set of CSS using the `@media` rule:
 
-\code
+```
 @import url("mobile.css") screen and (max-device-width: 320px);
 
 .sidebar { border-radius: 0.5em }
 @media only screen and (max-device-width: 320px) {
     .sidebar { display: none }
 }
-\endcode
+```
 
 The following web application interactively demonstrates how various
 CSS properties function and allows you to copy the results into your
@@ -434,7 +418,7 @@ desktop browser. When the device is held upright, the main
 tabbed interface displays. When \l{Tipping the Handset}
 {tipped to its side}, the screen preview appears.
 
-\section1 Example: Redirect to the Appropriate Interface
+##  Example: Redirect to the Appropriate Interface
 
 The example above assumes you have a single set of pages superfically
 adapted with CSS for presentation on either mobile and desktop browsers.
@@ -448,10 +432,10 @@ other server-generated content.
 
 In that case, media queries can be called from within JavaScript to
 direct users to the appropriate interface. The following load script
-uses \c{window.matchMedia} to compare the URL to the device accessing
+uses `window.matchMedia` to compare the URL to the device accessing
 the page, redirecting if appropriate:
 
-\code
+```
 var loc = window.location;
 var query = 'only screen and (max-device-width: 320px)';
 var locIsMobile = !!loc.match(/http:\/\/m.website/);
@@ -463,7 +447,7 @@ if (locIsMobile && (! devIsMobile) ) {
     window.location = window.location.replace(/http:\/\/www.website/,
         "http://m.website");
 }
-\endcode
+```
 
 You can also use this approach to substitute lower-bandwidth content,
 or prompt to redirect to an \l{Web Apps}
@@ -471,4 +455,3 @@ or prompt to redirect to an \l{Web Apps}
 \l{Data Storage} {Client-side storage} allows you to
 retain users' interface preference for future browsing sessions.
 
-*/

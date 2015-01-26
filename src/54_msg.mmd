@@ -1,55 +1,51 @@
-/*!
+# Messages and Workers
 
-\page msg.html
-
-\title Messages and Workers
-
-Web pages customarily use Ajax (\e{XMLHttpRequest}) to poll a server
-to extract dynamic data after a page has loaded. HTML5 \e{server-sent
-events} provide a simpler alternative that allows the Browser to
+Web pages customarily use Ajax (_XMLHttpRequest_) to poll a server
+to extract dynamic data after a page has loaded. HTML5 _server-sent
+events_ provide a simpler alternative that allows the Browser to
 access data using DOM events.
 
 To send data to the browser, use a server-side script such as PHP to
-declare a \c{text/event-stream} MIME type, then use \c{data:} prefixes
+declare a `text/event-stream` MIME type, then use `data:` prefixes
 for each line of content.
 
-\code
+```
 <?php
 header("Content-Type: text/event-stream\n\n");
 echo "data: This is some new information.\n";
 echo "data: It may occupy more than one line.\n";
 ?>
-\endcode
+```
 
 Notifications about new content are accessible using an
-\c{EventSource} object, that fires a \c{message} event when
+`EventSource` object, that fires a `message` event when
 content is available:
 
-\code
+```
 var src = new EventSource('feed.php');
 src.addEventListener('message', function(event) {
     var content = event.data;
 }, false)
-\endcode
+```
 
 Server events fire continually, roughly every 3 seconds by default,
 but you can control the latency by specifying a millisecond value to
-the \c{retry} field:
+the `retry` field:
 
-\code
+```
 <?php
 header("Content-Type: text/event-stream\n\n");
 echo "retry: 60000\n";
 echo "data: This is some new information.\n";
 ?>
-\endcode
+```
 
 An event stream may specify more than one event, each separated with a
 blank line. Streams may also feature custom event types, each with its
 own unique name. The following implements the basic functionality of an
 RSS feed, which in this case is polled for updates once a minute:
 
-\code
+```
 <?php
    header("Content-Type: text/event-stream\n\n");
    echo "retry: 60000\n";
@@ -66,14 +62,14 @@ RSS feed, which in this case is polled for updates once a minute:
    echo "data: This is the third item\n";
    echo "\n";
 ?>
-\endcode
+```
 
-Within the handler for the custom \c{item} event, the \c{lastEventId}
-corresponds to each \c{id} specified by the server. This example uses
+Within the handler for the custom `item` event, the `lastEventId`
+corresponds to each `id` specified by the server. This example uses
 \l{Data Storage} {local storage} to cache previously
 consumed items:
 
-\code
+```
 var db = window.localStorage;
 var src = new EventSource('feed.php');
 src.addEventListener('item', function(event) {
@@ -83,7 +79,7 @@ src.addEventListener('item', function(event) {
     db.setItem(id, content);
     // do something else with content
 }, false)
-\endcode
+```
 
 \l{x_sse_htm} {
   \inlineimage sse.png
@@ -102,167 +98,163 @@ src.addEventListener('item', function(event) {
     \inlineimage icon_js.png
 }
 
-\section1 XXX 8.5
+##  XXX 8.5
 
-\section3 Web Messaging
+####  Web Messaging
 
-Browser 8_5 supports HTML5's \e{web messaging} feature, which provides
+Browser 8_5 supports HTML5's _web messaging_ feature, which provides
 a standard, event-based interface to share data that allows web apps a
 safe way around a browser's default same-origin restriction.
 
 The \l{postMessage} feature allows one document to push data to
-another via a separate window or an \c{iframe} element, whose
-\l{Sandboxed iframes} {\c{sandbox}} attribute increases security. A
+another via a separate window or an `iframe` element, whose
+\l{Sandboxed iframes} {`sandbox`} attribute increases security. A
 server may also use \l{Server Events} {custom events} to push data to
 a client web app. Messages are also used to communicate with
 separately threaded JavaScript applications called \l{Web Workers}
-{\e{workers}}, which may help prevent intensive processes from
+{_workers_}, which may help prevent intensive processes from
 interfering with the main user interface's responsiveness.
 
-\section3 postMessage
+####  postMessage
 
-To send a message to another window, use an \c{iframe} to reference
+To send a message to another window, use an `iframe` to reference
 it, either locally or via URL to send cross-domain messages:
 
-\code
+```
 <iframe id="ifr" name="receiver" src="http://trustedrecipient.com"></iframe>
-\endcode
+```
 
-The window can be accessed by various means via \c{window.frames}, or
-directly via the \c{iframe} element's \c{contentWindow}. (Pop-up
+The window can be accessed by various means via `window.frames`, or
+directly via the `iframe` element's `contentWindow`. (Pop-up
 windows can also receive messages, but are often blocked.)
 
-\code
+```
 var tgt = window.frames[0];
 var tgt = window.frames['receiver'];
 var tgt = window.frames.receiver;
 var tgt = document.getElementById('ifr').contentWindow;
 // often thwarted by pop-up blockers:
 var tgt = window.open('http://trustedrecipient.com');
-\endcode
+```
 
-Here the window's \c{postMessage} method sends it \e{Hello} text:
+Here the window's `postMessage` method sends it _Hello_ text:
 
-\code
+```
 tgt.postMessage('Hello', 'http://trustedsender.com');
-\endcode
+```
 
-This fires a \c{message} event on the recipient window, in this case
+This fires a `message` event on the recipient window, in this case
 only if its hostname matches the one specified in the second
-parameter. (Specifying \c{*} allows any page to receive the message,
-while \c{/} constrains messages to the same domain.)
+parameter. (Specifying `*` allows any page to receive the message,
+while `/` constrains messages to the same domain.)
 
 To receive any messages, the recipient page must register for a
-\c{message} event:
+`message` event:
 
-\code
+```
 window.addEventListener('message', receiver, false);
-\endcode
+```
 
 The event handler can similarly restrict messages to specific domains:
 
-\code
+```
 function receiver(event) {
     if ( event.origin != "http://trustedsender.com" ) return false;
     // do something with event.data
 };
-\endcode
+```
 
-The \e{Hello} text is available via \c{event.data}. Responses can be
+The _Hello_ text is available via `event.data`. Responses can be
 initiated in the manner outlined above, or directly via the message
-handler's \c{event.source} window:
+handler's `event.source` window:
 
-\code
+```
 function receiver(event) {
     if ( event.origin != "http://trustedsender.com" ) return false;
     if (event.data != 'Hello') return false;
     // replies "Hello back!"
     event.source.postMessage( event.data + ' back!', 'http://trustedsender.com');
 };
-\endcode
+```
 
-Calling \c{event.ports} returns an array of port numbers.
+Calling `event.ports` returns an array of port numbers.
 
-\section3 Sandboxed iframes
+####  Sandboxed iframes
 
-By default, the \c{iframe} element allows various security holes in
+By default, the `iframe` element allows various security holes in
 which a frame's content may manipulate the content window that
-references it, and HTML5's \c{sandbox} attribute closes them.
+references it, and HTML5's `sandbox` attribute closes them.
 Specifying the following effectively restricts the frame to display
 only:
 
-\code
+```
 <iframe sandbox src="http://untrusted.com/frame.html"></iframe>
-\endcode
+```
 
 Specifying various space-delimited combinations of values allows you to
 selectively override these restrictions:
 
-\list
-
-\li \c{allow-top-navigation} allows the frame to affect the referring
+- `allow-top-navigation` allows the frame to affect the referring
 window's navigation, such as by redirecting to a new page by
-assigning to \c{window.parent.location.href}.
+assigning to `window.parent.location.href`.
 
-\li \c{allow-forms} allows an iframe to submit a form.
+- `allow-forms` allows an iframe to submit a form.
 
-\li \c{allow-scripts} allows an iframe to execute JavaScript.
-(Regardless, iframes cannot create popups using \c{window.open}.)
+- `allow-scripts` allows an iframe to execute JavaScript.
+(Regardless, iframes cannot create popups using `window.open`.)
 
-\li By default, even sandboxed frames from the same origin are treated
-as if they have a unique origin, and \c{allow-same-origin} overrides
+- By default, even sandboxed frames from the same origin are treated
+as if they have a unique origin, and `allow-same-origin` overrides
 this assumption.
-
-\endlist
 
 For sandboxed iframes to receive messages, scripts must be enabled:
 
-\code
+```
 <iframe src="http://trustedrecipient.com" sandbox="allow-scripts"></iframe>
-\endcode
+```
 
-\note Pages presented as sandboxed iframes should be served as
-the \c{text/html-sandboxed} MIME type, to prevent them from rendering
+> __NOTE__: Pages presented as sandboxed iframes should be served as
+the `text/html-sandboxed` MIME type, to prevent them from rendering
 when browsers access them directly.
 
-\section3 Server Events
+####  Server Events
 
-Browser 8_5 supports HTML5's \e{Server-Sent Events} feature, which allows
+Browser 8_5 supports HTML5's _Server-Sent Events_ feature, which allows
 servers to push data to a web app using events via a permanent HTTP
 connection.
 
-A server-side script must declare the \c{text/event-stream} MIME type,
-with \c{data:} prefixes for each line of content.
+A server-side script must declare the `text/event-stream` MIME type,
+with `data:` prefixes for each line of content.
 
-\code
+```
 <?php
 header("Content-Type: text/event-stream\n\n");
 echo "data: This is some new information.\n";
 echo "data: It may occupy more than one line.\n";
 ?>
-\endcode
+```
 
-To receive notifications about new content, direct an \c{EventSource}
-to the dynamically generated page, then register a \c{message} handler
+To receive notifications about new content, direct an `EventSource`
+to the dynamically generated page, then register a `message` handler
 on the object:
 
-\code
+```
 var src = new EventSource('feed.php');
 src.addEventListener('message', function(event) {
     var content = event.data;
 }, false)
-\endcode
+```
 
 Server events fire continually, but you can control the latency by
-specifying a millisecond value to the \c{retry} field.
+specifying a millisecond value to the `retry` field.
 
 An event stream may specify more than one event, each separated with a
-blank line. Streams may also feature custom \c{event} types, each with
-its own unique \c{id}. The following example implements the basic
+blank line. Streams may also feature custom `event` types, each with
+its own unique `id`. The following example implements the basic
 functionality of an RSS feed, which is polled for updates once a
 minute:
 
-\code
+```
 <?php
   header("Content-Type: text/event-stream\n\n");
   echo "retry: 60000\n";
@@ -279,13 +271,13 @@ minute:
   echo "data: This is the third item\n";
   echo "\n";
 ?>
-\endcode
+```
 
-Within the custom \c{item} event handler, the \c{event.lastEventId}
-corresponds to each \c{id} specified by the server. This example uses
+Within the custom `item` event handler, the `event.lastEventId`
+corresponds to each `id` specified by the server. This example uses
 local storage to cache previously consumed items:
 
-\code
+```
 var db = window.localStorage;
 var src = new EventSource('feed.php');
 src.addEventListener('item', function(event) {
@@ -295,51 +287,51 @@ src.addEventListener('item', function(event) {
     db.setItem(id, content);
     // do something else with content
 }, false)
-\endcode
+```
 
-\section3 Web Workers
+####  Web Workers
 
 Messages are also used to interact with separately threaded JavaScript
-applications called \e{workers}. Workers may help push long-running
+applications called _workers_. Workers may help push long-running
 processes to the background so that they don't degrade performance of
 a web app's main user interface.
 
 Workers are barred from manipulating the DOM, and have only limited
-read access to the \c{location} and \c{navigator} objects. Workers may
-communicate via \c{XMLHttpRequest()}, set timers, access the
+read access to the `location` and `navigator` objects. Workers may
+communicate via `XMLHttpRequest()`, set timers, access the
 \l{The Application Cache} {application cache}, import other scripts, and
 generate other workers. (However, note that workers impose an
 additional performance cost over conventional scripts.)
 
 Workers are specified from within other scripts as follows:
 
-\code
+```
 var worker = new Worker('/path/to/worker.js');
 worker.onmessage = function(event) {
     // worker's posted results available in event.data
 };
-\endcode
+```
 
-Workers use \c{postMessage()} to return results. The following sample
+Workers use `postMessage()` to return results. The following sample
 returns a timestamp each second:
 
-\code
+```
 setInterval( function(){
     postMessage( new Date() );
 }, 1000 );
-\endcode
+```
 
-You also use \c{postMessage()} to push data to a worker, or simply to
+You also use `postMessage()` to push data to a worker, or simply to
 prompt a response:
 
-\code
+```
 worker.postMessage(data);
-\endcode
+```
 
-This data is available via the \c{message} event, which fires on the
-worker's scope, handled via \c{this}, \c{self}, or simply as follows:
+This data is available via the `message` event, which fires on the
+worker's scope, handled via `this`, `self`, or simply as follows:
 
-\code
+```
 onmessage = function(event) {
     // available via event.data
 };
@@ -347,26 +339,26 @@ onmessage = function(event) {
 addEventListener('message', function(event) {
     // same
 });
-\endcode
+```
 
-Workers can also be \e{shared} so that they are available from
-different scripts within the same domain. Create a \c{SharedWorker}
+Workers can also be _shared_ so that they are available from
+different scripts within the same domain. Create a `SharedWorker`
 instance and start its port to communicate with it:
 
-\code
+```
 var worker = new SharedWorker("/path/to/shared/worker.js");
 worker.port.addEventListener("message", function(event){
     // event.data contains messages returned from worker
 });
 worker.port.start();
 worker.port.postMessage("greeting");
-\endcode
+```
 
-Initializing the port fires a \c{connect} event on the worker, whose
+Initializing the port fires a `connect` event on the worker, whose
 associated handler can prepare communication via the first element of
-the \c{event.ports} array (a \c{SharedWorkerContext} object):
+the `event.ports` array (a `SharedWorkerContext` object):
 
-\code
+```
 this.addEventListener("connect", function(event) {
     var port = event.ports[0];
     port.postMessage("connected");
@@ -374,27 +366,22 @@ this.addEventListener("connect", function(event) {
         port.postMessage("reply");
     }, false);
 }, false);
-\endcode
+```
 
-Errors in worker scripts can be traced using the \c{error} event,
+Errors in worker scripts can be traced using the `error` event,
 which fires when the problematic worker is initially specified.
-Details are available via \c{event.message}, \c{event.filename}, and
-\c{event.lineno}.
+Details are available via `event.message`, `event.filename`, and
+`event.lineno`.
 
-\list
+- postMessage
 
-\li postMessage
+- (message channels)
 
-\li (message channels)
+- sandboxed iframe
 
-\li sandboxed iframe
+- server events
 
-\li server events
+- workers
 
-\li workers
+- shared workers
 
-\li shared workers
-
-\endlist
-
-*/

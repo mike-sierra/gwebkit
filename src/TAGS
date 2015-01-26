@@ -1,97 +1,56 @@
 
-12_query.qdoc,28
-function isDesign(176,6937
+00_intro.mmd,0
 
-22_orient.qdoc,77
-function orientationHandler(278,9397
-function orientationHandler(316,10638
+11_webapp.mmd,0
 
-32_trans.qdoc,29
-function requires 420,13464
+12_query.mmd,0
 
-33_av.qdoc,92
-function play(176,5114
-function volumeDragHandler(246,7041
-function play_pause(797,25842
+21_layout.mmd,0
 
-41_touch.qdoc,377
-    function touchHandler(31,1193
-function touchHandler(69,2743
-function clickHandler(75,2963
-function from 86,3399
-function backgroundHandler(98,3720
-function foregroundHandler(101,3793
-    function touchHandler(159,6163
-function touchstartHandler(200,8003
-function touchmoveHandler(205,8097
-function touchstartHandler(389,14832
-function touchmoveHandler(394,14930
+22_orient.mmd,0
 
-44_editable.qdoc,137
-function copyHandler(159,4748
-function insert(261,8654
-function delete(284,9388
-function insert(530,19062
-function delete(553,19796
+23_color.mmd,0
 
-45_history.qdoc,55
-function newEdit(65,2035
-function revertEdit(97,2947
+24_border.mmd,0
 
-46_location.qdoc,283
-function getCoordinates(21,565
-function errorFallback(70,2511
-function successCallback(78,2717
-function to 163,5638
-function successCallback(188,6612
-function renderMap(245,8333
-function renderMap(257,8681
-function successCallback(335,11482
-function errorFallback(351,12058
+25_font.mmd,0
 
-47_gesture.qdoc,171
-function adjustMeters(155,5477
-function enterMode(170,5847
-function focusHandler(332,11575
-function blurHandler(336,11657
-function deviceorientationHandler(345,11836
+31_animate.mmd,0
 
-52_storage.qdoc,49
-function such 250,7737
-function such 842,26809
+32_trans.mmd,0
 
-54_msg.qdoc,56
-function receiver(162,4783
-function receiver(173,5106
+33_av.mmd,0
 
-index.qdoc,0
+34_canvas.mmd,0
 
-api.qdoc,0
+41_touch.mmd,0
 
-EXTERNAL_RESOURCES.qdoc,0
+42_input.mmd,0
 
-55_socket.qdoc,0
+43_form.mmd,0
 
-53_file.qdoc,0
+44_editable.mmd,0
 
-51_offline.qdoc,0
+45_history.mmd,0
 
-43_form.qdoc,0
+46_location.mmd,0
 
-42_input.qdoc,0
+47_gesture.mmd,0
 
-34_canvas.qdoc,0
+51_offline.mmd,0
 
-31_animate.qdoc,0
+52_storage.mmd,0
 
-25_font.qdoc,0
+53_file.mmd,0
 
-24_border.qdoc,0
+54_msg.mmd,0
 
-23_color.qdoc,0
+55_socket.mmd,0
 
-21_layout.qdoc,0
+EXTERNAL_RESOURCES.mmd,0
 
-11_webapp.qdoc,0
+api.mmd,0
 
-00_intro.qdoc,0
+index.mmd,0
+
+,,,0

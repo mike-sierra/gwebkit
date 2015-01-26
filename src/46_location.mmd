@@ -1,21 +1,17 @@
-/*!
+# Location and Travel
 
-\page location.html
-
-\title Location and Travel
-
-HTML5\'s Geolocation API enables web applications a simple, consistent
-cross-device interface to gather information about users\' location,
+HTML5's Geolocation API enables web applications a simple, consistent
+cross-device interface to gather information about users' location,
 based on GPS or network signals. This section shows how to extract
 location and present it within a simple map interface.
 
-\section2 The Geolocation API
+###  The Geolocation API
 
 Location data is available via a single API call.  The
-\c{getCurrentPosition} method runs an asynchronous callback function
+`getCurrentPosition` method runs an asynchronous callback function
 once location is detected:
 
-\code
+```
 navigator.geolocation.getCurrentPosition(getCoordinates);
 
 function getCoordinates(position) {
@@ -24,49 +20,49 @@ function getCoordinates(position) {
     var time = position.timestamp; // equivalent to Date object
     // process coordinates
 }
-\endcode
+```
 
 Before the callback executes, the browser asks users permission to use
 their location data, for each session and domain.
 
-\note The Geolocation API exposes the location of mobile users, information
+> __NOTE__: The Geolocation API exposes the location of mobile users, information
 that potentially compromises their privacy.  Unless an application
-ckearly offers location-\e{sharing} features, users who opt in should
+ckearly offers location-_sharing_ features, users who opt in should
 be able to expect their personal data to be treated with the same
 confidence and sensitivity as passwords and credit card data.
 
-Most applications simply extract \c{latitude} and \c{longitude} from
-\c{coords}, both values expressed as \Eplumin 90\Edeg or \Eplumin
-180\Edeg.  The \c{coords} object also features an \c{accuracy}
+Most applications simply extract `latitude` and `longitude` from
+`coords`, both values expressed as \Eplumin 90\Edeg or \Eplumin
+180\Edeg.  The `coords` object also features an `accuracy`
 property indicating the number of meters considered a margin of error.
-Additional properties may be available for \c{altitude} and
-\c{altitudeAccuracy}, also expressed in meters, but these do not have
+Additional properties may be available for `altitude` and
+`altitudeAccuracy`, also expressed in meters, but these do not have
 a wide application and would only be available on some GPS-enabled
 handsets.
 
-\section2 Fallback Behavior
+###  Fallback Behavior
 
-The \c{getCurrentPosition()} method accepts an optional second
+The `getCurrentPosition()` method accepts an optional second
 argument specifying an error fallback. The following example accounts
 for various problems that might keep the application from working. An
 object detection test responds if for older browsers that do not
 support location:
 
-\code
+```
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(successCallback, errorFallback);
 }
 else {
     // Browser does not support HTML5-based location.
 }
-\endcode
+```
 
 An additional error callback responds differently when users decide
 not to share their location. Depending on the importance of location
 to the application, it may then be appropriate to prompt users if they
 want to \l{Data Storage} {store that decision as a preference}:
 
-\code
+```
 function errorFallback(err) {
     if (err.PERMISSION_DENIED) {
         // User does not consent to sharing location.
@@ -80,103 +76,95 @@ function successCallback(position) {
     var lon = position.coords.longitude;
     // process coordinates
 }
-\endcode
+```
 
 The following errors may occur:
 
-\list
-
-\li \b{1} \c{PERMISSION_DENIED} indicates the user rejects the
+- __1__ `PERMISSION_DENIED` indicates the user rejects the
 location request.
 
-\li \b{2} \c{POSITION_UNAVAILABLE} means the location mechanism is
+- __2__ `POSITION_UNAVAILABLE` means the location mechanism is
 unavailable. Perhaps no GPS satellite could be found, or not enough
 network signals are available to perform triangulation.
 
-\li \b{3} \c{TIMEOUT} means the location service may be available,
+- __3__ `TIMEOUT` means the location service may be available,
 but the request took too long.
 
-\li \b{0} \c{UNKNOWN_ERROR} refers to anything else that might
+- __0__ `UNKNOWN_ERROR` refers to anything else that might
 happen.
 
-\endlist
-
-The timeout interval is configurable. The \c{getCurrentPosition}
+The timeout interval is configurable. The `getCurrentPosition`
 method accepts a third argument, consisting of additional options
 stored in an object. The following makes the location request wait
 at least five seconds before timing out:
 
-\code
+```
 navigator.geolocation.getCurrentPosition(successCallback,
                        errorFallback, { timeout: 5000 });
-\endcode
+```
 
 The following parameters are available:
 
-\list
+- `timeout` is the minimum number of milliseconds before which a
+location request throws a `TIMEOUT` error.
 
-\li \c{timeout} is the minimum number of milliseconds before which a
-location request throws a \c{TIMEOUT} error.
-
-\li \c{maximumAge} is the maximum number of milliseconds for which
+- `maximumAge` is the maximum number of milliseconds for which
 location requests might rely upon on a previously cached value. It may
-even be set to \c{Infinity}.
+even be set to `Infinity`.
 
-\li \c{enableHighAccuracy} is a boolean that prompts the positioning
+- `enableHighAccuracy` is a boolean that prompts the positioning
 system to produce more accurate values than the default. This option
 would likely be limited to applications targeted to pedestrians using
 a narrow range of GPS-enabled handsets.
 
-\endlist
+###  Tracking Location
 
-\section2 Tracking Location
-
-Once an application has calculated the user\'s location, it might
+Once an application has calculated the user's location, it might
 respond by providing contextual information, such as location-specific
 search results or suggestions for nearby points of interest. It may
-respond even better if it tracks the user\'s location over time. For
+respond even better if it tracks the user's location over time. For
 example, suggestions for points of interest may be more relevant if
-they\'re in the user\'s general direction of travel. Some suggestions
+they're in the user's general direction of travel. Some suggestions
 may likewise be more appropriate for pedestrians than for people
 traveling in vehicles.
 
-To gather this information, use the \c{watchPosition()} method. It
-resembles \c{getCurrentPosition()}, but executes indefinitely as
+To gather this information, use the `watchPosition()` method. It
+resembles `getCurrentPosition()`, but executes indefinitely as
 position changes are detected. It uses the same interface, but returns
 a numeric key when invoked:
 
-\code
+```
 var process = navigator.geolocation.watchPosition(successCallback,
                 errorFallback, { maximumAge: 10000, timeout: 60000 });
-\endcode
+```
 
-Much like JavaScript\'s standard \c{clearInterval()} function, you
-supply this key to the \c{clearWatch()} method when you need to
-terminate the process and stop tracking the user\'s location:
+Much like JavaScript's standard `clearInterval()` function, you
+supply this key to the `clearWatch()` method when you need to
+terminate the process and stop tracking the user's location:
 
-\code
+```
 navigator.geolocation.clearWatch(process);
-\endcode
+```
 
-This example specifies two additional options. The \c{timeout} option
+This example specifies two additional options. The `timeout` option
 sets the threshold before which a network delay causes the fallback
 function to execute. In this case, it is extended to a full minute.
 After the application initially determines location, users may briefly
 wander out of range of network signals, in which case the application
 shouldn't terminate abruptly.
 
-The \c{maximumAge} option effectively reduces the data\'s level of
+The `maximumAge` option effectively reduces the data's level of
 detail, in this case producing new location values only every 10
 seconds. Frequent location requests taxes the battery. This option
 allows the application to reduce the number of requests to suit its
 needs.
 
-Note that the callback specified by \c{watchPosition} still executes
+Note that the callback specified by `watchPosition` still executes
 even if its position values are cached. The following example
-maintains a local \c{path} array of tracked locations, but filters out
+maintains a local `path` array of tracked locations, but filters out
 redundant instances of the same location:
 
-\code
+```
 var app = new Function();
 app.path = new Array();
 
@@ -197,63 +185,59 @@ function successCallback(position) {
     // otherwise add new values:
     app.path.push({"lat" : latitude, "lon" : longitude});
 }
-\endcode
+```
 
 The example \l{Tracking Location} maintains a local cache of
-the user\'s whereabouts, which can be used to calculate overall speed
+the user's whereabouts, which can be used to calculate overall speed
 and direction of travel. The API also yields this data, but only based
 on a comparison between the current location and the most recently
 cached location:
 
-\list
-
-\li The \c{position.coords.speed} property is expressed in meters per
+- The `position.coords.speed` property is expressed in meters per
 second.
 
-\li The \c{position.coords.heading} property represents the current
+- The `position.coords.heading` property represents the current
 direction of movement in degrees, measured clockwise relative to
 due north.
 
-\endlist
+###  Mapping
 
-\section2 Mapping
-
-Once the user\'s position is known, information is usually presented
+Once the user's position is known, information is usually presented
 within a map.  Many web-based mapping APIs are available to choose
 from, many of which feature touch-enabled panning and zooming. This
 section briefly outlines the basic capabilities of the
-\l{http://api.maps.ovi.com} {Ovi Maps API}.
+[Ovi Maps API](http://api.maps.ovi.com).
 
-To enable maps, on a page add the following \c{script} before any
+To enable maps, on a page add the following `script` before any
 others on the page:
 
-\code
+```
 <script src="http://api.maps.ovi.com/jsl.js" type="text/javascript"></script>
-\endcode
+```
 
 Displaying the map requires you to place an empty element on the page,
 preferably styling it so that it fills the screen:
 
-\code
+```
 <section id="map"></section>
-\endcode
+```
 
 The following draws a map within the element, centered around the
 supplied coordinates:
 
-\code
+```
 function renderMap(lat, lon) {
     var map = new ovi.mapsapi.map.Display(document.getElementById('map'), {
         'center': [lat, lon], // center coordinates
         'zoomLevel': 15,      // default level suitable for pedestrians
     });
 }
-\endcode
+```
 
 By default, maps renders statically, but you can add components to
 make them interactive:
 
-\code
+```
 function renderMap(lat, lon) {
     var map = new ovi.mapsapi.map.Display(document.getElementById('map'), {
         'center': [lat, lon],
@@ -267,10 +251,10 @@ function renderMap(lat, lon) {
               ],
     });
 }
-\endcode
+```
 
 When targeting mobile users, you should be selective in which of these
-components to deploy. For example, the \c{Behavior} component allows
+components to deploy. For example, the `Behavior` component allows
 users to drag the map to explore places not visible within the initial
 area displayed. If you display the map along with other information
 within a much larger page, users may become confused when panning
@@ -279,25 +263,25 @@ within the page.
 
 The other disabled components produce small overlays that crowd the
 mobile screen and are often difficult to manipulate on mobile
-browsers.  The \c{TypeSelector} provides controls switching from the
+browsers.  The `TypeSelector` provides controls switching from the
 default street map to less legible satellite or terrain maps.  The
-\c{ScaleBar} displays a legend noting the range of distances.  The
-\c{Overview} produces a small map inset displaying surrounding areas.
-The \c{ZoomBar} presents a slider to control zoom level.
+`ScaleBar` displays a legend noting the range of distances.  The
+`Overview` produces a small map inset displaying surrounding areas.
+The `ZoomBar` presents a slider to control zoom level.
 
 The following specifies a marker and places it on the screen:
 
-\code
+```
 var marker = new ovi.mapsapi.map.StandardMarker([lat, lon]);
 map.objects.add(app.marker);
-\endcode
+```
 
 The following customizes the marker icon:
 
-\code
+```
 var marker = new ovi.mapsapi.map.Marker( [lat, lon],
                     { icon: "img/icon_geo_pin.gif" } );
-\endcode
+```
 
 The following example shows a simple mapping interface that marks the
 user's location:
@@ -313,23 +297,23 @@ When the handset is placed on its side, the map fills the entire
 screen.  In \l{Orientation via CSS} {portrait orientation}, large
 touch icons appear that implement the zoom feature independently of
 controls supplied by the API, or its support for multi-point touch
-gestures.  To accomplish this, the controls call the \c{setZoomLevel}
+gestures.  To accomplish this, the controls call the `setZoomLevel`
 method directly on the map element:
 
-\code
+```
 map.setZoomLevel(15);
-\endcode
+```
 
-See the \l{http://api.maps.ovi.com/playground2/} {Ovi Maps Web API}
+See the [Ovi Maps Web API](http://api.maps.ovi.com/playground2/)
 page for information on performing searches, plotting routes, and
 placing custom overlays.
 
-\section1 XXX 8.5 Loc?
+##  XXX 8.5 Loc?
 
 The user's location is available via the Geolocation API. Geographic
 coordinates are available via asynchronous callback function:
 
-\code
+```
 navigator.geolocation.getCurrentPosition(successCallback, errorFallback);
 
 function successCallback(position) {
@@ -338,16 +322,16 @@ function successCallback(position) {
     var time = position.timestamp; // same as Date object
     // process lat/lon coordinates
 }
-\endcode
+```
 
 For each session and domain, users are asked if they want to share
 their location. If the user declines, it is available as a
-\c{PERMISSION_DENIED} error within the second callback function.
+`PERMISSION_DENIED` error within the second callback function.
 (Other potential errors beyond the user's control are
-\c{POSITION_UNAVAILABLE} (positioning mechanism unavailable),
-\c{TIMEOUT}, and \c{UNKNOWN_ERROR}.)
+`POSITION_UNAVAILABLE` (positioning mechanism unavailable),
+`TIMEOUT`, and `UNKNOWN_ERROR`.)
 
-\code
+```
 function errorFallback(err) {
     if (err.PERMISSION_DENIED) {
         // User does not consent to sharing location.
@@ -356,36 +340,36 @@ function errorFallback(err) {
         // indicates a problem beyond the user's direct control
     }
 }
-\endcode
+```
 
-The \c{timeout}, 5 seconds in this case, can be passed in as an
+The `timeout`, 5 seconds in this case, can be passed in as an
 additional object's parameter:
 
-\code
+```
 navigator.geolocation.getCurrentPosition( successCallback,
     errorFallback, { timeout: 5000 } );
-\endcode
+```
 
-The \c{getCurrentPosition} method calculates location only once. If
+The `getCurrentPosition` method calculates location only once. If
 it's important to track the user's progress over time, the
-\c{watchPosition()} method uses the same interface. Passing the
-process it returns to \c{clearWatch()} cancels location-tracking.
+`watchPosition()` method uses the same interface. Passing the
+process it returns to `clearWatch()` cancels location-tracking.
 
-\code
+```
 // start watching user's location:
 var process = navigator.geolocation.watchPosition(successCallback,
                 errorFallback, { timeout: 60000, maximumAge: 10000 });
 // stop:
 navigator.geolocation.clearWatch(process);
-\endcode
+```
 
-The \c{maximumAge} delays each sampled location, in this case once
-every 10 seconds. Increasing the \c{timeout} allows the user to
+The `maximumAge` delays each sampled location, in this case once
+every 10 seconds. Increasing the `timeout` allows the user to
 briefly go out of range without causing an error.
 
-\section1 Example: Mapping
+##  Example: Mapping
 
-This simple example uses the \l{http://api.maps.ovi.com/} {Ovi Maps API} to mark the user's location on a map:
+This simple example uses the [Ovi Maps API](http://api.maps.ovi.com/) to mark the user's location on a map:
 
 \l{x_location_htm} {
   \inlineimage location1.png
@@ -407,27 +391,25 @@ This simple example uses the \l{http://api.maps.ovi.com/} {Ovi Maps API} to mark
 
 To enable mapping, add this before any other scripts:
 
-\code
+```
 <script src="http://api.maps.ovi.com/jsl.js" type="text/javascript"></script>
-\endcode
+```
 
-Once \e{lat} and \e{lon} coordinates are available, you can fill in a
+Once _lat_ and _lon_ coordinates are available, you can fill in a
 large screen element:
 
-\code
+```
 var map = new ovi.mapsapi.map.Display(document.getElementById('map'), {
     'center': [lat, lon],
     'zoomLevel': 15,
      components : [ new ovi.mapsapi.map.component.Behavior(), ],
 });
-\endcode
+```
 
 This adds a marker to the map:
 
-\code
+```
 var marker = new ovi.mapsapi.map.StandardMarker([lat, lon]);
 map.objects.add(marker);
-\endcode
-
-*/
+```
 

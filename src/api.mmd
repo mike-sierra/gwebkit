@@ -1,36 +1,32 @@
-/*!
+# Core APIs
 
-\page api.html
+####  ooo Level 3 CSS Selectors
 
-\title Core APIs
-
-\section3 ooo Level 3 CSS Selectors
-
-Level 3 CSS provides many useful new \b{selectors} that make it
+Level 3 CSS provides many useful new __selectors__ that make it
 easier to apply formatting to page elements. These selectors are
 useful not only in applying style sheets, but when manipulating
 elements with JavaScript.
 
-The \b{Selectors API} makes DOM elements accessible using the same
+The __Selectors API__ makes DOM elements accessible using the same
 CSS expressions you use to apply formatting to them. The following
 show alternate ways to access individual elements:
 
-\code
+```
 var element = document.getElementById('map');
 var element = document.querySelector('#map');
   // returns nodelist:
 var elements = document.querySelectorAll('ul > li.active');
-\endcode
+```
 
-The \c{querySelector} and \c{querySelectorAll} methods are often
-superior to \c{getElementById()} and \c{getElementsByClassName()},
+The `querySelector` and `querySelectorAll` methods are often
+superior to `getElementById()` and `getElementsByClassName()`,
 because CSS selectors allow you to access elements contextually. The
 final line in the example above ignores otherwise matching
-\c{active}-classed items that don't appear within \c{ul} lists.
+`active`-classed items that don't appear within `ul` lists.
 
-\section1 XXX MT CSS
+##  XXX MT CSS
 
-\section2 Use Advanced CSS Formatting
+###  Use Advanced CSS Formatting
 
 The Browser offers a high level of support for Level 3 CSS
 properties, which offer a rich set of visual effects and layout
@@ -55,99 +51,95 @@ Information boxes feature summaries of key features, which are grouped
 into related topics. Here's how more recent CSS features may help
 improve a web app's appearance:
 
-\list
-
-\li \b{Boxes:} Block elements can appear with rounded corners and
-shadows.  Interface elements can be positioned so they are \e{fixed}
+- __Boxes:__ Block elements can appear with rounded corners and
+shadows.  Interface elements can be positioned so they are _fixed_
 on the screen, while other interface elements may scroll freely.  The
-\e{box-sizing} property clarifies what part of a box to measure when
+_box-sizing_ property clarifies what part of a box to measure when
 assigning its dimensions.
 
-\li \b{Text:} Letterforms may appear with shadows and blurs, and
+- __Text:__ Letterforms may appear with shadows and blurs, and
 their borders can be enhanced with outline effects to improve
 legibility against different backgrounds. Text effects also apply to
 any \l{Typography} {custom fonts} you provide.
 
-\li \b{Color:} As an alternative to \e{rgb} color (or named colors
-and hex values), the \e{rgba} color definition specifies an \e{alpha}
-value affecting the color's opacity. An alternative \e{hsl} model
-specifies \e{hue}, \e{saturation}, and \e{luminence}. Use \e{hsla} to
+- __Color:__ As an alternative to _rgb_ color (or named colors
+and hex values), the _rgba_ color definition specifies an _alpha_
+value affecting the color's opacity. An alternative _hsl_ model
+specifies _hue_, _saturation_, and _luminence_. Use _hsla_ to
 add an opacity value.  To fade entire elements rather than their
-component colors, use the independent \e{opacity} property.
+component colors, use the independent _opacity_ property.
 
-\li \b{Gradients:} Gradients offer complex color definitions in
+- __Gradients:__ Gradients offer complex color definitions in
 which colors fade from one part of an element to another or around a
 point, with optional transitional states. (The Browser
 supports both the W3C standard for gradients and legacy WebKit
 syntax.)
 
-\li \b{Masks:} Masks allow you to modify how an image appears based
+- __Masks:__ Masks allow you to modify how an image appears based
 on the contents of another image, including a gradient, allowing you
 to fade or clip portions of an image. Reflections produce a mirroring
 effect, usually along with fading gradients.
 
-\li \b{Backgrounds:} Specify comma-separated values to assign more
+- __Backgrounds:__ Specify comma-separated values to assign more
 than one background image, and affect related positioning and scaling
-properties independently.  You can also assign a \e{composite} to
+properties independently.  You can also assign a _composite_ to
 affect the appearance of background images based on the background
 color.
 
-\li \b{Borders:} Flexible image components may appear in place of
+- __Borders:__ Flexible image components may appear in place of
 borders. (The Browser supports both W3C standard syntax for
 border images and legacy WebKit syntax.) You can also use the
-\e{outline} feature to assign an independent border without affecting
+_outline_ feature to assign an independent border without affecting
 an element's dimensions.
 
-\li \b{Overflow:} When content overflows a box, you can provide
+- __Overflow:__ When content overflows a box, you can provide
 visual hints that more text is available, and control how long words
 break within narrow columns. Overflowing content can be scrolled
-automatically using a \e{marquee} animation, otherwise you can assign
+automatically using a _marquee_ animation, otherwise you can assign
 your own custom scrollbar components.
 
-\li \b{Columns:} Create flexible multicolumn layouts, incorporating
+- __Columns:__ Create flexible multicolumn layouts, incorporating
 elements that span columns and break multicolumn regions into separate
 segments. Such layouts are most appropriate when
 \l{Responsive Interfaces}
 {deploying alternative large-screen interfaces}, or in some cases for
 \l{Tipping the Handset} {landscape-oriented layouts}.
 
-\li \b{Transitions:} With CSS properties defining how different
+- __Transitions:__ With CSS properties defining how different
 application states appear, many properties can be set to animate from
 one state to another. Supplying multiple comma-separated arguments
 along with delays allows you to specify transitional sequences.  (See
 \l{Animations} for more information.)
 
-\li \b{Animations:} Keyframe animations allow for more complex
+- __Animations:__ Keyframe animations allow for more complex
 animation sequences that can be applied more freely than transitions.
 (For more information, see \l{Animations}.)
 
-\li \b{Transforms:} Transforms allow you to move or modify the
+- __Transforms:__ Transforms allow you to move or modify the
 appearance of elements by scaling, skewing, or rotating them.
 Three-dimensional transforms allow you to control the viewer's
 perceived position relative to an element, and place transformed
 objects relative to others.  (For more information, see
 \l{Transforms}.)
 
-\li \b{Flexbox:} Flexible boxes offer a more abstract way to specify
-a screen layout, often removing the need for various \e{position} and
-\e{float} options. Boxes can be \e{oriented} horizontally or
+- __Flexbox:__ Flexible boxes offer a more abstract way to specify
+a screen layout, often removing the need for various _position_ and
+_float_ options. Boxes can be _oriented_ horizontally or
 vertically to affect how child elements appear.  Along either axis,
-the \e{pack} option allows you to center, distribute, or cluster
-together child elements. The \e{align} option specifies how children
+the _pack_ option allows you to center, distribute, or cluster
+together child elements. The _align_ option specifies how children
 are then distributed along the perpendicular axis. Elements can appear
 in a different order than how they are defined within the HTML markup,
 reducing the need to modify the DOM.  Some elements can be resized to
 fill any extra space.
 
-\li \b{Interface:} Updated CSS properties give control over whether
+- __Interface:__ Updated CSS properties give control over whether
 elements are draggable, editable, or selectable within HTML5-enabled
-applications. You can also override the default \e{appearance} of
+applications. You can also override the default _appearance_ of
 specialized interface elements such as \l{Input Types}
 {form inputs}.
 
-\endlist
-
-\section2 Example: Freehand Drawings
+###  Example: Freehand Drawings
 
 This example shows how to export a canvas drawing to a static image.
 The interface allows you to make freehand drawings, modify the size
@@ -173,7 +165,7 @@ and color of the pen, and save each drawing to a series of images:
 In this case, the path follows a series of screen coordinates gathered
 from \l{Touch Gestures} {touch handlers}:
 
-\code
+```
 cv.addEventListener('touchstart', function(e) {
     cx.moveTo(e.touches[0].offsetX, e.touches[0].offsetY);
     cx.beginPath();
@@ -185,15 +177,15 @@ cv.addEventListener('touchmove', function(e) {
 cv.addEventListener('touchend', function(e) {
     cx.closePath();
 };
-\endcode
+```
 
-The \c{getImageData()} method copies a rectangular selection from the
-canvas, and \c{putImageData} replaces it. The \c{canvas} object's
-\c{toDataURL()} method produces a static image specified with the
-\c{data:} scheme, which can be referenced by an \c{Image} object's
-\c{src} attribute.
+The `getImageData()` method copies a rectangular selection from the
+canvas, and `putImageData` replaces it. The `canvas` object's
+`toDataURL()` method produces a static image specified with the
+`data:` scheme, which can be referenced by an `Image` object's
+`src` attribute.
 
-\code
+```
 var width = maxX - minX; // tracked from touch gestures
 var height = maxY - minY;
 var img = new Image();
@@ -202,9 +194,9 @@ cv.width = width; // clear  canvas
 cv.height = height;
 cx.putImageData(data, 0, 0); // replace selection at top left
 img.src = cv.toDataURL(); // save into image
-\endcode
+```
 
-\section2 Example: Edit Irregular Selections
+###  Example: Edit Irregular Selections
 
 The example above shows how to copy a canvas drawing into an
 image. The following example shows how to read from an image into a
@@ -231,12 +223,12 @@ from the rest of the image:
 }
 
 After the path is defined, a subsequent touch handler calls
-\c{isPointInPath()} to test if screen coordinates fall within the
-path.  The \c{clip()} method allows you to render subsequent graphics
-only within the path. In this case, the \c{drawImage()} method imports
+`isPointInPath()` to test if screen coordinates fall within the
+path.  The `clip()` method allows you to render subsequent graphics
+only within the path. In this case, the `drawImage()` method imports
 the image into the canvas, but only within the path:
 
-\code
+```
 if (cx.isPointInPath(e.touches[0].offsetX, e.touches[0].offsetY) ) {
     cx.strokeStyle = 'transparent'; // erase selection color
     cx.stroke();
@@ -245,16 +237,12 @@ if (cx.isPointInPath(e.touches[0].offsetX, e.touches[0].offsetY) ) {
     img.src = 'img/Objects008.jpg';
     cx.drawImage(img,0,0); // redraw image into clipping region
 }
-\endcode
+```
 
-The \c{rect()} method also defines a path suitable for clipping. You
+The `rect()` method also defines a path suitable for clipping. You
 can use it to re-expand the path to the dimensions of the canvas:
 
-\code
+```
 cx.rect(0, 0, cv.width, cv.height);
-\endcode
-
-
-
-*/
+```
 
