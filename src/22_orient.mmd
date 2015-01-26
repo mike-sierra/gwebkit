@@ -1,0 +1,426 @@
+/*!
+
+\page orient.html
+
+\title Tipping the Handset
+
+When you view browser pages or web apps and tip the device
+counter-clockise from portrait to landscape orientation, the browser
+re-orients content accordingly.
+
+Web pages and web apps can modify their appearance when the device is
+tipped in 90\Edeg increments. The \c{orientation}
+\l{Responsive Interfaces} {CSS media query}
+allows you to assign different interface features depending on
+\c{portrait} or \c{landscape} orientation. In this case, landscaped
+pages use a two-column layout:
+
+\code
+@media all and (orientation: landscape) {
+    article { -webkit-column-count: 2; }
+    h1 { -webkit-column-span: all; }
+}
+\endcode
+
+The result can be seen in this example, by resizing the browser window
+so that it is alternately taller or wider:
+
+\l{x_orient_htm} {
+  \inlineimage orient1.png
+  \inlineimage orient2.png
+}
+
+\l{x_orient_htm} {
+    __IFRAME__
+}
+\l{x_orient_htm} {
+    \inlineimage icon_html.png
+}
+\l{x_orient_css} {
+    \inlineimage icon_css.png
+}
+\l{x_orient_js} {
+    \inlineimage icon_js.png
+}
+
+JavaScript can respond similarly to \c{orientationchange} events that
+fire on the window, checking the state of the \c{window.orientation}
+property for \c{portrait} or \c{landscape} values:
+
+\code
+window.addEventListener('orientationchange', function(e){
+    var isUpright = (window.orientation == 'portrait');
+});
+\endcode
+
+When you apply a \l{Flexible Mobile Layout} {mobile
+viewport}, flexible layout elements conform to the width of the
+device's window. Ordinarily, tipping the device to landscape
+orientation magnifies the content, keeping the overall width
+constant. To illustrate the range of available options, this example
+shows a flexible layout against a fixed-size background element. In
+landscape view, the page simply magnifies:
+
+\image view_on.png
+
+To disable magnification and make flexible elements expand to the
+wider screen, set the \c{user-scalable=no} viewport property:
+
+\code
+<meta name="viewport" content="width=device-width, user-scalable=no"/>
+\endcode
+
+Doing so disables pinch and double-tap gestures that otherwise allow
+users to magnify content. The following shows how the same page
+appears with scaling disabled. The layout element changes dimensions,
+but the background element shows that the magnification remains
+constant:
+
+\image view_on_noscale.png
+
+As shown above, the Browser independently magnifies text when shifting
+to landscape orientation. To keep the text size from changing, disable
+the \c{-webkit-text-size-adjust} CSS property. The following affects
+the entire page:
+
+\code
+html { -webkit-text-size-adjust: none }
+\endcode
+
+The following shows the resulting page, with text appearing at the
+same size:
+
+\image view_on_noscale_noadjust.png
+
+\warning Applying the above CSS within a \e{desktop}-oriented
+interface interferes with the browser's zoom feature, which is not
+affected by mobile \c{viewport} settings. In that case, when users
+zoom a page, the dimensions of screen elements changes, but the size
+of the text does not. If your are deploying a hybrid mobile interface
+adapted for desktop or tablet browsers, use media queries to narrow
+the scope of the above CSS. For more information, see
+\l{Responsive Interfaces}.
+
+To review, use the following techniques to adapt flexible layouts to
+landscape orientation:
+
+\list
+
+\li Set the viewport's \c{width=device-width} to fit content
+with the screen dimensions.
+
+\li Set the viewport's \c{user-scalable=no} to widen flexible content
+in landscape view.
+
+\li Set the \c{-webkit-text-size-adjust:none} CSS property to keep
+text from changing size.
+
+\li Apply flexible layout elements that adapt to available dimensions.
+
+\li Optionally, use \c{orientation} media queries to change layout,
+and \c{orientationchange} handlers to respond in other ways.
+
+\endlist
+
+\section1 XXX 8.5
+
+By default, mobile browsers respond to simple 90\Edeg shifts between
+portrait and landscape orientation by adjusting magnification. This
+section clarifies various ways to modify that behavior:
+
+\list
+
+\li The \l{Adapting the Default Screen Layout} {\c{user-scalable}
+viewport property} disables magnification, and instead forces flexible
+layout elements to adjust to the window's altered dimensions.
+
+\li The \l{Controlling Text Adjustment} {\c{-webkit-text-size-adjust}
+CSS property } allows you to separately disable the browser's default
+text magnification.
+
+\li The \l{Orientation via CSS} {\c{orientation} CSS media query}
+allows you to actively target designs to portrait and landscape
+orientations.
+
+\li The \l{Orientation via JavaScript} {\c{orientationchange} event}
+allows scripts to respond to changes in orientation. Alternately,
+\e{media query listeners} can respond to changes in the
+\c{orientation} media query's state.
+
+\endlist
+
+The final section shows cases when \l{Multicolumn Layout} {multicolumn
+CSS properties} may be appropriate for landscape-oriented mobile
+layouts.
+
+See \l{Orientation and Motion} for information on how to respond to
+smaller shifts in orientation, or to determine geographic orientation.
+
+\note There is not yet a standard way to override browsers' default
+orientation-shifting behavior if you want to lock content to a
+particular orientation.
+
+\section2 Adapting the Default Screen Layout
+
+The \l{Constraining Touch Response} section shows how to specify a
+viewport that disables double-tap and pinch-zooming:
+
+\code
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1" />
+\endcode
+
+Disabling the \c{user-scalable} property not only prevents users from
+changing the magnification level with double-tap and pinch-zoom
+gestures, but also prevents the browser from doing the same in
+response to orientation changes. Ordinarily, shifting to landscape
+orientation magnifies content so that the screen width matches that of
+portrait orientation:
+
+\inlineimage view_on_p.PNG
+\inlineimage view_on_l.PNG
+.
+
+Since scaling is not an option with \c{user-scalable} disabled, as an
+alternative the width of the content increases to fill the space, in
+this case exceeding the width of the background graphic:
+
+\inlineimage view_on_p.PNG
+\inlineimage view_on_noscale_l.PNG
+.
+
+Screen layouts can thus adapt to shifts in orientation, but only if
+they use flexible measurements. The example above uses \l{Flexible Positioning} {absolute positioning} to size the text element relative
+to the edges of the screen, but setting its \c{width} to \c{100%}
+would have much the same effect.
+
+\section2 Controlling Text Adjustment
+
+The \l{Adapting the Default Screen Layout} {example above} is set to
+disable scaling, but the the \c{user-scalable} viewport property only
+affects the dimensions of layout elements. By default, the size of
+text still increases when tipping the handset to landscape
+orientation.
+
+The following CSS disables text adjustment throughout a page:
+
+\code
+html { -webkit-text-size-adjust: none }
+\endcode
+
+Alternately, specifying a percentage varies the text size relative to
+the default. Setting adjustment to \c{100%} has the same effect as
+setting it to \c{none}.
+
+The following shows how \c{-webkit-text-size-adjust:none}, along with
+the \c{user-scalable:no} viewport property, neatly adapts a flexible
+mobile layout to landscape orientation:
+
+\image view_on_noscale_noadjust.PNG
+
+\note Like viewport properties, the \c{-webkit-text-size-adjust} CSS
+property only affects the appearance of content on mobile handsets.
+
+\section2 Orientation via CSS
+
+The examples above allow you to override default browser behavior, but
+no more than that. Applying \c{orientation} CSS media queries allows
+you to specify design elements for each orientation.
+
+Unlike \l{What Can You Find Out About a Browser?} {other media
+queries} that yield static values, useful when specifying an overall
+mobile layout, the value of \c{orientation} may change dynamically
+between \c{portrait} and \c{landscape} based on user input.
+
+The following example uses media queries to display portrait- or
+landscape-oriented images separately, based on the handset's
+orientation:
+
+\l{x_event_orient-gallery} {\inlineimage scr_event_orient-gallery.png
+\inlineimage scr_event_orient-gallery2.png
+}
+
+\l{x_event_orient-gallery_css} {\inlineimage icon_css.png
+}
+\l{x_event_orient-gallery_js} {\inlineimage icon_js.png
+}
+
+When viewed on a desktop browser, orientation changes can be mimicked
+by resizing the window.
+
+When the page loads, a script determines each image's orientation
+based on its inherent \c{height} and \c{width} properties. After that,
+the entire interface is driven by the following CSS, which toggles
+display of content classed either \c{port} or \c{land}:
+
+\code
+@media all and (orientation: portrait) {
+    .land { display : none; }
+}
+@media all and (orientation: landscape) {
+    .port { display : none; }
+}
+\endcode
+
+Tappable navigation control bars, one for each set of images, are
+available at the top of the page. Their display is also driven by the
+above CSS.
+
+\section2 Orientation via JavaScript
+
+Changes in orientation state can be captured from within JavaScript
+via the window's \c{orientationchange} event. It works like the
+window's \c{resize} event, but only fires when width exceeds height or
+vice versa. (Mobile browser windows are fixed, and only allow two
+possible sets of window dimensions.)
+
+\code
+window.addEventListener('orientationchange', orientationHandler);
+// or...
+window.onorientationchange = orientationHandler;
+
+function orientationHandler(e) {
+    var isUpright;
+    if (!!window.orientation) {
+        isUpright = (window.orientation == 'portrait');
+    }
+    else {
+        isUpright = (window.innerWidth < window.innerHeight);
+    }
+    // ...do something based on value of isUpright
+}
+\endcode
+
+Note that the \c{orientationchange} event does not identify the new
+orientation state, so that information needs to be calculated within
+the handler. If the \c{window.orientation} property is available,
+check it for \c{portrait} or \c{landscape} values. Otherwise, compare
+the window's width and height directly.
+
+As an alternative to \c{orientationchange} events, browsers are
+starting to support \e{media query listeners}, which fire whenever
+there is a change in a media query expression's matching state. Make
+sure to initially check support for this relatively new feature:
+
+\code
+if (!!window.matchMedia.addListener) {
+    window.matchMedia("(orientation: landscape)").addListener(orientationHandler);
+}
+else {
+    window.addEventListener('orientationchange', function(e){
+        // use alternate handler shown above
+    });
+}
+\endcode
+
+The handler is passed a \c{MediaQueryList} object, whose \c{matches}
+property determines orientation:
+
+\code
+function orientationHandler(mql) {
+    if(mql.matches) {
+        // landscape
+    }
+    else {
+        // portrait
+    }
+}
+\endcode
+
+See \l{Script-based Adaptation} for more information on how
+\c{window.matchMedia} may align JavaScript functionality with CSS.
+
+\section2 Multicolumn Layout
+
+Level 3 CSS allows you to divide blocks into different columns of
+dynamically flowing text. While this feature is most useful for
+large-screen layouts, two-column formatting may occasionally apply to
+landscape-orientated mobile content as well.
+
+The following example uses media queries to display a single-column
+layout in portrait mode. In landscape mode, it displays a two-column
+layout featuring shorter line lengths:
+
+\l{x_css3_twocol} {\inlineimage scr_css3_twocol.png
+\inlineimage scr_css3_twocol2.png
+}
+
+\l{x_css3_twocol_css} {\inlineimage icon_css.png
+}
+
+The landscape-oriented layout is driven by the following CSS:
+
+\code
+@media all and (orientation: landscape) {
+    article {
+        -webkit-column-count : 2;
+        -webkit-column-gap   : 2em;
+        -webkit-column-rule  : thin dashed #aaaaaa;
+    }
+}
+\endcode
+
+The \c{-webkit-column-count} property divides the main content block
+into two columns. The \c{-webkit-column-gap} property defines the
+width of the gutter that separates the two columns. The
+\c{-webkit-column-rule} property places a rule between each column,
+using the same syntax conventions as the \c{border} property.
+
+Heading elements within the block use \c{-webkit-column-span} to
+override the default layout, potentially dividing it into separate
+two-column segments:
+
+\code
+h1,h2,h3,h4 {
+    text-align          : center;
+    -webkit-column-span : all;
+}
+\endcode
+
+In this example, the image is set to float within a narrow space when
+viewed in portrait mode, but to fill a full column within landscape
+mode.
+
+There are two problems with the example shown above:
+
+\list
+
+\li Content set to span columns, such as the heading at the top of the
+above page, may not always be placed reliably when switching between
+portrait and landscape orientation. (This is a bug.)
+
+\li More significantly, when users scroll to the bottom of the first
+column, they are obliged to awkwardly scroll back up to the top of the
+entire page to continue onto the second column.
+
+\endlist
+
+To address these problems, this modified example divides the content
+into much smaller segments, suitable for viewing in each screen view:
+
+\l{x_css3_twocol_straddle} {\inlineimage scr_css3_twocol_straddle.png
+\inlineimage scr_css3_twocol_straddle2.png
+}
+
+\l{x_css3_twocol_straddle_css} {\inlineimage icon_css.png
+}
+
+In this case, two-column formatting is assigned to paragraph text
+rather than to the overall content block.
+
+\code
+@media all and (orientation: landscape) {
+    p { -webkit-column-count : 2 }
+}
+\endcode
+
+Narrowing the scope of the multicolumn formatting ensures the headings
+reliably span both columns. Also in this example, floating graphics
+override the default two-column layout of the paragraphs within which
+they are nested. Designers must experiment to understand the complex
+set of layout options available.
+
+\note When changing orientation, users may find it confusing when interface
+items become rearranged on the screen, as in the example above. Be
+careful when customizing landscape-oriented layouts.
+
+*/

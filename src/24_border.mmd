@@ -1,0 +1,575 @@
+/*!
+
+\page border.html
+
+\title Borders and Overflows
+
+This section offers a brief tour of Level 3 CSS properties that help
+style the boundaries of block elements, and suggests various
+mobile-accessible ways to present content that exceeds their
+dimensions.
+
+\section1 Rounded Corners
+
+Use the \c{border-radius} property to round off corners, typically in
+conjunction with the \c{padding} used to offset nested content:
+
+\code
+.rounded {
+    border-radius : 1em;
+    padding       : 1em;
+}
+\endcode
+
+The following example uses rounded corners to help distinguish active
+items from static background elements, and to identify the edges of a
+large block element that doesn't entirely fit on the screen:
+
+\l{x_layout_link-fmt} {\inlineimage scr_layout_link-fmt.png
+}
+
+\l{x_layout_link-fmt_css} {\inlineimage icon_css.png
+}
+
+To make a circle, specify a \c{border-radius} that is half an
+element's dimensions:
+
+\code
+.circle {
+    width              : 4em;
+    height             : 4em;
+    border-radius      : 2em;
+}
+\endcode
+
+Alternately, separate \e{x}/\e{y} values define oval shapes, which the
+following applies to the top corners only:
+
+\code
+border-top-left-radius  : 3em/1em;
+border-top-right-radius : 3em/1em;
+\endcode
+
+\image scr_layout_link-oval.png
+
+\quotation
+
+\section2 SIDEBAR Attribute Matching
+
+It is often useful to offer visual hints marking different kinds of
+link. Users might want to know the difference between a link to a
+page on the same website and one on an external site. Links to
+non-HTML file types might pose special challenges to mobile users.
+Alternately, mobile users might get special benefit from telephone
+links.
+
+You can automate this by using the CSS attribute prefix and suffix
+matching selectors. The following uses \c{^=} to mark external HTTP
+links, email, SMS, and telephone links, each of which is identified by
+the URL's scheme prefix. The CSS inserts an icon after the text of the
+link:
+
+\code
+a[href^="http://"]:after,
+a[href^="https://"]:after { content : url(icon/external.png); }
+a[href^="mailto:"]:after  { content : url(icon/email.png); }
+a[href^="sms:"]:after     { content : url(icon/sms.png); }
+a[href^="tel:"]:after     { content : url(icon/tel.gif); }
+\endcode
+
+The following uses \c{$=} to identify various file types by common
+suffixes:
+
+\code
+a[href$=".doc"]:after { content : url(icon/ms_word.gif) }
+a[href$=".ppt"]:after { content : url(icon/powerpoint.gif) }
+a[href$=".rss"]:after,
+a[href$=".xml"]:after { content : url(icon/feed.gif) }
+a[href$=".pdf"]:after { content : url(icon/pdf.jpg) }
+a[href$=".xls"]:after { content : url(icon/excel.jpg) }
+\endcode
+
+You can also use \c{*=} to freely match substrings within any
+attribute value. The following might distinguish links to a site\'s
+blog area based on how the URL is organized:
+
+\code
+a[href*="/blog/"]:after { content : url(icon/blog.jpg )}
+\endcode
+
+The following example demonstrates links identified by dynamically
+generated icons:
+
+\l{x_layout_link-fmt} {\inlineimage scr_layout_link-fmt.png
+}
+
+\l{x_layout_link-fmt_css} {\inlineimage icon_css.png
+}
+
+\endquotation
+
+\section1 Shadows
+
+Shadows make elements appear more substantial, and often help
+distinguish interface elements.
+
+The basic syntax specifies the shadow's color and its \e{x} and \e{y}
+offset:
+
+\code
+-webkit-box-shadow: 0.5em 0.5em #777777;
+\endcode
+
+\l{x_css3_shadow} {\inlineimage scr_css3_shadow.png
+}
+
+\l{x_css3_shadow_css} {\inlineimage icon_css.png
+}
+
+An additional third measurement defines a region within which to blur
+the edge. Increasing the measurement makes the blur appear more
+diffuse:
+
+\code
+-webkit-box-shadow: 0.5em 0.5em 1.0 #777777;
+\endcode
+
+Adding a fourth measurement allows you to spread the shadow effect
+beyond the box's ordinary boundaries. Specifying a blur with no offset
+applies a uniform diffusion pattern around an element:
+
+\code
+-webkit-box-shadow: 0 0 1.0em 0.5em #777777;
+\endcode
+
+\l{x_css3_shadowBlur} {\inlineimage scr_css3_shadowBlur.png
+}
+
+\l{x_css3_shadowBlur_css} {\inlineimage icon_css.png
+}
+
+You can use commas to specify more than one shadow. The following
+example shows an animated interface in which the first shadow
+remains fixed, but the second pulses three times to catch users'
+attention:
+
+\code
+-webkit-box-shadow : 0.25em 0.25em 0.5em #444444,
+                     0.25em 0.25em 1.0em 0.5em pink;
+\endcode
+
+\l{x_css3_shadowMulti} {\inlineimage scr_css3_shadowMulti.png
+}
+
+\l{x_css3_shadowMulti_css} {\inlineimage icon_css.png
+}
+
+(See \l{Animations} for information on how to implement these
+animations.)
+
+Adding the \c{inset} keyword makes the element appear to recede rather
+than raise up:
+
+\code
+-webkit-box-shadow : 0.25em 0.25em 0.25em #666666 inset;
+\endcode
+
+\l{x_css3_shadowInset} {\inlineimage scr_css3_shadowInset.png
+}
+
+\l{x_css3_shadowInset_css} {\inlineimage icon_css.png
+}
+
+The following interactive utility helps you build CSS for your own
+shadow effects, both for block elements and \l{Text Shadows} {text}.
+
+\l{x_utilShadow} {\inlineimage utilShadow.png
+}
+
+\section1 Border Images
+
+CSS3 border images allow you to apply customized marquee effects in
+place of standard borders. The most flexible way to do so is to
+create a \e{template} image, such as the following, that corresponds
+to a 3 \Etimes 3 grid:
+
+\image border-round.png
+
+The \c{-webkit-border-image} property specifies not only the image
+file, but how much to carve off each side of the template for use in
+forming the overall border effect:
+
+\code
+-webkit-border-image : url(img/border-round.png) 33% round;
+border-width: 2em;
+\endcode
+
+The \c{33%} measurement provides an even grid, with each component
+filled into the corresponding area defined by the \c{border-width}.
+Alternately, you can supply up to four separate measurements that
+correspond to top, right, bottom, and left edges:
+
+\image borderimg_grid.png
+
+The \c{round} keyword causes the top, right, bottom, and left
+components of the grid to be distributed evenly within the allotted
+screen area:
+
+\l{x_css3_borderimg_round} {\inlineimage scr_css3_borderimg_round.png
+}
+
+\l{x_css3_borderimg_round_css} {\inlineimage icon_css.png
+}
+
+Note that the boundary between the corner and side components may not
+transition gracefully. Many WebKit browsers do not fully support the
+\c{round} option, presenting instead the simpler \c{repeat} fill
+option that leads corner images to overlap.
+
+As an alternative to cover the widest range of browsers, the
+\c{stretch} keyword distorts the side components' appearance. This
+template image and CSS stretches the diamond element in the example
+that follows:
+
+\image border-stretch.png
+
+\code
+border-width : 2em;
+-webkit-border-image : url(img/border-stretch.png) 40% stretch stretch;
+\endcode
+
+\l{x_css3_borderimg_stretch} {\inlineimage scr_css3_borderimg_stretch.png
+}
+
+\l{x_css3_borderimg_stretch_css} {\inlineimage icon_css.png
+}
+
+While the CSS above specifies \c{stretch} twice, you can apply
+different fill options to the top/bottom and left/right edges.
+
+Border images can be used more flexibly to insert decorative design
+elements. The following example enables only the bottom border for
+each paragraph, leaving no room in which to render other border image
+components:
+
+\code
+p {
+    -webkit-border-image : url(img/border-stretch.png) 35% 35% 35% 35% stretch stretch;
+    border-width : 0 0 1em 0;
+}
+\endcode
+
+\l{x_css3_borderimg_bottom} {\inlineimage scr_css3_borderimg_bottom.png
+}
+
+\l{x_css3_borderimg_bottom_css} {\inlineimage icon_css.png
+}
+
+While the examples above rely on an image template, if the area you
+are framing is fixed in size, you can apply a corresponding fixed
+image. Doing so allows you full control over how the image's corners
+appear. The following image can be applied to a relatively constrained
+area defined in the sample that follows:
+
+\image border-frame.png
+
+\l{x_css3_borderimg} {\inlineimage scr_css3_borderimg.png
+}
+
+\l{x_css3_borderimg_css} {\inlineimage icon_css.png
+}
+
+The interface uses the following CSS:
+
+\code
+padding              : 2.5em;
+border-width         : 1px;
+-webkit-border-image : url(img/border-frame.png) 0 stretch;
+\endcode
+
+In this case, none of the image is carved off into the nominal border
+zone, and the remaining portion of the image stretches across the
+element, behaving much like a \l{Backgrounds} {background image}. The
+\c{padding} property offsets the text from the edge of the element so
+that it doesn't overlap with the image.
+
+\section1 Outlines
+
+The examples above use the border mechanism to insert decorative
+images around an element. But what if you want to place an actual
+\e{border} around it as well?  Level 3 CSS specifies a separate
+border-like \e{outline} mechanism. Unlike borders, outlines are
+applied superfically so that they don't affect an element's
+dimensions. The \c{outline-offset} specifies the outline's distance
+from the element, independently of its \c{margin}.
+
+The following \l{Animations} {animated} example places a separate
+hilighting outline around elements that are tapped:
+
+\code
+.hilight {
+    outline-style  : dotted;
+    outline-width  : 0.25em;
+    outline-color  : pink;
+    outline-offset : 0.5em;
+}
+\endcode
+
+\l{x_css3_borderimg_bottom} {\inlineimage scr_css3_outline.png
+}
+
+\l{x_css3_borderimg_bottom_css} {\inlineimage icon_css.png
+}
+
+\section1 Text Overflow
+
+Mobile interfaces must often embed areas of expandable content on a
+small screen. Setting the \c{overflow} CSS property to \c{hidden}
+prevents content from exceeding an element's dimensions. Level 3 CSS
+specifies an additional \c{text-overflow} property that makes ellipses
+appear as a hint to indicate the presence of additional text.
+
+The following example shows how the \c{text-overflow} property allows
+you to present user-selectable links to expanded regions of text
+within a page:
+
+\l{x_css3_text-overflow} {\inlineimage scr_css3_text-overflow.png
+}
+
+\l{x_css3_text-overflow_css} {\inlineimage icon_css.png
+}
+\l{x_css3_text-overflow_js} {\inlineimage icon_js.png
+}
+
+Use the \c{text-overflow} property in conjunction with \c{overflow}
+and \c{white-space}:
+
+\code
+text-overflow  : ellipsis;
+text-overflow  : ellipsis-word;
+overflow       : hidden;
+white-space    : nowrap;
+\endcode
+
+For \c{text-overflow} to work, the element\'s \c{white-space} must be
+set to \c{nowrap}, overriding the default \c{normal} value. This
+prevents words from wrapping onto another line as is standard behavior
+outside the \c{pre} tag, and forces text past the right edge of the
+element.
+
+\note The element\'s \c{text-overflow} may specify both \c{ellipsis} and
+\c{ellipsis-word}, the latter of which respects word boundaries but is
+not as widely implemented. The example above specifies the more common
+value as a fallback.
+
+\section1 Word Wrap
+
+Text may not always fit properly within narrow columns on a mobile
+screen. By default, longs words simply run off the edge of their
+containing element. Setting the \c{word-wrap} property to
+\c{break-word} fixes this. The following example shows how a long
+word displays, with and without this property:
+
+\l{x_css3_wordwrap} {\inlineimage scr_css3_wordwrap.png
+\inlineimage scr_css3_wordwrap2.png
+}
+
+\l{x_css3_wordwrap_css} {\inlineimage icon_css.png
+}
+
+Note that no hyphenation is applied, and that there is still a gap
+before the first line where the word starts.
+
+\section1 Scrollbars
+
+As \l{Constraining Touch Response} {discussed earlier}, scrollable
+regions within a screen layout may lead to confusion when they
+interfere with drag gestures that affect browsers' default page
+navigation. Alternately, browsers may not support dragging to
+navigate within scrollable regions. Either way, mobile browsers may
+not display scrollbars by default.
+
+WebKit-based browsers allow scrollbars to be styled via CSS, allowing
+them to be visually distinguished, and perhaps inviting users to
+access them via familiar tap gestures. The following example presents
+a wide block of code within a \c{<pre>} element:
+
+\l{x_css3_scroll} {\inlineimage scr_css3_scroll.png
+}
+
+\l{x_css3_scroll_css} {\inlineimage icon_css.png
+}
+
+The layout uses \c{overflow-x:auto} to assign standard scrollbars when
+content overflows, but enhances their appearance using low-level
+\b{pseudo-element} CSS classes that refer to individual components
+within the scrollbar. Invoking the following CSS selector disables
+scrollbars\' default appearance:
+
+\code
+pre::-webkit-scrollbar { height : 3em }
+\endcode
+
+In this case, the specified property increases the scrollbar\'s
+default \c{height} to make it easier for mobile users to tap it with
+their fingers.
+
+Each additional scrollbar component must then be explicitly defined,
+otherwise it does not render. The following CSS provides custom
+styling for the tappable horizontal panning buttons:
+
+\code
+::-webkit-scrollbar-button:increment {
+    background-image  : url(img/arrow_right.png);
+    background-size   : contain;
+    background-repeat : no-repeat;
+    width             : 3em;
+    height            : 3em;
+}
+::-webkit-scrollbar-button:decrement {
+    background-image  : url(img/arrow_left.png);
+    background-size   : contain;
+    background-repeat : no-repeat;
+    width             : 3em;
+    height            : 3em;
+}
+\endcode
+
+In this case, the scrollbar region between the two navigation icons is
+still active, but not obviously so since its visual formatting has
+been disabled.
+
+Webkit provides pseudo-elements for the following scrollbar
+components:
+
+\list
+
+\li \c{scrollbar} refers to the scrollbar as a whole. Additional
+dynamic classes can be appended to specify \c{:vertical} and
+\c{:horizontal} scrollbars. The \c{:corner-present} dynamic class
+activates when both scrollbars are present.
+
+\li \c{scrollbar-button} refers to incremental navigation buttons.
+Each button can be styled separately with \c{:increment} and
+\c{:decrement} dynamic classes.
+
+\li \c{scrollbar-thumb} refers to the scrollbar\'s slider control.
+
+\li \c{scrollbar-track} refers to the active navigation region between
+buttons.
+
+\li \c{scrollbar-track-piece} refers to each portion of the track on
+either side of the thumb control. These can be styled separately
+using \c{:start} and \c{:end} dynamic classes.
+
+\li \c{scrollbar-corner} refers to the corner where scrollbar tracks
+meet. The \c{resizer} pseudo-element also refers to this corner, but
+for resizable elements such as a \c{textarea}.
+
+\li The \c{:double-button} and \c{:single-button} dynamic classes refer
+to whether incrementor and decrementors are paired together
+redundantly at each end of the track, while \c{:no-button} refers to
+whether they display at all.
+
+\endlist
+
+\section1 Marquees
+
+\l{Scrollbars} offer one way for users to view overflowing content,
+and marquees offer another. Marquees apply a simple animation that
+scrolls through the contents of a block of text, much as if it were
+being scrolled by hand. Text can scroll horizontally like a news
+ticker, or vertically like film credits.
+
+The following example shows an message that displays within a narrow
+strip at the top of the screen. The animated scroll draws attention to
+the message and allows users to read all of the text within a narrow
+area with no additional action on their part:
+
+\l{x_anim_marquee} {\inlineimage scr_anim_marquee.png
+}
+
+\l{x_anim_marquee_css} {\inlineimage icon_css.png
+}
+
+The animation relies upon the following CSS:
+
+\code
+.banner {
+    white-space               : nowrap;
+    overflow                  : -webkit-marquee;
+    -webkit-marquee-repetition: infinite;
+    -webkit-marquee-speed     : fast;
+    -webkit-marquee-increment : 2px;
+    -webkit-marquee-direction : left;
+    -webkit-marquee-style     : scroll;
+}
+\endcode
+
+In this case it's necessary to set \c{white-space} to \c{nowrap},
+otherwise the text wouldn't run off the element's right edge. The
+animation activates when the element's \c{overflow} is set to
+\c{-webkit-marquee}. Unlike other \c{overflow} properties such as
+\c{scroll}, the animation is applied even if the contents don't
+overflow the box, so you can also specify the marquee using
+\c{overflow-x} or \c{overflow-y}, regardless of whether either edge of
+the box overflows.
+
+The animation is controlled by the following CSS properties:
+
+\list
+
+\li \c{-webkit-marquee-repetition}: the number of times the
+animation executes, or the default \c{infinite}.
+
+\li \c{-webkit-marquee-speed}: either \c{slow}, \c{medium}, \c{fast},
+or the number of milliseconds for each frame.
+
+\li \c{-webkit-marquee-increment}: either \c{small}, \c{medium},
+\c{large}, or any valid measurement (including percentages) indicating
+the distance to jump for each frame.
+
+\li \c{-webkit-marquee-direction}: either \c{left}, \c{right}, \c{up},
+or \c{down}. (Alternately, use \c{backwards}, \c{forwards},
+\c{ahead}, or \c{reverse}, which adaptively apply the same set of
+effects to bidirectional text.)
+
+\li \c{-webkit-marquee-style}: either \c{scroll}, \c{slide}, or
+\c{alternate}. The example above allows you to see how each behaves:
+
+\list
+
+\li \c{scroll} slides in the content from outside of the box, then
+slides it back out before the animation is possibly repeated.
+
+\li \c{slide} works the same as \c{scroll}, but the animation halts
+once the end of the text becomes visible, with no slide-out effect to
+match the initial slide-in.
+
+\li \c{alternate} removes both slide-in and slide-out effects, starting
+the text where it ordinarily would, then sliding it until the end of
+the text becomes visible. If the marquee's increment is more than 1,
+even-numbered iterations animate in the reverse direction.
+
+\endlist
+
+\endlist
+
+\note Marquees do not offer a way to delay the animation's execution. For a
+richer set of animation options, see \l{Keyframe Animation}.
+
+Marquees are most appropriate for the sort of transient alerts or
+advertisements demonstrated above. They may also be useful when
+presenting users with a good deal of content without requiring them to
+actively scroll through each screenful. The following example shows
+how you might use marquees to passively display information about a
+gallery item. It can be viewed in browsers, such as Safari, that
+support 3D transforms. (See \l{3D Transforms} for details.)
+
+\l{x_css3_marquee} {\inlineimage scr_css3_marquee.png
+}
+
+\l{x_css3_marquee_css} {\inlineimage icon_css.png
+}
+
+*/
